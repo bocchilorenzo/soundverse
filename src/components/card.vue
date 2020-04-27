@@ -3,9 +3,9 @@
         <v-img
             class="white--text align-end"
             height="200px"
-            src="albumArray.cover"
+            src="albumArray.album[n].cover"
         >
-            <v-card-title>{{ albumArray.title }}</v-card-title>
+            <v-card-title>{{ albumArray.album[n].title }}</v-card-title>
         </v-img>
 
         <v-card-subtitle class="pb-0">Number 10</v-card-subtitle>
@@ -31,6 +31,6 @@
 <script>
 export default {
     name: 'albumCard',
-    props: { albumArray: Array },
+    props: { albumArray: Array, n: Number },
 }
 </script>
