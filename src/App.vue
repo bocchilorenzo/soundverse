@@ -2,22 +2,26 @@
     <v-app id="inspire">
         <v-navigation-drawer v-model="drawer" app>
             <v-list dense>
-                <v-list-item link>
-                    <v-list-item-action>
-                        <v-icon>mdi-home</v-icon>
-                    </v-list-item-action>
-                    <v-list-item-content>
-                        <v-list-item-title>Home</v-list-item-title>
-                    </v-list-item-content>
-                </v-list-item>
-                <v-list-item link>
-                    <v-list-item-action>
-                        <v-icon>mdi-contact-mail</v-icon>
-                    </v-list-item-action>
-                    <v-list-item-content>
-                        <v-list-item-title>Contact</v-list-item-title>
-                    </v-list-item-content>
-                </v-list-item>
+                <router-link to="/">
+                    <v-list-item link>
+                        <v-list-item-action>
+                            <v-icon>mdi-home</v-icon>
+                        </v-list-item-action>
+                        <v-list-item-content>
+                            <v-list-item-title>Home</v-list-item-title>
+                        </v-list-item-content>
+                    </v-list-item>
+                </router-link>
+                <router-link to="/about">
+                    <v-list-item link>
+                        <v-list-item-action>
+                            <v-icon>mdi-contact-mail</v-icon>
+                        </v-list-item-action>
+                        <v-list-item-content>
+                            <v-list-item-title>Contact</v-list-item-title>
+                        </v-list-item-content>
+                    </v-list-item>
+                </router-link>
             </v-list>
         </v-navigation-drawer>
 
@@ -27,9 +31,7 @@
         </v-app-bar>
 
         <v-content>
-            <v-container class="fill-height" fluid>
-                <card-container :albumArray="albumArray" />
-            </v-container>
+            <router-view></router-view>
         </v-content>
         <v-footer color="indigo" app>
             <span class="white--text">&copy; 2019</span>
@@ -38,47 +40,15 @@
 </template>
 
 <script>
-import axios from 'axios'
-import cardContainer from './components/cardcontainer.vue'
-
 export default {
     name: 'App',
     props: {
         source: String,
     },
-    components: { cardContainer },
     data() {
         return {
-            albumArray: [],
             drawer: false,
         }
-    },
-    created: function() {
-        this.$vuetify.theme.dark = true
-        axios
-            .get(
-                'https://cors-anywhere.herokuapp.com/https://api.deezer.com/playlist/3155776842'
-            )
-            .then(response => {
-                for (var i = 0; i < 12; i++) {
-                    var album = {
-                        id: i,
-                        title: response.data.tracks.data[i].album['title'],
-                        cover:
-                            response.data.tracks.data[i].album['cover_medium'],
-                        artist: response.data.tracks.data[i].artist['name'],
-                        albumId: response.data.tracks.data[i].album['id'],
-                        albumLink:
-                            'https://deezer.com/album/' +
-                            response.data.tracks.data[i].album['id'], //questo non servirà poi, è solo per testare ora
-                    }
-                    this.albumArray.push(album)
-                }
-            })
-            .catch(error => {
-                console.log(error)
-                this.errored = true
-            })
     },
 }
 </script>
