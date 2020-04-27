@@ -3,9 +3,9 @@
         <v-img
             class="white--text align-end"
             height="200px"
-            src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
+            src="albumArray.cover"
         >
-            <v-card-title>Top 10 Australian beaches</v-card-title>
+            <v-card-title>{{ albumArray.title }}</v-card-title>
         </v-img>
 
         <v-card-subtitle class="pb-0">Number 10</v-card-subtitle>
@@ -31,8 +31,6 @@
 <script>
 export default {
     name: 'albumCard',
-    props:
-
-    data: () => (),
+    props: { albumArray: Array },
 }
 </script>
