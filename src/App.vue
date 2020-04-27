@@ -28,7 +28,7 @@
 
         <v-content>
             <v-container class="fill-height" fluid>
-                <card-container />
+                <card-container :albumArray="albumArray" />
             </v-container>
         </v-content>
         <v-footer color="indigo" app>

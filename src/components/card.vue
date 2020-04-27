@@ -1,17 +1,17 @@
 <template>
-    <v-card class="mx-auto" max-width="400">
+    <v-card class="mx-auto" max-width="400" v-if="albumArray">
         <v-img
             class="white--text align-end"
             height="200px"
-            src="albumArray[n].album.cover"
+            src="albumArray[n].cover"
         >
-            <v-card-title>{{ albumArray[n].album.title }}</v-card-title>
+            <v-card-title>{{ albumArray[n].title }}</v-card-title>
         </v-img>
 
         <v-card-subtitle class="pb-0">Number 10</v-card-subtitle>
 
         <v-card-text class="text--primary">
-            {{ albumArray[n].album.artist }}
+            {{ albumArray[n].artist }}
         </v-card-text>
 
         <v-card-actions>
@@ -29,6 +29,6 @@
 <script>
 export default {
     name: 'albumCard',
-    props: { albumArray: Array, n: Number },
+    props: { albumArray: Object, n: Number },
 }
 </script>
