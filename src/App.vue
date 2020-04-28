@@ -29,11 +29,11 @@
             <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
             <v-toolbar-title class="mr-5">Application</v-toolbar-title>
             <v-spacer />
-            <searchBar />
+            <searchBar v-on:update="prop" />
         </v-app-bar>
 
         <v-content>
-            <router-view v-on:update="updateContent()"></router-view>
+            <router-view :arrayRisultati="arrayRisultati"></router-view>
         </v-content>
         <v-footer color="indigo" app>
             <span class="white--text">&copy; 2019</span>
@@ -53,7 +53,13 @@ export default {
     data() {
         return {
             drawer: false,
+            arrayRisultati: null,
         }
+    },
+    methods: {
+        prop(arr) {
+            this.arrayRisultati = arr
+        },
     },
 }
 </script>

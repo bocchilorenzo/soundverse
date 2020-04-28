@@ -6,10 +6,7 @@
         prepend-inner-icon="mdi-magnify"
         label="Cerca album o artisti"
         v-model="input"
-        @keyup.enter="
-            search()
-            $emit('update', arrayRisultati)
-        "
+        @keyup.enter="search()"
     />
 </template>
 
@@ -49,6 +46,8 @@ export default {
                             }
                             this.arrayRisultati.push(risultati)
                         }
+                        this.$emit('update', this.arrayRisultati)
+                        this.arrayRisultati = []
                     })
                     .catch(error => {
                         console.log(error)

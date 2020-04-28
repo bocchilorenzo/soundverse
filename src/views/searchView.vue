@@ -38,10 +38,8 @@ export default {
     components: {
         albumCard,
     },
-    methods:{
-        updateContent(this.arrayRisultati){
-
-        }
-    }
+    props: {
+        arrayRisultati: Array,
+    },
 }
 </script>
