@@ -24,7 +24,7 @@ export default {
         this.$vuetify.theme.dark = false
         axios
             .get(
-                'https://cors-anywhere.herokuapp.com/https://api.deezer.com/playlist/3155776842'
+                'https://api.deezer.com/playlist/3155776842'
             )
             .then(response => {
                 for (var i = 0; i < 12; i++) {

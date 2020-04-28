@@ -27,7 +27,17 @@
 
         <v-app-bar app color="indigo" dark>
             <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
-            <v-toolbar-title>Application</v-toolbar-title>
+            <v-toolbar-title class="mr-5">Application</v-toolbar-title>
+            <v-spacer />
+            <v-text-field
+                flat
+                solo-inverted
+                hide-details
+                prepend-inner-icon="mdi-magnify"
+                label="Cerca album o artisti"
+                v-model="input"
+                @keyup.enter="cerca()"
+            />
         </v-app-bar>
 
         <v-content>
@@ -48,7 +58,17 @@ export default {
     data() {
         return {
             drawer: false,
+            input: '',
         }
     },
+    methods: {
+        cerca() {
+            if (this.input.username != '') {
+                this.$router.push({ name: 'search', params: { q: this.input } })
+            } else {
+                console.log('Query vuota')
+            }
+        },
+    }
 }
 </script>

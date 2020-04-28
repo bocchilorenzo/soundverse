@@ -5,6 +5,7 @@
                 <v-row align="center" justify="center">
                     <v-col cols="12" sm="8" md="4">
                         <!--mettere un v-if che se è undefined mostra "album non esistente", altrimenti mostra i dati dell'album-->
+                        <!--dividere in un componente separato-->
                         <v-card v-if="infoAlbum[0] != undefined" class="elevation-12">
                             <v-card-text>
                                 <p
@@ -74,7 +75,7 @@ export default {
         var id = this.$route.params.id
         axios
             .get(
-                'https://cors-anywhere.herokuapp.com/https://api.deezer.com/album/' +
+                'https://api.deezer.com/album/' +
                     id
             )
             .then(response => {

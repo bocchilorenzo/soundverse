@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import albumInformation from '../views/albumView.vue'
+import search from '../views/searchView.vue'
 
 Vue.use(VueRouter)
 
@@ -24,6 +25,11 @@ const routes = [
         path: '/album/:id',
         name: 'album',
         component: albumInformation,
+    },
+    {
+        path: '/search/:q',
+        name: 'search',
+        component: search
     },
 ]
 
