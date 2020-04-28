@@ -29,15 +29,7 @@
             <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
             <v-toolbar-title class="mr-5">Application</v-toolbar-title>
             <v-spacer />
-            <v-text-field
-                flat
-                solo-inverted
-                hide-details
-                prepend-inner-icon="mdi-magnify"
-                label="Cerca album o artisti"
-                v-model="input"
-                @keyup.enter="cerca()"
-            />
+            <searchBar />
         </v-app-bar>
 
         <v-content>
@@ -50,28 +42,18 @@
 </template>
 
 <script>
+import searchBar from './components/searchbar'
+
 export default {
     name: 'App',
     props: {
         source: String,
     },
+    components: { searchBar },
     data() {
         return {
             drawer: false,
-            input: '',
-            prevInput: '',
         }
-    },
-    methods: {
-        cerca() {
-            if (this.input != '' && this.prevInput != this.input) {
-                this.prevInput = this.input
-                this.$router.push({ name: 'search', params: { q: this.input } })
-                this.path = this.$route.params.q
-            } else {
-                console.log('Query vuota')
-            }
-        },
     },
 }
 </script>

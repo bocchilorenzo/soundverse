@@ -29,7 +29,7 @@ const routes = [
     {
         path: '/search/:q',
         name: 'search',
-        component: search
+        component: search,
     },
 ]
 

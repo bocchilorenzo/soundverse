@@ -3,12 +3,21 @@
         <v-card class="ma-2" max-width="400" :elevation="hover ? 16 : 2">
             <v-img class="align-end" :src="albumArray.cover"></v-img>
 
-            <v-card-subtitle class="pb-0">{{ albumArray.artist }}</v-card-subtitle>
+            <v-card-subtitle class="pb-0">{{
+                albumArray.artist
+            }}</v-card-subtitle>
 
-            <v-card-text class="text--primary">{{ albumArray.title }}</v-card-text>
+            <v-card-text class="text--primary">{{
+                albumArray.title
+            }}</v-card-text>
 
             <v-card-actions>
-                <v-menu bottom right transition="slide-y-transition" :offset-y="offsety">
+                <v-menu
+                    bottom
+                    right
+                    transition="slide-y-transition"
+                    :offset-y="offsety"
+                >
                     <template v-slot:activator="{ on }">
                         <v-btn icon v-on="on">
                             <v-icon>mdi-dots-vertical</v-icon>
@@ -17,14 +26,20 @@
 
                     <v-list>
                         <v-list-item>
-                            <v-list-item-title>Aggiungi ai preferiti</v-list-item-title>
+                            <v-list-item-title
+                                >Aggiungi ai preferiti</v-list-item-title
+                            >
                         </v-list-item>
                         <v-list-item>
-                            <v-list-item-title>Segna come ascoltato</v-list-item-title>
+                            <v-list-item-title
+                                >Segna come ascoltato</v-list-item-title
+                            >
                         </v-list-item>
                         <v-list-item>
                             <!--Non so come chiamare la watchlist-->
-                            <v-list-item-title>Aggiungi alla "watchlist"</v-list-item-title>
+                            <v-list-item-title
+                                >Aggiungi alla "watchlist"</v-list-item-title
+                            >
                         </v-list-item>
                     </v-list>
                 </v-menu>

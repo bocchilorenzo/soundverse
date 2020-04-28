@@ -6,12 +6,17 @@
                     <v-col cols="12" sm="8" md="4">
                         <!--mettere un v-if che se è undefined mostra "album non esistente", altrimenti mostra i dati dell'album-->
                         <!--dividere in un componente separato-->
-                        <v-card v-if="infoAlbum[0] != undefined" class="elevation-12">
+                        <v-card
+                            v-if="infoAlbum[0] != undefined"
+                            class="elevation-12"
+                        >
                             <v-card-text>
                                 <p
                                     class="text-center font-weight-bold"
                                     display="inline-block"
-                                >{{infoAlbum[0].title}}</p>
+                                >
+                                    {{ infoAlbum[0].title }}
+                                </p>
                                 <v-img
                                     class="align-end"
                                     :src="infoAlbum[0].cover"
@@ -20,37 +25,50 @@
                                 <p
                                     class="text-left font-weight-normal"
                                     display="inline-block"
-                                >Artista: {{infoAlbum[0].artist}}</p>
+                                >
+                                    Artista: {{ infoAlbum[0].artist }}
+                                </p>
                                 <p
                                     class="text-left font-weight-normal"
                                     display="inline-block"
-                                >Genere: {{infoAlbum[0].genre}}</p>
+                                >
+                                    Genere: {{ infoAlbum[0].genre }}
+                                </p>
                                 <p
                                     class="text-left font-weight-normal"
                                     display="inline-block"
-                                >Numero tracce: {{infoAlbum[0].numberOfTracks}}</p>
+                                >
+                                    Numero tracce:
+                                    {{ infoAlbum[0].numberOfTracks }}
+                                </p>
                                 <p
                                     v-if="infoAlbum[0].explicit"
                                     class="text-left font-weight-normal"
                                     display="inline-block"
-                                >Esplicito</p>
+                                >
+                                    Esplicito
+                                </p>
                                 <p
                                     class="text-left font-weight-normal"
                                     display="inline-block"
-                                >Data uscita: {{infoAlbum[0].releaseDate}}</p>
+                                >
+                                    Data uscita: {{ infoAlbum[0].releaseDate }}
+                                </p>
                                 <p
                                     class="text-left font-weight-normal"
                                     display="inline-block"
-                                >Tracklist:</p>
+                                >
+                                    Tracklist:
+                                </p>
                                 <ul
-                                    v-for="(track, index) in infoAlbum[0].trackList"
+                                    v-for="(track, index) in infoAlbum[0]
+                                        .trackList"
                                     :key="track[0]"
                                 >
                                     <li>
-                                        <a
-                                            :href="track[2]"
-                                            target="_blank"
-                                        >{{index + 1}} - {{track[1]}}</a>
+                                        <a :href="track[2]" target="_blank"
+                                            >{{ index + 1 }} - {{ track[1] }}</a
+                                        >
                                     </li>
                                 </ul>
                             </v-card-text>
@@ -74,10 +92,7 @@ export default {
     created: function() {
         var id = this.$route.params.id
         axios
-            .get(
-                'https://api.deezer.com/album/' +
-                    id
-            )
+            .get('https://api.deezer.com/album/' + id)
             .then(response => {
                 var albumData = {
                     title: response.data.title,

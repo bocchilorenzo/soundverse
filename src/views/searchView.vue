@@ -12,9 +12,17 @@
                         xl="2"
                     >
                         <router-link
-                            :to="{ name: 'album', path: '/album/:id', params: { id: album.albumId }, props: true}"
+                            :to="{
+                                name: 'album',
+                                path: '/album/:id',
+                                params: { id: album.albumId },
+                                props: true,
+                            }"
                         >
-                            <albumCard :albumArray="album" :id="album.albumId" />
+                            <albumCard
+                                :albumArray="album"
+                                :id="album.albumId"
+                            />
                         </router-link>
                     </v-col>
                 </v-row>
