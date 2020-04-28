@@ -67,7 +67,6 @@ export default {
             if (this.input != '' && this.prevInput != this.input) {
                 this.prevInput = this.input
                 this.$router.push({ name: 'search', params: { q: this.input } })
-                this.path = this.$route.params.q
             } else {
                 console.log('Query vuota')
             }
