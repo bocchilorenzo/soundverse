@@ -25,8 +25,19 @@ export default {
     methods: {
         search() {
             if (this.input != '' && this.prevInput != this.input) {
+                var path = this.$route.params.q
+                if (path != undefined) {
+                    this.$router.replace({
+                        name: 'search',
+                        params: { q: this.input },
+                    })
+                } else {
+                    this.$router.push({
+                        name: 'search',
+                        params: { q: this.input },
+                    })
+                }
                 this.prevInput = this.input
-                this.$router.push({ name: 'search', params: { q: this.input } })
                 this.path = this.$route.params.q
                 var q = this.$route.params.q
                 console.log(q)
