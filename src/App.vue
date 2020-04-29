@@ -69,6 +69,7 @@ export default {
         },
         play(link) {
             this.file = link
+            document.getElementsByClassName("player")[0].style.visibility = "visible"
         },
     },
 }
@@ -76,7 +77,8 @@ export default {
 <style>
 .player {
     position: fixed;
-    bottom: 24px;
+    bottom: 0;
     width: 100%;
+    visibility: hidden;
 }
 </style>
