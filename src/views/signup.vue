@@ -4,7 +4,13 @@
         <v-row align="center" justify="center">
             <v-form ref="form">
                 <v-text-field v-model="email" :rules="emailRules" label="E-mail" required></v-text-field>
-                <v-text-field type="password" v-model="password" :rules="passRules" label="Password" required></v-text-field>
+                <v-text-field
+                    type="password"
+                    v-model="password"
+                    :rules="passRules"
+                    label="Password"
+                    required
+                ></v-text-field>
                 <v-btn @click="signUpFirebase()">Registrati</v-btn>
             </v-form>
         </v-row>
@@ -37,22 +43,17 @@ export default {
         login() {
             this.$router.replace({ name: 'login' })
         },
-        signUpFirebase() {
-            firebase
-                .auth()
-                .createUserWithEmailAndPassword(this.email, this.password)
-                .then(
-                    function() {
-                        alert('Account creato!')
-                    },
-                    function(err) {
-                        alert('Oops. ' + err.message)
-                    }
-                )
+        async signUpFirebase() {
+            try {
+                await firebase
+                    .auth()
+                    .createUserWithEmailAndPassword(this.email, this.password)
+                alert('Account creato!')
+                this.$router.replace({ name: 'home' })
+            } catch (err) {
+                alert('Oops. ' + err.message)
+            }
         },
     },
 }
 </script>
-
-<style scoped>
-</style>

@@ -26,6 +26,9 @@
 <script>
 import firebase from 'firebase'
 export default {
+    props: {
+        user: Object,
+    },
     name: 'login',
     data() {
         return {
@@ -43,22 +46,18 @@ export default {
         signup() {
             this.$router.replace({ name: 'signup' })
         },
-        loginFirebase() {
-            firebase
-                .auth()
-                .signInWithEmailAndPassword(this.email, this.password)
-                .then(
-                    function() {
-                        alert('Login effettuato')
-                    },
-                    function(err) {
-                        alert('Oops. ' + err.message)
-                    }
-                )
+        async loginFirebase() {
+            try {
+                await firebase
+                    .auth()
+                    .signInWithEmailAndPassword(this.email, this.password)
+                alert('Login effettuato')
+                this.$router.replace({ name: 'home' })
+                this.user = firebase.auth().currentUser //modifico il prop diretto
+            } catch (err) {
+                alert('Oops. ' + err.message)
+            }
         },
     },
 }
 </script>
-
-<style scoped>
-</style>

@@ -7,7 +7,6 @@ import firebase from 'firebase' //npm install --save firebase
 
 Vue.config.productionTip = false
 
-//eventualmente spostare queste robe in un file configurazione separato
 const config = {
     apiKey: "AIzaSyD5-2o8KQaQd0d24OZU9_y15i1JQh5Rutk",
     authDomain: "deezerate.firebaseapp.com",

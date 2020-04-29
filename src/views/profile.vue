@@ -22,27 +22,20 @@ export default {
         logoutRoute() {
             this.$router.replace({ name: 'home' })
         },
-        logout() {
-            firebase
-                .auth()
-                .signOut()
-                .then(
-                    function() {
-                        alert('Logout effettuato!')
-                    },
-                    function(error) {
-                        alert('RIP. ' + error.message)
-                    }
-                )
+        async logout() {
+            try {
+                await firebase.auth().signOut()
+                alert('Logout effettuato!')
+                this.$router.replace({ name: 'home' })
+            } catch (err) {
+                alert('Oops. ' + err.message)
+            }
         },
     },
-    created: function(){
-        if (this.user == null){
+    created: function() {
+        if (this.user == null) {
             this.$router.replace({ name: 'login' })
         }
-    }
+    },
 }
 </script>
-
-<style scoped>
-</style>

@@ -57,7 +57,13 @@ export default {
             drawer: false,
             arrayRisultati: null,
             file: null,
-            currentUser: firebase.auth().currentUser,
+            currentUser: Object,
+        }
+    },
+    created: function(){
+        var cU = firebase.auth().currentUser
+        if(cU != null){
+            this.currentUser = cU
         }
     },
     methods: {
@@ -70,10 +76,10 @@ export default {
                 'visible'
         },
         profile() {
-            if (this.currentUser) {
-                this.$router.push({ name: 'profile' })
+            if (this.currentUser == null) {
+                this.$router.push({ name: 'login' , props: { user: this.currentUser }}) //passo il prop
             } else {
-                this.$router.push({ name: 'login' })
+                this.$router.push({ name: 'profile' })
             }
         },
     },
