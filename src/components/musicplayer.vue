@@ -3,7 +3,6 @@
     <vuetify-audio
         :file="file"
         color="success"
-        :ended="audioFinish"
         :autoPlay="autoPlay"
     ></vuetify-audio>
 </template>

@@ -12,16 +12,6 @@
                         </v-list-item-content>
                     </v-list-item>
                 </router-link>
-                <router-link to="/about">
-                    <v-list-item link>
-                        <v-list-item-action>
-                            <v-icon>mdi-contact-mail</v-icon>
-                        </v-list-item-action>
-                        <v-list-item-content>
-                            <v-list-item-title>Contact</v-list-item-title>
-                        </v-list-item-content>
-                    </v-list-item>
-                </router-link>
             </v-list>
         </v-navigation-drawer>
 
@@ -30,6 +20,9 @@
             <v-toolbar-title class="mr-5">Application</v-toolbar-title>
             <v-spacer />
             <searchBar v-on:update="prop" />
+            <v-btn icon @click="profile()" class="ml-3">
+                <v-icon dark>mdi-account-circle</v-icon>
+            </v-btn>
         </v-app-bar>
 
         <v-content>
@@ -40,15 +33,18 @@
             ></router-view>
             <musicPlayer :file="file" class="player" />
         </v-content>
+        <!--
         <v-footer color="indigo" app>
             <span class="white--text">&copy; 2019</span>
         </v-footer>
+        -->
     </v-app>
 </template>
 
 <script>
 import searchBar from './components/searchbar'
 import musicPlayer from './components/musicplayer'
+import firebase from 'firebase'
 
 export default {
     name: 'App',
@@ -61,6 +57,7 @@ export default {
             drawer: false,
             arrayRisultati: null,
             file: null,
+            currentUser: firebase.auth().currentUser,
         }
     },
     methods: {
@@ -69,7 +66,15 @@ export default {
         },
         play(link) {
             this.file = link
-            document.getElementsByClassName("player")[0].style.visibility = "visible"
+            document.getElementsByClassName('player')[0].style.visibility =
+                'visible'
+        },
+        profile() {
+            if (this.currentUser) {
+                this.$router.push({ name: 'profile' })
+            } else {
+                this.$router.push({ name: 'login' })
+            }
         },
     },
 }
