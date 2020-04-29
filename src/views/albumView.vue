@@ -60,17 +60,27 @@
                                 >
                                     Tracklist:
                                 </p>
-                                <ul
+
+                                <v-list
                                     v-for="(track, index) in infoAlbum[0]
                                         .trackList"
-                                    :key="track[0]"
+                                    :key="track.songId"
                                 >
-                                    <li>
-                                        <a :href="track[2]" target="_blank"
-                                            >{{ index + 1 }} - {{ track[1] }}</a
-                                        >
-                                    </li>
-                                </ul>
+                                    <v-list-item
+                                        @click="
+                                            $emit('play', track.songPreview)
+                                        "
+                                    >
+                                        <v-list-item-content>
+                                            <v-list-item-title
+                                                >{{ index + 1 }} -
+                                                {{
+                                                    track.songTitle
+                                                }}</v-list-item-title
+                                            >
+                                        </v-list-item-content>
+                                    </v-list-item>
+                                </v-list>
                             </v-card-text>
                         </v-card>
                     </v-col>
@@ -108,11 +118,11 @@ export default {
                     trackList: [],
                 }
                 for (var i = 0; i < response.data.tracks['data'].length; i++) {
-                    albumData.trackList[i] = new Array(
-                        response.data.tracks['data'][i]['id'],
-                        response.data.tracks['data'][i]['title'],
-                        response.data.tracks['data'][i]['preview']
-                    )
+                    albumData.trackList[i] = {
+                        songId: response.data.tracks['data'][i]['id'],
+                        songTitle: response.data.tracks['data'][i]['title'],
+                        songPreview: response.data.tracks['data'][i]['preview'],
+                    }
                 }
                 this.infoAlbum.push(albumData)
                 console.log(this.infoAlbum[0].trackList)

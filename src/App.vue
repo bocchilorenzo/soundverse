@@ -33,7 +33,12 @@
         </v-app-bar>
 
         <v-content>
-            <router-view :arrayRisultati="arrayRisultati"></router-view>
+            <router-view
+                :arrayRisultati="arrayRisultati"
+                v-on:play="play"
+                style="margin: 0px 0px 125px"
+            ></router-view>
+            <musicPlayer :file="file" class="player" />
         </v-content>
         <v-footer color="indigo" app>
             <span class="white--text">&copy; 2019</span>
@@ -43,23 +48,35 @@
 
 <script>
 import searchBar from './components/searchbar'
+import musicPlayer from './components/musicplayer'
 
 export default {
     name: 'App',
     props: {
         source: String,
     },
-    components: { searchBar },
+    components: { searchBar, musicPlayer },
     data() {
         return {
             drawer: false,
             arrayRisultati: null,
+            file: null,
         }
     },
     methods: {
         prop(arr) {
             this.arrayRisultati = arr
         },
+        play(link) {
+            this.file = link
+        },
     },
 }
 </script>
+<style>
+.player {
+    position: fixed;
+    bottom: 24px;
+    width: 100%;
+}
+</style>

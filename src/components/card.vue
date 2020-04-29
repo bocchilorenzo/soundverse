@@ -1,5 +1,5 @@
 <template>
-    <v-hover v-slot:default="{ hover }">
+    <v-hover v-slot:default="{ hover }" style="max-width: 200px">
         <v-card class="ma-2" max-width="400" :elevation="hover ? 16 : 2">
             <v-img class="align-end" :src="albumArray.cover"></v-img>
 
@@ -59,3 +59,4 @@ export default {
     },
 }
 </script>
+<style scoped></style>
