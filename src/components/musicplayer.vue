@@ -4,6 +4,7 @@
         :file="file"
         color="success"
         :autoPlay="autoPlay"
+        :ended="audioFinish"
     ></vuetify-audio>
 </template>
 
@@ -16,7 +17,13 @@ export default {
     data() {
         return {
             autoPlay: true,
+            hidePlayer: false,
         }
+    },
+    methods: {
+        audioFinish() {
+            this.$emit('hide', this.hidePlayer)
+        },
     },
 }
 </script>

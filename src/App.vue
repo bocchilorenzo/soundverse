@@ -32,7 +32,12 @@
                 v-on:play="play"
                 style="margin: 0px 0px 125px"
             ></router-view>
-            <musicPlayer :file="file" class="player" />
+            <musicPlayer
+                :file="file"
+                class="player"
+                v-if="show"
+                v-on:hide="hide"
+            />
         </v-content>
         <!--
         <v-footer color="indigo" app>
@@ -59,6 +64,7 @@ export default {
             arrayRisultati: null,
             file: null,
             currentUser: Object,
+            show: false,
         }
     },
     created: function() {
@@ -72,9 +78,11 @@ export default {
             this.arrayRisultati = arr
         },
         play(link) {
+            this.show = true
             this.file = link
-            document.getElementsByClassName('player')[0].style.visibility =
-                'visible'
+        },
+        hide(bool) {
+            this.show = bool
         },
         profile() {
             if (this.currentUser == null) {
@@ -95,6 +103,5 @@ export default {
     position: fixed;
     bottom: 0;
     width: 100%;
-    visibility: hidden;
 }
 </style>
