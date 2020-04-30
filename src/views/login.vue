@@ -1,26 +1,54 @@
 <template>
-    <div class="login">
-        <h1 style="text-align:center">Login</h1>
-        <v-row align="center" justify="center">
-            <v-form ref="form">
-                <v-text-field v-model="email" :rules="emailRules" label="E-mail" required></v-text-field>
-                <v-text-field
-                    type="password"
-                    v-model="password"
-                    :rules="passRules"
-                    label="Password"
-                    required
-                ></v-text-field>
-                <v-btn @click="loginFirebase()">Accedi</v-btn>
-            </v-form>
-        </v-row>
-        <v-row align="center" justify="center" class="mt-3">
-            <p>
-                Non hai un account?
-                <a @click="signup()">Registrati</a>
-            </p>
-        </v-row>
-    </div>
+    <v-app id="inspire">
+        <v-content>
+            <v-container class="fill-height" fluid>
+                <v-row align="center" justify="center">
+                    <v-col cols="12" sm="8" md="4">
+                        <v-card class="elevation-12">
+                            <v-toolbar color="primary" dark flat>
+                                <v-toolbar-title>Login</v-toolbar-title>
+                                <v-spacer />
+                            </v-toolbar>
+                            <v-card-text>
+                                <v-form>
+                                    <v-text-field
+                                        v-model="email"
+                                        :rules="emailRules"
+                                        label="E-mail"
+                                        required
+                                        prepend-icon="mdi-account"
+                                    />
+
+                                    <v-text-field
+                                        type="password"
+                                        v-model="password"
+                                        :rules="passRules"
+                                        label="Password"
+                                        required
+                                        prepend-icon="mdi-lock"
+                                    />
+                                </v-form>
+                            </v-card-text>
+                            <v-card-actions>
+                                <p>
+                                    <small>
+                                        Non hai un account?
+                                        <a @click="signup()"
+                                            >Registrati</a
+                                        ></small
+                                    >
+                                </p>
+                                <v-spacer />
+                                <v-btn color="primary" @click="loginFirebase()"
+                                    >Login</v-btn
+                                >
+                            </v-card-actions>
+                        </v-card>
+                    </v-col>
+                </v-row>
+            </v-container>
+        </v-content>
+    </v-app>
 </template>
 
 <script>
@@ -53,7 +81,7 @@ export default {
                     .signInWithEmailAndPassword(this.email, this.password)
                 alert('Login effettuato')
                 this.$router.replace({ name: 'home' })
-                this.user = firebase.auth().currentUser //modifico il prop diretto
+                this.user = firebase.auth().currentUser //$emit('nomeEvento', datoDaPassare) => vai in app.vue nel tag router view
             } catch (err) {
                 alert('Oops. ' + err.message)
             }

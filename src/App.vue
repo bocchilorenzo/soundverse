@@ -26,6 +26,7 @@
         </v-app-bar>
 
         <v-content>
+            <!--dentro il tag va: v-on:nomeEvento="funzioneDaEseguire(datoDaPassare)" => vai in methods qua sotto-->
             <router-view
                 :arrayRisultati="arrayRisultati"
                 v-on:play="play"
@@ -60,9 +61,9 @@ export default {
             currentUser: Object,
         }
     },
-    created: function(){
+    created: function() {
         var cU = firebase.auth().currentUser
-        if(cU != null){
+        if (cU != null) {
             this.currentUser = cU
         }
     },
@@ -77,11 +78,15 @@ export default {
         },
         profile() {
             if (this.currentUser == null) {
-                this.$router.push({ name: 'login' , props: { user: this.currentUser }}) //passo il prop
+                this.$router.push({
+                    name: 'login',
+                    props: { user: this.currentUser },
+                }) //passo il prop
             } else {
                 this.$router.push({ name: 'profile' })
             }
         },
+        //funzioneDaEseguire(data){bla bla bla}
     },
 }
 </script>
