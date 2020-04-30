@@ -30,7 +30,7 @@
             <router-view
                 :arrayRisultati="arrayRisultati"
                 v-on:play="play"
-                style="margin: 0px 0px 125px"
+                :class="{ marginforplayer: show }"
             ></router-view>
             <musicPlayer
                 :file="file"
@@ -103,5 +103,8 @@ export default {
     position: fixed;
     bottom: 0;
     width: 100%;
+}
+.marginforplayer {
+    margin-bottom: 125px;
 }
 </style>
