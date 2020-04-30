@@ -30,6 +30,7 @@
             <router-view
                 :arrayRisultati="arrayRisultati"
                 v-on:play="play"
+                v-on:updateUser="updateUser"
                 :class="{ marginforplayer: show }"
             ></router-view>
             <musicPlayer
@@ -50,7 +51,6 @@
 <script>
 import searchBar from './components/searchbar'
 import musicPlayer from './components/musicplayer'
-import firebase from 'firebase'
 
 export default {
     name: 'App',
@@ -63,15 +63,12 @@ export default {
             drawer: false,
             arrayRisultati: null,
             file: null,
-            currentUser: Object,
+            currentUser: this.$store.state.user,
             show: false,
         }
     },
     created: function() {
-        var cU = firebase.auth().currentUser
-        if (cU != null) {
-            this.currentUser = cU
-        }
+        this.$store.commit('updateUserFB')
     },
     methods: {
         prop(arr) {
@@ -87,13 +84,15 @@ export default {
         profile() {
             if (this.currentUser == null) {
                 this.$router.push({
-                    name: 'login',
-                    props: { user: this.currentUser },
-                }) //passo il prop
+                    name: 'login'
+                })
             } else {
                 this.$router.push({ name: 'profile' })
             }
         },
+        updateUser(usr){
+            this.currentUser = usr
+        }
         //funzioneDaEseguire(data){bla bla bla}
     },
 }

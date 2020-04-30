@@ -55,6 +55,8 @@ export default {
                     .createUserWithEmailAndPassword(this.email, this.password)
                 alert('Account creato!')
                 this.$router.replace({ name: 'home' })
+                this.$store.commit('updateUserFB')
+                //this.$emit('updateUser', firebase.auth().currentUser)
             } catch (err) {
                 alert('Oops. ' + err.message)
             }

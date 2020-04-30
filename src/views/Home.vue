@@ -1,5 +1,5 @@
 <template>
-    <div class="home">
+    <div class="home" v-on:>
         <v-container class="fill-height" fluid>
             <card-container :albumArray="albumArray" />
         </v-container>
@@ -39,11 +39,20 @@ export default {
                     }
                     this.albumArray.push(album)
                 }
+                this.$store.commit('toggleLoading')
+                if (this.loading == true) {
+                    this.$store.commit('toggleLoading')
+                }
             })
             .catch(error => {
                 console.log(error)
                 this.errored = true
             })
+    },
+    computed: {
+        loading() {
+            return this.$store.getters.loading
+        },
     },
 }
 </script>

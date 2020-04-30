@@ -15,7 +15,7 @@ export default {
     name: 'profile',
     data() {
         return {
-            user: firebase.auth().currentUser,
+            user: this.$store.state.user,
         }
     },
     methods: {
@@ -27,6 +27,8 @@ export default {
                 await firebase.auth().signOut()
                 alert('Logout effettuato!')
                 this.$router.replace({ name: 'home' })
+                this.$store.commit('updateUserFB')
+                //this.$emit('updateUser', Object)
             } catch (err) {
                 alert('Oops. ' + err.message)
             }

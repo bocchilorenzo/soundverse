@@ -48,9 +48,6 @@
 <script>
 import firebase from 'firebase'
 export default {
-    props: {
-        user: Object,
-    },
     name: 'login',
     data() {
         return {
@@ -75,7 +72,9 @@ export default {
                     .signInWithEmailAndPassword(this.email, this.password)
                 alert('Login effettuato')
                 this.$router.replace({ name: 'home' })
-                this.user = firebase.auth().currentUser //$emit('nomeEvento', datoDaPassare) => vai in app.vue nel tag router view
+                this.$store.commit('updateUserFB')
+                //this.$emit('updateUser', firebase.auth().currentUser)
+                //$emit('nomeEvento', datoDaPassare) => vai in app.vue nel tag router view
             } catch (err) {
                 alert('Oops. ' + err.message)
             }
