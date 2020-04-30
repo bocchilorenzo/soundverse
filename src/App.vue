@@ -84,15 +84,15 @@ export default {
         profile() {
             if (this.currentUser == null) {
                 this.$router.push({
-                    name: 'login'
+                    name: 'login',
                 })
             } else {
                 this.$router.push({ name: 'profile' })
             }
         },
-        updateUser(usr){
+        updateUser(usr) {
             this.currentUser = usr
-        }
+        },
         //funzioneDaEseguire(data){bla bla bla}
     },
 }

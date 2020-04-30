@@ -9,17 +9,27 @@
                         class="text-center"
                         style="height: 100vh; display: flex; align-items:center;"
                     >
-                        <v-progress-circular :size="70" :width="7" color="indigo" indeterminate></v-progress-circular>
+                        <v-progress-circular
+                            :size="70"
+                            :width="7"
+                            color="indigo"
+                            indeterminate
+                        ></v-progress-circular>
                     </v-col>
                     <v-col v-else cols="12" sm="8" md="4">
                         <!--mettere un v-if che se è undefined mostra "album non esistente", altrimenti mostra i dati dell'album-->
                         <!--dividere in un componente separato-->
-                        <v-card v-if="infoAlbum[0] != undefined" class="elevation-12">
+                        <v-card
+                            v-if="infoAlbum[0] != undefined"
+                            class="elevation-12"
+                        >
                             <v-card-text>
                                 <p
                                     class="text-center font-weight-bold"
                                     display="inline-block"
-                                >{{ infoAlbum[0].title }}</p>
+                                >
+                                    {{ infoAlbum[0].title }}
+                                </p>
                                 <v-img
                                     class="align-end"
                                     :src="infoAlbum[0].cover"
@@ -28,12 +38,19 @@
                                 <p
                                     class="text-left font-weight-normal"
                                     display="inline-block"
-                                >Artista: {{ infoAlbum[0].artist }}</p>
+                                >
+                                    Artista: {{ infoAlbum[0].artist }}
+                                </p>
                                 <p
                                     class="text-left font-weight-normal"
                                     display="inline-block"
-                                >Genere: {{ infoAlbum[0].genre }}</p>
-                                <p class="text-left font-weight-normal" display="inline-block">
+                                >
+                                    Genere: {{ infoAlbum[0].genre }}
+                                </p>
+                                <p
+                                    class="text-left font-weight-normal"
+                                    display="inline-block"
+                                >
                                     Numero tracce:
                                     {{ infoAlbum[0].numberOfTracks }}
                                 </p>
@@ -41,15 +58,21 @@
                                     v-if="infoAlbum[0].explicit"
                                     class="text-left font-weight-normal"
                                     display="inline-block"
-                                >Esplicito</p>
+                                >
+                                    Esplicito
+                                </p>
                                 <p
                                     class="text-left font-weight-normal"
                                     display="inline-block"
-                                >Data uscita: {{ infoAlbum[0].releaseDate }}</p>
+                                >
+                                    Data uscita: {{ infoAlbum[0].releaseDate }}
+                                </p>
                                 <p
                                     class="text-left font-weight-normal"
                                     display="inline-block"
-                                >Tracklist:</p>
+                                >
+                                    Tracklist:
+                                </p>
 
                                 <v-list
                                     v-for="(track, index) in infoAlbum[0]
@@ -64,9 +87,7 @@
                                         <v-list-item-content>
                                             <v-list-item-title>
                                                 {{ index + 1 }} -
-                                                {{
-                                                track.songTitle
-                                                }}
+                                                {{ track.songTitle }}
                                             </v-list-item-title>
                                         </v-list-item-content>
                                     </v-list-item>

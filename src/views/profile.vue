@@ -1,7 +1,7 @@
 <template>
     <div class="profile">
         <v-row v-if="user != null" align="center" justify="center">
-            <p style="text-align:center">Mail: {{user.email}}</p>
+            <p style="text-align:center">Mail: {{ user.email }}</p>
             <v-form ref="form">
                 <v-btn color="danger" @click="logout()">Logout</v-btn>
             </v-form>

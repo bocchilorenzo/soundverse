@@ -1,9 +1,9 @@
 import Vue from 'vue'
-import Vuex from 'vuex'
 import App from './App.vue'
 import router from './router'
 import vuetify from './plugins/vuetify'
 import firebase from 'firebase' //npm install --save firebase
+import store from './store'
 
 Vue.config.productionTip = false
 
@@ -21,36 +21,11 @@ let app = ''
 
 firebase.initializeApp(config)
 
-Vue.use(Vuex)
-
-const store = new Vuex.Store({
-    state: {
-        loading: true,
-        user: Object
-    },
-    mutations: {
-        updateUserFB(state) {
-            state.user = firebase.auth().currentUser
-        },
-        toggleLoading(state){
-            if(state.loading == false){
-                state.loading = true
-            }
-            else{
-                state.loading = false
-            }
-        }
-    },
-    getters:{
-        loading: state => state.loading
-    }
-})
-
 firebase.auth().onAuthStateChanged(() => {
     if (!app) {
         app = new Vue({
             router,
-            store: store,
+            store,
             vuetify,
             render: h => h(App),
         }).$mount('#app')

@@ -7,9 +7,22 @@
                 class="text-center"
                 style="height: 100vh; display: flex; align-items:center;"
             >
-                <v-progress-circular :size="70" :width="7" color="indigo" indeterminate></v-progress-circular>
+                <v-progress-circular
+                    :size="70"
+                    :width="7"
+                    color="indigo"
+                    indeterminate
+                ></v-progress-circular>
             </v-col>
-            <v-col v-else v-for="album in arrayRisultati" :key="album.id" cols="12" sm="3" lg="2" xl="2">
+            <v-col
+                v-else
+                v-for="album in arrayRisultati"
+                :key="album.id"
+                cols="12"
+                sm="3"
+                lg="2"
+                xl="2"
+            >
                 <router-link
                     :to="{
                         name: 'album',
