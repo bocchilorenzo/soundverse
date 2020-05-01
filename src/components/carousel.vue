@@ -19,9 +19,9 @@
             cols="12"
             max-width="1500px"
             v-else
-        >
+            ><h2 class="ma-2">{{ albumArray[0] }}</h2>
             <v-slide-group
-                class="pa-2"
+                class="pa-0"
                 :prev-icon="prevIcon ? 'mdi-minus' : undefined"
                 :next-icon="nextIcon ? 'mdi-plus' : undefined"
                 :show-arrows="showArrows"
@@ -36,7 +36,11 @@
                             props: true,
                         }"
                     >
-                        <albumCard :albumArray="album" :id="album.albumId" />
+                        <albumCard
+                            v-if="check(album)"
+                            :albumArray="album"
+                            :id="album.albumId"
+                        />
                     </router-link>
                 </v-slide-item>
             </v-slide-group>
@@ -65,7 +69,16 @@ export default {
             return this.$store.getters.loading
         },
     },
+    methods: {
+        check(data) {
+            if (typeof data == 'object') {
+                return true
+            } else {
+                return false
+            }
+        },
+    },
 }
 </script>
 
-<style></style>
+<style scoped></style>

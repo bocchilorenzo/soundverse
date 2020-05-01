@@ -32,6 +32,7 @@ export default {
             ])
             .then(
                 axios.spread((firstResponse, secondResponse) => {
+                    this.worldAlbumArray.push(firstResponse.data.title)
                     for (var i = 0; i < 40; i++) {
                         var albumWorld = {
                             id: i,
@@ -55,6 +56,7 @@ export default {
                         }
                         this.worldAlbumArray.push(albumWorld)
                     }
+                    this.italyAlbumArray.push(secondResponse.data.title)
 
                     for (var x = 0; x < 40; x++) {
                         var albumItaly = {
