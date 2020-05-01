@@ -20,15 +20,19 @@
                                     class="text-center font-weight-bold"
                                     display="inline-block"
                                 >{{ infoAlbum[0].title }}</p>
-                                <v-img
-                                    class="align-end"
-                                    :src="infoAlbum[0].cover"
-                                    width="100%"
-                                ></v-img>
-                                <p
-                                    class="text-left font-weight-normal"
-                                    display="inline-block"
-                                >Artista: {{ infoAlbum[0].artist }}</p>
+                                <v-img class="align-end" :src="infoAlbum[0].cover" width="100%"></v-img>
+                                <router-link
+                                    :to="{
+                                        name: 'artist',
+                                        path: '/artist/:artista',
+                                        params: { artista: infoAlbum[0].artistId }
+                                    }"
+                                >
+                                    <p
+                                        class="text-left font-weight-normal"
+                                        display="inline-block"
+                                    >Artista: {{ infoAlbum[0].artist }}</p>
+                                </router-link>
                                 <p
                                     class="text-left font-weight-normal"
                                     display="inline-block"

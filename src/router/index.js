@@ -7,6 +7,7 @@ import login from '../views/login.vue'
 import signup from '../views/signup.vue'
 import profile from '../views/profile.vue'
 import listView from '../views/listView.vue'
+import artistView from '../views/artistView.vue'
 
 Vue.use(VueRouter)
 
@@ -49,6 +50,11 @@ const routes = [
         path: '/list/:lista',
         name: 'list',
         component: listView,
+    },
+    {
+        path: '/artist/:artista',
+        name: 'artist',
+        component: artistView,
     },
 ]
 
