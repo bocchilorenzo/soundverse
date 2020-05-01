@@ -49,7 +49,9 @@ export default {
                     axios.spread((firstResponse, secondResponse) => {
                         this.worldAlbumArray.push(firstResponse.data.title)
                         this.worldAlbumArray.push('3155776842')
-                        for (var i = 0; i < 40; i++) {
+                        var tmp1 = false
+                        var i = 0
+                        for (i = 0; i < 40; i++) {
                             var albumWorld = {
                                 id: i,
                                 title:
@@ -74,11 +76,20 @@ export default {
                                         'id'
                                     ], //questo non servirà poi, è solo per testare ora
                             }
-                            this.worldAlbumArray.push(albumWorld)
+                            tmp1 = this.checkDuplicati(
+                                'world',
+                                i,
+                                albumWorld.albumId
+                            )
+                            if (tmp1 == false) {
+                                this.worldAlbumArray.push(albumWorld)
+                            }
                         }
                         this.italyAlbumArray.push(secondResponse.data.title)
                         this.italyAlbumArray.push('1116187241')
-                        for (var x = 0; x < 40; x++) {
+                        var tmp2 = false
+                        var x = 0
+                        for (x = 0; x < 40; x++) {
                             var albumItaly = {
                                 id: x,
                                 title:
@@ -103,7 +114,14 @@ export default {
                                         'id'
                                     ], //questo non servirà poi, è solo per testare ora
                             }
-                            this.italyAlbumArray.push(albumItaly)
+                            tmp2 = this.checkDuplicati(
+                                'italy',
+                                x,
+                                albumItaly.albumId
+                            )
+                            if (tmp2 == false) {
+                                this.italyAlbumArray.push(albumItaly)
+                            }
                         }
                         this.$store.commit('toggleLoading')
                         if (this.loading == true) {
@@ -150,6 +168,25 @@ export default {
     methods: {
         prop(arr) {
             this.$emit('updateLista2', arr)
+        },
+        checkDuplicati(type, i, albumId) {
+            var trovato = false
+            var arr = Array
+            if (type == 'world') {
+                arr = this.worldAlbumArray
+            } else {
+                arr = this.italyAlbumArray
+            }
+            for (var j = 0; j < i; j++) {
+                if (arr != null) {
+                    if (arr[j] != undefined) {
+                        if (arr[j].albumId == albumId) {
+                            trovato = true
+                        }
+                    }
+                }
+            }
+            return trovato
         },
     },
 }
