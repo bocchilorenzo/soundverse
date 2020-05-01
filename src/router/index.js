@@ -6,6 +6,7 @@ import search from '../views/searchView.vue'
 import login from '../views/login.vue'
 import signup from '../views/signup.vue'
 import profile from '../views/profile.vue'
+import listView from '../views/listView.vue'
 
 Vue.use(VueRouter)
 
@@ -43,6 +44,11 @@ const routes = [
         path: '/profile',
         name: 'profile',
         component: profile,
+    },
+    {
+        path: '/list/:lista',
+        name: 'list',
+        component: listView,
     },
 ]
 

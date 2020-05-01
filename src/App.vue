@@ -31,6 +31,7 @@
                 :arrayRisultati="arrayRisultati"
                 v-on:play="play"
                 v-on:updateUser="updateUser"
+                v-on:updateLista2="prop"
                 :class="{ marginforplayer: show }"
             ></router-view>
             <musicPlayer

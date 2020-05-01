@@ -1,25 +1,7 @@
 <template>
     <div id="carousel">
-        <v-col
-            v-if="this.loading"
-            cols="1"
-            class="text-center"
-            style="height: 100vh; display: flex; align-items:center;"
-        >
-            <v-progress-circular
-                :size="70"
-                :width="7"
-                color="indigo"
-                indeterminate
-            ></v-progress-circular>
-        </v-col>
-        <v-sheet
-            class="mx-auto my-2"
-            elevation="3"
-            cols="12"
-            max-width="1500px"
-            v-else
-            ><h2 class="ma-2">{{ albumArray[0] }}</h2>
+        <v-sheet class="mx-auto my-2" cols="12" max-width="1500px">
+            <h2 class="ma-2" @click="visualizzaLista(albumArray)">{{ albumArray[0] }}</h2>
             <v-slide-group
                 class="pa-0"
                 :prev-icon="prevIcon ? 'mdi-minus' : undefined"
@@ -36,11 +18,7 @@
                             props: true,
                         }"
                     >
-                        <albumCard
-                            v-if="check(album)"
-                            :albumArray="album"
-                            :id="album.albumId"
-                        />
+                        <albumCard v-if="check(album)" :albumArray="album" :id="album.albumId" />
                     </router-link>
                 </v-slide-item>
             </v-slide-group>
@@ -58,7 +36,7 @@ export default {
     components: { albumCard },
     data() {
         return {
-            showArrows: true,
+            showArrows: false,
             centerActive: true,
             prevIcon: false,
             nextIcon: false,
@@ -76,6 +54,15 @@ export default {
             } else {
                 return false
             }
+        },
+        visualizzaLista(arrayAlbum) {
+            this.$store.commit('toggleLoading')
+            this.$router.push({
+                name: 'list',
+                params: { lista: arrayAlbum[1] },
+            })
+            this.$emit('updateLista', arrayAlbum)
+            this.$store.commit('toggleLoading')
         },
     },
 }
