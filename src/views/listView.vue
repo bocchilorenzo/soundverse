@@ -1,6 +1,6 @@
 <template>
     <v-container class="fill-height" fluid>
-        <v-row align="center" >
+        <v-row align="center">
             <h2 class="ml-5">{{ title }}</h2>
         </v-row>
         <v-row align="center" justify="center">
