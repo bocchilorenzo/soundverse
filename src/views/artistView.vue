@@ -144,10 +144,9 @@ export default {
                             this.start
                     )
                     .then(response => {
-                        for (var i = this.start; i < this.end; i++) {
+                        for (var i = 0; i < 25; i++) {
                             if (response.data.data[i] != undefined) {
                                 var albumsData = {
-                                    id: i,
                                     title: response.data.data[i].title,
                                     cover: response.data.data[i].cover_medium,
                                     artist: this.artistInfo.name,

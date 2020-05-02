@@ -1,29 +1,81 @@
 <template>
     <div class="home">
         <v-container class="fill-width" fluid>
-            <v-row v-if="this.loading" align="center" justify="center">
-                <v-col
-                    cols="1"
-                    class="text-center"
-                    style="height: 100vh; display: flex; align-items:center;"
-                >
-                    <v-progress-circular
-                        :size="70"
-                        :width="7"
-                        color="indigo"
-                        indeterminate
-                    ></v-progress-circular>
-                </v-col>
-            </v-row>
+            <div v-if="this.loading">
+                <v-sheet class="mx-auto my-2 px-3 pt-3 pb-3" cols="12" max-width="1500px">
+                    <h2 class="ma-2">Top Worldwide</h2>
+                    <v-slide-group class="pa-0">
+                        <v-slide-item>
+                            <v-skeleton-loader class="mx-3" width="200" type="card"></v-skeleton-loader>
+                        </v-slide-item>
+                        <v-slide-item>
+                            <v-skeleton-loader class="mx-3" width="200" type="card"></v-skeleton-loader>
+                        </v-slide-item>
+                        <v-slide-item>
+                            <v-skeleton-loader class="mx-3" width="200" type="card"></v-skeleton-loader>
+                        </v-slide-item>
+                        <v-slide-item>
+                            <v-skeleton-loader class="mx-3" width="200" type="card"></v-skeleton-loader>
+                        </v-slide-item>
+                        <v-slide-item>
+                            <v-skeleton-loader class="mx-3" width="200" type="card"></v-skeleton-loader>
+                        </v-slide-item>
+                        <v-slide-item>
+                            <v-skeleton-loader class="mx-3" width="200" type="card"></v-skeleton-loader>
+                        </v-slide-item>
+                        <v-slide-item>
+                            <v-skeleton-loader class="mx-3" width="200" type="card"></v-skeleton-loader>
+                        </v-slide-item>
+                        <v-slide-item>
+                            <v-skeleton-loader class="mx-3" width="200" type="card"></v-skeleton-loader>
+                        </v-slide-item>
+                        <v-slide-item>
+                            <v-skeleton-loader class="mx-3" width="200" type="card"></v-skeleton-loader>
+                        </v-slide-item>
+                        <v-slide-item>
+                            <v-skeleton-loader class="mx-3" width="200" type="card"></v-skeleton-loader>
+                        </v-slide-item>
+                    </v-slide-group>
+                </v-sheet>
+                <v-sheet class="mx-auto my-2 px-3 pt-3 pb-3" cols="12" max-width="1500px">
+                    <h2 class="ma-2">Top Italy</h2>
+                    <v-slide-group class="pa-0">
+                        <v-slide-item>
+                            <v-skeleton-loader class="mx-3" width="200" type="card"></v-skeleton-loader>
+                        </v-slide-item>
+                        <v-slide-item>
+                            <v-skeleton-loader class="mx-3" width="200" type="card"></v-skeleton-loader>
+                        </v-slide-item>
+                        <v-slide-item>
+                            <v-skeleton-loader class="mx-3" width="200" type="card"></v-skeleton-loader>
+                        </v-slide-item>
+                        <v-slide-item>
+                            <v-skeleton-loader class="mx-3" width="200" type="card"></v-skeleton-loader>
+                        </v-slide-item>
+                        <v-slide-item>
+                            <v-skeleton-loader class="mx-3" width="200" type="card"></v-skeleton-loader>
+                        </v-slide-item>
+                        <v-slide-item>
+                            <v-skeleton-loader class="mx-3" width="200" type="card"></v-skeleton-loader>
+                        </v-slide-item>
+                        <v-slide-item>
+                            <v-skeleton-loader class="mx-3" width="200" type="card"></v-skeleton-loader>
+                        </v-slide-item>
+                        <v-slide-item>
+                            <v-skeleton-loader class="mx-3" width="200" type="card"></v-skeleton-loader>
+                        </v-slide-item>
+                        <v-slide-item>
+                            <v-skeleton-loader class="mx-3" width="200" type="card"></v-skeleton-loader>
+                        </v-slide-item>
+                        <v-slide-item>
+                            <v-skeleton-loader class="mx-3" width="200" type="card"></v-skeleton-loader>
+                        </v-slide-item>
+                    </v-slide-group>
+                </v-sheet>
+            </div>
             <div v-else>
-                <carousel
-                    :albumArray="worldAlbumArray"
-                    v-on:updateLista="prop"
-                />
-                <carousel
-                    :albumArray="italyAlbumArray"
-                    v-on:updateLista="prop"
-                />
+                <carousel :albumArray="worldAlbumArray" v-on:updateLista="prop" />
+                <carousel :albumArray="italyAlbumArray" v-on:updateLista="prop" />
             </div>
         </v-container>
     </div>
@@ -62,7 +114,7 @@ export default {
                         this.worldAlbumArray.push('3155776842')
                         var tmp1 = false
                         var i = 0
-                        for (i = 0; i < 40; i++) {
+                        for (i = 0; i < 25; i++) {
                             var albumWorld = {
                                 id: i,
                                 title:
@@ -100,7 +152,7 @@ export default {
                         this.italyAlbumArray.push('1116187241')
                         var tmp2 = false
                         var x = 0
-                        for (x = 0; x < 40; x++) {
+                        for (x = 0; x < 25; x++) {
                             var albumItaly = {
                                 id: x,
                                 title:
@@ -200,5 +252,6 @@ export default {
             return trovato
         },
     },
+    inject: ['theme'],
 }
 </script>
