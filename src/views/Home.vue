@@ -7,12 +7,23 @@
                     class="text-center"
                     style="height: 100vh; display: flex; align-items:center;"
                 >
-                    <v-progress-circular :size="70" :width="7" color="indigo" indeterminate></v-progress-circular>
+                    <v-progress-circular
+                        :size="70"
+                        :width="7"
+                        color="indigo"
+                        indeterminate
+                    ></v-progress-circular>
                 </v-col>
             </v-row>
             <div v-else>
-                <carousel :albumArray="worldAlbumArray" v-on:updateLista="prop" />
-                <carousel :albumArray="italyAlbumArray" v-on:updateLista="prop" />
+                <carousel
+                    :albumArray="worldAlbumArray"
+                    v-on:updateLista="prop"
+                />
+                <carousel
+                    :albumArray="italyAlbumArray"
+                    v-on:updateLista="prop"
+                />
             </div>
         </v-container>
     </div>

@@ -19,7 +19,7 @@
             <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
             <v-toolbar-title class="mr-5">Application</v-toolbar-title>
             <v-spacer />
-            <searchBar v-on:update="prop" />
+            <searchBar v-on:update="divideAlbumsArtists" />
             <v-btn icon @click="profile()" class="ml-3">
                 <v-icon dark>mdi-account-circle</v-icon>
             </v-btn>
@@ -28,6 +28,8 @@
         <v-content>
             <!--dentro il tag va: v-on:nomeEvento="funzioneDaEseguire(datoDaPassare)" => vai in methods qua sotto-->
             <router-view
+                :albumSearch="albumSearch"
+                :artistsSearch="artistsSearch"
                 :arrayRisultati="arrayRisultati"
                 v-on:play="play"
                 v-on:updateUser="updateUser"
@@ -66,12 +68,18 @@ export default {
             file: null,
             currentUser: this.$store.state.user,
             show: false,
+            albumSearch: null,
+            artistsSearch: null,
         }
     },
     created: function() {
         this.$store.commit('updateUserFB')
     },
     methods: {
+        divideAlbumsArtists(arr1, arr2) {
+            this.albumSearch = arr1
+            this.artistsSearch = arr2
+        },
         prop(arr) {
             this.arrayRisultati = arr
         },

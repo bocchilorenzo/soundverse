@@ -1,7 +1,9 @@
 <template>
     <div id="carousel">
         <v-sheet class="mx-auto my-2" cols="12" max-width="1500px">
-            <h2 class="ma-2" @click="visualizzaLista(albumArray)">{{ albumArray[0] }}</h2>
+            <h2 class="ma-2" @click="visualizzaLista(albumArray)">
+                {{ albumArray[0] }}
+            </h2>
             <v-slide-group
                 class="pa-0"
                 :prev-icon="prevIcon ? 'mdi-minus' : undefined"
@@ -18,7 +20,11 @@
                             props: true,
                         }"
                     >
-                        <albumCard v-if="check(album)" :albumArray="album" :id="album.albumId" />
+                        <albumCard
+                            v-if="check(album)"
+                            :albumArray="album"
+                            :id="album.albumId"
+                        />
                     </router-link>
                 </v-slide-item>
             </v-slide-group>

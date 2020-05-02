@@ -8,6 +8,7 @@ import signup from '../views/signup.vue'
 import profile from '../views/profile.vue'
 import listView from '../views/listView.vue'
 import artistView from '../views/artistView.vue'
+import cardContainer from '../components/cardcontainer.vue'
 
 Vue.use(VueRouter)
 
