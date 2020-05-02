@@ -3,12 +3,7 @@
         <h1 style="text-align:center">Registrazione</h1>
         <v-row align="center" justify="center">
             <v-form ref="form">
-                <v-text-field
-                    v-model="email"
-                    :rules="emailRules"
-                    label="E-mail"
-                    required
-                ></v-text-field>
+                <v-text-field v-model="email" :rules="emailRules" label="E-mail" required></v-text-field>
                 <v-text-field
                     type="password"
                     v-model="password"

@@ -1,17 +1,11 @@
 <template>
     <v-hover v-slot:default="{ hover }" style="max-width: 200px">
         <v-card class="ma-2" max-width="400" :elevation="hover ? 10 : 2">
-            <v-img class="align-end" :src="albumArray.cover"></v-img>
-
-            <v-card-subtitle class="pb-0">
-                {{
-                albumArray.artist
-                }}
-            </v-card-subtitle>
+            <v-img class="align-end" :src="artistArray.artistImage"></v-img>
 
             <v-card-text class="text--primary">
                 {{
-                albumArray.title
+                artistArray.name
                 }}
             </v-card-text>
 
@@ -43,8 +37,8 @@
 
 <script>
 export default {
-    name: 'albumCard',
-    props: { albumArray: Object },
+    name: 'artistCard',
+    props: { artistArray: Object },
     data() {
         return {
             offsety: true,

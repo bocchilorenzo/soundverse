@@ -10,8 +10,8 @@
         </v-col>
         <v-col
             v-else
-            v-for="album in arrayRisultati"
-            :key="album.albumId"
+            v-for="artista in arrayRisultati"
+            :key="artista.artistId"
             cols="12"
             sm="3"
             lg="2"
@@ -21,23 +21,23 @@
                 :to="{
                     name: 'album',
                     path: '/album/:id',
-                    params: { id: album.albumId },
+                    params: { id: artista.artistId },
                     props: true,
                 }"
             >
-                <albumCard :albumArray="album" :id="album.albumId" />
+                <artistCard :artistArray="artista" :id="artista.artistId" />
             </router-link>
         </v-col>
     </v-row>
 </template>
 
 <script>
-import albumCard from './card'
+import artistCard from './cardArtisti'
 
 export default {
-    name: 'cardContainer',
+    name: 'cardContainerArtisti',
     props: { arrayRisultati: Array },
-    components: { albumCard },
+    components: { artistCard },
     computed: {
         loading() {
             return this.$store.getters.loading

@@ -141,7 +141,6 @@ export default {
                             }
                             tmp1 = this.checkDuplicati(
                                 'world',
-                                i,
                                 albumWorld.albumId
                             )
                             if (tmp1 == false) {
@@ -179,7 +178,6 @@ export default {
                             }
                             tmp2 = this.checkDuplicati(
                                 'italy',
-                                x,
                                 albumItaly.albumId
                             )
                             if (tmp2 == false) {
@@ -232,7 +230,7 @@ export default {
         prop(arr) {
             this.$emit('updateLista2', arr)
         },
-        checkDuplicati(type, i, albumId) {
+        checkDuplicati(type, albumId) {
             var trovato = false
             var arr = Array
             if (type == 'world') {
@@ -240,7 +238,7 @@ export default {
             } else {
                 arr = this.italyAlbumArray
             }
-            for (var j = 0; j < i; j++) {
+            for (var j = 0; j < this.end; j++) {
                 if (arr != null) {
                     if (arr[j] != undefined) {
                         if (arr[j].albumId == albumId) {

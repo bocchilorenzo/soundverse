@@ -31,13 +31,11 @@
                         <p>
                             <small>
                                 Non hai un account?
-                                <a @click="signup()">Registrati</a></small
-                            >
+                                <a @click="signup()">Registrati</a>
+                            </small>
                         </p>
                         <v-spacer />
-                        <v-btn color="primary" @click="loginFirebase()"
-                            >Login</v-btn
-                        >
+                        <v-btn color="primary" @click="loginFirebase()">Login</v-btn>
                     </v-card-actions>
                 </v-card>
             </v-col>

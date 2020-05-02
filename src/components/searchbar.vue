@@ -44,7 +44,7 @@ export default {
                     this.arrayRisultatiAlbum,
                     this.arrayRisultatiArtisti
                 )
-                window.scrollBy(0,1)
+                window.scrollBy(0, 1)
                 if (this.loading == true) {
                     this.$store.commit('toggleLoading')
                 }

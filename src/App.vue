@@ -17,7 +17,7 @@
 
         <v-app-bar app color="indigo" dark>
             <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
-            <v-toolbar-title class="mr-5">Application</v-toolbar-title>
+            <v-toolbar-title class="mr-5">DeezerRate</v-toolbar-title>
             <v-spacer />
             <searchBar v-on:update="divideAlbumsArtists" />
             <v-btn icon @click="profile()" class="ml-3">
@@ -36,12 +36,7 @@
                 v-on:updateLista2="prop"
                 :class="{ marginforplayer: show }"
             ></router-view>
-            <musicPlayer
-                :file="file"
-                class="player"
-                v-if="show"
-                v-on:hide="hide"
-            />
+            <musicPlayer :file="file" class="player" v-if="show" v-on:hide="hide" />
         </v-content>
         <!--
         <v-footer color="indigo" app>

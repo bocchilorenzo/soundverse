@@ -69,9 +69,9 @@ export default {
             const bottomOfPage = visible + scrollY >= pageHeight
             return bottomOfPage || pageHeight < visible
         },
-        checkDuplicati(i, albumId) {
+        checkDuplicati(albumId) {
             var trovato = false
-            for (var j = 0; j < i; j++) {
+            for (var j = 0; j < this.end; j++) {
                 if (this.arrayRisultatiNew != null) {
                     if (this.arrayRisultatiNew[j] != undefined) {
                         if (this.arrayRisultatiNew[j].albumId == albumId) {
@@ -112,7 +112,7 @@ export default {
                                     'https://deezer.com/album/' +
                                     response.data.tracks.data[i].album['id'], //questo non servirà poi, è solo per testare ora
                             }
-                            tmp = this.checkDuplicati(i, album.albumId)
+                            tmp = this.checkDuplicati(album.albumId)
                             if (tmp == false) {
                                 this.arrayRisultatiNew.push(album)
                             }

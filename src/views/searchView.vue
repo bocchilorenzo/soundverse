@@ -32,7 +32,7 @@
                 </v-tab-item>
                 <v-tab-item>
                     <v-card flat tile>
-                        <p>{{ artisti }}</p>
+                        <cardContainerArtisti :arrayRisultati="artisti"></cardContainerArtisti>
                     </v-card>
                 </v-tab-item>
             </v-tabs>
@@ -42,6 +42,7 @@
 
 <script>
 import cardContainer from '../components/cardcontainer'
+import cardContainerArtisti from '../components/cardcontainerartisti'
 import axios from 'axios'
 export default {
     name: 'search',
@@ -75,12 +76,26 @@ export default {
     },
     components: {
         cardContainer,
+        cardContainerArtisti,
     },
     props: {
         albumSearch: Array,
         artistsSearch: Array,
     },
     methods: {
+        checkDuplicati(albumId) {
+            var trovato = false
+            for (var j = 0; j < this.end; j++) {
+                if (this.arrayRisultatiNew != null) {
+                    if (this.arrayRisultatiNew[j] != undefined) {
+                        if (this.arrayRisultatiNew[j].albumId == albumId) {
+                            trovato = true
+                        }
+                    }
+                }
+            }
+            return trovato
+        },
         bottomVisible() {
             const scrollY = window.scrollY
             const visible = document.documentElement.clientHeight
@@ -96,7 +111,6 @@ export default {
                     for (var x = 0; x < 12; x++) {
                         if (response.data.data[x] != undefined) {
                             var risultati2 = {
-                                id: x,
                                 artistId: response.data.data[x].id,
                                 name: response.data.data[x].name,
                                 artistImage:
@@ -119,7 +133,8 @@ export default {
                             this.start
                     )
                     .then(response => {
-                        for (var i = 0; i < 25; i++) {
+                        var tmp = false
+                        for (var i = this.start; i < this.end; i++) {
                             if (response.data.data[i] != undefined) {
                                 var risultati = {
                                     title: response.data.data[i]['title'],
@@ -134,8 +149,11 @@ export default {
                                             'explicit_lyrics'
                                         ],
                                 }
-                                this.albums.push(risultati)
                             }
+                        }
+                        tmp = this.checkDuplicati(risultati.albumId)
+                        if (tmp == false) {
+                            this.albums.push(risultati)
                         }
                         this.start = this.end
                         if (this.lastCycle == true) {
@@ -152,7 +170,7 @@ export default {
                     .catch(error => console.log(error))
             }
         },
-        resetAll(){
+        resetAll() {
             this.albums = []
             this.artisti = []
             this.bottom = false
@@ -160,7 +178,7 @@ export default {
             this.end = 25
             this.stop = false
             this.lastCycle = false
-        }
+        },
     },
     computed: {
         loading() {
