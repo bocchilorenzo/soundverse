@@ -65,15 +65,11 @@ export default {
             end: 25,
             stop: false,
             lastCycle: false,
-            path: this.$route.params.q,
         }
     },
     created: function() {
         window.addEventListener('scroll', () => {
             this.bottom = this.bottomVisible()
-        })
-        window.addEventListener('scroll', () => {
-            this.path = this.$route.params.q
         })
         this.updateInfoArtisti()
         this.updateInfoAlbum()
@@ -85,16 +81,14 @@ export default {
         cardContainer,
         cardContainerArtisti,
     },
-    props: {
-        input: String,
-    },
+
     methods: {
         checkDuplicati(albumId) {
             var trovato = false
             for (var j = 0; j < this.end; j++) {
-                if (this.arrayRisultatiNew != null) {
-                    if (this.arrayRisultatiNew[j] != undefined) {
-                        if (this.arrayRisultatiNew[j].albumId == albumId) {
+                if (this.albums != null) {
+                    if (this.albums[j] != undefined) {
+                        if (this.albums[j].albumId == albumId) {
                             trovato = true
                         }
                     }
@@ -110,7 +104,7 @@ export default {
             return bottomOfPage || pageHeight < visible
         },
         updateInfoArtisti() {
-            var q = this.input
+            var q = this.$route.params.q
             axios
                 .get(`https://api.deezer.com/search/artist?q=` + q)
                 .then(response => {
@@ -129,7 +123,7 @@ export default {
                 .catch(error => console.log(error))
         },
         updateInfoAlbum() {
-            var q = this.input
+            var q = this.$route.params.q
             if (this.stop == false) {
                 axios
                     .get(
@@ -143,6 +137,7 @@ export default {
                         for (var i = this.start; i < this.end; i++) {
                             if (response.data.data[i] != undefined) {
                                 var risultati = {
+                                    id: i,
                                     title: response.data.data[i]['title'],
                                     cover:
                                         response.data.data[i]['cover_medium'],
@@ -156,11 +151,12 @@ export default {
                                         ],
                                 }
                             }
+                            tmp = this.checkDuplicati(risultati.albumId)
+                            if (tmp == false) {
+                                this.albums.push(risultati)
+                            }
                         }
-                        tmp = this.checkDuplicati(risultati.albumId)
-                        if (tmp == false) {
-                            this.albums.push(risultati)
-                        }
+
                         this.start = this.end
                         if (this.lastCycle == true) {
                             this.stop = true
@@ -176,15 +172,6 @@ export default {
                     .catch(error => console.log(error))
             }
         },
-        resetAll() {
-            this.albums = []
-            this.artisti = []
-            this.bottom = false
-            this.start = 0
-            this.end = 25
-            this.stop = false
-            this.lastCycle = false
-        },
     },
     computed: {
         loading() {
@@ -196,11 +183,6 @@ export default {
             if (bottom) {
                 this.updateInfoAlbum()
             }
-        },
-        path: function() {
-            this.resetAll()
-            this.updateInfoAlbum()
-            this.updateInfoArtisti()
         },
     },
 }

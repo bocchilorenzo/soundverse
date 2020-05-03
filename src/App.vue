@@ -19,7 +19,7 @@
             <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
             <v-toolbar-title class="mr-5">DeezerRate</v-toolbar-title>
             <v-spacer />
-            <searchBar v-on:data="passInput" />
+            <searchBar v-on:data="update" />
             <v-btn icon @click="profile()" class="ml-3">
                 <v-icon dark>mdi-account-circle</v-icon>
             </v-btn>
@@ -29,7 +29,6 @@
             <!--dentro il tag va: v-on:nomeEvento="funzioneDaEseguire(datoDaPassare)" => vai in methods qua sotto-->
             <router-view
                 :key="key"
-                :input="input"
                 :albumSearch="albumSearch"
                 :artistsSearch="artistsSearch"
                 :arrayRisultati="arrayRisultati"
@@ -73,15 +72,13 @@ export default {
             show: false,
             albumSearch: null,
             artistsSearch: null,
-            input: null,
         }
     },
     created: function() {
         this.$store.commit('updateUserFB')
     },
     methods: {
-        passInput(dato) {
-            this.input = dato
+        update() {
             this.key += 1
         },
         prop(arr) {
