@@ -21,30 +21,40 @@ export default {
     },
     methods: {
         search() {
-            if (this.input != '' && this.prevInput != this.input) {
+            var pathName = this.$route.name
+            if (pathName != 'search') {
                 this.$store.commit('toggleLoading')
-                var path = this.$route.params.q
-                if (path != undefined) {
-                    this.$router.replace({
-                        name: 'search',
-                        params: { q: this.input },
-                    })
-                } else {
+                if (this.input != '' && this.prevInput != this.input && this.input.length > 2) {
                     this.$router.push({
                         name: 'search',
                         params: { q: this.input },
                     })
+                    this.prevInput = this.input
+                    this.$emit('data', this.input)
+                } else {
+                    console.log('Query non valida o campo vuoto. Riprova')
                 }
-                this.prevInput = this.input
-                this.path = this.$route.params.q
                 //window.scrollBy(0, 1)
                 if (this.loading == true) {
                     this.$store.commit('toggleLoading')
                 }
             } else {
-                console.log('Query vuota')
+                this.$store.commit('toggleLoading')
+                if (this.input != '' && this.prevInput != this.input && this.input.length > 2) {
+                    this.$router.replace({
+                        name: 'search',
+                        params: { q: this.input },
+                    })
+                    this.prevInput = this.input
+                    this.$emit('data', this.input)
+                } else {
+                    console.log('Query non valida o campo vuoto. Riprova')
+                }
+                //window.scrollBy(0, 1)
+                if (this.loading == true) {
+                    this.$store.commit('toggleLoading')
+                }
             }
-            this.$emit('data', this.input)
         },
     },
     computed: {
