@@ -19,7 +19,7 @@
             <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
             <v-toolbar-title class="mr-5">DeezerRate</v-toolbar-title>
             <v-spacer />
-            <searchBar v-on:update="divideAlbumsArtists" />
+            <searchBar v-on:data="passInput" />
             <v-btn icon @click="profile()" class="ml-3">
                 <v-icon dark>mdi-account-circle</v-icon>
             </v-btn>
@@ -28,6 +28,8 @@
         <v-content>
             <!--dentro il tag va: v-on:nomeEvento="funzioneDaEseguire(datoDaPassare)" => vai in methods qua sotto-->
             <router-view
+                :key="key"
+                :input="input"
                 :albumSearch="albumSearch"
                 :artistsSearch="artistsSearch"
                 :arrayRisultati="arrayRisultati"
@@ -36,7 +38,12 @@
                 v-on:updateLista2="prop"
                 :class="{ marginforplayer: show }"
             ></router-view>
-            <musicPlayer :file="file" class="player" v-if="show" v-on:hide="hide" />
+            <musicPlayer
+                :file="file"
+                class="player"
+                v-if="show"
+                v-on:hide="hide"
+            />
         </v-content>
         <!--
         <v-footer color="indigo" app>
@@ -58,6 +65,7 @@ export default {
     components: { searchBar, musicPlayer },
     data() {
         return {
+            key: 0,
             drawer: false,
             arrayRisultati: null,
             file: null,
@@ -65,15 +73,16 @@ export default {
             show: false,
             albumSearch: null,
             artistsSearch: null,
+            input: null,
         }
     },
     created: function() {
         this.$store.commit('updateUserFB')
     },
     methods: {
-        divideAlbumsArtists(arr1, arr2) {
-            this.albumSearch = arr1
-            this.artistsSearch = arr2
+        passInput(dato) {
+            this.input = dato
+            this.key += 1
         },
         prop(arr) {
             this.arrayRisultati = arr

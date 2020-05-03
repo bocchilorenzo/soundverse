@@ -8,7 +8,12 @@
                     class="text-center"
                     style="height: 100vh; display: flex; align-items:center;"
                 >
-                    <v-progress-circular :size="70" :width="7" color="indigo" indeterminate></v-progress-circular>
+                    <v-progress-circular
+                        :size="70"
+                        :width="7"
+                        color="indigo"
+                        indeterminate
+                    ></v-progress-circular>
                 </v-col>
             </v-row>
         </div>
@@ -32,7 +37,9 @@
                 </v-tab-item>
                 <v-tab-item>
                     <v-card flat tile>
-                        <cardContainerArtisti :arrayRisultati="artisti"></cardContainerArtisti>
+                        <cardContainerArtisti
+                            :arrayRisultati="artisti"
+                        ></cardContainerArtisti>
                     </v-card>
                 </v-tab-item>
             </v-tabs>
@@ -79,8 +86,7 @@ export default {
         cardContainerArtisti,
     },
     props: {
-        albumSearch: Array,
-        artistsSearch: Array,
+        input: String,
     },
     methods: {
         checkDuplicati(albumId) {
@@ -104,7 +110,7 @@ export default {
             return bottomOfPage || pageHeight < visible
         },
         updateInfoArtisti() {
-            var q = this.$route.params.q
+            var q = this.input
             axios
                 .get(`https://api.deezer.com/search/artist?q=` + q)
                 .then(response => {
@@ -123,7 +129,7 @@ export default {
                 .catch(error => console.log(error))
         },
         updateInfoAlbum() {
-            var q = this.$route.params.q
+            var q = this.input
             if (this.stop == false) {
                 axios
                     .get(

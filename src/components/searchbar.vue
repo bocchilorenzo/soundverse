@@ -17,8 +17,6 @@ export default {
         return {
             input: '',
             prevInput: '',
-            arrayRisultatiAlbum: [],
-            arrayRisultatiArtisti: [],
         }
     },
     methods: {
@@ -39,18 +37,14 @@ export default {
                 }
                 this.prevInput = this.input
                 this.path = this.$route.params.q
-                this.$emit(
-                    'update',
-                    this.arrayRisultatiAlbum,
-                    this.arrayRisultatiArtisti
-                )
-                window.scrollBy(0, 1)
+                //window.scrollBy(0, 1)
                 if (this.loading == true) {
                     this.$store.commit('toggleLoading')
                 }
             } else {
                 console.log('Query vuota')
             }
+            this.$emit('data', this.input)
         },
     },
     computed: {
