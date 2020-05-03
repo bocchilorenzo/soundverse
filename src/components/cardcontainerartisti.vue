@@ -24,9 +24,9 @@
         >
             <router-link
                 :to="{
-                    name: 'album',
-                    path: '/album/:id',
-                    params: { id: artista.artistId },
+                    name: 'artist',
+                    path: '/artist/:artista',
+                    params: { artista: artista.artistId },
                     props: true,
                 }"
             >
