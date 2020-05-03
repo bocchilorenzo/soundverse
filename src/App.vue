@@ -114,6 +114,6 @@ export default {
     width: 100%;
 }
 .marginforplayer {
-    margin-bottom: 125px;
+    margin-bottom: 100px;
 }
 </style>

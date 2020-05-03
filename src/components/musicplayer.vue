@@ -1,6 +1,12 @@
 <template>
     <!--mettere npm i vuetify-audio per utilizzarlo-->
-    <vuetify-audio :file="file" color="success" :autoPlay="autoPlay" :ended="audioFinish"></vuetify-audio>
+    <vuetify-audio
+        :file="file"
+        color="indigo"
+        :autoPlay="autoPlay"
+        :ended="audioFinish"
+        v-on:hide="audioFinish"
+    ></vuetify-audio>
 </template>
 
 <script>
