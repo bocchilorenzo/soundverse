@@ -24,7 +24,7 @@ export default {
             var pathName = this.$route.name
             if (pathName != 'search') {
                 this.$store.commit('toggleLoading')
-                if (this.input != '' && this.prevInput != this.input && this.input.length > 2) {
+                if (this.input != '' && this.prevInput != this.input && this.input.length > 1) {
                     this.$router.push({
                         name: 'search',
                         params: { q: this.input },
@@ -40,7 +40,7 @@ export default {
                 }
             } else {
                 this.$store.commit('toggleLoading')
-                if (this.input != '' && this.prevInput != this.input && this.input.length > 2) {
+                if (this.input != '' && this.prevInput != this.input && this.input.length > 1) {
                     this.$router.replace({
                         name: 'search',
                         params: { q: this.input },
