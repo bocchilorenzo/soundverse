@@ -16,6 +16,62 @@
                             indeterminate
                         ></v-progress-circular>
                     </v-col>
+                    <!--  <v-row
+                        no-gutters
+                        style="flex-wrap: nowrap;"
+                        class="mb-10"
+                        justify="center"
+                        v-else
+                    >
+                        <v-col class="d-flex flex-column" cols="4"
+                            ><v-card
+                                v-if="artistInfo[0] != undefined"
+                                class="elevation-12"
+                            >
+                                <v-card-text>
+                                    <p
+                                        class="text-center font-weight-bold"
+                                        display="inline-block"
+                                    >
+                                        {{ artistInfo[0].name }}
+                                    </p>
+                                    <v-img
+                                        class="align-end"
+                                        :src="artistInfo[0].picture"
+                                        width="100%"
+                                    ></v-img>
+                                    <p
+                                        class="text-left font-weight-normal"
+                                        display="inline-block"
+                                    >
+                                        Numero album:
+                                        {{ artistInfo[0].albumNumber }}
+                                    </p>
+                                </v-card-text>
+                            </v-card> </v-col
+                        ><v-col
+                            v-for="album in albums"
+                            :key="album.id"
+                            cols="8"
+                            sm="3"
+                            lg="2"
+                            xl="2"
+                        >
+                            <router-link
+                                :to="{
+                                    name: 'album',
+                                    path: '/album/:id',
+                                    params: { id: album.albumId },
+                                    props: true,
+                                }"
+                            >
+                                <albumCard
+                                    :albumArray="album"
+                                    :id="album.albumId"
+                                />
+                            </router-link>
+                        </v-col>
+                    </v-row> -->
                     <v-col v-else cols="12" sm="8" md="4">
                         <!--mettere un v-if che se è undefined mostra "album non esistente", altrimenti mostra i dati dell'album-->
                         <!--dividere in un componente separato-->
@@ -126,7 +182,7 @@ export default {
                     .then(response => {
                         var artistData = {
                             name: response.data.name,
-                            picture: response.data.picture_medium,
+                            picture: response.data.picture_big,
                             albumNumber: response.data.nb_album,
                         }
                         this.artistInfo.push(artistData)
