@@ -10,12 +10,7 @@
                 class="text-center"
                 style="height: 100vh; display: flex; align-items:center;"
             >
-                <v-progress-circular
-                    :size="70"
-                    :width="7"
-                    color="indigo"
-                    indeterminate
-                ></v-progress-circular>
+                <v-progress-circular :size="70" :width="7" color="indigo" indeterminate></v-progress-circular>
             </v-col>
             <v-col
                 v-else
@@ -43,6 +38,7 @@
 
 <script>
 import axios from 'axios'
+import jsonpAdapter from 'axios-jsonp'
 import albumCard from '../components/card'
 export default {
     name: 'listView',
@@ -89,11 +85,13 @@ export default {
         },
         addAlbums() {
             if (this.stop == false) {
-                axios
-                    .get(
+                axios({
+                    url:
                         'https://api.deezer.com/playlist/' +
-                            this.$route.params.lista
-                    )
+                        this.$route.params.lista +
+                        '&output=jsonp',
+                    adapter: jsonpAdapter,
+                })
                     .then(response => {
                         var i = 0
                         var tmp = false

@@ -2,174 +2,80 @@
     <div class="home">
         <v-container class="fill-width" fluid>
             <div v-if="this.loading">
-                <v-sheet
-                    class="mx-auto my-2 px-3 pt-3 pb-3"
-                    cols="12"
-                    max-width="1500px"
-                >
+                <v-sheet class="mx-auto my-2 px-3 pt-3 pb-3" cols="12" max-width="1500px">
                     <h2 class="ma-2">Top Worldwide</h2>
                     <v-slide-group class="pa-0">
                         <v-slide-item>
-                            <v-skeleton-loader
-                                class="mx-3"
-                                width="200"
-                                type="card"
-                            ></v-skeleton-loader>
+                            <v-skeleton-loader class="mx-3" width="200" type="card"></v-skeleton-loader>
                         </v-slide-item>
                         <v-slide-item>
-                            <v-skeleton-loader
-                                class="mx-3"
-                                width="200"
-                                type="card"
-                            ></v-skeleton-loader>
+                            <v-skeleton-loader class="mx-3" width="200" type="card"></v-skeleton-loader>
                         </v-slide-item>
                         <v-slide-item>
-                            <v-skeleton-loader
-                                class="mx-3"
-                                width="200"
-                                type="card"
-                            ></v-skeleton-loader>
+                            <v-skeleton-loader class="mx-3" width="200" type="card"></v-skeleton-loader>
                         </v-slide-item>
                         <v-slide-item>
-                            <v-skeleton-loader
-                                class="mx-3"
-                                width="200"
-                                type="card"
-                            ></v-skeleton-loader>
+                            <v-skeleton-loader class="mx-3" width="200" type="card"></v-skeleton-loader>
                         </v-slide-item>
                         <v-slide-item>
-                            <v-skeleton-loader
-                                class="mx-3"
-                                width="200"
-                                type="card"
-                            ></v-skeleton-loader>
+                            <v-skeleton-loader class="mx-3" width="200" type="card"></v-skeleton-loader>
                         </v-slide-item>
                         <v-slide-item>
-                            <v-skeleton-loader
-                                class="mx-3"
-                                width="200"
-                                type="card"
-                            ></v-skeleton-loader>
+                            <v-skeleton-loader class="mx-3" width="200" type="card"></v-skeleton-loader>
                         </v-slide-item>
                         <v-slide-item>
-                            <v-skeleton-loader
-                                class="mx-3"
-                                width="200"
-                                type="card"
-                            ></v-skeleton-loader>
+                            <v-skeleton-loader class="mx-3" width="200" type="card"></v-skeleton-loader>
                         </v-slide-item>
                         <v-slide-item>
-                            <v-skeleton-loader
-                                class="mx-3"
-                                width="200"
-                                type="card"
-                            ></v-skeleton-loader>
+                            <v-skeleton-loader class="mx-3" width="200" type="card"></v-skeleton-loader>
                         </v-slide-item>
                         <v-slide-item>
-                            <v-skeleton-loader
-                                class="mx-3"
-                                width="200"
-                                type="card"
-                            ></v-skeleton-loader>
+                            <v-skeleton-loader class="mx-3" width="200" type="card"></v-skeleton-loader>
                         </v-slide-item>
                         <v-slide-item>
-                            <v-skeleton-loader
-                                class="mx-3"
-                                width="200"
-                                type="card"
-                            ></v-skeleton-loader>
+                            <v-skeleton-loader class="mx-3" width="200" type="card"></v-skeleton-loader>
                         </v-slide-item>
                     </v-slide-group>
                 </v-sheet>
-                <v-sheet
-                    class="mx-auto my-2 px-3 pt-3 pb-3"
-                    cols="12"
-                    max-width="1500px"
-                >
+                <v-sheet class="mx-auto my-2 px-3 pt-3 pb-3" cols="12" max-width="1500px">
                     <h2 class="ma-2">Top Italy</h2>
                     <v-slide-group class="pa-0">
                         <v-slide-item>
-                            <v-skeleton-loader
-                                class="mx-3"
-                                width="200"
-                                type="card"
-                            ></v-skeleton-loader>
+                            <v-skeleton-loader class="mx-3" width="200" type="card"></v-skeleton-loader>
                         </v-slide-item>
                         <v-slide-item>
-                            <v-skeleton-loader
-                                class="mx-3"
-                                width="200"
-                                type="card"
-                            ></v-skeleton-loader>
+                            <v-skeleton-loader class="mx-3" width="200" type="card"></v-skeleton-loader>
                         </v-slide-item>
                         <v-slide-item>
-                            <v-skeleton-loader
-                                class="mx-3"
-                                width="200"
-                                type="card"
-                            ></v-skeleton-loader>
+                            <v-skeleton-loader class="mx-3" width="200" type="card"></v-skeleton-loader>
                         </v-slide-item>
                         <v-slide-item>
-                            <v-skeleton-loader
-                                class="mx-3"
-                                width="200"
-                                type="card"
-                            ></v-skeleton-loader>
+                            <v-skeleton-loader class="mx-3" width="200" type="card"></v-skeleton-loader>
                         </v-slide-item>
                         <v-slide-item>
-                            <v-skeleton-loader
-                                class="mx-3"
-                                width="200"
-                                type="card"
-                            ></v-skeleton-loader>
+                            <v-skeleton-loader class="mx-3" width="200" type="card"></v-skeleton-loader>
                         </v-slide-item>
                         <v-slide-item>
-                            <v-skeleton-loader
-                                class="mx-3"
-                                width="200"
-                                type="card"
-                            ></v-skeleton-loader>
+                            <v-skeleton-loader class="mx-3" width="200" type="card"></v-skeleton-loader>
                         </v-slide-item>
                         <v-slide-item>
-                            <v-skeleton-loader
-                                class="mx-3"
-                                width="200"
-                                type="card"
-                            ></v-skeleton-loader>
+                            <v-skeleton-loader class="mx-3" width="200" type="card"></v-skeleton-loader>
                         </v-slide-item>
                         <v-slide-item>
-                            <v-skeleton-loader
-                                class="mx-3"
-                                width="200"
-                                type="card"
-                            ></v-skeleton-loader>
+                            <v-skeleton-loader class="mx-3" width="200" type="card"></v-skeleton-loader>
                         </v-slide-item>
                         <v-slide-item>
-                            <v-skeleton-loader
-                                class="mx-3"
-                                width="200"
-                                type="card"
-                            ></v-skeleton-loader>
+                            <v-skeleton-loader class="mx-3" width="200" type="card"></v-skeleton-loader>
                         </v-slide-item>
                         <v-slide-item>
-                            <v-skeleton-loader
-                                class="mx-3"
-                                width="200"
-                                type="card"
-                            ></v-skeleton-loader>
+                            <v-skeleton-loader class="mx-3" width="200" type="card"></v-skeleton-loader>
                         </v-slide-item>
                     </v-slide-group>
                 </v-sheet>
             </div>
             <div v-else>
-                <carousel
-                    :albumArray="worldAlbumArray"
-                    v-on:updateLista="prop"
-                />
-                <carousel
-                    :albumArray="italyAlbumArray"
-                    v-on:updateLista="prop"
-                />
+                <carousel :albumArray="worldAlbumArray" v-on:updateLista="prop" />
+                <carousel :albumArray="italyAlbumArray" v-on:updateLista="prop" />
             </div>
         </v-container>
     </div>
@@ -177,6 +83,7 @@
 
 <script>
 import axios from 'axios'
+import jsonpAdapter from 'axios-jsonp' // ottenerla con npm install axios-jsonp
 import carousel from '../components/carousel'
 
 // @ is an alias to /src
@@ -199,8 +106,14 @@ export default {
         ) {
             axios
                 .all([
-                    axios.get(`https://api.deezer.com/playlist/3155776842`),
-                    axios.get(`https://api.deezer.com/playlist/1116187241`),
+                    axios({
+                        url: 'https://api.deezer.com/playlist/3155776842?output=jsonp',
+                        adapter: jsonpAdapter,
+                    }),
+                    axios({
+                        url: 'https://api.deezer.com/playlist/1116187241?output=jsonp',
+                        adapter: jsonpAdapter,
+                    }),
                 ])
                 .then(
                     axios.spread((firstResponse, secondResponse) => {

@@ -8,12 +8,7 @@
                     class="text-center"
                     style="height: 100vh; display: flex; align-items:center;"
                 >
-                    <v-progress-circular
-                        :size="70"
-                        :width="7"
-                        color="indigo"
-                        indeterminate
-                    ></v-progress-circular>
+                    <v-progress-circular :size="70" :width="7" color="indigo" indeterminate></v-progress-circular>
                 </v-col>
             </v-row>
         </div>
@@ -37,9 +32,7 @@
                 </v-tab-item>
                 <v-tab-item>
                     <v-card flat tile>
-                        <cardContainerArtisti
-                            :arrayRisultati="artisti"
-                        ></cardContainerArtisti>
+                        <cardContainerArtisti :arrayRisultati="artisti"></cardContainerArtisti>
                     </v-card>
                 </v-tab-item>
             </v-tabs>
@@ -51,6 +44,7 @@
 import cardContainer from '../components/cardcontainer'
 import cardContainerArtisti from '../components/cardcontainerartisti'
 import axios from 'axios'
+import jsonpAdapter from 'axios-jsonp'
 export default {
     name: 'search',
     data() {
@@ -105,8 +99,10 @@ export default {
         },
         updateInfoArtisti() {
             var q = this.$route.params.q
-            axios
-                .get(`https://api.deezer.com/search/artist?q=` + q)
+            axios({
+                url: 'https://api.deezer.com/search/artist?q=' + q + '&output=jsonp',
+                adapter: jsonpAdapter,
+            })
                 .then(response => {
                     for (var x = 0; x < 12; x++) {
                         if (response.data.data[x] != undefined) {
@@ -125,13 +121,14 @@ export default {
         updateInfoAlbum() {
             var q = this.$route.params.q
             if (this.stop == false) {
-                axios
-                    .get(
+                axios({
+                    url:
                         'https://api.deezer.com/search/album?q=' +
-                            q +
-                            '&index=' +
-                            this.start
-                    )
+                        q +
+                        '&index=' +
+                        this.start + '&output=jsonp',
+                    adapter: jsonpAdapter,
+                })
                     .then(response => {
                         var tmp = false
                         for (var i = 0; i < 25; i++) {
