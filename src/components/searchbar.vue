@@ -23,8 +23,7 @@ export default {
         search() {
             var pathName = this.$route.name
             if (pathName != 'search') {
-                this.$store.commit('toggleLoading')
-                if (this.input != '' && this.prevInput != this.input && this.input.length > 1) {
+                if (this.input != '' && this.input.length > 1) {
                     this.$router.push({
                         name: 'search',
                         params: { q: this.input },
@@ -35,11 +34,7 @@ export default {
                     console.log('Query non valida o campo vuoto. Riprova')
                 }
                 //window.scrollBy(0, 1)
-                if (this.loading == true) {
-                    this.$store.commit('toggleLoading')
-                }
             } else {
-                this.$store.commit('toggleLoading')
                 if (this.input != '' && this.prevInput != this.input && this.input.length > 1) {
                     this.$router.replace({
                         name: 'search',
@@ -51,15 +46,7 @@ export default {
                     console.log('Query non valida o campo vuoto. Riprova')
                 }
                 //window.scrollBy(0, 1)
-                if (this.loading == true) {
-                    this.$store.commit('toggleLoading')
-                }
             }
-        },
-    },
-    computed: {
-        loading() {
-            return this.$store.getters.loading
         },
     },
 }

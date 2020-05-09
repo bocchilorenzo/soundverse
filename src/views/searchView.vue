@@ -1,9 +1,8 @@
 <template>
     <div>
-        <div v-if="albums == null">
+        <div v-if="loading == true">
             <v-row align="center" justify="center">
                 <v-col
-                    v-if="this.loading"
                     cols="1"
                     class="text-center"
                     style="height: 100vh; display: flex; align-items:center;"
@@ -72,7 +71,6 @@ export default {
         cardContainer,
         cardContainerArtisti,
     },
-
     methods: {
         checkDuplicati(albumId) {
             var trovato = false

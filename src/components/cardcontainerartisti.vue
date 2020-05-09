@@ -1,20 +1,6 @@
 <template>
     <v-row no-gutters justify="center">
         <v-col
-            v-if="this.loading"
-            cols="1"
-            class="text-center"
-            style="height: 100vh; display: flex; align-items:center;"
-        >
-            <v-progress-circular
-                :size="70"
-                :width="7"
-                color="indigo"
-                indeterminate
-            ></v-progress-circular>
-        </v-col>
-        <v-col
-            v-else
             v-for="artista in arrayRisultati"
             :key="artista.artistId"
             cols="12"
@@ -43,11 +29,6 @@ export default {
     name: 'cardContainerArtisti',
     props: { arrayRisultati: Array },
     components: { artistCard },
-    computed: {
-        loading() {
-            return this.$store.getters.loading
-        },
-    },
 }
 </script>
 
