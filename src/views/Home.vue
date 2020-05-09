@@ -96,6 +96,7 @@ export default {
             //albumArray: [],
             worldAlbumArray: [],
             italyAlbumArray: [],
+            loading: true,
         }
     },
     created: function() {
@@ -191,13 +192,10 @@ export default {
                                 this.italyAlbumArray.push(albumItaly)
                             }
                         }
-                        this.$store.commit('toggleLoading')
-                        if (this.loading == true) {
-                            this.$store.commit('toggleLoading')
-                        }
                     })
                 )
                 .catch(error => console.log(error))
+                .finally(() => this.loading = false)
         }
         /*
         axios
@@ -228,11 +226,6 @@ export default {
             })
             */
     },
-    computed: {
-        loading() {
-            return this.$store.getters.loading
-        },
-    },
     methods: {
         prop(arr) {
             this.$emit('updateLista2', arr)
@@ -245,7 +238,7 @@ export default {
             } else {
                 arr = this.italyAlbumArray
             }
-            for (var j = 0; j < this.end; j++) {
+            for (var j = 0; j < arr.length; j++) {
                 if (arr != null) {
                     if (arr[j] != undefined) {
                         if (arr[j].albumId == albumId) {

@@ -59,6 +59,7 @@ export default {
             end: 25,
             stop: false,
             lastCycle: false,
+            loading: true
         }
     },
     created: function() {
@@ -66,10 +67,6 @@ export default {
             this.bottom = this.bottomVisible()
         })
         this.updateInfoArtisti()
-        this.updateInfoAlbum()
-        if (this.loading == true) {
-            this.$store.commit('toggleLoading')
-        }
     },
     components: {
         cardContainer,
@@ -79,7 +76,7 @@ export default {
     methods: {
         checkDuplicati(albumId) {
             var trovato = false
-            for (var j = 0; j < this.end; j++) {
+            for (var j = 0; j < this.albums.length; j++) {
                 if (this.albums != null) {
                     if (this.albums[j] != undefined) {
                         if (this.albums[j].albumId == albumId) {
@@ -100,7 +97,10 @@ export default {
         updateInfoArtisti() {
             var q = this.$route.params.q
             axios({
-                url: 'https://api.deezer.com/search/artist?q=' + q + '&output=jsonp',
+                url:
+                    'https://api.deezer.com/search/artist?q=' +
+                    q +
+                    '&output=jsonp',
                 adapter: jsonpAdapter,
             })
                 .then(response => {
@@ -117,6 +117,7 @@ export default {
                     }
                 })
                 .catch(error => console.log(error))
+                .finally(() => (this.updateInfoAlbum()))
         },
         updateInfoAlbum() {
             var q = this.$route.params.q
@@ -126,7 +127,8 @@ export default {
                         'https://api.deezer.com/search/album?q=' +
                         q +
                         '&index=' +
-                        this.start + '&output=jsonp',
+                        this.start +
+                        '&output=jsonp',
                     adapter: jsonpAdapter,
                 })
                     .then(response => {
@@ -166,12 +168,8 @@ export default {
                         }
                     })
                     .catch(error => console.log(error))
+                    .finally(() => (this.loading = false))
             }
-        },
-    },
-    computed: {
-        loading() {
-            return this.$store.getters.loading
         },
     },
     watch: {

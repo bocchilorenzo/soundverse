@@ -120,6 +120,7 @@ export default {
             end: 25,
             stop: false,
             lastCycle: false,
+            loading: true
         }
     },
     components: {
@@ -131,15 +132,6 @@ export default {
             this.bottom = this.bottomVisible()
         })
         this.updateInfoArtista()
-        this.updateInfoAlbum()
-        if (this.loading == true) {
-            this.$store.commit('toggleLoading')
-        }
-    },
-    computed: {
-        loading() {
-            return this.$store.getters.loading
-        },
     },
     methods: {
         bottomVisible() {
@@ -167,6 +159,7 @@ export default {
                         this.artistInfo.push(artistData)
                     })
                     .catch(error => console.log(error))
+                    .finally(() => (this.updateInfoAlbum()))
             }
         },
         updateInfoAlbum() {
@@ -207,6 +200,7 @@ export default {
                         console.log(response.data.total)
                     })
                     .catch(error => console.log(error))
+                    .finally(() => (this.loading = false))
             }
         },
     },

@@ -92,10 +92,10 @@ export default {
     data() {
         return {
             infoAlbum: [],
+            loading: true,
         }
     },
     created: function() {
-        this.$store.commit('toggleLoading')
         var id = this.$route.params.id
         axios({
             url: 'https://api.deezer.com/album/' + id + '&output=jsonp',
@@ -123,19 +123,12 @@ export default {
                     }
                 }
                 this.infoAlbum.push(albumData)
-                if (this.loading == true) {
-                    this.$store.commit('toggleLoading')
-                }
             })
             .catch(error => {
                 console.log(error)
                 this.errored = true
             })
-    },
-    computed: {
-        loading() {
-            return this.$store.getters.loading
-        },
+            .finally(() => (this.loading = false))
     },
 }
 </script>

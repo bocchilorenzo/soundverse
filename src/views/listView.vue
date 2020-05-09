@@ -72,7 +72,7 @@ export default {
         },
         checkDuplicati(albumId) {
             var trovato = false
-            for (var j = 0; j < this.end; j++) {
+            for (var j = 0; j < this.arrayRisultatiNew.length; j++) {
                 if (this.arrayRisultatiNew != null) {
                     if (this.arrayRisultatiNew[j] != undefined) {
                         if (this.arrayRisultatiNew[j].albumId == albumId) {

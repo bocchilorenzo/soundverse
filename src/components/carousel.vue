@@ -48,11 +48,6 @@ export default {
             nextIcon: false,
         }
     },
-    computed: {
-        loading() {
-            return this.$store.getters.loading
-        },
-    },
     methods: {
         check(data) {
             if (typeof data == 'object') {
@@ -62,13 +57,11 @@ export default {
             }
         },
         visualizzaLista(arrayAlbum) {
-            this.$store.commit('toggleLoading')
             this.$router.push({
                 name: 'list',
                 params: { lista: arrayAlbum[1] },
             })
             this.$emit('updateLista', arrayAlbum)
-            this.$store.commit('toggleLoading')
         },
     },
 }
