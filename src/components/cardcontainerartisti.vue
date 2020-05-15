@@ -28,7 +28,7 @@ import artistCard from './cardArtisti'
 export default {
     name: 'cardContainerArtisti',
     props: { arrayRisultati: Array },
-    components: { artistCard },
+    components: { artistCard }
 }
 </script>
 

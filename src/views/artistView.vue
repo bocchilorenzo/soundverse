@@ -85,8 +85,11 @@
                         </v-card>
                     </v-col>
                 </v-row>
+                <v-row v-if="caricatiSimili == true">
+                    <cardContainerArtisti :arrayRisultati="simili"></cardContainerArtisti>
+                </v-row>
                 <v-row align="center" justify="center">
-                    <v-col v-for="album in albums" :key="album.id" cols="12" sm="3" lg="2" xl="2">
+                    <v-col v-for="album in albums" :key="album.id" cols="12" sm="3" lg="2" xl="2" @click="aggiorna()">
                         <router-link
                             :to="{
                                 name: 'album',
@@ -107,6 +110,7 @@
 <script>
 import axios from 'axios'
 import jsonpAdapter from 'axios-jsonp'
+import cardContainerArtisti from '../components/cardcontainerartisti'
 import albumCard from '../components/card'
 export default {
     name: 'artistView',
@@ -120,11 +124,14 @@ export default {
             end: 25,
             stop: false,
             lastCycle: false,
-            loading: true
+            loading: true,
+            simili: [],
+            caricatiSimili: false,
         }
     },
     components: {
         albumCard,
+        cardContainerArtisti,
     },
     created: function() {
         this.id = this.$route.params.artista
@@ -134,6 +141,9 @@ export default {
         this.updateInfoArtista()
     },
     methods: {
+        aggiorna() {
+            this.$emit('data', true)
+        },
         bottomVisible() {
             const scrollY = window.scrollY
             const visible = document.documentElement.clientHeight
@@ -157,10 +167,175 @@ export default {
                             albumNumber: response.data.nb_album,
                         }
                         this.artistInfo.push(artistData)
+                        var nome = this.artistInfo[0].name
+                        nome = encodeURIComponent(nome.trim())
+                        axios
+                            .get(
+                                'https://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=' +
+                                    nome +
+                                    '&api_key=008dd2405a84da9505c1b2dd4dffd5e4&format=json'
+                            )
+                            .then(response => {
+                                for (var i = 0; i < 5; i++) {
+                                    var artistData2 = {
+                                        name:
+                                            response.data.artist.similar.artist[
+                                                i
+                                            ].name,
+                                    }
+                                    this.simili.push(artistData2)
+                                }
+                            })
+                            .catch(error => console.log(error))
+                            .finally(() => this.updateSimili())
                     })
                     .catch(error => console.log(error))
-                    .finally(() => (this.updateInfoAlbum()))
+                    .finally(() => this.updateInfoAlbum())
             }
+        },
+        updateSimili() {
+            axios
+                .all([
+                    axios({
+                        url:
+                            'https://api.deezer.com/search/artist?q=' +
+                            this.simili[0].name +
+                            '&output=jsonp',
+                        adapter: jsonpAdapter,
+                    }),
+                    axios({
+                        url:
+                            'https://api.deezer.com/search/artist?q=' +
+                            this.simili[1].name +
+                            '&output=jsonp',
+                        adapter: jsonpAdapter,
+                    }),
+                    axios({
+                        url:
+                            'https://api.deezer.com/search/artist?q=' +
+                            this.simili[2].name +
+                            '&output=jsonp',
+                        adapter: jsonpAdapter,
+                    }),
+                    axios({
+                        url:
+                            'https://api.deezer.com/search/artist?q=' +
+                            this.simili[3].name +
+                            '&output=jsonp',
+                        adapter: jsonpAdapter,
+                    }),
+                    axios({
+                        url:
+                            'https://api.deezer.com/search/artist?q=' +
+                            this.simili[4].name +
+                            '&output=jsonp',
+                        adapter: jsonpAdapter,
+                    }),
+                ])
+                .then(
+                    axios.spread(
+                        (
+                            firstResponse,
+                            secondResponse,
+                            thirdResponse,
+                            fourthResponse,
+                            fifthResponse
+                        ) => {
+                            for (let h = 0; h < 25; h++) {
+                                if (firstResponse.data.data[h] != undefined) {
+                                    if (
+                                        this.simili[0].name.toUpperCase() ==
+                                        firstResponse.data.data[
+                                            h
+                                        ].name.toUpperCase()
+                                    ) {
+                                        this.simili[0].artistId =
+                                            firstResponse.data.data[h].id
+                                        this.simili[0].artistImage =
+                                            firstResponse.data.data[
+                                                h
+                                            ].picture_medium
+                                        break
+                                    }
+                                }
+                            }
+                            for (let h = 0; h < 25; h++) {
+                                if (secondResponse.data.data[h] != undefined) {
+                                    if (
+                                        this.simili[1].name.toUpperCase() ==
+                                        secondResponse.data.data[
+                                            h
+                                        ].name.toUpperCase()
+                                    ) {
+                                        this.simili[1].artistId =
+                                            secondResponse.data.data[h].id
+                                        this.simili[1].artistImage =
+                                            secondResponse.data.data[
+                                                h
+                                            ].picture_medium
+                                        break
+                                    }
+                                }
+                            }
+                            for (let h = 0; h < 25; h++) {
+                                if (thirdResponse.data.data[h] != undefined) {
+                                    if (
+                                        this.simili[2].name.toUpperCase() ==
+                                        thirdResponse.data.data[
+                                            h
+                                        ].name.toUpperCase()
+                                    ) {
+                                        this.simili[2].artistId =
+                                            thirdResponse.data.data[h].id
+                                        this.simili[2].artistImage =
+                                            thirdResponse.data.data[
+                                                h
+                                            ].picture_medium
+                                        break
+                                    }
+                                }
+                            }
+                            for (let h = 0; h < 25; h++) {
+                                if (fourthResponse.data.data[h] != undefined) {
+                                    if (
+                                        this.simili[3].name.toUpperCase() ==
+                                        fourthResponse.data.data[
+                                            h
+                                        ].name.toUpperCase()
+                                    ) {
+                                        this.simili[3].artistId =
+                                            fourthResponse.data.data[h].id
+                                        this.simili[3].artistImage =
+                                            fourthResponse.data.data[
+                                                h
+                                            ].picture_medium
+                                        break
+                                    }
+                                }
+                            }
+                            for (let h = 0; h < 25; h++) {
+                                if (fifthResponse.data.data[h] != undefined) {
+                                    if (
+                                        this.simili[4].name.toUpperCase() ==
+                                        fifthResponse.data.data[
+                                            h
+                                        ].name.toUpperCase()
+                                    ) {
+                                        this.simili[4].artistId =
+                                            fifthResponse.data.data[h].id
+                                        this.simili[4].artistImage =
+                                            fifthResponse.data.data[
+                                                h
+                                            ].picture_medium
+                                        break
+                                    }
+                                }
+                            }
+                        }
+                    )
+                )
+                .catch(error => console.log(error))
+                .finally(() => (this.caricatiSimili = true))
         },
         updateInfoAlbum() {
             if (this.stop == false) {
@@ -197,7 +372,6 @@ export default {
                                 this.lastCycle = true
                             }
                         }
-                        console.log(response.data.total)
                     })
                     .catch(error => console.log(error))
                     .finally(() => (this.loading = false))
