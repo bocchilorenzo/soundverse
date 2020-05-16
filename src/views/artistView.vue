@@ -89,7 +89,7 @@
                     <cardContainerArtisti :arrayRisultati="simili"></cardContainerArtisti>
                 </v-row>
                 <v-row align="center" justify="center">
-                    <v-col v-for="album in albums" :key="album.id" cols="12" sm="3" lg="2" xl="2" @click="aggiorna()">
+                    <v-col v-for="album in albums" :key="album.id" cols="12" sm="3" lg="2" xl="2">
                         <router-link
                             :to="{
                                 name: 'album',
@@ -142,7 +142,8 @@ export default {
     },
     methods: {
         aggiorna() {
-            this.$emit('data', true)
+            this.id = this.$route.params.artista
+            this.updateInfoArtista()
         },
         bottomVisible() {
             const scrollY = window.scrollY

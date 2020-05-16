@@ -29,19 +29,21 @@ export default {
                         params: { q: this.input },
                     })
                     this.prevInput = this.input
-                    this.$emit('data', this.input)
                 } else {
                     console.log('Query non valida o campo vuoto. Riprova')
                 }
                 //window.scrollBy(0, 1)
             } else {
-                if (this.input != '' && this.prevInput != this.input && this.input.length > 1) {
+                if (
+                    this.input != '' &&
+                    this.prevInput != this.input &&
+                    this.input.length > 1
+                ) {
                     this.$router.replace({
                         name: 'search',
                         params: { q: this.input },
                     })
                     this.prevInput = this.input
-                    this.$emit('data', this.input)
                 } else {
                     console.log('Query non valida o campo vuoto. Riprova')
                 }

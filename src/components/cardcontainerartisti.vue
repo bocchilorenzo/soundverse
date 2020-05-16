@@ -16,7 +16,7 @@
                     props: true,
                 }"
             >
-                <artistCard :artistArray="artista" :id="artista.artistId" />
+                <artistCard :artistArray="artista" :id="artista.artistId"/>
             </router-link>
         </v-col>
     </v-row>

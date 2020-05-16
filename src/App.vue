@@ -19,7 +19,7 @@
             <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
             <v-toolbar-title class="mr-5">DeezerRate</v-toolbar-title>
             <v-spacer />
-            <searchBar v-on:data="update" />
+            <searchBar/>
             <v-btn icon @click="profile()" class="ml-3">
                 <v-icon dark>mdi-account-circle</v-icon>
             </v-btn>
@@ -28,7 +28,7 @@
         <v-content>
             <!--dentro il tag va: v-on:nomeEvento="funzioneDaEseguire(datoDaPassare)" => vai in methods qua sotto-->
             <router-view
-                :key="key"
+                :key="$route.fullPath"
                 :albumSearch="albumSearch"
                 :artistsSearch="artistsSearch"
                 :arrayRisultati="arrayRisultati"
@@ -78,9 +78,6 @@ export default {
         this.$store.commit('updateUserFB')
     },
     methods: {
-        update() {
-            this.key += 1
-        },
         prop(arr) {
             this.arrayRisultati = arr
         },

@@ -16,7 +16,7 @@
                     props: true,
                 }"
             >
-                <albumCard :albumArray="album" :id="album.albumId" />
+                <albumCard :albumArray="album" :id="album.albumId"/>
             </router-link>
         </v-col>
     </v-row>
