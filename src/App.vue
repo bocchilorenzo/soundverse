@@ -19,7 +19,7 @@
             <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
             <v-toolbar-title class="mr-5">DeezerRate</v-toolbar-title>
             <v-spacer />
-            <searchBar/>
+            <searchBar />
             <v-btn icon @click="profile()" class="ml-3">
                 <v-icon dark>mdi-account-circle</v-icon>
             </v-btn>
@@ -112,5 +112,8 @@ export default {
 }
 .marginforplayer {
     margin-bottom: 100px;
+}
+a {
+    text-decoration: none;
 }
 </style>

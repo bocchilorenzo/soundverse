@@ -1,53 +1,70 @@
 <template>
     <v-app id="inspire">
-        <v-content>
-            <v-container class="fill-height" fluid>
-                <v-row align="center" justify="center">
+        <v-content class="pa-0">
+            <v-container class="fill-height pa-0" fluid>
+                <v-row v-if="this.loading" align="center" justify="center">
                     <v-col
-                        v-if="this.loading"
                         cols="1"
                         class="text-center"
                         style="height: 100vh; display: flex; align-items:center;"
                     >
-                        <v-progress-circular :size="70" :width="7" color="indigo" indeterminate></v-progress-circular>
+                        <v-progress-circular
+                            :size="70"
+                            :width="7"
+                            color="indigo"
+                            indeterminate
+                        ></v-progress-circular>
                     </v-col>
-                    <!--  <v-row
-                        no-gutters
-                        style="flex-wrap: nowrap;"
-                        class="mb-10"
-                        justify="center"
-                        v-else
-                    >
-                        <v-col class="d-flex flex-column" cols="4"
-                            ><v-card
-                                v-if="artistInfo[0] != undefined"
-                                class="elevation-12"
-                            >
-                                <v-card-text>
-                                    <p
-                                        class="text-center font-weight-bold"
-                                        display="inline-block"
-                                    >
-                                        {{ artistInfo[0].name }}
-                                    </p>
-                                    <v-img
-                                        class="align-end"
-                                        :src="artistInfo[0].picture"
-                                        width="100%"
-                                    ></v-img>
-                                    <p
-                                        class="text-left font-weight-normal"
-                                        display="inline-block"
-                                    >
-                                        Numero album:
-                                        {{ artistInfo[0].albumNumber }}
-                                    </p>
-                                </v-card-text>
-                            </v-card> </v-col
-                        ><v-col
+                </v-row>
+                <v-row v-else>
+                    <v-col cols="12" class="pa-0">
+                        <v-toolbar
+                            dark
+                            prominent
+                            src="https://cdn.vuetifyjs.com/images/backgrounds/vbanner.jpg"
+                            height="200%"
+                            class="pa-0"
+                        >
+                            <!--mettere un v-if che se è undefined mostra "album non esistente", altrimenti mostra i dati dell'album-->
+                            <!--dividere in un componente separato-->
+                            <v-img
+                                class="align-end"
+                                :src="artistInfo[0].picture"
+                                height="100%"
+                                contain
+                                style="  border-radius:50%;"
+                            ></v-img>
+                            <h1 display="inline-block">
+                                {{ artistInfo[0].name }}
+                            </h1>
+                            <p display="inline-block">
+                                Numero album: {{ artistInfo[0].albumNumber }}
+                            </p>
+                            <!--    <v-card
+                            v-if="artistInfo[0] != undefined"
+                            class="elevation-12"
+                        >
+                          <v-card-text>
+                                <p class="text-center font-weight-bold"></p>
+
+                                <p
+                                    class="text-left font-weight-normal"
+                                    display="inline-block"
+                                ></p>
+                            </v-card-text>
+                        </v-card> -->
+                        </v-toolbar>
+                    </v-col>
+                    <v-row v-if="caricatiSimili == true">
+                        <cardContainerArtisti
+                            :arrayRisultati="simili"
+                        ></cardContainerArtisti>
+                    </v-row>
+                    <v-row align="center" justify="center">
+                        <v-col
                             v-for="album in albums"
                             :key="album.id"
-                            cols="8"
+                            cols="12"
                             sm="3"
                             lg="2"
                             xl="2"
@@ -66,41 +83,7 @@
                                 />
                             </router-link>
                         </v-col>
-                    </v-row>-->
-                    <v-col v-else cols="12" sm="8" md="4">
-                        <!--mettere un v-if che se è undefined mostra "album non esistente", altrimenti mostra i dati dell'album-->
-                        <!--dividere in un componente separato-->
-                        <v-card v-if="artistInfo[0] != undefined" class="elevation-12">
-                            <v-card-text>
-                                <p
-                                    class="text-center font-weight-bold"
-                                    display="inline-block"
-                                >{{ artistInfo[0].name }}</p>
-                                <v-img class="align-end" :src="artistInfo[0].picture" width="100%"></v-img>
-                                <p class="text-left font-weight-normal" display="inline-block">
-                                    Numero album:
-                                    {{ artistInfo[0].albumNumber }}
-                                </p>
-                            </v-card-text>
-                        </v-card>
-                    </v-col>
-                </v-row>
-                <v-row v-if="caricatiSimili == true">
-                    <cardContainerArtisti :arrayRisultati="simili"></cardContainerArtisti>
-                </v-row>
-                <v-row align="center" justify="center">
-                    <v-col v-for="album in albums" :key="album.id" cols="12" sm="3" lg="2" xl="2">
-                        <router-link
-                            :to="{
-                                name: 'album',
-                                path: '/album/:id',
-                                params: { id: album.albumId },
-                                props: true,
-                            }"
-                        >
-                            <albumCard :albumArray="album" :id="album.albumId" />
-                        </router-link>
-                    </v-col>
+                    </v-row>
                 </v-row>
             </v-container>
         </v-content>
