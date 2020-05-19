@@ -72,6 +72,7 @@
                         </v-slide-item>
                     </v-slide-group>
                 </v-sheet>
+                <!--Aggiungere le nuove uscite-->
             </div>
             <div v-else>
                 <carousel :albumArray="worldAlbumArray" v-on:updateLista="prop" />

@@ -1,39 +1,154 @@
 <template>
-    <v-container class="fill-height" fluid>
-        <v-row align="center">
-            <h2 class="ml-5">{{ title }}</h2>
-        </v-row>
-        <v-row align="center" justify="center">
-            <v-col
-                v-if="arrayRisultatiNew.length == 0"
-                cols="1"
-                class="text-center"
-                style="height: 100vh; display: flex; align-items:center;"
-            >
-                <v-progress-circular :size="70" :width="7" color="indigo" indeterminate></v-progress-circular>
-            </v-col>
-            <v-col
-                v-else
-                v-for="album in arrayRisultatiNew"
-                :key="album.id"
-                cols="12"
-                sm="3"
-                lg="2"
-                xl="2"
-            >
-                <router-link
-                    :to="{
+    <div>
+        <v-container class="fill-height" fluid>
+            <div v-if="this.loading">
+                <v-row align="center">
+                    <v-sheet>
+                        <v-skeleton-loader class="ml-6" width="200" type="heading"></v-skeleton-loader>
+                    </v-sheet>
+                </v-row>
+                <!--buttare tutta sta roba in un componente separato-->
+                <v-row>
+                    <v-col>
+                        <v-sheet>
+                            <v-skeleton-loader class="mx-3" width="200" type="card"></v-skeleton-loader>
+                        </v-sheet>
+                    </v-col>
+                    <v-col>
+                        <v-sheet>
+                            <v-skeleton-loader class="mx-3" width="200" type="card"></v-skeleton-loader>
+                        </v-sheet>
+                    </v-col>
+                    <v-col>
+                        <v-sheet>
+                            <v-skeleton-loader class="mx-3" width="200" type="card"></v-skeleton-loader>
+                        </v-sheet>
+                    </v-col>
+                    <v-col>
+                        <v-sheet>
+                            <v-skeleton-loader class="mx-3" width="200" type="card"></v-skeleton-loader>
+                        </v-sheet>
+                    </v-col>
+                    <v-col>
+                        <v-sheet>
+                            <v-skeleton-loader class="mx-3" width="200" type="card"></v-skeleton-loader>
+                        </v-sheet>
+                    </v-col>
+                    <v-col>
+                        <v-sheet>
+                            <v-skeleton-loader class="mx-3" width="200" type="card"></v-skeleton-loader>
+                        </v-sheet>
+                    </v-col>
+                    <v-col>
+                        <v-sheet>
+                            <v-skeleton-loader class="mx-3" width="200" type="card"></v-skeleton-loader>
+                        </v-sheet>
+                    </v-col>
+                    <v-col>
+                        <v-sheet>
+                            <v-skeleton-loader class="mx-3" width="200" type="card"></v-skeleton-loader>
+                        </v-sheet>
+                    </v-col>
+                    <v-col>
+                        <v-sheet>
+                            <v-skeleton-loader class="mx-3" width="200" type="card"></v-skeleton-loader>
+                        </v-sheet>
+                    </v-col>
+                    <v-col>
+                        <v-sheet>
+                            <v-skeleton-loader class="mx-3" width="200" type="card"></v-skeleton-loader>
+                        </v-sheet>
+                    </v-col>
+                    <v-col>
+                        <v-sheet>
+                            <v-skeleton-loader class="mx-3" width="200" type="card"></v-skeleton-loader>
+                        </v-sheet>
+                    </v-col>
+                    <v-col>
+                        <v-sheet>
+                            <v-skeleton-loader class="mx-3" width="200" type="card"></v-skeleton-loader>
+                        </v-sheet>
+                    </v-col>
+                    <v-col>
+                        <v-sheet>
+                            <v-skeleton-loader class="mx-3" width="200" type="card"></v-skeleton-loader>
+                        </v-sheet>
+                    </v-col>
+                    <v-col>
+                        <v-sheet>
+                            <v-skeleton-loader class="mx-3" width="200" type="card"></v-skeleton-loader>
+                        </v-sheet>
+                    </v-col>
+                    <v-col>
+                        <v-sheet>
+                            <v-skeleton-loader class="mx-3" width="200" type="card"></v-skeleton-loader>
+                        </v-sheet>
+                    </v-col>
+                    <v-col>
+                        <v-sheet>
+                            <v-skeleton-loader class="mx-3" width="200" type="card"></v-skeleton-loader>
+                        </v-sheet>
+                    </v-col>
+                    <v-col>
+                        <v-sheet>
+                            <v-skeleton-loader class="mx-3" width="200" type="card"></v-skeleton-loader>
+                        </v-sheet>
+                    </v-col>
+                    <v-col>
+                        <v-sheet>
+                            <v-skeleton-loader class="mx-3" width="200" type="card"></v-skeleton-loader>
+                        </v-sheet>
+                    </v-col>
+                    <v-col>
+                        <v-sheet>
+                            <v-skeleton-loader class="mx-3" width="200" type="card"></v-skeleton-loader>
+                        </v-sheet>
+                    </v-col>
+                    <v-col>
+                        <v-sheet>
+                            <v-skeleton-loader class="mx-3" width="200" type="card"></v-skeleton-loader>
+                        </v-sheet>
+                    </v-col>
+                    <v-col>
+                        <v-sheet>
+                            <v-skeleton-loader class="mx-3" width="200" type="card"></v-skeleton-loader>
+                        </v-sheet>
+                    </v-col>
+                    <v-col>
+                        <v-sheet>
+                            <v-skeleton-loader class="mx-3" width="200" type="card"></v-skeleton-loader>
+                        </v-sheet>
+                    </v-col>
+                </v-row>
+            </div>
+            <div v-else>
+                <v-row align="center">
+                    <h2 class="ml-5">{{ title }}</h2>
+                </v-row>
+                <v-row align="center" justify="center">
+                    <v-col
+                        v-for="album in arrayRisultatiNew"
+                        :key="album.id"
+                        cols="12"
+                        sm="3"
+                        lg="2"
+                        xl="2"
+                    >
+                        <router-link
+                            :to="{
                         name: 'album',
                         path: '/album/:id',
                         params: { id: album.albumId },
                         props: true,
                     }"
-                >
-                    <albumCard :albumArray="album" :id="album.albumId" />
-                </router-link>
-            </v-col>
-        </v-row>
-    </v-container>
+                        >
+                            <albumCard :albumArray="album" :id="album.albumId" />
+                        </router-link>
+                    </v-col>
+                </v-row>
+            </div>
+        </v-container>
+    </div>
 </template>
 
 <script>
@@ -54,6 +169,7 @@ export default {
             end: 40,
             stop: false,
             lastCycle: false,
+            loading: true,
         }
     },
     created: function() {
@@ -136,6 +252,7 @@ export default {
                         console.log(error)
                         this.errored = true
                     })
+                    .finally(() => (this.loading = false))
             }
         },
     },

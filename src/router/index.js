@@ -8,6 +8,7 @@ import signup from '../views/signup.vue'
 import profile from '../views/profile.vue'
 import listView from '../views/listView.vue'
 import artistView from '../views/artistView.vue'
+import ascoltati from '../views/ascoltati.vue'
 
 Vue.use(VueRouter)
 
@@ -55,6 +56,11 @@ const routes = [
         path: '/artist/:artista',
         name: 'artist',
         component: artistView,
+    },
+    {
+        path: '/ascoltati',
+        name: 'ascoltati',
+        component: ascoltati,
     },
 ]
 

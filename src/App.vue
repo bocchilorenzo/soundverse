@@ -12,6 +12,37 @@
                         </v-list-item-content>
                     </v-list-item>
                 </router-link>
+                <v-divider></v-divider>
+                <router-link to="/ascoltati">
+                    <v-list-item link>
+                        <v-list-item-action>
+                            <v-icon>mdi-check</v-icon>
+                        </v-list-item-action>
+                        <v-list-item-content>
+                            <v-list-item-title>Ascoltati</v-list-item-title>
+                        </v-list-item-content>
+                    </v-list-item>
+                </router-link>
+                <router-link to="/">
+                    <v-list-item link>
+                        <v-list-item-action>
+                            <v-icon>mdi-clock-outline</v-icon>
+                        </v-list-item-action>
+                        <v-list-item-content>
+                            <v-list-item-title>Da ascoltare</v-list-item-title>
+                        </v-list-item-content>
+                    </v-list-item>
+                </router-link>
+                <router-link to="/">
+                    <v-list-item link>
+                        <v-list-item-action>
+                            <v-icon>mdi-heart</v-icon>
+                        </v-list-item-action>
+                        <v-list-item-content>
+                            <v-list-item-title>Preferiti</v-list-item-title>
+                        </v-list-item-content>
+                    </v-list-item>
+                </router-link>
             </v-list>
         </v-navigation-drawer>
 
