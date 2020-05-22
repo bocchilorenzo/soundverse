@@ -140,7 +140,7 @@ export default {
                 .catch(function(error) {
                     console.log('Impossibile recuperare i documenti: ', error)
                 })
-                .then(() => this.caricaImg())
+                .then(() => this.addAlbums())
             //Questo sarà per scrivere, lo lascio qua per ora
             /*
             ascoltatiColl.doc('SF').set({
@@ -155,7 +155,7 @@ export default {
         }
     },
     methods: {
-        caricaImg() {
+        addAlbums() {
             if (this.stop == false) {
                 for (var i = this.start; i < this.end; i++) {
                     if (this.idArray[i] != undefined) {

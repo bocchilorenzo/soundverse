@@ -77,6 +77,23 @@
                                 </v-list>
                             </v-card-text>
                         </v-card>
+                        <div v-if="added[0].aggiunto == 1" class="my-2">
+                            <v-btn
+                                depressed
+                                color="primary"
+                                @click="aggiungi()"
+                            >Aggiungi agli album ascoltati</v-btn>
+                        </div>
+                        <div v-else-if="added[0].aggiunto == 2" class="my-2">
+                            <v-btn depressed loading color="primary"></v-btn>
+                        </div>
+                        <div v-else-if="added[0].aggiunto == 3" class="my-2">
+                            <v-btn
+                                depressed
+                                color="primary"
+                                @click="rimuovi()"
+                            >Rimuovi dagli album ascoltati</v-btn>
+                        </div>
                     </v-col>
                 </v-row>
             </v-container>
@@ -85,6 +102,7 @@
 </template>
 
 <script>
+import firebase from 'firebase'
 import axios from 'axios'
 import jsonpAdapter from 'axios-jsonp'
 export default {
@@ -93,6 +111,8 @@ export default {
         return {
             infoAlbum: [],
             loading: true,
+            user: this.$store.state.user,
+            added: [{ aggiunto: 0 }], //0 vuol dire che l'utente non è loggato, 1 che non lo ha aggiunto, 2 che lo ha aggiunto
         }
     },
     created: function() {
@@ -128,7 +148,75 @@ export default {
                 console.log(error)
                 this.errored = true
             })
-            .finally(() => (this.loading = false))
+            .finally(() => this.checkAdded())
+    },
+    methods: {
+        checkAdded() {
+            this.loading = false
+            if (this.user != null) {
+                var db = firebase.firestore()
+                var trovato = db.collection('ascoltati')
+                var agg = this.added
+                trovato
+                    .where('mail', '==', this.user.email)
+                    .where('idAlbum', '==', this.$route.params.id)
+                    .get()
+                    .then(function(querySnapshot) {
+                        agg[0].aggiunto = 1
+                        if (querySnapshot.empty == false) {
+                            agg[0].aggiunto = 3
+                        }
+                    })
+                    .catch(function(error) {
+                        console.log(
+                            'Impossibile recuperare i documenti: ',
+                            error
+                        )
+                    })
+            }
+        },
+        aggiungi() {
+            var id = this.$route.params.id
+            var email = this.user.email
+            var title = this.infoAlbum[0].title
+            var db = firebase.firestore()
+            var ascoltatiColl = db.collection('ascoltati')
+            ascoltatiColl
+                .doc()
+                .set({
+                    idAlbum: id,
+                    mail: email,
+                    titolo: title,
+                })
+                .then(() => this.trigger('add'))
+        },
+        rimuovi() {
+            var db = firebase.firestore()
+            var ascoltatiColl = db.collection('ascoltati')
+            var docId = ''
+            ascoltatiColl
+                .where('mail', '==', this.user.email)
+                .where('idAlbum', '==', this.$route.params.id)
+                .get()
+                .then(function(querySnapshot) {
+                    querySnapshot.forEach(function(doc) {
+                        docId += doc.id
+                    })
+                })
+                .then(function(){
+                    ascoltatiColl.doc(docId).delete()
+                })
+                .then(() => this.trigger('rm'))
+        },
+        trigger(mode) {
+            if (mode == 'add') {
+                this.added[0].aggiunto = 2
+                setTimeout(() => (this.added[0].aggiunto = 3), 1000)
+            } else {
+                this.added[0].aggiunto = 2
+                setTimeout(() => (this.added[0].aggiunto = 1), 1000)
+            }
+        },
     },
 }
 </script>
