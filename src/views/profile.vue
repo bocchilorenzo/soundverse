@@ -1,9 +1,16 @@
 <template>
     <div class="profile">
-        <v-row v-if="user != null" align="center" justify="center">
+        <v-row v-if="user != null" align="center" justify="center" class="flex-column">
             <p style="text-align:center">Mail: {{ user.email }}</p>
+            <p style="text-align:center">Username: {{ username }}</p>
             <v-form ref="form">
                 <v-btn color="danger" @click="logout()">Logout</v-btn>
+            </v-form>
+        </v-row>
+        <v-row v-if="user != null" align="center" justify="center" class="flex-column">
+            <v-text-field v-model="newUsername" label="Modifica username"></v-text-field>
+            <v-form ref="form">
+                <v-btn color="danger" @click="modUsername()">Modifica informazioni</v-btn>
             </v-form>
         </v-row>
     </div>
@@ -16,9 +23,81 @@ export default {
     data() {
         return {
             user: this.$store.state.user,
+            username: '',
+            newUsername: '',
         }
     },
     methods: {
+        modUsername() {
+            //Metodo che controlla se l'username è uguale a quello di prima, se è vuoto o meno e se è già presente nel db
+            if (this.newUsername == this.username) {
+                alert('Username uguale al precedente')
+            } else if (this.newUsername == '' || this.newUsername[0] == ' ') {
+                alert('Il campo non deve essere vuoto')
+            } else {
+                var db = firebase.firestore()
+                var usr = this.newUsername
+                var userData = db.collection('utenti')
+                var isPresent = false
+                userData
+                    .get()
+                    .then(function(querySnapshot) {
+                        querySnapshot.forEach(function(doc) {
+                            // doc.data() is never undefined for query doc snapshots
+                            if (doc.data().username == usr) {
+                                isPresent = true
+                            }
+                        })
+                    })
+                    .catch(function(error) {
+                        console.log('Error getting document:', error)
+                    })
+                    .then(() => this.setUsername(isPresent))
+            }
+        },
+        setUsername(isPresent) {
+            //Metodo che se l'username è in uso non lo setta, altrimenti lo setta
+            if (isPresent) {
+                alert('Username già in uso')
+            } else {
+                var db = firebase.firestore()
+                var usr = this.newUsername
+                var email = this.user.email
+                var userData = db.collection('utenti').doc(email)
+                userData
+                    .set({
+                        username: usr,
+                    })
+                    .then(function() {
+                        alert('Username aggiornato correttamente')
+                    })
+                    .catch(function(error) {
+                        alert('Qualcosa è andato storto, riprova')
+                        console.log(error)
+                    })
+                    .then(() => this.updateUsername(usr))
+            }
+        },
+        getUsername() {
+            //Metodo usato all'inizio per prelevare l'username dal db
+            var db = firebase.firestore()
+            var email = this.user.email
+            var userData = db.collection('utenti').doc(email)
+            var usr = ''
+            userData
+                .get()
+                .then(function(querySnapshot) {
+                    usr = querySnapshot.data().username
+                })
+                .catch(function(error) {
+                    console.log('Error getting document:', error)
+                })
+                .then(() => this.updateUsername(usr))
+        },
+        updateUsername(usr) {
+            //Metodo per settare correttamente l'username e aggiornare la vista
+            this.username = usr
+        },
         logoutRoute() {
             this.$router.replace({ name: 'home' })
         },
@@ -37,6 +116,8 @@ export default {
     created: function() {
         if (this.user == null) {
             this.$router.replace({ name: 'login' })
+        } else {
+            this.getUsername()
         }
     },
 }

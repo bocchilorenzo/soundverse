@@ -40,6 +40,7 @@ export default {
         }
     },
     methods: {
+        //Aggiungere metodo per settare l'username durante la registrazione, riciclando quello nella pagina del profilo per i controlli
         login() {
             this.$router.replace({ name: 'login' })
         },
