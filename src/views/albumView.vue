@@ -9,18 +9,32 @@
                         class="text-center"
                         style="height: 100vh; display: flex; align-items:center;"
                     >
-                        <v-progress-circular :size="70" :width="7" color="indigo" indeterminate></v-progress-circular>
+                        <v-progress-circular
+                            :size="70"
+                            :width="7"
+                            color="indigo"
+                            indeterminate
+                        ></v-progress-circular>
                     </v-col>
                     <v-col v-else cols="12" sm="8" md="4">
                         <!--mettere un v-if che se è undefined mostra "album non esistente", altrimenti mostra i dati dell'album-->
                         <!--dividere in un componente separato-->
-                        <v-card v-if="infoAlbum[0] != undefined" class="elevation-12">
+                        <v-card
+                            v-if="infoAlbum[0] != undefined"
+                            class="elevation-12"
+                        >
                             <v-card-text>
                                 <p
                                     class="text-center font-weight-bold"
                                     display="inline-block"
-                                >{{ infoAlbum[0].title }}</p>
-                                <v-img class="align-end" :src="infoAlbum[0].cover" width="100%"></v-img>
+                                >
+                                    {{ infoAlbum[0].title }}
+                                </p>
+                                <v-img
+                                    class="align-end"
+                                    :src="infoAlbum[0].cover"
+                                    width="100%"
+                                ></v-img>
                                 <router-link
                                     :to="{
                                         name: 'artist',
@@ -33,13 +47,20 @@
                                     <p
                                         class="text-left font-weight-normal"
                                         display="inline-block"
-                                    >Artista: {{ infoAlbum[0].artist }}</p>
+                                    >
+                                        Artista: {{ infoAlbum[0].artist }}
+                                    </p>
                                 </router-link>
                                 <p
                                     class="text-left font-weight-normal"
                                     display="inline-block"
-                                >Genere: {{ infoAlbum[0].genre }}</p>
-                                <p class="text-left font-weight-normal" display="inline-block">
+                                >
+                                    Genere: {{ infoAlbum[0].genre }}
+                                </p>
+                                <p
+                                    class="text-left font-weight-normal"
+                                    display="inline-block"
+                                >
                                     Numero tracce:
                                     {{ infoAlbum[0].numberOfTracks }}
                                 </p>
@@ -47,15 +68,21 @@
                                     v-if="infoAlbum[0].explicit"
                                     class="text-left font-weight-normal"
                                     display="inline-block"
-                                >Esplicito</p>
+                                >
+                                    Esplicito
+                                </p>
                                 <p
                                     class="text-left font-weight-normal"
                                     display="inline-block"
-                                >Data uscita: {{ infoAlbum[0].releaseDate }}</p>
+                                >
+                                    Data uscita: {{ infoAlbum[0].releaseDate }}
+                                </p>
                                 <p
                                     class="text-left font-weight-normal"
                                     display="inline-block"
-                                >Tracklist:</p>
+                                >
+                                    Tracklist:
+                                </p>
 
                                 <v-list
                                     v-for="(track, index) in infoAlbum[0]
@@ -77,23 +104,28 @@
                                 </v-list>
                             </v-card-text>
                         </v-card>
-                        <div v-if="added[0].aggiunto == 1" class="my-2">
-                            <v-btn
-                                depressed
-                                color="primary"
-                                @click="aggiungi()"
-                            >Aggiungi agli album ascoltati</v-btn>
+                        <div v-if="added.aggiunto == 1" class="my-2">
+                            <v-btn depressed color="primary" @click="aggiungi()"
+                                >Aggiungi agli album ascoltati</v-btn
+                            >
                         </div>
-                        <div v-else-if="added[0].aggiunto == 2" class="my-2">
+                        <div v-if="added.aggiunto == 3" class="my-2">
                             <v-btn depressed loading color="primary"></v-btn>
                         </div>
-                        <div v-else-if="added[0].aggiunto == 3" class="my-2">
-                            <v-btn
-                                depressed
-                                color="primary"
-                                @click="rimuovi()"
-                            >Rimuovi dagli album ascoltati</v-btn>
+                        <div v-if="added.aggiunto == 2" class="my-2">
+                            <v-btn depressed color="primary" @click="rimuovi()"
+                                >Rimuovi dagli album ascoltati</v-btn
+                            >
                         </div>
+                        <p>Your rating:</p>
+                        <v-rating
+                            v-model="rating[0]"
+                            color="yellow darken-3"
+                            background-color="grey darken-1"
+                            empty-icon="$ratingFull"
+                            half-increments
+                            hover
+                        ></v-rating>
                     </v-col>
                 </v-row>
             </v-container>
@@ -112,7 +144,8 @@ export default {
             infoAlbum: [],
             loading: true,
             user: this.$store.state.user,
-            added: [{ aggiunto: 0 }], //0 vuol dire che l'utente non è loggato, 1 che non lo ha aggiunto, 2 che lo ha aggiunto
+            rating: [0],
+            added: { aggiunto: 1 }, //0 vuol dire che l'utente non è loggato, 1 che non lo ha aggiunto, 2 che lo ha aggiunto
         }
     },
     created: function() {
@@ -152,8 +185,40 @@ export default {
     },
     methods: {
         checkAdded() {
-            this.loading = false
             if (this.user != null) {
+                var id = this.$route.params.id
+                var agg = this.added
+                var rating = this.rating
+                this.loading = false
+                var db = firebase.firestore()
+                var userData = db.collection('utenti').doc(this.user.email)
+                userData
+                    .get()
+                    .then(function(doc) {
+                        if (doc.exists) {
+                            console.log('Document data:', doc.data().ascoltati)
+                            for (
+                                let i = 0;
+                                i < doc.data().ascoltati.length;
+                                i++
+                            ) {
+                                agg.aggiunto = 1
+                                if (doc.data().ascoltati[i].idAlbum == id) {
+                                    rating[0] = doc.data().ascoltati[i].rating
+                                    agg.aggiunto = 2
+                                    break
+                                }
+                            }
+                        } else {
+                            console.log('No such document!')
+                        }
+                    })
+                    .catch(function(error) {
+                        console.log('Error getting document:', error)
+                    })
+            }
+        },
+        /*        if (this.user != null) {
                 var db = firebase.firestore()
                 var trovato = db.collection('ascoltati')
                 var agg = this.added
@@ -174,24 +239,55 @@ export default {
                         )
                     })
             }
-        },
+        },  */
         aggiungi() {
-            var id = this.$route.params.id
+            if (this.user != null) {
+                var email = this.user.email
+                var db = firebase.firestore()
+                var userData = db.collection('utenti').doc(email)
+                var title = this.infoAlbum[0].title
+                var rating = this.rating
+                var id = this.$route.params.id
+                userData
+                    .update({
+                        ascoltati: firebase.firestore.FieldValue.arrayUnion({
+                            idAlbum: id,
+                            titolo: title,
+                            rating: rating[0],
+                        }),
+                    })
+                    .then(() => this.trigger('add'))
+            }
+            /*  var id = this.$route.params.id
             var email = this.user.email
             var title = this.infoAlbum[0].title
             var db = firebase.firestore()
-            var ascoltatiColl = db.collection('ascoltati')
-            ascoltatiColl
+            userData
                 .doc()
                 .set({
                     idAlbum: id,
                     mail: email,
                     titolo: title,
                 })
-                .then(() => this.trigger('add'))
+                .then(() => this.trigger('add'))  */
         },
         rimuovi() {
             var db = firebase.firestore()
+            var email = this.user.email
+            var title = this.infoAlbum[0].title
+            var rating = this.rating
+            var id = this.$route.params.id
+            var userData = db.collection('utenti').doc(email)
+            userData
+                .update({
+                    ascoltati: firebase.firestore.FieldValue.arrayRemove({
+                        idAlbum: id,
+                        titolo: title,
+                        rating: rating[0],
+                    }),
+                })
+                .then(() => this.trigger('rm'))
+            /*    var db = firebase.firestore()
             var ascoltatiColl = db.collection('ascoltati')
             var docId = ''
             ascoltatiColl
@@ -203,19 +299,42 @@ export default {
                         docId += doc.id
                     })
                 })
-                .then(function(){
+                .then(function() {
                     ascoltatiColl.doc(docId).delete()
                 })
-                .then(() => this.trigger('rm'))
+                .then(() => this.trigger('rm'))*/
         },
+
         trigger(mode) {
             if (mode == 'add') {
-                this.added[0].aggiunto = 2
-                setTimeout(() => (this.added[0].aggiunto = 3), 1000)
+                this.added.aggiunto = 3
+                setTimeout(() => (this.added.aggiunto = 2), 1000)
             } else {
-                this.added[0].aggiunto = 2
-                setTimeout(() => (this.added[0].aggiunto = 1), 1000)
+                this.added.aggiunto = 3
+                setTimeout(() => (this.added.aggiunto = 1), 1000)
             }
+        },
+    },
+    watch: {
+        rating: function() {
+            var db = firebase.firestore()
+            var email = this.user.email
+            var id = this.$route.params.id
+            var newRating = this.rating
+            db.collection('utenti')
+                .doc(email)
+                .get()
+                .then(function(doc) {
+                    for (var i = 0; i < doc.data().ascoltati.length; i++) {
+                        if (doc.data().ascoltati[i].idAlbum == id) {
+                            console.log('trovato')
+                            doc.data().ascoltati[i].rating = newRating[0]
+                            console.log(doc.data().ascoltati[i].rating)
+
+                            break
+                        }
+                    }
+                })
         },
     },
 }

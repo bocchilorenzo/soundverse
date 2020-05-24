@@ -4,119 +4,211 @@
             <div v-if="this.loading">
                 <v-row align="center">
                     <v-sheet>
-                        <v-skeleton-loader class="ml-6" width="200" type="heading"></v-skeleton-loader>
+                        <v-skeleton-loader
+                            class="ml-6"
+                            width="200"
+                            type="heading"
+                        ></v-skeleton-loader>
                     </v-sheet>
                 </v-row>
                 <!--buttare tutta sta roba in un componente separato-->
                 <v-row>
                     <v-col>
                         <v-sheet>
-                            <v-skeleton-loader class="mx-3" width="200" type="card"></v-skeleton-loader>
+                            <v-skeleton-loader
+                                class="mx-3"
+                                width="200"
+                                type="card"
+                            ></v-skeleton-loader>
                         </v-sheet>
                     </v-col>
                     <v-col>
                         <v-sheet>
-                            <v-skeleton-loader class="mx-3" width="200" type="card"></v-skeleton-loader>
+                            <v-skeleton-loader
+                                class="mx-3"
+                                width="200"
+                                type="card"
+                            ></v-skeleton-loader>
                         </v-sheet>
                     </v-col>
                     <v-col>
                         <v-sheet>
-                            <v-skeleton-loader class="mx-3" width="200" type="card"></v-skeleton-loader>
+                            <v-skeleton-loader
+                                class="mx-3"
+                                width="200"
+                                type="card"
+                            ></v-skeleton-loader>
                         </v-sheet>
                     </v-col>
                     <v-col>
                         <v-sheet>
-                            <v-skeleton-loader class="mx-3" width="200" type="card"></v-skeleton-loader>
+                            <v-skeleton-loader
+                                class="mx-3"
+                                width="200"
+                                type="card"
+                            ></v-skeleton-loader>
                         </v-sheet>
                     </v-col>
                     <v-col>
                         <v-sheet>
-                            <v-skeleton-loader class="mx-3" width="200" type="card"></v-skeleton-loader>
+                            <v-skeleton-loader
+                                class="mx-3"
+                                width="200"
+                                type="card"
+                            ></v-skeleton-loader>
                         </v-sheet>
                     </v-col>
                     <v-col>
                         <v-sheet>
-                            <v-skeleton-loader class="mx-3" width="200" type="card"></v-skeleton-loader>
+                            <v-skeleton-loader
+                                class="mx-3"
+                                width="200"
+                                type="card"
+                            ></v-skeleton-loader>
                         </v-sheet>
                     </v-col>
                     <v-col>
                         <v-sheet>
-                            <v-skeleton-loader class="mx-3" width="200" type="card"></v-skeleton-loader>
+                            <v-skeleton-loader
+                                class="mx-3"
+                                width="200"
+                                type="card"
+                            ></v-skeleton-loader>
                         </v-sheet>
                     </v-col>
                     <v-col>
                         <v-sheet>
-                            <v-skeleton-loader class="mx-3" width="200" type="card"></v-skeleton-loader>
+                            <v-skeleton-loader
+                                class="mx-3"
+                                width="200"
+                                type="card"
+                            ></v-skeleton-loader>
                         </v-sheet>
                     </v-col>
                     <v-col>
                         <v-sheet>
-                            <v-skeleton-loader class="mx-3" width="200" type="card"></v-skeleton-loader>
+                            <v-skeleton-loader
+                                class="mx-3"
+                                width="200"
+                                type="card"
+                            ></v-skeleton-loader>
                         </v-sheet>
                     </v-col>
                     <v-col>
                         <v-sheet>
-                            <v-skeleton-loader class="mx-3" width="200" type="card"></v-skeleton-loader>
+                            <v-skeleton-loader
+                                class="mx-3"
+                                width="200"
+                                type="card"
+                            ></v-skeleton-loader>
                         </v-sheet>
                     </v-col>
                     <v-col>
                         <v-sheet>
-                            <v-skeleton-loader class="mx-3" width="200" type="card"></v-skeleton-loader>
+                            <v-skeleton-loader
+                                class="mx-3"
+                                width="200"
+                                type="card"
+                            ></v-skeleton-loader>
                         </v-sheet>
                     </v-col>
                     <v-col>
                         <v-sheet>
-                            <v-skeleton-loader class="mx-3" width="200" type="card"></v-skeleton-loader>
+                            <v-skeleton-loader
+                                class="mx-3"
+                                width="200"
+                                type="card"
+                            ></v-skeleton-loader>
                         </v-sheet>
                     </v-col>
                     <v-col>
                         <v-sheet>
-                            <v-skeleton-loader class="mx-3" width="200" type="card"></v-skeleton-loader>
+                            <v-skeleton-loader
+                                class="mx-3"
+                                width="200"
+                                type="card"
+                            ></v-skeleton-loader>
                         </v-sheet>
                     </v-col>
                     <v-col>
                         <v-sheet>
-                            <v-skeleton-loader class="mx-3" width="200" type="card"></v-skeleton-loader>
+                            <v-skeleton-loader
+                                class="mx-3"
+                                width="200"
+                                type="card"
+                            ></v-skeleton-loader>
                         </v-sheet>
                     </v-col>
                     <v-col>
                         <v-sheet>
-                            <v-skeleton-loader class="mx-3" width="200" type="card"></v-skeleton-loader>
+                            <v-skeleton-loader
+                                class="mx-3"
+                                width="200"
+                                type="card"
+                            ></v-skeleton-loader>
                         </v-sheet>
                     </v-col>
                     <v-col>
                         <v-sheet>
-                            <v-skeleton-loader class="mx-3" width="200" type="card"></v-skeleton-loader>
+                            <v-skeleton-loader
+                                class="mx-3"
+                                width="200"
+                                type="card"
+                            ></v-skeleton-loader>
                         </v-sheet>
                     </v-col>
                     <v-col>
                         <v-sheet>
-                            <v-skeleton-loader class="mx-3" width="200" type="card"></v-skeleton-loader>
+                            <v-skeleton-loader
+                                class="mx-3"
+                                width="200"
+                                type="card"
+                            ></v-skeleton-loader>
                         </v-sheet>
                     </v-col>
                     <v-col>
                         <v-sheet>
-                            <v-skeleton-loader class="mx-3" width="200" type="card"></v-skeleton-loader>
+                            <v-skeleton-loader
+                                class="mx-3"
+                                width="200"
+                                type="card"
+                            ></v-skeleton-loader>
                         </v-sheet>
                     </v-col>
                     <v-col>
                         <v-sheet>
-                            <v-skeleton-loader class="mx-3" width="200" type="card"></v-skeleton-loader>
+                            <v-skeleton-loader
+                                class="mx-3"
+                                width="200"
+                                type="card"
+                            ></v-skeleton-loader>
                         </v-sheet>
                     </v-col>
                     <v-col>
                         <v-sheet>
-                            <v-skeleton-loader class="mx-3" width="200" type="card"></v-skeleton-loader>
+                            <v-skeleton-loader
+                                class="mx-3"
+                                width="200"
+                                type="card"
+                            ></v-skeleton-loader>
                         </v-sheet>
                     </v-col>
                     <v-col>
                         <v-sheet>
-                            <v-skeleton-loader class="mx-3" width="200" type="card"></v-skeleton-loader>
+                            <v-skeleton-loader
+                                class="mx-3"
+                                width="200"
+                                type="card"
+                            ></v-skeleton-loader>
                         </v-sheet>
                     </v-col>
                     <v-col>
                         <v-sheet>
-                            <v-skeleton-loader class="mx-3" width="200" type="card"></v-skeleton-loader>
+                            <v-skeleton-loader
+                                class="mx-3"
+                                width="200"
+                                type="card"
+                            ></v-skeleton-loader>
                         </v-sheet>
                     </v-col>
                 </v-row>
@@ -136,13 +228,16 @@
                     >
                         <router-link
                             :to="{
-                        name: 'album',
-                        path: '/album/:id',
-                        params: { id: album.albumId },
-                        props: true,
-                    }"
+                                name: 'album',
+                                path: '/album/:id',
+                                params: { id: album.albumId },
+                                props: true,
+                            }"
                         >
-                            <albumCard :albumArray="album" :id="album.albumId" />
+                            <albumCard
+                                :albumArray="album"
+                                :id="album.albumId"
+                            />
                         </router-link>
                     </v-col>
                 </v-row>

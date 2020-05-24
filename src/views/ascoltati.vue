@@ -5,72 +5,128 @@
                 <v-row>
                     <v-col>
                         <v-sheet>
-                            <v-skeleton-loader class="mx-3" width="200" type="card"></v-skeleton-loader>
+                            <v-skeleton-loader
+                                class="mx-3"
+                                width="200"
+                                type="card"
+                            ></v-skeleton-loader>
                         </v-sheet>
                     </v-col>
                     <v-col>
                         <v-sheet>
-                            <v-skeleton-loader class="mx-3" width="200" type="card"></v-skeleton-loader>
+                            <v-skeleton-loader
+                                class="mx-3"
+                                width="200"
+                                type="card"
+                            ></v-skeleton-loader>
                         </v-sheet>
                     </v-col>
                     <v-col>
                         <v-sheet>
-                            <v-skeleton-loader class="mx-3" width="200" type="card"></v-skeleton-loader>
+                            <v-skeleton-loader
+                                class="mx-3"
+                                width="200"
+                                type="card"
+                            ></v-skeleton-loader>
                         </v-sheet>
                     </v-col>
                     <v-col>
                         <v-sheet>
-                            <v-skeleton-loader class="mx-3" width="200" type="card"></v-skeleton-loader>
+                            <v-skeleton-loader
+                                class="mx-3"
+                                width="200"
+                                type="card"
+                            ></v-skeleton-loader>
                         </v-sheet>
                     </v-col>
                     <v-col>
                         <v-sheet>
-                            <v-skeleton-loader class="mx-3" width="200" type="card"></v-skeleton-loader>
+                            <v-skeleton-loader
+                                class="mx-3"
+                                width="200"
+                                type="card"
+                            ></v-skeleton-loader>
                         </v-sheet>
                     </v-col>
                     <v-col>
                         <v-sheet>
-                            <v-skeleton-loader class="mx-3" width="200" type="card"></v-skeleton-loader>
+                            <v-skeleton-loader
+                                class="mx-3"
+                                width="200"
+                                type="card"
+                            ></v-skeleton-loader>
                         </v-sheet>
                     </v-col>
                     <v-col>
                         <v-sheet>
-                            <v-skeleton-loader class="mx-3" width="200" type="card"></v-skeleton-loader>
+                            <v-skeleton-loader
+                                class="mx-3"
+                                width="200"
+                                type="card"
+                            ></v-skeleton-loader>
                         </v-sheet>
                     </v-col>
                     <v-col>
                         <v-sheet>
-                            <v-skeleton-loader class="mx-3" width="200" type="card"></v-skeleton-loader>
+                            <v-skeleton-loader
+                                class="mx-3"
+                                width="200"
+                                type="card"
+                            ></v-skeleton-loader>
                         </v-sheet>
                     </v-col>
                     <v-col>
                         <v-sheet>
-                            <v-skeleton-loader class="mx-3" width="200" type="card"></v-skeleton-loader>
+                            <v-skeleton-loader
+                                class="mx-3"
+                                width="200"
+                                type="card"
+                            ></v-skeleton-loader>
                         </v-sheet>
                     </v-col>
                     <v-col>
                         <v-sheet>
-                            <v-skeleton-loader class="mx-3" width="200" type="card"></v-skeleton-loader>
+                            <v-skeleton-loader
+                                class="mx-3"
+                                width="200"
+                                type="card"
+                            ></v-skeleton-loader>
                         </v-sheet>
                     </v-col>
                     <v-col>
                         <v-sheet>
-                            <v-skeleton-loader class="mx-3" width="200" type="card"></v-skeleton-loader>
+                            <v-skeleton-loader
+                                class="mx-3"
+                                width="200"
+                                type="card"
+                            ></v-skeleton-loader>
                         </v-sheet>
                     </v-col>
                     <v-col>
                         <v-sheet>
-                            <v-skeleton-loader class="mx-3" width="200" type="card"></v-skeleton-loader>
+                            <v-skeleton-loader
+                                class="mx-3"
+                                width="200"
+                                type="card"
+                            ></v-skeleton-loader>
                         </v-sheet>
                     </v-col>
                     <v-col>
                         <v-sheet>
-                            <v-skeleton-loader class="mx-3" width="200" type="card"></v-skeleton-loader>
+                            <v-skeleton-loader
+                                class="mx-3"
+                                width="200"
+                                type="card"
+                            ></v-skeleton-loader>
                         </v-sheet>
                     </v-col>
                     <v-col>
                         <v-sheet>
-                            <v-skeleton-loader class="mx-3" width="200" type="card"></v-skeleton-loader>
+                            <v-skeleton-loader
+                                class="mx-3"
+                                width="200"
+                                type="card"
+                            ></v-skeleton-loader>
                         </v-sheet>
                     </v-col>
                 </v-row>
@@ -120,7 +176,32 @@ export default {
             this.nonLoggato = true
             this.loading = false
         } else {
+            console.log(this.user.email)
             var db = firebase.firestore()
+            var userData = db.collection('utenti').doc(this.user.email)
+            var arr = this.idArray
+            userData
+                .get()
+                .then(function(doc) {
+                    if (doc.exists && doc.data().ascoltati.length != 0) {
+                        console.log('Document data:', doc.data().ascoltati)
+                        for (let i = 0; i < doc.data().ascoltati.length; i++) {
+                            var album = {
+                                albumId: doc.data().ascoltati[i].idAlbum,
+                            }
+                            arr.push(album)
+                        }
+                    } else if (doc.data().ascoltati.length == 0) {
+                        console.log('Non hai album ascoltati')
+                    } else {
+                        console.log('No such document!')
+                    }
+                })
+                .catch(function(error) {
+                    console.log('Error getting document:', error)
+                })
+                .then(() => this.addAlbums())
+            /*   var db = firebase.firestore()
             var ascoltatiColl = db.collection('ascoltati')
             var arr = this.idArray
             //aspettare la creazione dell'indice su firestore
@@ -140,7 +221,7 @@ export default {
                 .catch(function(error) {
                     console.log('Impossibile recuperare i documenti: ', error)
                 })
-                .then(() => this.addAlbums())
+                .then(() => this.addAlbums())  */
             //Questo sarà per scrivere, lo lascio qua per ora
             /*
             ascoltatiColl.doc('SF').set({
