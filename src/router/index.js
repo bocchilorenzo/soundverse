@@ -9,6 +9,7 @@ import profile from '../views/profile.vue'
 import listView from '../views/listView.vue'
 import artistView from '../views/artistView.vue'
 import ascoltati from '../views/ascoltati.vue'
+import daAscoltare from '../views/daAscoltare.vue'
 
 Vue.use(VueRouter)
 
@@ -61,6 +62,11 @@ const routes = [
         path: '/ascoltati',
         name: 'ascoltati',
         component: ascoltati,
+    },
+    {
+        path: '/daAscoltare',
+        name: 'daAscoltare',
+        component: daAscoltare,
     },
 ]
 

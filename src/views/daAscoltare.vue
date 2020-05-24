@@ -83,12 +83,12 @@
                     <svg style="width:150px;height:150px;" viewBox="0 0 24 24">
                         <path
                             fill="#3949AB"
-                            d="M20,2H8A2,2 0 0,0 6,4V16A2,2 0 0,0 8,18H20A2,2 0 0,0 22,16V4A2,2 0 0,0 20,2M20,16H8V4H20M12.5,15A2.5,2.5 0 0,0 15,12.5V7H18V5H14V10.5C13.58,10.19 13.07,10 12.5,10A2.5,2.5 0 0,0 10,12.5A2.5,2.5 0 0,0 12.5,15M4,6H2V20A2,2 0 0,0 4,22H18V20H4"
+                            d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"
                         />
                     </svg>
                     <p
                         style="width: 60%; text-align: center"
-                    >Tutti gli album che aggiungerai verrano visualizzati qui</p>
+                    >Complimenti! Non hai nessun album da ascoltare</p>
                 </v-container>
             </div>
             <div v-else>
@@ -123,7 +123,7 @@ import jsonpAdapter from 'axios-jsonp'
 import cardContainer from '../components/cardcontainer'
 
 export default {
-    name: 'ascoltati',
+    name: 'daAscoltare',
     data() {
         return {
             albumArray: [],
@@ -154,7 +154,7 @@ export default {
             var userData = db
                 .collection('utenti')
                 .doc(this.user.email)
-                .collection('ascoltati')
+                .collection('daAscoltare')
             var arr = this.idArray
             var empty = this.vuoto
             userData

@@ -16,14 +16,14 @@
                 <router-link to="/ascoltati">
                     <v-list-item link>
                         <v-list-item-action>
-                            <v-icon>mdi-check</v-icon>
+                            <v-icon>mdi-music-box-multiple-outline</v-icon>
                         </v-list-item-action>
                         <v-list-item-content>
                             <v-list-item-title>Ascoltati</v-list-item-title>
                         </v-list-item-content>
                     </v-list-item>
                 </router-link>
-                <router-link to="/">
+                <router-link to="/daAscoltare">
                     <v-list-item link>
                         <v-list-item-action>
                             <v-icon>mdi-clock-outline</v-icon>

@@ -9,32 +9,18 @@
                         class="text-center"
                         style="height: 100vh; display: flex; align-items:center;"
                     >
-                        <v-progress-circular
-                            :size="70"
-                            :width="7"
-                            color="indigo"
-                            indeterminate
-                        ></v-progress-circular>
+                        <v-progress-circular :size="70" :width="7" color="indigo" indeterminate></v-progress-circular>
                     </v-col>
                     <v-col v-else cols="12" sm="8" md="4">
                         <!--mettere un v-if che se è undefined mostra "album non esistente", altrimenti mostra i dati dell'album-->
                         <!--dividere in un componente separato-->
-                        <v-card
-                            v-if="infoAlbum[0] != undefined"
-                            class="elevation-12"
-                        >
+                        <v-card v-if="infoAlbum[0] != undefined" class="elevation-12">
                             <v-card-text>
                                 <p
                                     class="text-center font-weight-bold"
                                     display="inline-block"
-                                >
-                                    {{ infoAlbum[0].title }}
-                                </p>
-                                <v-img
-                                    class="align-end"
-                                    :src="infoAlbum[0].cover"
-                                    width="100%"
-                                ></v-img>
+                                >{{ infoAlbum[0].title }}</p>
+                                <v-img class="align-end" :src="infoAlbum[0].cover" width="100%"></v-img>
                                 <router-link
                                     :to="{
                                         name: 'artist',
@@ -47,20 +33,13 @@
                                     <p
                                         class="text-left font-weight-normal"
                                         display="inline-block"
-                                    >
-                                        Artista: {{ infoAlbum[0].artist }}
-                                    </p>
+                                    >Artista: {{ infoAlbum[0].artist }}</p>
                                 </router-link>
                                 <p
                                     class="text-left font-weight-normal"
                                     display="inline-block"
-                                >
-                                    Genere: {{ infoAlbum[0].genre }}
-                                </p>
-                                <p
-                                    class="text-left font-weight-normal"
-                                    display="inline-block"
-                                >
+                                >Genere: {{ infoAlbum[0].genre }}</p>
+                                <p class="text-left font-weight-normal" display="inline-block">
                                     Numero tracce:
                                     {{ infoAlbum[0].numberOfTracks }}
                                 </p>
@@ -68,21 +47,15 @@
                                     v-if="infoAlbum[0].explicit"
                                     class="text-left font-weight-normal"
                                     display="inline-block"
-                                >
-                                    Esplicito
-                                </p>
+                                >Esplicito</p>
                                 <p
                                     class="text-left font-weight-normal"
                                     display="inline-block"
-                                >
-                                    Data uscita: {{ infoAlbum[0].releaseDate }}
-                                </p>
+                                >Data uscita: {{ infoAlbum[0].releaseDate }}</p>
                                 <p
                                     class="text-left font-weight-normal"
                                     display="inline-block"
-                                >
-                                    Tracklist:
-                                </p>
+                                >Tracklist:</p>
 
                                 <v-list
                                     v-for="(track, index) in infoAlbum[0]
@@ -105,17 +78,38 @@
                             </v-card-text>
                         </v-card>
                         <div v-if="added.aggiunto == 1" class="my-2">
-                            <v-btn depressed color="primary" @click="aggiungi()"
-                                >Aggiungi agli album ascoltati</v-btn
-                            >
+                            <v-btn
+                                depressed
+                                color="primary"
+                                @click="aggiungi()"
+                            >Aggiungi agli album ascoltati</v-btn>
                         </div>
                         <div v-if="added.aggiunto == 3" class="my-2">
                             <v-btn depressed loading color="primary"></v-btn>
                         </div>
                         <div v-if="added.aggiunto == 2" class="my-2">
-                            <v-btn depressed color="primary" @click="rimuovi()"
-                                >Rimuovi dagli album ascoltati</v-btn
-                            >
+                            <v-btn
+                                depressed
+                                color="primary"
+                                @click="rimuovi()"
+                            >Rimuovi dagli album ascoltati</v-btn>
+                        </div>
+                        <div v-if="added2.aggiunto == 1" class="my-2">
+                            <v-btn
+                                depressed
+                                color="primary"
+                                @click="aggiungi2()"
+                            >Aggiungi agli album da ascoltare</v-btn>
+                        </div>
+                        <div v-if="added2.aggiunto == 3" class="my-2">
+                            <v-btn depressed loading color="primary"></v-btn>
+                        </div>
+                        <div v-if="added2.aggiunto == 2" class="my-2">
+                            <v-btn
+                                depressed
+                                color="primary"
+                                @click="rimuovi2()"
+                            >Rimuovi dagli album da ascoltare</v-btn>
                         </div>
                         <p>Your rating:</p>
                         <v-rating
@@ -146,6 +140,7 @@ export default {
             user: this.$store.state.user,
             rating: [0],
             added: { aggiunto: 1 }, //0 vuol dire che l'utente non è loggato, 1 che non lo ha aggiunto, 2 che lo ha aggiunto
+            added2: { aggiunto: 1 },
         }
     },
     created: function() {
@@ -188,6 +183,7 @@ export default {
             if (this.user != null) {
                 var id = this.$route.params.id
                 var agg = this.added
+                var agg2 = this.added2
                 var rating = this.rating
                 this.loading = false
                 var db = firebase.firestore()
@@ -212,9 +208,27 @@ export default {
                     .catch(function(error) {
                         console.log('Error getting document:', error)
                     })
+                userData = db
+                    .collection('utenti')
+                    .doc(this.user.email)
+                    .collection('daAscoltare')
+                    .doc(id.toString())
+                userData
+                    .get()
+                    .then(function(doc) {
+                        agg2.aggiunto = 1
+                        if (doc.exists) {
+                            console.log('Document id:', doc.id)
+                            agg2.aggiunto = 2
+                        } else {
+                            console.log('No such document!')
+                        }
+                    })
+                    .catch(function(error) {
+                        console.log('Error getting document:', error)
+                    })
             }
         },
-
         aggiungi() {
             if (this.user != null) {
                 var email = this.user.email
@@ -235,6 +249,24 @@ export default {
                     .then(() => this.trigger('add'))
             }
         },
+        aggiungi2() {
+            if (this.user != null) {
+                var email = this.user.email
+                var db = firebase.firestore()
+                var id = this.$route.params.id
+                var title = this.infoAlbum[0].title
+                var userData = db
+                    .collection('utenti')
+                    .doc(email)
+                    .collection('daAscoltare')
+                    .doc(id.toString())
+                userData
+                    .set({
+                        titolo: title,
+                    })
+                    .then(() => this.trigger('add2'))
+            }
+        },
         rimuovi() {
             var db = firebase.firestore()
             var email = this.user.email
@@ -246,14 +278,30 @@ export default {
                 .doc(id.toString())
             userData.delete().then(() => this.trigger('rm'))
         },
-
+        rimuovi2() {
+            var db = firebase.firestore()
+            var email = this.user.email
+            var id = this.$route.params.id
+            var userData = db
+                .collection('utenti')
+                .doc(email)
+                .collection('daAscoltare')
+                .doc(id.toString())
+            userData.delete().then(() => this.trigger('rm2'))
+        },
         trigger(mode) {
             if (mode == 'add') {
                 this.added.aggiunto = 3
                 setTimeout(() => (this.added.aggiunto = 2), 500)
-            } else {
+            } else if (mode == 'rm') {
                 this.added.aggiunto = 3
                 setTimeout(() => (this.added.aggiunto = 1), 500)
+            } else if (mode == 'add2') {
+                this.added2.aggiunto = 3
+                setTimeout(() => (this.added2.aggiunto = 2), 500)
+            } else if (mode == 'rm2') {
+                this.added2.aggiunto = 3
+                setTimeout(() => (this.added2.aggiunto = 1), 500)
             }
         },
     },
