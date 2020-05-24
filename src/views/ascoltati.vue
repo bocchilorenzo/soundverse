@@ -176,63 +176,28 @@ export default {
             this.nonLoggato = true
             this.loading = false
         } else {
-            console.log(this.user.email)
             var db = firebase.firestore()
-            var userData = db.collection('utenti').doc(this.user.email)
+            var userData = db
+                .collection('utenti')
+                .doc(this.user.email)
+                .collection('ascoltati')
             var arr = this.idArray
             userData
                 .get()
-                .then(function(doc) {
-                    if (doc.exists && doc.data().ascoltati.length != 0) {
-                        console.log('Document data:', doc.data().ascoltati)
-                        for (let i = 0; i < doc.data().ascoltati.length; i++) {
-                            var album = {
-                                albumId: doc.data().ascoltati[i].idAlbum,
-                            }
-                            arr.push(album)
-                        }
-                    } else if (doc.data().ascoltati.length == 0) {
-                        console.log('Non hai album ascoltati')
-                    } else {
-                        console.log('No such document!')
-                    }
-                })
-                .catch(function(error) {
-                    console.log('Error getting document:', error)
-                })
-                .then(() => this.addAlbums())
-            /*   var db = firebase.firestore()
-            var ascoltatiColl = db.collection('ascoltati')
-            var arr = this.idArray
-            //aspettare la creazione dell'indice su firestore
-            //pensare se meglio ordinare per titolo o timestamp
-            ascoltatiColl
-                .where('mail', '==', this.user.email)
-                .orderBy('titolo')
-                .get()
                 .then(function(querySnapshot) {
                     querySnapshot.forEach(function(doc) {
+                        // doc.data() is never undefined for query doc snapshots
+                        console.log(doc.id, ' => ', doc.data())
                         var album = {
-                            albumId: doc.data().idAlbum,
+                            albumId: doc.id,
                         }
                         arr.push(album)
                     })
                 })
                 .catch(function(error) {
-                    console.log('Impossibile recuperare i documenti: ', error)
+                    console.log('Error getting document:', error)
                 })
-                .then(() => this.addAlbums())  */
-            //Questo sarà per scrivere, lo lascio qua per ora
-            /*
-            ascoltatiColl.doc('SF').set({
-                name: 'San Francisco',
-                state: 'CA',
-                country: 'USA',
-                capital: false,
-                population: 860000,
-                regions: ['west_coast', 'norcal'],
-            })
-            */
+                .then(() => this.addAlbums())
         }
     },
     methods: {

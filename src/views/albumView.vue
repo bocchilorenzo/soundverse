@@ -191,24 +191,20 @@ export default {
                 var rating = this.rating
                 this.loading = false
                 var db = firebase.firestore()
-                var userData = db.collection('utenti').doc(this.user.email)
+                var userData = db
+                    .collection('utenti')
+                    .doc(this.user.email)
+                    .collection('ascoltati')
+                    .doc(id.toString())
                 userData
                     .get()
                     .then(function(doc) {
+                        agg.aggiunto = 1
                         if (doc.exists) {
-                            console.log('Document data:', doc.data().ascoltati)
-                            for (
-                                let i = 0;
-                                i < doc.data().ascoltati.length;
-                                i++
-                            ) {
-                                agg.aggiunto = 1
-                                if (doc.data().ascoltati[i].idAlbum == id) {
-                                    rating[0] = doc.data().ascoltati[i].rating
-                                    agg.aggiunto = 2
-                                    break
-                                }
-                            }
+                            console.log('Document id:', doc.id)
+                            console.log('Album rating:', doc.data().rating)
+                            rating[0] = doc.data().rating
+                            agg.aggiunto = 2
                         } else {
                             console.log('No such document!')
                         }
@@ -218,100 +214,46 @@ export default {
                     })
             }
         },
-        /*        if (this.user != null) {
-                var db = firebase.firestore()
-                var trovato = db.collection('ascoltati')
-                var agg = this.added
-                trovato
-                    .where('mail', '==', this.user.email)
-                    .where('idAlbum', '==', this.$route.params.id)
-                    .get()
-                    .then(function(querySnapshot) {
-                        agg[0].aggiunto = 1
-                        if (querySnapshot.empty == false) {
-                            agg[0].aggiunto = 3
-                        }
-                    })
-                    .catch(function(error) {
-                        console.log(
-                            'Impossibile recuperare i documenti: ',
-                            error
-                        )
-                    })
-            }
-        },  */
+
         aggiungi() {
             if (this.user != null) {
                 var email = this.user.email
                 var db = firebase.firestore()
-                var userData = db.collection('utenti').doc(email)
+                var id = this.$route.params.id
                 var title = this.infoAlbum[0].title
                 var rating = this.rating
-                var id = this.$route.params.id
+                var userData = db
+                    .collection('utenti')
+                    .doc(email)
+                    .collection('ascoltati')
+                    .doc(id.toString())
                 userData
-                    .update({
-                        ascoltati: firebase.firestore.FieldValue.arrayUnion({
-                            idAlbum: id,
-                            titolo: title,
-                            rating: rating[0],
-                        }),
+                    .set({
+                        titolo: title,
+                        rating: rating[0],
                     })
                     .then(() => this.trigger('add'))
             }
-            /*  var id = this.$route.params.id
-            var email = this.user.email
-            var title = this.infoAlbum[0].title
-            var db = firebase.firestore()
-            userData
-                .doc()
-                .set({
-                    idAlbum: id,
-                    mail: email,
-                    titolo: title,
-                })
-                .then(() => this.trigger('add'))  */
         },
         rimuovi() {
             var db = firebase.firestore()
             var email = this.user.email
-            var title = this.infoAlbum[0].title
-            var rating = this.rating
             var id = this.$route.params.id
-            var userData = db.collection('utenti').doc(email)
-            userData
-                .update({
-                    ascoltati: firebase.firestore.FieldValue.arrayRemove({
-                        idAlbum: id,
-                        titolo: title,
-                        rating: rating[0],
-                    }),
-                })
-                .then(() => this.trigger('rm'))
-            /*    var db = firebase.firestore()
-            var ascoltatiColl = db.collection('ascoltati')
-            var docId = ''
-            ascoltatiColl
-                .where('mail', '==', this.user.email)
-                .where('idAlbum', '==', this.$route.params.id)
-                .get()
-                .then(function(querySnapshot) {
-                    querySnapshot.forEach(function(doc) {
-                        docId += doc.id
-                    })
-                })
-                .then(function() {
-                    ascoltatiColl.doc(docId).delete()
-                })
-                .then(() => this.trigger('rm'))*/
+            var userData = db
+                .collection('utenti')
+                .doc(email)
+                .collection('ascoltati')
+                .doc(id.toString())
+            userData.delete().then(() => this.trigger('rm'))
         },
 
         trigger(mode) {
             if (mode == 'add') {
                 this.added.aggiunto = 3
-                setTimeout(() => (this.added.aggiunto = 2), 1000)
+                setTimeout(() => (this.added.aggiunto = 2), 500)
             } else {
                 this.added.aggiunto = 3
-                setTimeout(() => (this.added.aggiunto = 1), 1000)
+                setTimeout(() => (this.added.aggiunto = 1), 500)
             }
         },
     },
@@ -321,19 +263,14 @@ export default {
             var email = this.user.email
             var id = this.$route.params.id
             var newRating = this.rating
+            var title = this.infoAlbum[0].title
             db.collection('utenti')
                 .doc(email)
-                .get()
-                .then(function(doc) {
-                    for (var i = 0; i < doc.data().ascoltati.length; i++) {
-                        if (doc.data().ascoltati[i].idAlbum == id) {
-                            console.log('trovato')
-                            doc.data().ascoltati[i].rating = newRating[0]
-                            console.log(doc.data().ascoltati[i].rating)
-
-                            break
-                        }
-                    }
+                .collection('ascoltati')
+                .doc(id.toString())
+                .set({
+                    rating: newRating[0],
+                    titolo: title,
                 })
         },
     },
