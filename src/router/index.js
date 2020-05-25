@@ -10,6 +10,7 @@ import listView from '../views/listView.vue'
 import artistView from '../views/artistView.vue'
 import ascoltati from '../views/ascoltati.vue'
 import daAscoltare from '../views/daAscoltare.vue'
+import preferiti from '../views/preferiti.vue'
 
 Vue.use(VueRouter)
 
@@ -67,6 +68,11 @@ const routes = [
         path: '/daAscoltare',
         name: 'daAscoltare',
         component: daAscoltare,
+    },
+    {
+        path: '/preferiti',
+        name: 'preferiti',
+        component: preferiti,
     },
 ]
 
