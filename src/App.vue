@@ -33,7 +33,7 @@
                         </v-list-item-content>
                     </v-list-item>
                 </router-link>
-                <router-link to="/">
+                <router-link to="/preferiti">
                     <v-list-item link>
                         <v-list-item-action>
                             <v-icon>mdi-heart</v-icon>

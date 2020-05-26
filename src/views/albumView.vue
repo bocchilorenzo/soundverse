@@ -142,6 +142,12 @@
                             half-increments
                             hover
                         ></v-rating>
+                        <v-btn icon color="pink" @click="favourite()" large>
+                            <v-icon large v-if="preferito.isPreferito"
+                                >mdi-heart</v-icon
+                            >
+                            <v-icon large v-else>mdi-heart-outline</v-icon>
+                        </v-btn>
                     </v-col>
                 </v-row>
             </v-container>
@@ -163,6 +169,7 @@ export default {
             rating: [0],
             added: { aggiunto: 1 }, //0 vuol dire che l'utente non è loggato, 1 che non lo ha aggiunto, 2 che lo ha aggiunto
             added2: { aggiunto: 1 },
+            preferito: { isPreferito: false },
         }
     },
     created: function() {
@@ -208,19 +215,17 @@ export default {
                 var agg2 = this.added2
                 var rating = this.rating
                 this.loading = false
+                var preferito = this.preferito
                 var db = firebase.firestore()
-                var userData = db
-                    .collection('utenti')
-                    .doc(this.user.email)
+                var userData = db.collection('utenti').doc(this.user.email)
+                userData
                     .collection('ascoltati')
                     .doc(id.toString())
-                userData
                     .get()
                     .then(function(doc) {
                         agg.aggiunto = 1
                         if (doc.exists) {
                             console.log('Document id:', doc.id)
-                            console.log('Album rating:', doc.data().rating)
                             rating[0] = doc.data().rating
                             agg.aggiunto = 2
                         } else {
@@ -230,20 +235,34 @@ export default {
                     .catch(function(error) {
                         console.log('Error getting document:', error)
                     })
-                userData = db
-                    .collection('utenti')
-                    .doc(this.user.email)
+
+                userData
                     .collection('daAscoltare')
                     .doc(id.toString())
-                userData
                     .get()
                     .then(function(doc) {
                         agg2.aggiunto = 1
                         if (doc.exists) {
-                            console.log('Document id:', doc.id)
                             agg2.aggiunto = 2
                         } else {
                             console.log('No such document!')
+                        }
+                    })
+                    .catch(function(error) {
+                        console.log('Error getting document:', error)
+                    })
+
+                userData
+                    .collection('preferiti')
+                    .doc(id.toString())
+                    .get()
+                    .then(function(doc) {
+                        if (doc.exists) {
+                            preferito.isPreferito = true
+                            console.log('è tra i preferiti')
+                        } else {
+                            preferito.isPreferito = false
+                            console.log('non è tra i preferiti')
                         }
                     })
                     .catch(function(error) {
@@ -313,6 +332,24 @@ export default {
                 .collection('daAscoltare')
                 .doc(id.toString())
             userData.delete().then(() => this.trigger('rm2'))
+        },
+        favourite() {
+            var db = firebase.firestore()
+            var email = this.user.email
+            var id = this.$route.params.id
+            var userData = db
+                .collection('utenti')
+                .doc(email)
+                .collection('preferiti')
+                .doc(id.toString())
+            var title = this.infoAlbum[0].title
+            if (this.preferito.isPreferito == true) {
+                userData.delete()
+                this.preferito.isPreferito = false
+            } else {
+                userData.set({ titolo: title })
+                this.preferito.isPreferito = true
+            }
         },
         trigger(mode) {
             if (mode == 'add') {
