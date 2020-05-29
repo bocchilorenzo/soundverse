@@ -8,16 +8,7 @@
             lg="2"
             xl="2"
         >
-            <router-link
-                :to="{
-                    name: 'album',
-                    path: '/album/:id',
-                    params: { id: album.albumId },
-                    props: true,
-                }"
-            >
-                <albumCard :albumArray="album" :id="album.albumId"/>
-            </router-link>
+            <albumCard :albumArray="album" :id="album.albumId" />
         </v-col>
     </v-row>
 </template>

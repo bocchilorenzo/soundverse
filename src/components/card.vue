@@ -1,15 +1,24 @@
 <template>
     <v-hover v-slot:default="{ hover }" style="max-width: 200px">
         <v-card class="ma-2" max-width="400" :elevation="hover ? 10 : 2">
-            <v-img class="align-end" :src="albumArray.cover"></v-img>
+            <router-link
+                :to="{
+                    name: 'album',
+                    path: '/album/:id',
+                    params: { id: albumArray.albumId },
+                    props: true,
+                }"
+            >
+                <v-img class="align-end" :src="albumArray.cover"></v-img>
 
-            <v-card-subtitle class="pb-0">
-                {{ albumArray.artist }}
-            </v-card-subtitle>
+                <v-card-subtitle class="pb-0">
+                    {{ albumArray.artist }}
+                </v-card-subtitle>
 
-            <v-card-text class="text--primary">
-                {{ albumArray.title }}
-            </v-card-text>
+                <v-card-text class="text--primary">
+                    {{ albumArray.title }}
+                </v-card-text>
+            </router-link>
 
             <v-card-actions>
                 <v-menu

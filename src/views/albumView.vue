@@ -1,158 +1,187 @@
 <template>
-    <v-app id="inspire">
-        <v-content>
-            <v-container class="fill-height" fluid>
-                <v-row align="center" justify="center">
-                    <v-col
-                        v-if="this.loading"
-                        cols="1"
-                        class="text-center"
-                        style="height: 100vh; display: flex; align-items:center;"
-                    >
-                        <v-progress-circular
-                            :size="70"
-                            :width="7"
-                            color="indigo"
-                            indeterminate
-                        ></v-progress-circular>
-                    </v-col>
-                    <v-col v-else cols="12" sm="8" md="4">
-                        <!--mettere un v-if che se è undefined mostra "album non esistente", altrimenti mostra i dati dell'album-->
-                        <!--dividere in un componente separato-->
-                        <v-card
-                            v-if="infoAlbum[0] != undefined"
-                            class="elevation-12"
-                        >
-                            <v-card-text>
-                                <p
-                                    class="text-center font-weight-bold"
-                                    display="inline-block"
-                                >
-                                    {{ infoAlbum[0].title }}
-                                </p>
-                                <v-img
-                                    class="align-end"
-                                    :src="infoAlbum[0].cover"
-                                    width="100%"
-                                ></v-img>
-                                <router-link
-                                    :to="{
-                                        name: 'artist',
-                                        path: '/artist/:artista',
-                                        params: {
-                                            artista: infoAlbum[0].artistId,
-                                        },
-                                    }"
-                                >
-                                    <p
-                                        class="text-left font-weight-normal"
-                                        display="inline-block"
-                                    >
-                                        Artista: {{ infoAlbum[0].artist }}
-                                    </p>
-                                </router-link>
-                                <p
-                                    class="text-left font-weight-normal"
-                                    display="inline-block"
-                                >
-                                    Genere: {{ infoAlbum[0].genre }}
-                                </p>
-                                <p
-                                    class="text-left font-weight-normal"
-                                    display="inline-block"
-                                >
-                                    Numero tracce:
-                                    {{ infoAlbum[0].numberOfTracks }}
-                                </p>
-                                <p
-                                    v-if="infoAlbum[0].explicit"
-                                    class="text-left font-weight-normal"
-                                    display="inline-block"
-                                >
-                                    Esplicito
-                                </p>
-                                <p
-                                    class="text-left font-weight-normal"
-                                    display="inline-block"
-                                >
-                                    Data uscita: {{ infoAlbum[0].releaseDate }}
-                                </p>
-                                <p
-                                    class="text-left font-weight-normal"
-                                    display="inline-block"
-                                >
-                                    Tracklist:
-                                </p>
+    <v-container class="fill-height" fluid>
+        <v-row align="center" justify="center" v-if="this.loading">
+            <v-col
+                cols="1"
+                class="text-center"
+                style="height: 100vh; display: flex; align-items:center;"
+            >
+                <v-progress-circular
+                    :size="70"
+                    :width="7"
+                    color="indigo"
+                    indeterminate
+                ></v-progress-circular>
+            </v-col>
+        </v-row>
+        <v-row no-gutters v-else>
+            <v-col cols="3">
+                <v-img
+                    class="align-end"
+                    :src="infoAlbum[0].cover"
+                    width="100%"
+                ></v-img>
 
-                                <v-list
-                                    v-for="(track, index) in infoAlbum[0]
-                                        .trackList"
-                                    :key="track.songId"
-                                >
-                                    <v-list-item
-                                        @click="
-                                            $emit('play', track.songPreview)
-                                        "
-                                    >
-                                        <v-list-item-content>
-                                            <v-list-item-title>
-                                                {{ index + 1 }} -
-                                                {{ track.songTitle }}
-                                            </v-list-item-title>
-                                        </v-list-item-content>
-                                    </v-list-item>
-                                </v-list>
-                            </v-card-text>
-                        </v-card>
-                        <div v-if="added.aggiunto == 1" class="my-2">
-                            <v-btn depressed color="primary" @click="aggiungi()"
-                                >Aggiungi agli album ascoltati</v-btn
+                <p class="text-left font-weight-normal" display="inline-block">
+                    Genere: {{ infoAlbum[0].genre }}
+                </p>
+                <p class="text-left font-weight-normal" display="inline-block">
+                    Numero tracce:
+                    {{ infoAlbum[0].numberOfTracks }}
+                </p>
+                <p
+                    v-if="infoAlbum[0].explicit"
+                    class="text-left font-weight-normal"
+                    display="inline-block"
+                >
+                    Esplicito
+                </p>
+                <p class="text-left font-weight-normal" display="inline-block">
+                    Data uscita: {{ infoAlbum[0].releaseDate }}
+                </p>
+            </v-col>
+            <v-col v-if="infoAlbum[0] != undefined">
+                <h1>
+                    {{ infoAlbum[0].title }}
+                </h1>
+                <router-link
+                    :to="{
+                        name: 'artist',
+                        path: '/artist/:artista',
+                        params: {
+                            artista: infoAlbum[0].artistId,
+                        },
+                    }"
+                >
+                    <h3
+                        class="text-left font-weight-normal"
+                        display="inline-block"
+                    >
+                        {{ infoAlbum[0].artist }}
+                    </h3>
+                </router-link>
+                <v-list
+                    v-for="(track, index) in infoAlbum[0].trackList"
+                    :key="track.songId"
+                >
+                    <v-list-item @click="$emit('play', track.songPreview)">
+                        <v-list-item-content>
+                            <v-list-item-title>
+                                {{ index + 1 }} -
+                                {{ track.songTitle }}
+                            </v-list-item-title>
+                        </v-list-item-content>
+                    </v-list-item>
+                </v-list>
+            </v-col>
+            <v-col cols="3">
+                <v-row justify="center">
+                    <v-col class="pa-0 ma-1">
+                        <v-btn
+                            icon
+                            @click="toListen(), (loader = 'loading1')"
+                            block
+                            height="85"
+                            width="85"
+                            :loading="loading1"
+                            :disabled="loading1"
+                        >
+                            <v-icon
+                                size="70"
+                                v-if="daAscoltare.isDaAscoltare"
+                                color="blue"
                             >
-                        </div>
-                        <div v-if="added.aggiunto == 3" class="my-2">
-                            <v-btn depressed loading color="primary"></v-btn>
-                        </div>
-                        <div v-if="added.aggiunto == 2" class="my-2">
-                            <v-btn depressed color="primary" @click="rimuovi()"
-                                >Rimuovi dagli album ascoltati</v-btn
+                                mdi-book-remove-multiple</v-icon
+                            ><v-icon size="70" v-else color="grey"
+                                >mdi-book-plus-multiple-outline</v-icon
                             >
-                        </div>
-                        <div v-if="added2.aggiunto == 1" class="my-2">
-                            <v-btn
-                                depressed
-                                color="primary"
-                                @click="aggiungi2()"
-                                >Aggiungi agli album da ascoltare</v-btn
+                        </v-btn>
+                        <p
+                            class="font-weight-light caption text-center"
+                            v-if="daAscoltare.isDaAscoltare"
+                        >
+                            Rimuovi dagli album da ascoltare
+                        </p>
+                        <p v-else class="font-weight-light caption text-center">
+                            Aggiungi agli album da ascoltare
+                        </p>
+                    </v-col>
+                    <v-col class="pa-0 ma-1">
+                        <v-btn
+                            icon
+                            @click="listened(), (loader = 'loading2')"
+                            height="85"
+                            width="85"
+                            block
+                            :loading="loading2"
+                            :disabled="loading2"
+                        >
+                            <v-icon
+                                size="70"
+                                v-if="ascoltato.isAscoltato"
+                                color="green"
                             >
-                        </div>
-                        <div v-if="added2.aggiunto == 3" class="my-2">
-                            <v-btn depressed loading color="primary"></v-btn>
-                        </div>
-                        <div v-if="added2.aggiunto == 2" class="my-2">
-                            <v-btn depressed color="primary" @click="rimuovi2()"
-                                >Rimuovi dagli album da ascoltare</v-btn
+                                mdi-folder-music</v-icon
+                            ><v-icon size="70" v-else color="grey"
+                                >mdi-folder-music-outline</v-icon
                             >
-                        </div>
-                        <p>Your rating:</p>
-                        <v-rating
-                            v-model="rating[0]"
-                            color="yellow darken-3"
-                            background-color="grey darken-1"
-                            empty-icon="$ratingFull"
-                            half-increments
-                            hover
-                        ></v-rating>
-                        <v-btn icon color="pink" @click="favourite()" large>
-                            <v-icon large v-if="preferito.isPreferito"
+                        </v-btn>
+                        <p
+                            class="font-weight-light caption text-center"
+                            v-if="ascoltato.isAscoltato"
+                        >
+                            Rimuovi dagli ascoltati
+                        </p>
+                        <p v-else class="font-weight-light caption text-center">
+                            Aggiungi agli ascoltati
+                        </p>
+                    </v-col>
+                    <v-col class="pa-0 ma-1">
+                        <v-btn
+                            icon
+                            @click="favourite(), (loader = 'loading3')"
+                            height="85"
+                            width="85"
+                            block
+                            :loading="loading3"
+                            :disabled="loading3"
+                        >
+                            <v-icon
+                                size="70"
+                                color="pink"
+                                v-if="preferito.isPreferito"
                                 >mdi-heart</v-icon
                             >
-                            <v-icon large v-else>mdi-heart-outline</v-icon>
+                            <v-icon color="grey" size="70" v-else
+                                >mdi-heart-outline</v-icon
+                            >
                         </v-btn>
+                        <p
+                            class="font-weight-light caption text-center"
+                            v-if="preferito.isPreferito"
+                        >
+                            Rimuovi dai preferiti
+                        </p>
+                        <p v-else class="font-weight-light caption text-center">
+                            Aggiungi ai preferiti
+                        </p>
                     </v-col>
                 </v-row>
-            </v-container>
-        </v-content>
-    </v-app>
+                <v-divider></v-divider>
+                <p class="ma-2">Voto:</p>
+                <v-rating
+                    class="ma-1"
+                    x-large
+                    v-model="rating[0]"
+                    color="yellow darken-3"
+                    background-color="grey darken-1"
+                    empty-icon="$ratingFull"
+                    half-increments
+                    hover
+                ></v-rating>
+            </v-col>
+        </v-row>
+    </v-container>
 </template>
 
 <script>
@@ -163,13 +192,17 @@ export default {
     name: 'albumInformation',
     data() {
         return {
-            infoAlbum: [],
             loading: true,
+            infoAlbum: [],
             user: this.$store.state.user,
             rating: [0],
-            added: { aggiunto: 1 }, //0 vuol dire che l'utente non è loggato, 1 che non lo ha aggiunto, 2 che lo ha aggiunto
-            added2: { aggiunto: 1 },
             preferito: { isPreferito: false },
+            ascoltato: { isAscoltato: false },
+            daAscoltare: { isDaAscoltare: false },
+            loader: null,
+            loading1: false,
+            loading2: false,
+            loading3: false,
         }
     },
     created: function() {
@@ -211,8 +244,8 @@ export default {
         checkAdded() {
             if (this.user != null) {
                 var id = this.$route.params.id
-                var agg = this.added
-                var agg2 = this.added2
+                var ascoltato = this.ascoltato
+                var daAscoltare = this.daAscoltare
                 var rating = this.rating
                 this.loading = false
                 var preferito = this.preferito
@@ -223,13 +256,9 @@ export default {
                     .doc(id.toString())
                     .get()
                     .then(function(doc) {
-                        agg.aggiunto = 1
                         if (doc.exists) {
-                            console.log('Document id:', doc.id)
                             rating[0] = doc.data().rating
-                            agg.aggiunto = 2
-                        } else {
-                            console.log('No such document!')
+                            ascoltato.isAscoltato = true
                         }
                     })
                     .catch(function(error) {
@@ -241,11 +270,8 @@ export default {
                     .doc(id.toString())
                     .get()
                     .then(function(doc) {
-                        agg2.aggiunto = 1
                         if (doc.exists) {
-                            agg2.aggiunto = 2
-                        } else {
-                            console.log('No such document!')
+                            daAscoltare.isDaAscoltare = true
                         }
                     })
                     .catch(function(error) {
@@ -260,9 +286,6 @@ export default {
                         if (doc.exists) {
                             preferito.isPreferito = true
                             console.log('è tra i preferiti')
-                        } else {
-                            preferito.isPreferito = false
-                            console.log('non è tra i preferiti')
                         }
                     })
                     .catch(function(error) {
@@ -270,59 +293,26 @@ export default {
                     })
             }
         },
-        aggiungi() {
-            if (this.user != null) {
-                var email = this.user.email
-                var db = firebase.firestore()
-                var id = this.$route.params.id
-                var title = this.infoAlbum[0].title
-                var rating = this.rating
-                var userData = db
-                    .collection('utenti')
-                    .doc(email)
-                    .collection('ascoltati')
-                    .doc(id.toString())
-                userData
-                    .set({
-                        titolo: title,
-                        rating: rating[0],
-                    })
-                    .then(() => this.trigger('add'))
-            }
-        },
-        aggiungi2() {
-            if (this.user != null) {
-                var email = this.user.email
-                var db = firebase.firestore()
-                var id = this.$route.params.id
-                var title = this.infoAlbum[0].title
-                var userData = db
-                    .collection('utenti')
-                    .doc(email)
-                    .collection('daAscoltare')
-                    .doc(id.toString())
-                userData
-                    .set({
-                        titolo: title,
-                    })
-                    .then(() => this.trigger('add2'))
-            }
-        },
-        rimuovi() {
+        listened() {
             var db = firebase.firestore()
             var email = this.user.email
             var id = this.$route.params.id
+            var rating = this.rating
             var userData = db
                 .collection('utenti')
                 .doc(email)
                 .collection('ascoltati')
                 .doc(id.toString())
-            userData
-                .delete()
-                .then(() => this.trigger('rm'))
-                .then(() => (this.rating = 0))
+            var title = this.infoAlbum[0].title
+            if (this.ascoltato.isAscoltato == true) {
+                userData.delete()
+                this.ascoltato.isAscoltato = false
+            } else {
+                userData.set({ titolo: title, rating: rating[0] })
+                this.ascoltato.isAscoltato = true
+            }
         },
-        rimuovi2() {
+        toListen() {
             var db = firebase.firestore()
             var email = this.user.email
             var id = this.$route.params.id
@@ -331,8 +321,16 @@ export default {
                 .doc(email)
                 .collection('daAscoltare')
                 .doc(id.toString())
-            userData.delete().then(() => this.trigger('rm2'))
+            var title = this.infoAlbum[0].title
+            if (this.daAscoltare.isDaAscoltare == true) {
+                userData.delete()
+                this.daAscoltare.isDaAscoltare = false
+            } else {
+                userData.set({ titolo: title })
+                this.daAscoltare.isDaAscoltare = true
+            }
         },
+
         favourite() {
             var db = firebase.firestore()
             var email = this.user.email
@@ -349,21 +347,6 @@ export default {
             } else {
                 userData.set({ titolo: title })
                 this.preferito.isPreferito = true
-            }
-        },
-        trigger(mode) {
-            if (mode == 'add') {
-                this.added.aggiunto = 3
-                setTimeout(() => (this.added.aggiunto = 2), 500)
-            } else if (mode == 'rm') {
-                this.added.aggiunto = 3
-                setTimeout(() => (this.added.aggiunto = 1), 500)
-            } else if (mode == 'add2') {
-                this.added2.aggiunto = 3
-                setTimeout(() => (this.added2.aggiunto = 2), 500)
-            } else if (mode == 'rm2') {
-                this.added2.aggiunto = 3
-                setTimeout(() => (this.added2.aggiunto = 1), 500)
             }
         },
     },
@@ -383,6 +366,14 @@ export default {
                     titolo: title,
                 })
                 .then(() => this.trigger('add'))
+        },
+        loader() {
+            const l = this.loader
+            this[l] = !this[l]
+
+            setTimeout(() => (this[l] = false), 500)
+
+            this.loader = null
         },
     },
 }
