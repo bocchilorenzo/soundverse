@@ -45,9 +45,8 @@
                             >
                         </v-list-item>
                         <v-list-item>
-                            <!--Non so come chiamare la watchlist-->
                             <v-list-item-title
-                                >Aggiungi alla "watchlist"</v-list-item-title
+                                >Aggiungi ai da ascoltare</v-list-item-title
                             >
                         </v-list-item>
                     </v-list>

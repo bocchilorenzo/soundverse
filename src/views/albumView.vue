@@ -6,33 +6,54 @@
                 class="text-center"
                 style="height: 100vh; display: flex; align-items:center;"
             >
-                <v-progress-circular :size="70" :width="7" color="indigo" indeterminate></v-progress-circular>
+                <v-progress-circular
+                    :size="70"
+                    :width="7"
+                    color="indigo"
+                    indeterminate
+                ></v-progress-circular>
             </v-col>
         </v-row>
         <v-row no-gutters v-else>
             <v-col cols="3">
-                <v-img class="align-end" :src="infoAlbum[0].cover" width="100%"></v-img>
+                <div id="sticky">
+                    <v-img
+                        class="align-end"
+                        :src="infoAlbum[0].cover"
+                        width="100%"
+                    ></v-img>
 
-                <p
-                    class="text-left font-weight-normal"
-                    display="inline-block"
-                >Genere: {{ infoAlbum[0].genre }}</p>
-                <p class="text-left font-weight-normal" display="inline-block">
-                    Numero tracce:
-                    {{ infoAlbum[0].numberOfTracks }}
-                </p>
-                <p
-                    v-if="infoAlbum[0].explicit"
-                    class="text-left font-weight-normal"
-                    display="inline-block"
-                >Esplicito</p>
-                <p
-                    class="text-left font-weight-normal"
-                    display="inline-block"
-                >Data uscita: {{ infoAlbum[0].releaseDate }}</p>
+                    <p
+                        class="text-left font-weight-normal"
+                        display="inline-block"
+                    >
+                        Genere: {{ infoAlbum[0].genre }}
+                    </p>
+                    <p
+                        class="text-left font-weight-normal"
+                        display="inline-block"
+                    >
+                        Numero tracce:
+                        {{ infoAlbum[0].numberOfTracks }}
+                    </p>
+                    <p
+                        class="text-left font-weight-normal"
+                        display="inline-block"
+                    >
+                        Data uscita: {{ infoAlbum[0].releaseDate }}
+                    </p>
+                </div>
             </v-col>
             <v-col v-if="infoAlbum[0] != undefined">
                 <h1>{{ infoAlbum[0].title }}</h1>
+                <v-chip
+                    small
+                    v-if="infoAlbum[0].explicit"
+                    disabled
+                    class="my-1"
+                >
+                    Esplicito
+                </v-chip>
                 <router-link
                     :to="{
                         name: 'artist',
@@ -42,12 +63,15 @@
                         },
                     }"
                 >
-                    <h3
-                        class="text-left font-weight-normal"
-                        display="inline-block"
-                    >{{ infoAlbum[0].artist }}</h3>
+                    <h3>
+                        {{ infoAlbum[0].artist }}
+                    </h3>
                 </router-link>
-                <v-list v-for="(track, index) in infoAlbum[0].trackList" :key="track.songId">
+
+                <v-list
+                    v-for="(track, index) in infoAlbum[0].trackList"
+                    :key="track.songId"
+                >
                     <v-list-item @click="$emit('play', track.songPreview)">
                         <v-list-item-content>
                             <v-list-item-title>
@@ -59,94 +83,118 @@
                 </v-list>
             </v-col>
             <v-col cols="3" v-if="user != null">
-                <v-row justify="center">
-                    <v-col class="pa-0 ma-1">
-                        <v-btn
-                            icon
-                            @click="toListen(), (loader = 'loading1')"
-                            block
-                            height="85"
-                            width="85"
-                            :loading="loading1"
-                            :disabled="loading1"
-                        >
-                            <v-icon
-                                size="70"
+                <div id="sticky">
+                    <v-row justify="space-around" no-gutters>
+                        <v-col class="pa-0 ma-1">
+                            <v-btn
+                                icon
+                                @click="toListen(), (loader = 'loading1')"
+                                height="85"
+                                width="85"
+                                :loading="loading1"
+                                :disabled="loading1"
+                            >
+                                <v-icon
+                                    size="70"
+                                    v-if="daAscoltare.isDaAscoltare"
+                                    color="blue"
+                                    >mdi-book-remove-multiple</v-icon
+                                >
+                                <v-icon size="70" v-else color="grey"
+                                    >mdi-book-plus-multiple-outline</v-icon
+                                >
+                            </v-btn>
+                            <p
+                                class="font-weight-light caption text-center"
                                 v-if="daAscoltare.isDaAscoltare"
-                                color="blue"
-                            >mdi-book-remove-multiple</v-icon>
-                            <v-icon size="70" v-else color="grey">mdi-book-plus-multiple-outline</v-icon>
-                        </v-btn>
-                        <p
-                            class="font-weight-light caption text-center"
-                            v-if="daAscoltare.isDaAscoltare"
-                        >Rimuovi dagli album da ascoltare</p>
-                        <p
-                            v-else
-                            class="font-weight-light caption text-center"
-                        >Aggiungi agli album da ascoltare</p>
-                    </v-col>
-                    <v-col class="pa-0 ma-1">
-                        <v-btn
-                            icon
-                            @click="listened(), (loader = 'loading2')"
-                            height="85"
-                            width="85"
-                            block
-                            :loading="loading2"
-                            :disabled="loading2"
-                        >
-                            <v-icon
-                                size="70"
+                            >
+                                Rimuovi dagli album da ascoltare
+                            </p>
+                            <p
+                                v-else
+                                class="font-weight-light caption text-center"
+                            >
+                                Aggiungi agli album da ascoltare
+                            </p>
+                        </v-col>
+                        <v-col class="pa-0 ma-1">
+                            <v-btn
+                                icon
+                                @click="listened(), (loader = 'loading2')"
+                                height="85"
+                                width="85"
+                                :loading="loading2"
+                                :disabled="loading2"
+                            >
+                                <v-icon
+                                    size="70"
+                                    v-if="ascoltato.isAscoltato"
+                                    color="green"
+                                    >mdi-folder-music</v-icon
+                                >
+                                <v-icon size="70" v-else color="grey"
+                                    >mdi-folder-music-outline</v-icon
+                                >
+                            </v-btn>
+                            <p
+                                class="font-weight-light caption text-center"
                                 v-if="ascoltato.isAscoltato"
-                                color="green"
-                            >mdi-folder-music</v-icon>
-                            <v-icon size="70" v-else color="grey">mdi-folder-music-outline</v-icon>
-                        </v-btn>
-                        <p
-                            class="font-weight-light caption text-center"
-                            v-if="ascoltato.isAscoltato"
-                        >Rimuovi dagli ascoltati</p>
-                        <p
-                            v-else
-                            class="font-weight-light caption text-center"
-                        >Aggiungi agli ascoltati</p>
-                    </v-col>
-                    <v-col class="pa-0 ma-1">
-                        <v-btn
-                            icon
-                            @click="favourite(), (loader = 'loading3')"
-                            height="85"
-                            width="85"
-                            block
-                            :loading="loading3"
-                            :disabled="loading3"
-                        >
-                            <v-icon size="70" color="pink" v-if="preferito.isPreferito">mdi-heart</v-icon>
-                            <v-icon color="grey" size="70" v-else>mdi-heart-outline</v-icon>
-                        </v-btn>
-                        <p
-                            class="font-weight-light caption text-center"
-                            v-if="preferito.isPreferito"
-                        >Rimuovi dai preferiti</p>
-                        <p
-                            v-else
-                            class="font-weight-light caption text-center"
-                        >Aggiungi ai preferiti</p>
-                    </v-col>
-                </v-row>
-                <v-divider></v-divider>
-                <p class="ma-2">Voto:</p>
-                <v-rating
-                    class="ma-1"
-                    x-large
-                    v-model="rating[0]"
-                    color="yellow darken-3"
-                    background-color="grey darken-1"
-                    empty-icon="$ratingFull"
-                    half-increments
-                    hover
-                ></v-rating>
+                            >
+                                Rimuovi dagli ascoltati
+                            </p>
+                            <p
+                                v-else
+                                class="font-weight-light caption text-center"
+                            >
+                                Aggiungi agli ascoltati
+                            </p>
+                        </v-col>
+                        <v-col class="pa-0 ma-1">
+                            <v-btn
+                                icon
+                                @click="favourite(), (loader = 'loading3')"
+                                height="85"
+                                width="85"
+                                :loading="loading3"
+                                :disabled="loading3"
+                            >
+                                <v-icon
+                                    size="70"
+                                    color="pink"
+                                    v-if="preferito.isPreferito"
+                                    >mdi-heart</v-icon
+                                >
+                                <v-icon color="grey" size="70" v-else
+                                    >mdi-heart-outline</v-icon
+                                >
+                            </v-btn>
+                            <p
+                                class="font-weight-light caption text-center"
+                                v-if="preferito.isPreferito"
+                            >
+                                Rimuovi dai preferiti
+                            </p>
+                            <p
+                                v-else
+                                class="font-weight-light caption text-center"
+                            >
+                                Aggiungi ai preferiti
+                            </p>
+                        </v-col>
+                    </v-row>
+                    <v-divider></v-divider>
+                    <p class="ma-2">Voto:</p>
+                    <v-rating
+                        class="ma-1"
+                        x-large
+                        v-model="rating[0]"
+                        color="yellow darken-3"
+                        background-color="grey darken-1"
+                        empty-icon="$ratingFull"
+                        half-increments
+                        hover
+                    ></v-rating>
+                </div>
             </v-col>
         </v-row>
     </v-container>
@@ -286,6 +334,7 @@ export default {
             var title = this.infoAlbum[0].title
             if (this.ascoltato.isAscoltato == true) {
                 userData.delete()
+                rating[0] = 0
                 this.ascoltato.isAscoltato = false
             } else {
                 userData.set({ titolo: title, rating: rating[0] })
@@ -358,3 +407,9 @@ export default {
     },
 }
 </script>
+<style scoped>
+#sticky {
+    position: sticky;
+    top: 64px;
+}
+</style>
