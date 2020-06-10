@@ -93,6 +93,7 @@ export default {
         source: String,
     },
     components: { searchBar, musicPlayer },
+
     data() {
         return {
             key: 0,

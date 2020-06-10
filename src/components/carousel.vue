@@ -12,20 +12,11 @@
                 :center-active="centerActive"
             >
                 <v-slide-item v-for="album in albumArray" :key="album.id">
-                    <router-link
-                        :to="{
-                            name: 'album',
-                            path: '/album/:id',
-                            params: { id: album.albumId },
-                            props: true,
-                        }"
-                    >
-                        <albumCard
-                            v-if="check(album)"
-                            :albumArray="album"
-                            :id="album.albumId"
-                        />
-                    </router-link>
+                    <albumCard
+                        v-if="check(album)"
+                        :albumArray="album"
+                        :id="album.albumId"
+                    />
                 </v-slide-item>
             </v-slide-group>
         </v-sheet>
