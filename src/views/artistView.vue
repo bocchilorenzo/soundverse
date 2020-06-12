@@ -8,12 +8,7 @@
                         class="text-center"
                         style="height: 100vh; display: flex; align-items:center;"
                     >
-                        <v-progress-circular
-                            :size="70"
-                            :width="7"
-                            color="indigo"
-                            indeterminate
-                        ></v-progress-circular>
+                        <v-progress-circular :size="70" :width="7" color="indigo" indeterminate></v-progress-circular>
                     </v-col>
                 </v-row>
                 <v-row v-else>
@@ -25,9 +20,7 @@
                                 contain
                                 style="width:200px"
                             ></v-img>
-                            <h1 display="inline-block">
-                                {{ artistInfo[0].name }}
-                            </h1>
+                            <h1 display="inline-block">{{ artistInfo[0].name }}</h1>
                             <p display="inline-block">
                                 Numero album:
                                 {{ artistInfo[0].albumNumber }}
@@ -45,20 +38,14 @@
                                 xl="2"
                             >
                                 <v-row justify="center">
-                                    <albumCard
-                                        :albumArray="album"
-                                        :id="album.albumId"
-                                    />
+                                    <albumCard :albumArray="album" :id="album.albumId" />
                                 </v-row>
                             </v-col>
                         </v-row>
                     </v-col>
                     <v-col cols="2" v-if="caricatiSimili == true">
                         <v-row no-gutters justify="center">
-                            <v-col
-                                v-for="artista in simili"
-                                :key="artista.artistId"
-                            >
+                            <v-col v-for="artista in simili" :key="artista.artistId">
                                 <router-link
                                     :to="{
                                         name: 'artist',
@@ -67,10 +54,7 @@
                                         props: true,
                                     }"
                                 >
-                                    <artistCard
-                                        :artistArray="artista"
-                                        :id="artista.artistId"
-                                    />
+                                    <artistCard :artistArray="artista" :id="artista.artistId" />
                                 </router-link>
                             </v-col>
                         </v-row>
@@ -124,7 +108,7 @@ export default {
         bottomVisible() {
             const scrollY = window.scrollY
             const visible = document.documentElement.clientHeight
-            const pageHeight = document.documentElement.scrollHeight
+            const pageHeight = document.documentElement.scrollHeight - 200
             const bottomOfPage = visible + scrollY >= pageHeight
             return bottomOfPage || pageHeight < visible
         },
@@ -311,8 +295,20 @@ export default {
                         }
                     )
                 )
+                .then(() => this.rimuoviVuoti())
                 .catch(error => console.log(error))
                 .finally(() => (this.caricatiSimili = true))
+        },
+        rimuoviVuoti() {
+            var i = 0
+            while (i < this.simili.length) {
+                if (this.simili[i].artistId == undefined) {
+                    this.simili.splice(i, i + 1)
+                    i = 0
+                } else {
+                    i++
+                }
+            }
         },
         updateInfoAlbum() {
             if (this.stop == false) {

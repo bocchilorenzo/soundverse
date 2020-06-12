@@ -294,7 +294,7 @@ export default {
         bottomVisible() {
             const scrollY = window.scrollY
             const visible = document.documentElement.clientHeight
-            const pageHeight = document.documentElement.scrollHeight
+            const pageHeight = document.documentElement.scrollHeight - 200
             const bottomOfPage = visible + scrollY >= pageHeight
             return bottomOfPage || pageHeight < visible
         },
