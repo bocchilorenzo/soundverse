@@ -172,7 +172,7 @@
                     </v-container>
                 </div>
                 <div v-else>
-                    <cardContainer :arrayRisultati="albumArray"></cardContainer>
+                    <cardContainer :arrayRisultati="albumArray" v-on:delete="rimuoviElemento"></cardContainer>
                 </div>
             </div>
         </v-container>
@@ -243,6 +243,29 @@ export default {
         }
     },
     methods: {
+        rimuoviElemento(id) {
+            var i = 0
+            while (i < this.albumArray.length) {
+                if (this.albumArray[i].albumId == id) {
+                    this.albumArray.splice(i, i + 1)
+                    i = 0
+                    if(this.albumArray.length == 0){
+                        this.vuoto.push({ vero: true })
+                    }
+                } else {
+                    i++
+                }
+            }
+            var x = 0
+            while (i < this.idArray.length) {
+                if (this.idArray[x].albumId == id) {
+                    this.idArray.splice(x, x + 1)
+                    x = 0
+                } else {
+                    x++
+                }
+            }
+        },
         addAlbums() {
             if (this.vuoto[0] == undefined) {
                 if (this.stop == false) {

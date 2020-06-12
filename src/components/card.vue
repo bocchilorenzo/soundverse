@@ -11,22 +11,13 @@
             >
                 <v-img class="align-end" :src="albumArray.cover"></v-img>
 
-                <v-card-subtitle class="pb-0">
-                    {{ albumArray.artist }}
-                </v-card-subtitle>
+                <v-card-subtitle class="pb-0">{{ albumArray.artist }}</v-card-subtitle>
 
-                <v-card-text class="text--primary">
-                    {{ albumArray.title }}
-                </v-card-text>
+                <v-card-text class="text--primary">{{ albumArray.title }}</v-card-text>
             </router-link>
 
             <v-card-actions>
-                <v-menu
-                    bottom
-                    right
-                    transition="slide-y-transition"
-                    :offset-y="offsety"
-                >
+                <v-menu bottom right transition="slide-y-transition" :offset-y="offsety">
                     <template v-slot:activator="{ on }">
                         <v-btn icon v-on="on" @click="check()">
                             <v-icon>mdi-dots-vertical</v-icon>
@@ -35,30 +26,22 @@
 
                     <v-list>
                         <v-list-item @click="favourite()">
-                            <v-list-item-title v-if="preferito.isPreferito"
-                                >Rimuovi dai preferiti</v-list-item-title
-                            >
-                            <v-list-item-title v-else
-                                >Aggiungi ai preferiti</v-list-item-title
-                            >
+                            <v-list-item-title v-if="preferito.isPreferito">Rimuovi dai preferiti</v-list-item-title>
+                            <v-list-item-title v-else>Aggiungi ai preferiti</v-list-item-title>
                         </v-list-item>
                         <v-list-item @click="listened()">
-                            <v-list-item-title v-if="ascoltato.isAscoltato"
-                                >Rimuovi dagli album
-                                ascoltati</v-list-item-title
-                            >
-                            <v-list-item-title v-else
-                                >Segna come ascoltato</v-list-item-title
-                            >
+                            <v-list-item-title v-if="ascoltato.isAscoltato">
+                                Rimuovi dagli album
+                                ascoltati
+                            </v-list-item-title>
+                            <v-list-item-title v-else>Segna come ascoltato</v-list-item-title>
                         </v-list-item>
                         <v-list-item @click="toListen()">
-                            <v-list-item-title v-if="daAscoltare.isDaAscoltare"
-                                >Rimuovi dagli album da
-                                ascoltare</v-list-item-title
-                            >
-                            <v-list-item-title v-else
-                                >Aggiungi ai da ascoltare</v-list-item-title
-                            >
+                            <v-list-item-title v-if="daAscoltare.isDaAscoltare">
+                                Rimuovi dagli album da
+                                ascoltare
+                            </v-list-item-title>
+                            <v-list-item-title v-else>Aggiungi ai da ascoltare</v-list-item-title>
                         </v-list-item>
                     </v-list>
                 </v-menu>
@@ -142,6 +125,9 @@ export default {
             var title = this.albumArray.title
             if (this.ascoltato.isAscoltato == true) {
                 userData.delete()
+                if (this.$route.name == 'ascoltati') {
+                    this.$emit('deletThis', this.albumArray.albumId)
+                }
                 this.ascoltato.isAscoltato = false
             } else {
                 userData.set({ titolo: title, rating: 0 })
@@ -160,6 +146,9 @@ export default {
             var title = this.albumArray.title
             if (this.daAscoltare.isDaAscoltare == true) {
                 userData.delete()
+                if (this.$route.name == 'daAscoltare') {
+                    this.$emit('deletThis', this.albumArray.albumId)
+                }
                 this.daAscoltare.isDaAscoltare = false
             } else {
                 userData.set({ titolo: title })
@@ -178,6 +167,9 @@ export default {
             var title = this.albumArray.title
             if (this.preferito.isPreferito == true) {
                 userData.delete()
+                if (this.$route.name == 'preferiti') {
+                    this.$emit('deletThis', this.albumArray.albumId)
+                }
                 this.preferito.isPreferito = false
             } else {
                 userData.set({ titolo: title })
