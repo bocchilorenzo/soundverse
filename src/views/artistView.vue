@@ -16,84 +16,65 @@
                         ></v-progress-circular>
                     </v-col>
                 </v-row>
-                <!--       <v-card class="overflow-hidden" v-else width="100%">
-                    <v-app-bar
-                        color="#6A76AB"
-                        dark
-                        shrink-on-scroll
-                        prominent
-                        src="https://picsum.photos/1920/1080?random"
-                        fade-img-on-scroll
-                        scroll-target="#scrolling-techniques-3"
-                    >
-                        <template>
-                            <v-img
-                                gradient="to top right, rgba(100,115,201,.7), rgba(25,32,72,.7)"
-                            ></v-img>
-                        </template>
-
-                        <v-toolbar-title>Title</v-toolbar-title>
-
-                        <v-spacer></v-spacer>
-
-                        <template v-slot:extension>
-                            <v-tabs align-with-title>
-                                <v-tab>Album</v-tab>
-                                <v-tab>Artisti simili</v-tab>
-                            </v-tabs>
-                            <v-tab-item>
-                                <v-card flat tile>
-                                    <cardContainer
-                                        :arrayRisultati="albums"
-                                    ></cardContainer>
-                                </v-card>
-                            </v-tab-item>
-                            <v-tab-item>
-                                <v-card flat tile>
-                                    
-                                </v-card>
-                            </v-tab-item>
-                        </template>
-                    </v-app-bar>
-                    <v-sheet
-                        id="scrolling-techniques-3"
-                        class="overflow-y-auto"
-                        max-height="100%"
-                    >
-                        <v-container style="height: 1000px;"></v-container>
-                    </v-sheet>
-                </v-card>  -->
                 <v-row v-else>
-                    <v-row>
-                        <v-col cols="12">
-                            <v-card>
-                                <!--     mettere un v-if che se è undefined mostra "album
-                                non esistente", altrimenti mostra i dati
-                                dell'album dividere in un componente separato-->
-                                <v-img
-                                    class="align-end"
-                                    :src="artistInfo[0].picture"
-                                    contain
-                                    style="border-radius:50%; width:100px"
-                                ></v-img>
-                                <h1 display="inline-block">
-                                    {{ artistInfo[0].name }}
-                                </h1>
-                                <p display="inline-block">
-                                    Numero album:
-                                    {{ artistInfo[0].albumNumber }}
-                                </p>
-                            </v-card>
-                        </v-col>
-                    </v-row>
-                    <v-row v-if="caricatiSimili == true">
-                        <cardContainerArtisti
-                            :arrayRisultati="simili"
-                        ></cardContainerArtisti>
-                    </v-row>
-                    <v-row align="center" justify="center">
-                        <cardContainer :arrayRisultati="albums"></cardContainer>
-                    </v-row>
+                    <v-col cols="2">
+                        <v-row id="sticky">
+                            <v-img
+                                class="align-end"
+                                :src="artistInfo[0].picture"
+                                contain
+                                style="width:200px"
+                            ></v-img>
+                            <h1 display="inline-block">
+                                {{ artistInfo[0].name }}
+                            </h1>
+                            <p display="inline-block">
+                                Numero album:
+                                {{ artistInfo[0].albumNumber }}
+                            </p>
+                        </v-row>
+                    </v-col>
+                    <v-col cols="8">
+                        <v-row align="center">
+                            <v-col
+                                v-for="album in albums"
+                                :key="album.albumId"
+                                cols="12"
+                                sm="4"
+                                lg="3"
+                                xl="2"
+                            >
+                                <v-row justify="center">
+                                    <albumCard
+                                        :albumArray="album"
+                                        :id="album.albumId"
+                                    />
+                                </v-row>
+                            </v-col>
+                        </v-row>
+                    </v-col>
+                    <v-col cols="2" v-if="caricatiSimili == true">
+                        <v-row no-gutters justify="center">
+                            <v-col
+                                v-for="artista in simili"
+                                :key="artista.artistId"
+                            >
+                                <router-link
+                                    :to="{
+                                        name: 'artist',
+                                        path: '/artist/:artista',
+                                        params: { artista: artista.artistId },
+                                        props: true,
+                                    }"
+                                >
+                                    <artistCard
+                                        :artistArray="artista"
+                                        :id="artista.artistId"
+                                    />
+                                </router-link>
+                            </v-col>
+                        </v-row>
+                    </v-col>
                 </v-row>
             </v-container>
         </v-content>
@@ -103,9 +84,10 @@
 <script>
 import axios from 'axios'
 import jsonpAdapter from 'axios-jsonp'
-import cardContainerArtisti from '../components/cardcontainerartisti'
-/*import albumCard from '../components/card'*/
-import cardContainer from '../components/cardcontainer.vue'
+/*import cardContainerArtisti from '../components/cardcontainerartisti'*/
+import artistCard from '../components/cardArtisti'
+import albumCard from '../components/card'
+/*import cardContainer from '../components/cardcontainer.vue'*/
 export default {
     name: 'artistView',
     data() {
@@ -124,8 +106,8 @@ export default {
         }
     },
     components: {
-        cardContainer,
-        cardContainerArtisti,
+        artistCard,
+        albumCard,
     },
     created: function() {
         this.id = this.$route.params.artista
@@ -382,3 +364,9 @@ export default {
     },
 }
 </script>
+<style scoped>
+#sticky {
+    position: sticky;
+    top: 64px;
+}
+</style>

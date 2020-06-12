@@ -217,7 +217,8 @@
                 <v-row align="center">
                     <h2 class="ml-5">{{ title }}</h2>
                 </v-row>
-                <v-row align="center" justify="center">
+                <cardContainer :arrayRisultati="arrayRisultatiNew" />
+                <!--     <v-row align="center" justify="center">
                     <v-col
                         v-for="album in arrayRisultatiNew"
                         :key="album.id"
@@ -240,7 +241,7 @@
                             />
                         </router-link>
                     </v-col>
-                </v-row>
+                </v-row>  -->
             </div>
         </v-container>
     </div>
@@ -249,11 +250,11 @@
 <script>
 import axios from 'axios'
 import jsonpAdapter from 'axios-jsonp'
-import albumCard from '../components/card'
+import cardContainer from '../components/cardcontainer'
 export default {
     name: 'listView',
     components: {
-        albumCard,
+        cardContainer,
     },
     data() {
         return {

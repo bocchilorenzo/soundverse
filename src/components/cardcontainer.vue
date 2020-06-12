@@ -1,14 +1,16 @@
 <template>
-    <v-row no-gutters justify="center" align="center">
+    <v-row align="center">
         <v-col
             v-for="album in arrayRisultati"
             :key="album.albumId"
             cols="12"
-            sm="3"
+            sm="4"
             lg="2"
             xl="2"
         >
-            <albumCard :albumArray="album" :id="album.albumId" />
+            <v-row justify="center">
+                <albumCard :albumArray="album" :id="album.albumId" />
+            </v-row>
         </v-col>
     </v-row>
 </template>

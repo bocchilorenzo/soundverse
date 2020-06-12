@@ -57,7 +57,6 @@
         </v-app-bar>
 
         <v-content>
-            <!--dentro il tag va: v-on:nomeEvento="funzioneDaEseguire(datoDaPassare)" => vai in methods qua sotto-->
             <router-view
                 :key="$route.fullPath"
                 :albumSearch="albumSearch"
@@ -75,11 +74,6 @@
                 v-on:hide="hide"
             />
         </v-content>
-        <!--
-        <v-footer color="indigo" app>
-            <span class="white--text">&copy; 2019</span>
-        </v-footer>
-        -->
     </v-app>
 </template>
 
@@ -132,7 +126,6 @@ export default {
         updateUser(usr) {
             this.currentUser = usr
         },
-        //funzioneDaEseguire(data){bla bla bla}
     },
 }
 </script>

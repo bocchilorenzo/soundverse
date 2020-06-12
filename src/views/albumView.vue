@@ -375,7 +375,7 @@ export default {
                     rating: newRating[0],
                     titolo: title,
                 })
-                .then(() => this.trigger('add'))
+            this.ascoltato.isAscoltato = true
         },
         loader() {
             const l = this.loader

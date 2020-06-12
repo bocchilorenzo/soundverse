@@ -16,7 +16,7 @@
                     props: true,
                 }"
             >
-                <artistCard :artistArray="artista" :id="artista.artistId"/>
+                <artistCard :artistArray="artista" :id="artista.artistId" />
             </router-link>
         </v-col>
     </v-row>
@@ -28,7 +28,7 @@ import artistCard from './cardArtisti'
 export default {
     name: 'cardContainerArtisti',
     props: { arrayRisultati: Array },
-    components: { artistCard }
+    components: { artistCard },
 }
 </script>
 

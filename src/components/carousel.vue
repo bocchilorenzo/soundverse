@@ -1,6 +1,6 @@
 <template>
     <div id="carousel">
-        <v-sheet class="mx-auto my-2" cols="12" max-width="1500px">
+        <v-sheet class="mx-auto my-2 " cols="12" max-width="1500px">
             <h2 class="ma-2" @click="visualizzaLista(albumArray)">
                 {{ albumArray[0] }}
             </h2>
