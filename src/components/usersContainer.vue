@@ -1,10 +1,15 @@
 <template>
     <v-row align="center">
-        <v-col v-for="user in arrayRisultati" :key="user.username" cols="12" sm="4" lg="2" xl="2">
+        <v-col
+            v-for="user in arrayRisultati"
+            :key="user.username"
+            cols="12"
+            sm="4"
+            lg="2"
+            xl="2"
+        >
             <v-row justify="center">
-                <userList
-                    :dati="user"
-                />
+                <userList :dati="user" />
             </v-row>
         </v-col>
     </v-row>

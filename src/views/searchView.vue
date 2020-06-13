@@ -7,7 +7,12 @@
                     class="text-center"
                     style="height: 100vh; display: flex; align-items:center;"
                 >
-                    <v-progress-circular :size="70" :width="7" color="indigo" indeterminate></v-progress-circular>
+                    <v-progress-circular
+                        :size="70"
+                        :width="7"
+                        color="indigo"
+                        indeterminate
+                    ></v-progress-circular>
                 </v-col>
             </v-row>
         </div>
@@ -32,12 +37,16 @@
                 </v-tab-item>
                 <v-tab-item>
                     <v-card flat tile>
-                        <cardContainerArtisti :arrayRisultati="artisti"></cardContainerArtisti>
+                        <cardContainerArtisti
+                            :arrayRisultati="artisti"
+                        ></cardContainerArtisti>
                     </v-card>
                 </v-tab-item>
                 <v-tab-item>
                     <v-card flat tile>
-                        <usersContainer :arrayRisultati="utenti"></usersContainer>
+                        <usersContainer
+                            :arrayRisultati="utenti"
+                        ></usersContainer>
                     </v-card>
                 </v-tab-item>
             </v-tabs>
@@ -79,7 +88,7 @@ export default {
     components: {
         cardContainer,
         cardContainerArtisti,
-        usersContainer
+        usersContainer,
     },
     methods: {
         checkDuplicati(albumId) {
@@ -190,7 +199,7 @@ export default {
                 .then(function(querySnapshot) {
                     querySnapshot.forEach(function(doc) {
                         var usr = {
-                            username: doc.data().username
+                            username: doc.data().username,
                         }
                         arr.push(usr)
                     })

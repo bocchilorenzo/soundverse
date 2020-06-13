@@ -178,6 +178,51 @@
                 ></v-rating>
             </div>
         </v-col>
+        <v-col cols="12"
+            ><p>Recensioni</p>
+            <v-dialog v-model="dialog" max-width="600px">
+                <template v-slot:activator="{ on, attrs }">
+                    <v-btn color="primary" dark v-bind="attrs" v-on="on">
+                        Scrivi recensione
+                    </v-btn>
+                </template>
+                <v-card>
+                    <v-card-title>
+                        <span class="headline">Recensione</span>
+                    </v-card-title>
+                    <v-card-text>
+                        <v-container>
+                            <v-row>
+                                <v-col cols="12" md="6">
+                                    <v-textarea
+                                        outlined
+                                        name="input-7-4"
+                                        label="Recensione"
+                                        v-model="recensione"
+                                    ></v-textarea>
+                                </v-col>
+                            </v-row>
+                        </v-container>
+                    </v-card-text>
+                    <v-card-actions>
+                        <v-spacer></v-spacer>
+                        <v-btn
+                            color="blue darken-1"
+                            text
+                            @click="dialog = false"
+                            >Close</v-btn
+                        >
+                        <v-btn color="blue darken-1" text @click="save_review"
+                            >Save</v-btn
+                        >
+                    </v-card-actions>
+                </v-card>
+            </v-dialog>
+            <div v-for="review in reviews" :key="review.recensione">
+                <p>{{ review.utente }}</p>
+                <p>{{ review.recensione }}</p>
+            </div>
+        </v-col>
     </v-row>
 </template>
 
@@ -201,6 +246,9 @@ export default {
             loading1: false,
             loading2: false,
             loading3: false,
+            dialog: false,
+            recensione: '',
+            reviews: [],
         }
     },
     created: function() {
@@ -245,10 +293,26 @@ export default {
                 var ascoltato = this.ascoltato
                 var daAscoltare = this.daAscoltare
                 var rating = this.rating
+                var recensioni = this.reviews
                 //this.loading = false
                 var preferito = this.preferito
                 var db = firebase.firestore()
                 var userData = db.collection('utenti').doc(this.user.email)
+                var reviews = db
+                    .collection('album')
+                    .doc(id.toString())
+                    .collection('reviews')
+                reviews
+                    .get()
+                    .then(function(querySnapshot) {
+                        querySnapshot.forEach(function(doc) {
+                            recensioni.push(doc.data())
+                        })
+                        console.log(recensioni)
+                    })
+                    .catch(function(error) {
+                        console.log('Error getting documents: ', error)
+                    })
                 userData
                     .collection('ascoltati')
                     .doc(id.toString())
@@ -358,6 +422,30 @@ export default {
                 userData.set({ titolo: title })
                 this.preferito.isPreferito = true
             }
+        },
+        save_review() {
+            var db = firebase.firestore()
+            var recensione = this.recensione
+            var email = this.user.email
+            var id = this.$route.params.id
+            var today = new Date()
+            var date =
+                today.getFullYear() +
+                '-' +
+                (today.getMonth() + 1) +
+                '-' +
+                today.getDate()
+            var review = db
+                .collection('album')
+                .doc(id.toString())
+                .collection('reviews')
+
+            review.add({
+                utente: email,
+                recensione: recensione,
+                timestamp: date,
+            })
+            this.dialog = false
         },
     },
     watch: {
