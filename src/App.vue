@@ -67,12 +67,7 @@
                 v-on:updateLista2="prop"
                 :class="{ marginforplayer: show }"
             ></router-view>
-            <musicPlayer
-                :file="file"
-                class="player"
-                v-if="show"
-                v-on:hide="hide"
-            />
+            <musicPlayer :file="file" class="player" v-if="show" v-on:hide="hide" />
         </v-content>
     </v-app>
 </template>
@@ -94,7 +89,7 @@ export default {
             drawer: false,
             arrayRisultati: null,
             file: null,
-            currentUser: this.$store.state.user,
+            currentUser: null,
             show: false,
             albumSearch: null,
             artistsSearch: null,
@@ -102,6 +97,11 @@ export default {
     },
     created: function() {
         this.$store.commit('updateUserFB')
+        this.$store.commit('updateUsernameFB')
+        this.currentUser = this.$store.state.user
+    },
+    updated: function(){
+        this.currentUser = this.$store.state.user
     },
     methods: {
         prop(arr) {
@@ -115,12 +115,16 @@ export default {
             this.show = bool
         },
         profile() {
+            console.log(this.currentUser)
             if (this.currentUser == null) {
                 this.$router.push({
                     name: 'login',
                 })
             } else {
-                this.$router.push({ name: 'profile' })
+                this.$router.push({
+                    name: 'profile',
+                    params: { username: this.$store.state.username },
+                })
             }
         },
         updateUser(usr) {

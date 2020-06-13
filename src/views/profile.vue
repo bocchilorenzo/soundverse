@@ -1,13 +1,13 @@
 <template>
     <div class="profile">
         <v-row v-if="user != null" align="center" justify="center" class="flex-column">
-            <p style="text-align:center">Mail: {{ user.email }}</p>
+            <p v-if="!notMine" style="text-align:center">Mail: {{ user.email }}</p>
             <p style="text-align:center">Username: {{ username }}</p>
-            <v-form ref="form">
+            <v-form ref="form" v-if="!notMine">
                 <v-btn color="danger" @click="logout()">Logout</v-btn>
             </v-form>
         </v-row>
-        <v-row v-if="user != null" align="center" justify="center" class="flex-column">
+        <v-row v-if="user != null && !notMine" align="center" justify="center" class="flex-column">
             <v-text-field v-model="newUsername" label="Modifica username"></v-text-field>
             <v-form ref="form">
                 <v-btn color="danger" @click="modUsername()">Modifica informazioni</v-btn>
@@ -23,8 +23,10 @@ export default {
     data() {
         return {
             user: this.$store.state.user,
+            usernameDB: this.$store.state.username,
             username: '',
             newUsername: '',
+            notMine: true,
         }
     },
     methods: {
@@ -97,6 +99,13 @@ export default {
         updateUsername(usr) {
             //Metodo per settare correttamente l'username e aggiornare la vista
             this.username = usr
+            this.$store.commit('updateUsernameFB')
+            /*
+            this.$router.replace({
+                name: 'profile',
+                params: { username: this.$store.state.username },
+            })
+            */
         },
         logoutRoute() {
             this.$router.replace({ name: 'home' })
@@ -107,17 +116,46 @@ export default {
                 alert('Logout effettuato!')
                 this.$router.replace({ name: 'home' })
                 this.$store.commit('updateUserFB')
+                this.$store.commit('updateUsernameFB')
                 //this.$emit('updateUser', Object)
             } catch (err) {
                 alert('Oops. ' + err.message)
             }
         },
+        stay() {
+            var db = firebase.firestore()
+            var usr = this.$route.params.username
+            var userData = db.collection('utenti')
+            var presente = true
+            userData
+                .where('username', '==', usr)
+                .get()
+                .then(function(querySnapshot) {
+                    if (querySnapshot.size == 0) {
+                        presente = false
+                    }
+                })
+                .catch(function(error) {
+                    console.log('Error getting document:', error)
+                })
+                .then(() => this.stay2(presente))
+        },
+        stay2(presente) {
+            if (presente == false) {
+                alert('Utente inesistente. Clicca Ok per tornare alla home.')
+                setTimeout(() => this.$router.replace({ name: 'home' }), 1000)
+            }
+        },
     },
     created: function() {
-        if (this.user == null) {
+        if (this.user == null && this.$route.params.username == null) {
             this.$router.replace({ name: 'login' })
-        } else {
+        } else if (this.usernameDB == this.$route.params.username) {
+            this.notMine = false
             this.getUsername()
+        } else {
+            this.username = this.$route.params.username
+            this.stay()
         }
     },
 }

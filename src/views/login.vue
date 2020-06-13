@@ -35,9 +35,7 @@
                             </small>
                         </p>
                         <v-spacer />
-                        <v-btn color="primary" @click="loginFirebase()"
-                            >Login</v-btn
-                        >
+                        <v-btn color="primary" @click="loginFirebase()">Login</v-btn>
                     </v-card-actions>
                 </v-card>
             </v-col>
@@ -73,6 +71,7 @@ export default {
                 alert('Login effettuato')
                 this.$router.replace({ name: 'home' })
                 this.$store.commit('updateUserFB')
+                this.$store.commit('updateUsernameFB')
                 //this.$emit('updateUser', firebase.auth().currentUser)
                 //$emit('nomeEvento', datoDaPassare) => vai in app.vue nel tag router view
             } catch (err) {

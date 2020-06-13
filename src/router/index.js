@@ -45,7 +45,7 @@ const routes = [
         component: signup,
     },
     {
-        path: '/profile',
+        path: '/profile/:username',
         name: 'profile',
         component: profile,
     },
@@ -73,11 +73,6 @@ const routes = [
         path: '/preferiti',
         name: 'preferiti',
         component: preferiti,
-    },
-    {
-        path: '/utente/:username',
-        name: 'utente',
-        component: albumInformation, //modifica con pagina utente
     },
 ]
 

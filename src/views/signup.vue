@@ -61,6 +61,9 @@ export default {
                     .set({
                         username: usr,
                     })
+                    .then(function() {
+                        this.$store.commit('updateUsernameFB')
+                    })
                     .catch(function(error) {
                         alert('Qualcosa è andato storto, riprova')
                         console.log(error)
