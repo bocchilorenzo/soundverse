@@ -7,12 +7,7 @@
                     class="text-center"
                     style="height: 100vh; display: flex; align-items:center;"
                 >
-                    <v-progress-circular
-                        :size="70"
-                        :width="7"
-                        color="indigo"
-                        indeterminate
-                    ></v-progress-circular>
+                    <v-progress-circular :size="70" :width="7" color="indigo" indeterminate></v-progress-circular>
                 </v-col>
             </v-row>
         </div>
@@ -26,9 +21,10 @@
                 :grow="grow"
             >
                 <v-tabs-slider></v-tabs-slider>
-
+                <!--Per ogni tab-item mettere lo stato empty-->
                 <v-tab>Album</v-tab>
                 <v-tab>Artisti</v-tab>
+                <v-tab>Utenti</v-tab>
                 <v-tab-item>
                     <v-card flat tile>
                         <cardContainer :arrayRisultati="albums"></cardContainer>
@@ -36,9 +32,12 @@
                 </v-tab-item>
                 <v-tab-item>
                     <v-card flat tile>
-                        <cardContainerArtisti
-                            :arrayRisultati="artisti"
-                        ></cardContainerArtisti>
+                        <cardContainerArtisti :arrayRisultati="artisti"></cardContainerArtisti>
+                    </v-card>
+                </v-tab-item>
+                <v-tab-item>
+                    <v-card flat tile>
+                        <usersContainer :arrayRisultati="utenti"></usersContainer>
                     </v-card>
                 </v-tab-item>
             </v-tabs>
@@ -48,9 +47,11 @@
 
 <script>
 import cardContainer from '../components/cardcontainer'
+import usersContainer from '../components/usersContainer'
 import cardContainerArtisti from '../components/cardcontainerartisti'
 import axios from 'axios'
 import jsonpAdapter from 'axios-jsonp'
+import firebase from 'firebase'
 export default {
     name: 'search',
     data() {
@@ -60,6 +61,7 @@ export default {
             grow: true,
             albums: [],
             artisti: [],
+            utenti: [],
             bottom: false,
             start: 0,
             end: 25,
@@ -77,6 +79,7 @@ export default {
     components: {
         cardContainer,
         cardContainerArtisti,
+        usersContainer
     },
     methods: {
         checkDuplicati(albumId) {
@@ -173,8 +176,29 @@ export default {
                         }
                     })
                     .catch(error => console.log(error))
-                    .finally(() => (this.loading = false))
+                    .finally(() => this.updateInfoUsers())
             }
+        },
+        updateInfoUsers() {
+            var q = this.$route.params.q
+            var db = firebase.firestore()
+            var userData = db.collection('utenti')
+            var arr = this.utenti
+            userData
+                .where('username', '==', q)
+                .get()
+                .then(function(querySnapshot) {
+                    querySnapshot.forEach(function(doc) {
+                        var usr = {
+                            username: doc.data().username
+                        }
+                        arr.push(usr)
+                    })
+                })
+                .catch(function(error) {
+                    console.log('Error getting documents: ', error)
+                })
+                .finally(() => (this.loading = false))
         },
     },
     watch: {

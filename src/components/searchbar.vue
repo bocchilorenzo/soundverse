@@ -4,7 +4,7 @@
         solo-inverted
         hide-details
         prepend-inner-icon="mdi-magnify"
-        label="Cerca album o artisti"
+        label="Cerca album, artisti o utenti"
         v-model="input"
         @keyup.enter="search()"
     />

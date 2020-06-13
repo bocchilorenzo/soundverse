@@ -74,6 +74,11 @@ const routes = [
         name: 'preferiti',
         component: preferiti,
     },
+    {
+        path: '/utente/:username',
+        name: 'utente',
+        component: albumInformation, //modifica con pagina utente
+    },
 ]
 
 const router = new VueRouter({
