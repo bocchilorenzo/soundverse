@@ -99,7 +99,7 @@ export default {
         updateUsername(usr) {
             //Metodo per settare correttamente l'username e aggiornare la vista
             this.username = usr
-            this.$store.commit('updateUsernameFB')
+            this.$store.commit('updateUsernameSetFB')
             /*
             this.$router.replace({
                 name: 'profile',
@@ -116,7 +116,7 @@ export default {
                 alert('Logout effettuato!')
                 this.$router.replace({ name: 'home' })
                 this.$store.commit('updateUserFB')
-                this.$store.commit('updateUsernameFB')
+                this.$store.commit('updateUsernameClearFB')
                 //this.$emit('updateUser', Object)
             } catch (err) {
                 alert('Oops. ' + err.message)

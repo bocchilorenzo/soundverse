@@ -97,10 +97,15 @@ export default {
     },
     created: function() {
         this.$store.commit('updateUserFB')
-        this.$store.commit('updateUsernameFB')
         this.currentUser = this.$store.state.user
+        if (this.currentUser != null) {
+            this.$store.commit('updateUsernameSetFB')
+        }
+        else{
+            this.$store.commit('updateUsernameClearFB')
+        }
     },
-    updated: function(){
+    updated: function() {
         this.currentUser = this.$store.state.user
     },
     methods: {

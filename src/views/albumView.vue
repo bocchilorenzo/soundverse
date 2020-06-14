@@ -5,40 +5,31 @@
             class="text-center"
             style="height: 100vh; display: flex; align-items:center;"
         >
-            <v-progress-circular
-                :size="70"
-                :width="7"
-                color="indigo"
-                indeterminate
-            ></v-progress-circular>
+            <v-progress-circular :size="70" :width="7" color="indigo" indeterminate></v-progress-circular>
         </v-col>
     </v-row>
     <v-row v-else>
         <v-col cols="3" class="ml-2">
             <div id="sticky">
-                <v-img
-                    class="align-end"
-                    :src="infoAlbum[0].cover"
-                    width="100%"
-                ></v-img>
+                <v-img class="align-end" :src="infoAlbum[0].cover" width="100%"></v-img>
 
-                <p class="text-left font-weight-normal" display="inline-block">
-                    Genere: {{ infoAlbum[0].genre }}
-                </p>
+                <p
+                    class="text-left font-weight-normal"
+                    display="inline-block"
+                >Genere: {{ infoAlbum[0].genre }}</p>
                 <p class="text-left font-weight-normal" display="inline-block">
                     Numero tracce:
                     {{ infoAlbum[0].numberOfTracks }}
                 </p>
-                <p class="text-left font-weight-normal" display="inline-block">
-                    Data uscita: {{ infoAlbum[0].releaseDate }}
-                </p>
+                <p
+                    class="text-left font-weight-normal"
+                    display="inline-block"
+                >Data uscita: {{ infoAlbum[0].releaseDate }}</p>
             </div>
         </v-col>
         <v-col v-if="infoAlbum[0] != undefined">
             <h1>{{ infoAlbum[0].title }}</h1>
-            <v-chip small v-if="infoAlbum[0].explicit" disabled class="my-1">
-                Esplicito
-            </v-chip>
+            <v-chip small v-if="infoAlbum[0].explicit" disabled class="my-1">Esplicito</v-chip>
             <router-link
                 :to="{
                     name: 'artist',
@@ -48,15 +39,10 @@
                     },
                 }"
             >
-                <h3>
-                    {{ infoAlbum[0].artist }}
-                </h3>
+                <h3>{{ infoAlbum[0].artist }}</h3>
             </router-link>
 
-            <v-list
-                v-for="(track, index) in infoAlbum[0].trackList"
-                :key="track.songId"
-            >
+            <v-list v-for="(track, index) in infoAlbum[0].trackList" :key="track.songId">
                 <v-list-item @click="$emit('play', track.songPreview)">
                     <v-list-item-content>
                         <v-list-item-title>
@@ -84,22 +70,18 @@
                                     size="70"
                                     v-if="daAscoltare.isDaAscoltare"
                                     color="blue"
-                                    >mdi-book-remove-multiple</v-icon
-                                >
-                                <v-icon size="70" v-else color="grey"
-                                    >mdi-book-plus-multiple-outline</v-icon
-                                >
+                                >mdi-book-remove-multiple</v-icon>
+                                <v-icon size="70" v-else color="grey">mdi-book-plus-multiple-outline</v-icon>
                             </v-btn>
                         </v-row>
                         <p
                             class="font-weight-light caption text-center"
                             v-if="daAscoltare.isDaAscoltare"
-                        >
-                            Rimuovi dagli album da ascoltare
-                        </p>
-                        <p v-else class="font-weight-light caption text-center">
-                            Aggiungi agli album da ascoltare
-                        </p>
+                        >Rimuovi dagli album da ascoltare</p>
+                        <p
+                            v-else
+                            class="font-weight-light caption text-center"
+                        >Aggiungi agli album da ascoltare</p>
                     </v-col>
                     <v-col class="pa-0 ma-1">
                         <v-row justify="center">
@@ -115,22 +97,18 @@
                                     size="70"
                                     v-if="ascoltato.isAscoltato"
                                     color="green"
-                                    >mdi-folder-music</v-icon
-                                >
-                                <v-icon size="70" v-else color="grey"
-                                    >mdi-folder-music-outline</v-icon
-                                >
+                                >mdi-folder-music</v-icon>
+                                <v-icon size="70" v-else color="grey">mdi-folder-music-outline</v-icon>
                             </v-btn>
                         </v-row>
                         <p
                             class="font-weight-light caption text-center"
                             v-if="ascoltato.isAscoltato"
-                        >
-                            Rimuovi dagli ascoltati
-                        </p>
-                        <p v-else class="font-weight-light caption text-center">
-                            Aggiungi agli ascoltati
-                        </p>
+                        >Rimuovi dagli ascoltati</p>
+                        <p
+                            v-else
+                            class="font-weight-light caption text-center"
+                        >Aggiungi agli ascoltati</p>
                     </v-col>
                     <v-col class="pa-0 ma-1">
                         <v-row justify="center">
@@ -146,22 +124,18 @@
                                     size="70"
                                     color="pink"
                                     v-if="preferito.isPreferito"
-                                    >mdi-heart</v-icon
-                                >
-                                <v-icon color="grey" size="70" v-else
-                                    >mdi-heart-outline</v-icon
-                                >
+                                >mdi-heart</v-icon>
+                                <v-icon color="grey" size="70" v-else>mdi-heart-outline</v-icon>
                             </v-btn>
                         </v-row>
                         <p
                             class="font-weight-light caption text-center"
                             v-if="preferito.isPreferito"
-                        >
-                            Rimuovi dai preferiti
-                        </p>
-                        <p v-else class="font-weight-light caption text-center">
-                            Aggiungi ai preferiti
-                        </p>
+                        >Rimuovi dai preferiti</p>
+                        <p
+                            v-else
+                            class="font-weight-light caption text-center"
+                        >Aggiungi ai preferiti</p>
                     </v-col>
                 </v-row>
                 <v-divider></v-divider>
@@ -178,13 +152,11 @@
                 ></v-rating>
             </div>
         </v-col>
-        <v-col cols="12"
-            ><p>Recensioni</p>
+        <v-col cols="12">
+            <h2>Recensioni</h2>
             <v-dialog v-model="dialog" max-width="600px">
-                <template v-slot:activator="{ on, attrs }">
-                    <v-btn color="primary" dark v-bind="attrs" v-on="on">
-                        Scrivi recensione
-                    </v-btn>
+                <template v-slot:activator="{ on, attrs }" v-if="user != null">
+                    <v-btn color="primary" dark v-bind="attrs" v-on="on">Scrivi recensione</v-btn>
                 </template>
                 <v-card>
                     <v-card-title>
@@ -206,20 +178,23 @@
                     </v-card-text>
                     <v-card-actions>
                         <v-spacer></v-spacer>
-                        <v-btn
-                            color="blue darken-1"
-                            text
-                            @click="dialog = false"
-                            >Close</v-btn
-                        >
-                        <v-btn color="blue darken-1" text @click="save_review"
-                            >Save</v-btn
-                        >
+                        <v-btn color="blue darken-1" text @click="dialog = false">Close</v-btn>
+                        <v-btn color="blue darken-1" text @click="save_review">Save</v-btn>
                     </v-card-actions>
                 </v-card>
             </v-dialog>
             <div v-for="review in reviews" :key="review.recensione">
-                <p>{{ review.utente }}</p>
+                <router-link
+                    :to="{
+                    name: 'profile',
+                    path: '/profile/:username',
+                    params: {
+                        username: review.utente,
+                    },
+                }"
+                >
+                    <p>{{ review.utente }}</p>
+                </router-link>
                 <p>{{ review.recensione }}</p>
             </div>
         </v-col>
@@ -238,6 +213,7 @@ export default {
             tmpLoading: 0,
             infoAlbum: [],
             user: this.$store.state.user,
+            username: this.$store.state.username,
             rating: [0],
             preferito: { isPreferito: false },
             ascoltato: { isAscoltato: false },
@@ -293,26 +269,11 @@ export default {
                 var ascoltato = this.ascoltato
                 var daAscoltare = this.daAscoltare
                 var rating = this.rating
-                var recensioni = this.reviews
                 //this.loading = false
                 var preferito = this.preferito
                 var db = firebase.firestore()
                 var userData = db.collection('utenti').doc(this.user.email)
-                var reviews = db
-                    .collection('album')
-                    .doc(id.toString())
-                    .collection('reviews')
-                reviews
-                    .get()
-                    .then(function(querySnapshot) {
-                        querySnapshot.forEach(function(doc) {
-                            recensioni.push(doc.data())
-                        })
-                        console.log(recensioni)
-                    })
-                    .catch(function(error) {
-                        console.log('Error getting documents: ', error)
-                    })
+                this.getReviews()
                 userData
                     .collection('ascoltati')
                     .doc(id.toString())
@@ -404,7 +365,6 @@ export default {
                 this.daAscoltare.isDaAscoltare = true
             }
         },
-
         favourite() {
             var db = firebase.firestore()
             var email = this.user.email
@@ -425,27 +385,79 @@ export default {
         },
         save_review() {
             var db = firebase.firestore()
-            var recensione = this.recensione
-            var email = this.user.email
+            var recensioneTmp = this.recensione
+            var username = this.username
             var id = this.$route.params.id
-            var today = new Date()
-            var date =
-                today.getFullYear() +
-                '-' +
-                (today.getMonth() + 1) +
-                '-' +
-                today.getDate()
+            var time = Date.now()
             var review = db
                 .collection('album')
                 .doc(id.toString())
                 .collection('reviews')
-
-            review.add({
-                utente: email,
-                recensione: recensione,
-                timestamp: date,
-            })
+            review
+                .add({
+                    utente: username,
+                    recensione: recensioneTmp,
+                    timestamp: time,
+                })
+                .then(function() {
+                    console.log("Recensione inserita")
+                })
+                .catch(function(error) {
+                    console.log('Error: ', error)
+                })
+            var rec = {
+                utente: username,
+                recensione: recensioneTmp,
+                timestamp: time,
+            }
+            this.reviews.unshift(rec)
             this.dialog = false
+        },
+        getReviews() {
+            var db = firebase.firestore()
+            var id = this.$route.params.id
+            var recensioni = this.reviews
+            var reviews = db
+                .collection('album')
+                .doc(id.toString())
+                .collection('reviews')
+                .orderBy('timestamp', 'desc')
+            reviews
+                .get()
+                .then(function(querySnapshot) {
+                    querySnapshot.forEach(function(doc) {
+                        recensioni.push(doc.data())
+                    })
+                    console.log(recensioni)
+                })
+                .catch(function(error) {
+                    console.log('Error getting documents: ', error)
+                })
+        },
+        //Metodo per convertire la data da timestamp al formato GG-MM-AAAA HH:MM:SS
+        timeConverter(UNIX_timestamp) {
+            var a = new Date(UNIX_timestamp)
+            var year = a.getFullYear()
+            var month = a.getMonth() < 10 ? '0' + a.getMonth() : a.getMonth()
+            var date = a.getDate() < 10 ? '0' + a.getDate() : a.getDate()
+            var hour = a.getHours() < 10 ? '0' + a.getHours() : a.getHours()
+            var min =
+                a.getMinutes() < 10 ? '0' + a.getMinutes() : a.getMinutes()
+            var sec =
+                a.getSeconds() < 10 ? '0' + a.getSeconds() : a.getSeconds()
+            var time =
+                date +
+                '-' +
+                month +
+                '-' +
+                year +
+                ' ' +
+                hour +
+                ':' +
+                min +
+                ':' +
+                sec
+            return time
         },
     },
     watch: {

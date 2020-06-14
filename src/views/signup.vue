@@ -71,7 +71,7 @@ export default {
                         username: usr,
                     })
                     .then(function() {
-                        this.$store.commit('updateUsernameFB')
+                        this.$store.commit('updateUsernameSetFB')
                     })
                     .catch(function(error) {
                         alert('Qualcosa è andato storto, riprova')

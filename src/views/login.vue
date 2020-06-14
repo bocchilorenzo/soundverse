@@ -71,7 +71,7 @@ export default {
                 alert('Login effettuato')
                 this.$router.replace({ name: 'home' })
                 this.$store.commit('updateUserFB')
-                this.$store.commit('updateUsernameFB')
+                this.$store.commit('updateUsernameSetFB')
                 //this.$emit('updateUser', firebase.auth().currentUser)
                 //$emit('nomeEvento', datoDaPassare) => vai in app.vue nel tag router view
             } catch (err) {

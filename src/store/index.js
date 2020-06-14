@@ -13,25 +13,23 @@ export default new Vuex.Store({
         updateUserFB(state) {
             state.user = firebase.auth().currentUser
         },
-        updateUsernameFB(state) {
-            if (state.user != null) {
-                var db = firebase.firestore()
-                var email = state.user.email
-                var userData = db.collection('utenti').doc(email)
-                var usr = ''
-                userData
-                    .get()
-                    .then(function (querySnapshot) {
-                        usr = querySnapshot.data().username
-                        state.username = usr
-                    })
-                    .catch(function (error) {
-                        console.log('Error getting document:', error)
-                    })
-            }
-            else {
-                state.username = null
-            }
+        updateUsernameSetFB(state) {
+            var db = firebase.firestore()
+            var email = state.user.email
+            var userData = db.collection('utenti').doc(email)
+            var usr = ''
+            userData
+                .get()
+                .then(function (querySnapshot) {
+                    usr = querySnapshot.data().username
+                    state.username = usr
+                })
+                .catch(function (error) {
+                    console.log('Error getting document:', error)
+                })
+        },
+        updateUsernameClearFB(state) {
+            state.username = null
         }
     },
 })
