@@ -25,6 +25,10 @@
                     class="text-left font-weight-normal"
                     display="inline-block"
                 >Data uscita: {{ infoAlbum[0].releaseDate }}</p>
+                <p
+                    class="text-left font-weight-normal"
+                    display="inline-block"
+                >Voto medio: {{ infoAlbum[0].voto }}</p>
             </div>
         </v-col>
         <v-col v-if="infoAlbum[0] != undefined">
@@ -215,6 +219,7 @@ export default {
             user: this.$store.state.user,
             username: this.$store.state.username,
             rating: [0],
+            oldRating: [0],
             preferito: { isPreferito: false },
             ascoltato: { isAscoltato: false },
             daAscoltare: { isDaAscoltare: false },
@@ -246,6 +251,8 @@ export default {
                     artistId: response.data.artist['id'],
                     artistPicture: response.data.artist['picture_medium'],
                     trackList: [],
+                    voto: 0,
+                    numVoti: 0,
                 }
                 for (var i = 0; i < response.data.tracks['data'].length; i++) {
                     albumData.trackList[i] = {
@@ -260,6 +267,7 @@ export default {
                 console.log(error)
                 this.errored = true
             })
+            .then(() => this.getVotoMedio())
             .finally(() => this.checkAdded())
     },
     methods: {
@@ -269,6 +277,7 @@ export default {
                 var ascoltato = this.ascoltato
                 var daAscoltare = this.daAscoltare
                 var rating = this.rating
+                var oldRating = this.oldRating
                 //this.loading = false
                 var preferito = this.preferito
                 var db = firebase.firestore()
@@ -281,6 +290,7 @@ export default {
                     .then(function(doc) {
                         if (doc.exists) {
                             rating[0] = doc.data().rating
+                            oldRating[0] = doc.data().rating
                             ascoltato.isAscoltato = true
                         }
                     })
@@ -342,6 +352,7 @@ export default {
                 userData.delete()
                 rating[0] = 0
                 this.ascoltato.isAscoltato = false
+                this.setVotoMedio()
             } else {
                 userData.set({ titolo: title, rating: rating[0] })
                 this.ascoltato.isAscoltato = true
@@ -490,6 +501,57 @@ export default {
                 sec
             return time
         },
+        getVotoMedio() {
+            var id = this.$route.params.id
+            var info = this.infoAlbum
+            var db = firebase.firestore()
+            var media = db.collection('album').doc(id.toString())
+            media
+                .get()
+                .then(function(doc) {
+                    if (doc.exists != false) {
+                        info[0].voto = doc.data().mediaVoto
+                        info[0].numVoti = doc.data().numeroVoti
+                    }
+                })
+                .catch(function(error) {
+                    console.log('Error getting documents: ', error)
+                })
+        },
+        setVotoMedio() {
+            var id = this.$route.params.id
+            var db = firebase.firestore()
+            var media = db.collection('album').doc(id.toString())
+            var tmp = 0
+            var newNumber = 0
+            if (this.rating[0] == 0) {
+                tmp =
+                    this.infoAlbum[0].voto * this.infoAlbum[0].numVoti -
+                    this.oldRating[0]
+                newNumber = this.infoAlbum[0].numVoti - 1
+            } else {
+                if (this.oldRating[0] != 0) {
+                    tmp =
+                        this.infoAlbum[0].voto * this.infoAlbum[0].numVoti -
+                        this.oldRating[0]
+                    newNumber = this.infoAlbum[0].numVoti
+                    tmp += this.rating[0]
+                } else {
+                    tmp =
+                        this.infoAlbum[0].voto * this.infoAlbum[0].numVoti +
+                        this.rating[0]
+                    newNumber = this.infoAlbum[0].numVoti + 1
+                }
+            }
+            var newRating = tmp / newNumber
+            media.set({
+                mediaVoto: newRating,
+                numeroVoti: newNumber,
+            })
+            this.oldRating[0] = this.rating[0]
+            this.infoAlbum[0].voto = newRating
+            this.infoAlbum[0].numVoti = newNumber
+        },
     },
     watch: {
         rating: function() {
@@ -506,6 +568,7 @@ export default {
                     rating: newRating[0],
                     titolo: title,
                 })
+                .then(() => this.setVotoMedio())
             this.ascoltato.isAscoltato = true
         },
         loader() {
