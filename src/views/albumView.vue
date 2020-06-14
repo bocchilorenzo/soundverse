@@ -316,7 +316,7 @@ export default {
                     .catch(function(error) {
                         console.log('Error getting document:', error)
                     })
-                    .then(() => this.caricato())
+                //.then(() => this.caricato())
             } else {
                 this.loading = null
             }
@@ -386,7 +386,7 @@ export default {
         save_review() {
             var db = firebase.firestore()
             var recensioneTmp = this.recensione
-            var username = this.username
+            var mail = this.user.email
             var id = this.$route.params.id
             var time = Date.now()
             var review = db
@@ -395,18 +395,18 @@ export default {
                 .collection('reviews')
             review
                 .add({
-                    utente: username,
+                    utente: mail,
                     recensione: recensioneTmp,
                     timestamp: time,
                 })
                 .then(function() {
-                    console.log("Recensione inserita")
+                    console.log('Recensione inserita')
                 })
                 .catch(function(error) {
                     console.log('Error: ', error)
                 })
             var rec = {
-                utente: username,
+                utente: this.username,
                 recensione: recensioneTmp,
                 timestamp: time,
             }
@@ -428,11 +428,42 @@ export default {
                     querySnapshot.forEach(function(doc) {
                         recensioni.push(doc.data())
                     })
-                    console.log(recensioni)
                 })
                 .catch(function(error) {
                     console.log('Error getting documents: ', error)
                 })
+                .then(() => this.emailToUsername())
+        },
+        emailToUsername() {
+            var db = firebase.firestore()
+            var userData = db.collection('utenti')
+            var email = ''
+            var i = 0
+            var usernameArr = []
+            if (this.reviews.length == 0) {
+                this.loading = false
+            }
+            for (i = 0; i < this.reviews.length; i++) {
+                email = this.reviews[i].utente
+                userData
+                    .doc(email)
+                    .get()
+                    .then(function(querySnapshot) {
+                        usernameArr.push(querySnapshot.data())
+                    })
+                    .catch(function(error) {
+                        console.log('Error getting document:', error)
+                    })
+                    .then(() => this.switch(usernameArr))
+            }
+        },
+        switch(usernameArr) {
+            if (usernameArr.length == this.reviews.length) {
+                for (var i = 0; i < this.reviews.length; i++) {
+                    this.reviews[i].utente = usernameArr[i].username
+                }
+                this.loading = false
+            }
         },
         //Metodo per convertire la data da timestamp al formato GG-MM-AAAA HH:MM:SS
         timeConverter(UNIX_timestamp) {
