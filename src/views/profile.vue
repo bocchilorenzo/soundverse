@@ -3,6 +3,8 @@
         <v-row v-if="user != null" align="center" justify="center" class="flex-column">
             <p v-if="!notMine" style="text-align:center">Mail: {{ user.email }}</p>
             <p style="text-align:center">Username: {{ username }}</p>
+            <p style="text-align:center">Follower: {{ numFollower[0].n }}</p>
+            <p style="text-align:center">Seguiti: {{ numSeguiti[0].n }}</p>
             <v-form ref="form" v-if="!notMine">
                 <v-btn color="danger" @click="logout()">Logout</v-btn>
             </v-form>
@@ -11,6 +13,12 @@
             <v-text-field v-model="newUsername" label="Modifica username"></v-text-field>
             <v-form ref="form">
                 <v-btn color="danger" @click="modUsername()">Modifica informazioni</v-btn>
+            </v-form>
+        </v-row>
+        <v-row align="center" justify="center" class="flex-column">
+            <v-form ref="form" v-if="notMine">
+                <v-btn v-if="!seguito" color="primary" @click="segui('f')">Follow</v-btn>
+                <v-btn v-else color="danger" @click="segui('u')">Unfollow</v-btn>
             </v-form>
         </v-row>
     </div>
@@ -27,6 +35,22 @@ export default {
             username: '',
             newUsername: '',
             notMine: true,
+            numFollower: [{ n: 0 }],
+            arrFollower: [],
+            numSeguiti: [{ n: 0 }],
+            arrSeguiti: [],
+            seguito: false,
+        }
+    },
+    created: function() {
+        if (this.user == null && this.$route.params.username == null) {
+            this.$router.replace({ name: 'login' })
+        } else if (this.usernameDB == this.$route.params.username) {
+            this.notMine = false
+            this.getUsername()
+        } else {
+            this.username = this.$route.params.username
+            this.stay()
         }
     },
     methods: {
@@ -100,6 +124,7 @@ export default {
             //Metodo per settare correttamente l'username e aggiornare la vista
             this.username = usr
             this.$store.commit('updateUsernameSetFB')
+            this.segui('tot')
             /*
             this.$router.replace({
                 name: 'profile',
@@ -144,19 +169,142 @@ export default {
             if (presente == false) {
                 alert('Utente inesistente. Clicca Ok per tornare alla home.')
                 setTimeout(() => this.$router.replace({ name: 'home' }), 1000)
+            } else {
+                this.segui('tot')
             }
         },
-    },
-    created: function() {
-        if (this.user == null && this.$route.params.username == null) {
-            this.$router.replace({ name: 'login' })
-        } else if (this.usernameDB == this.$route.params.username) {
-            this.notMine = false
-            this.getUsername()
-        } else {
-            this.username = this.$route.params.username
-            this.stay()
-        }
+        segui(mode) {
+            var db = firebase.firestore()
+            //var email = this.user.email
+            var username = this.$route.params.username
+            var emailFollow = ''
+            var userData = db.collection('utenti')
+            if (mode == 'f') {
+                userData.where('username', '==', username)
+                userData
+                    .get()
+                    .then(function(querySnapshot) {
+                        emailFollow = querySnapshot.docs[0].id
+                    })
+                    .catch(function(error) {
+                        console.log('Error getting document:', error)
+                    })
+                    .then(() => this.followUnfollow('f', emailFollow))
+            } else if (mode == 'u') {
+                userData.where('username', '==', username)
+                userData
+                    .get()
+                    .then(function(querySnapshot) {
+                        emailFollow = querySnapshot.docs[0].id
+                    })
+                    .catch(function(error) {
+                        console.log('Error getting document:', error)
+                    })
+                    .then(() => this.followUnfollow('u', emailFollow))
+            } else {
+                userData.where('username', '==', username)
+                userData
+                    .get()
+                    .then(function(querySnapshot) {
+                        emailFollow = querySnapshot.docs[0].id
+                    })
+                    .catch(function(error) {
+                        console.log('Error getting document:', error)
+                    })
+                    .then(() => this.fetchFollowEFollowers(emailFollow))
+            }
+        },
+        followUnfollow(mode, emailFollow) {
+            var db = firebase.firestore()
+            var email = this.user.email
+            var userData = db
+                .collection('utenti')
+                .doc(email)
+                .collection('seguiti')
+            var user2 = db
+                .collection('utenti')
+                .doc(emailFollow)
+                .collection('follower')
+            if (mode == 'f') {
+                userData.doc().set({ mail: emailFollow })
+                user2.doc().set({ mail: email })
+                this.seguito = true
+            } else {
+                userData.where('mail', '==', emailFollow)
+                userData.get().then(function(querySnapshot) {
+                    querySnapshot.forEach(function(doc) {
+                        doc.ref.delete()
+                    })
+                })
+                user2.where('mail', '==', email)
+                user2.get().then(function(querySnapshot) {
+                    querySnapshot.forEach(function(doc) {
+                        doc.ref.delete()
+                    })
+                })
+                this.seguito = false
+            }
+        },
+        fetchFollowEFollowers(email) {
+            var db = firebase.firestore()
+            var userData = db
+                .collection('utenti')
+                .doc(email)
+                .collection('seguiti')
+            var user2 = db
+                .collection('utenti')
+                .doc(email)
+                .collection('follower')
+            var followers = this.arrFollower
+            var seguiti = this.arrSeguiti
+            var numSeguiti = this.numSeguiti
+            var numFollower = this.numFollower
+            userData
+                .get()
+                .then(function(querySnapshot) {
+                    if (querySnapshot.size == 0) {
+                        numSeguiti[0].n = 0
+                    } else {
+                        querySnapshot.forEach(function(doc) {
+                            seguiti.push(doc.data().mail)
+                        })
+                        numSeguiti[0].n = seguiti.length
+                    }
+                })
+                .catch(function(error) {
+                    console.log('Error getting document:', error)
+                })
+            user2
+                .get()
+                .then(function(querySnapshot) {
+                    if (querySnapshot.size == 0) {
+                        numFollower[0].n = 0
+                    } else {
+                        querySnapshot.forEach(function(doc) {
+                            followers.push(doc.data().mail)
+                        })
+                        numFollower[0].n = followers.length
+                    }
+                })
+                .catch(function(error) {
+                    console.log('Error getting document:', error)
+                })
+                .then(() => this.switchFollowButton())
+        },
+        switchFollowButton() {
+            if (this.user != null) {
+                var trovato = false
+                var cont = 0
+                while (!trovato && cont < this.arrFollower.length) {
+                    if (this.arrFollower[cont] == this.user.email) {
+                        trovato = true
+                        this.seguito = true
+                    } else {
+                        cont++
+                    }
+                }
+            }
+        },
     },
 }
 </script>
