@@ -11,6 +11,7 @@ import artistView from '../views/artistView.vue'
 import ascoltati from '../views/ascoltati.vue'
 import daAscoltare from '../views/daAscoltare.vue'
 import preferiti from '../views/preferiti.vue'
+import profiloAltri from '../views/profiloAltri'
 
 Vue.use(VueRouter)
 
@@ -43,6 +44,11 @@ const routes = [
         path: '/signup',
         name: 'signup',
         component: signup,
+    },
+    {
+        path: '/user/:username',
+        name: 'user',
+        component: profiloAltri,
     },
     {
         path: '/profile/:username',

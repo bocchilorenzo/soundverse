@@ -2,9 +2,9 @@
     <v-hover>
         <router-link
             :to="{
-                name: 'profile',
-                path: '/profile/:username',
-                params: { username: dati.username },
+                name: 'user',
+                path: '/user/:username',
+                params: { username: dati.username, email: dati.email },
                 props: true,
             }"
         >

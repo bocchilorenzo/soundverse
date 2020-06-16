@@ -194,7 +194,6 @@
                 <v-card flat>
                     <v-card-text>
                         <v-row class="mb-4" align="center">
-                            <v-avatar color="grey" class="mr-4"></v-avatar>
                             <router-link
                                 :to="{
                                     name: 'profile',
@@ -204,7 +203,7 @@
                                     },
                                 }"
                             >
-                                <strong class="title">{{ review.utente }}</strong>
+                                <strong class="title ml-4">{{ review.utente }}</strong>
                             </router-link>
 
                             <v-spacer></v-spacer>

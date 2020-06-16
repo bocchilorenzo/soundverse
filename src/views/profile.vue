@@ -1,7 +1,7 @@
 <template>
     <div class="profile">
         <v-row v-if="user != null" align="center" justify="center" class="flex-column">
-            <p v-if="!notMine" style="text-align:center">Mail: {{ user.email }}</p>
+            <p style="text-align:center">Mail: {{ user.email }}</p>
             <p style="text-align:center">Username: {{ username }}</p>
             <p style="text-align:center">Follower: {{ numFollower[0].n }}</p>
             <p style="text-align:center">Seguiti: {{ numSeguiti[0].n }}</p>
@@ -9,18 +9,18 @@
                 <v-btn color="danger" @click="logout()">Logout</v-btn>
             </v-form>
         </v-row>
-        <v-row v-if="user != null && !notMine" align="center" justify="center" class="flex-column">
+        <v-row v-if="user != null" align="center" justify="center" class="flex-column">
             <v-text-field v-model="newUsername" label="Modifica username"></v-text-field>
             <v-form ref="form">
                 <v-btn color="danger" @click="modUsername()">Modifica informazioni</v-btn>
             </v-form>
         </v-row>
-        <v-row align="center" justify="center" class="flex-column">
-            <v-form ref="form" v-if="notMine">
+        <!--    <v-row align="center" justify="center" class="flex-column">
+            <v-form ref="form">
                 <v-btn v-if="!seguito" color="primary" @click="segui('f')">Follow</v-btn>
                 <v-btn v-else color="danger" @click="segui('u')">Unfollow</v-btn>
             </v-form>
-        </v-row>
+        </v-row>-->
     </div>
 </template>
 
@@ -34,7 +34,6 @@ export default {
             usernameDB: this.$store.state.username,
             username: '',
             newUsername: '',
-            notMine: true,
             numFollower: [{ n: 0 }],
             arrFollower: [],
             numSeguiti: [{ n: 0 }],
@@ -46,12 +45,58 @@ export default {
         if (this.user == null && this.$route.params.username == null) {
             this.$router.replace({ name: 'login' })
         } else if (this.usernameDB == this.$route.params.username) {
-            this.notMine = false
             this.getUsername()
-        } else {
+            var email = this.user.email
+            var db = firebase.firestore()
+            var userData = db
+                .collection('utenti')
+                .doc(email)
+                .collection('seguiti')
+            var user2 = db
+                .collection('utenti')
+                .doc(email)
+                .collection('follower')
+            var followers = this.arrFollower
+            var following = this.arrSeguiti
+            var numSeguiti = this.numSeguiti
+            var numFollower = this.numFollower
+            userData
+                .get()
+                .then(function(querySnapshot) {
+                    if (querySnapshot.size == 0) {
+                        numSeguiti[0].n = 0
+                    } else {
+                        console.log(querySnapshot)
+                        querySnapshot.forEach(function(doc) {
+                            following.push(doc.data().mail)
+                        })
+                        numSeguiti[0].n = following.length
+                    }
+                })
+                .catch(function(error) {
+                    console.log('Error getting document:', error)
+                })
+            user2
+                .get()
+                .then(function(querySnapshot) {
+                    if (querySnapshot.size == 0) {
+                        numFollower[0].n = 0
+                    } else {
+                        querySnapshot.forEach(function(doc) {
+                            followers.push(doc.data().mail)
+                        })
+                        numFollower[0].n = followers.length
+                    }
+                })
+                .catch(function(error) {
+                    console.log('Error getting document:', error)
+                })
+            /* .then(() => this.switchFollowButton())*/
+        }
+        /* else {
             this.username = this.$route.params.username
             this.stay()
-        }
+        }*/
     },
     methods: {
         modUsername() {
@@ -147,7 +192,7 @@ export default {
                 alert('Oops. ' + err.message)
             }
         },
-        stay() {
+        /*    stay() {
             var db = firebase.firestore()
             var usr = this.$route.params.username
             var userData = db.collection('utenti')
@@ -172,8 +217,8 @@ export default {
             } else {
                 this.segui('tot')
             }
-        },
-        segui(mode) {
+        },    */
+        /*    segui(mode) {
             var db = firebase.firestore()
             //var email = this.user.email
             var username = this.$route.params.username
@@ -244,54 +289,9 @@ export default {
                 })
                 this.seguito = false
             }
-        },
-        fetchFollowEFollowers(email) {
-            var db = firebase.firestore()
-            var userData = db
-                .collection('utenti')
-                .doc(email)
-                .collection('seguiti')
-            var user2 = db
-                .collection('utenti')
-                .doc(email)
-                .collection('follower')
-            var followers = this.arrFollower
-            var seguiti = this.arrSeguiti
-            var numSeguiti = this.numSeguiti
-            var numFollower = this.numFollower
-            userData
-                .get()
-                .then(function(querySnapshot) {
-                    if (querySnapshot.size == 0) {
-                        numSeguiti[0].n = 0
-                    } else {
-                        querySnapshot.forEach(function(doc) {
-                            seguiti.push(doc.data().mail)
-                        })
-                        numSeguiti[0].n = seguiti.length
-                    }
-                })
-                .catch(function(error) {
-                    console.log('Error getting document:', error)
-                })
-            user2
-                .get()
-                .then(function(querySnapshot) {
-                    if (querySnapshot.size == 0) {
-                        numFollower[0].n = 0
-                    } else {
-                        querySnapshot.forEach(function(doc) {
-                            followers.push(doc.data().mail)
-                        })
-                        numFollower[0].n = followers.length
-                    }
-                })
-                .catch(function(error) {
-                    console.log('Error getting document:', error)
-                })
-                .then(() => this.switchFollowButton())
-        },
-        switchFollowButton() {
+        },   */
+
+        /*     switchFollowButton() {
             if (this.user != null) {
                 var trovato = false
                 var cont = 0
@@ -304,7 +304,7 @@ export default {
                     }
                 }
             }
-        },
+        },  */
     },
 }
 </script>

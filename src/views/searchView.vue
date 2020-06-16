@@ -37,16 +37,12 @@
                 </v-tab-item>
                 <v-tab-item>
                     <v-card flat tile>
-                        <cardContainerArtisti
-                            :arrayRisultati="artisti"
-                        ></cardContainerArtisti>
+                        <cardContainerArtisti :arrayRisultati="artisti"></cardContainerArtisti>
                     </v-card>
                 </v-tab-item>
                 <v-tab-item>
                     <v-card flat tile>
-                        <usersContainer
-                            :arrayRisultati="utenti"
-                        ></usersContainer>
+                        <usersContainer :arrayRisultati="utenti"></usersContainer>
                     </v-card>
                 </v-tab-item>
             </v-tabs>
@@ -114,10 +110,7 @@ export default {
         updateInfoArtisti() {
             var q = this.$route.params.q
             axios({
-                url:
-                    'https://api.deezer.com/search/artist?q=' +
-                    q +
-                    '&output=jsonp',
+                url: 'https://api.deezer.com/search/artist?q=' + q + '&output=jsonp',
                 adapter: jsonpAdapter,
             })
                 .then(response => {
@@ -126,8 +119,7 @@ export default {
                             var risultati2 = {
                                 artistId: response.data.data[x].id,
                                 name: response.data.data[x].name,
-                                artistImage:
-                                    response.data.data[x].picture_medium,
+                                artistImage: response.data.data[x].picture_medium,
                             }
                             this.artisti.push(risultati2)
                         }
@@ -155,16 +147,11 @@ export default {
                                 var risultati = {
                                     id: i,
                                     title: response.data.data[i]['title'],
-                                    cover:
-                                        response.data.data[i]['cover_medium'],
-                                    artist:
-                                        response.data.data[i].artist['name'],
+                                    cover: response.data.data[i]['cover_medium'],
+                                    artist: response.data.data[i].artist['name'],
                                     albumId: response.data.data[i]['id'],
                                     albumLink: response.data.data[i]['link'], //questo non servirà poi, è solo per testare ora
-                                    explicit:
-                                        response.data.data[i][
-                                            'explicit_lyrics'
-                                        ],
+                                    explicit: response.data.data[i]['explicit_lyrics'],
                                 }
                                 tmp = this.checkDuplicati(risultati.albumId)
                                 if (tmp == false) {
@@ -200,6 +187,7 @@ export default {
                     querySnapshot.forEach(function(doc) {
                         var usr = {
                             username: doc.data().username,
+                            email: doc.id,
                         }
                         arr.push(usr)
                     })

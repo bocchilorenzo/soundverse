@@ -142,7 +142,6 @@ export default {
         }
     },
     created: function() {
-        this.$vuetify.theme.dark = false
         //Aggiungere qualche playlist per genere o altro, non editorial perché le view sono basate sulle playlist
         if (
             this.worldAlbumArray[0] == undefined &&
