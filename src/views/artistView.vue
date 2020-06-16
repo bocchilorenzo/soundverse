@@ -8,7 +8,12 @@
                         class="text-center"
                         style="height: 100vh; display: flex; align-items:center;"
                     >
-                        <v-progress-circular :size="70" :width="7" color="indigo" indeterminate></v-progress-circular>
+                        <v-progress-circular
+                            :size="70"
+                            :width="7"
+                            color="indigo"
+                            indeterminate
+                        ></v-progress-circular>
                     </v-col>
                 </v-row>
                 <v-row v-else>
@@ -115,10 +120,7 @@ export default {
         updateInfoArtista() {
             if (this.stop == false) {
                 axios({
-                    url:
-                        'https://api.deezer.com/artist/' +
-                        this.id +
-                        '&output=jsonp',
+                    url: 'https://api.deezer.com/artist/' + this.id + '&output=jsonp',
                     adapter: jsonpAdapter,
                 })
                     .then(response => {
@@ -139,10 +141,7 @@ export default {
                             .then(response => {
                                 for (var i = 0; i < 5; i++) {
                                     var artistData2 = {
-                                        name:
-                                            response.data.artist.similar.artist[
-                                                i
-                                            ].name,
+                                        name: response.data.artist.similar.artist[i].name,
                                     }
                                     this.simili.push(artistData2)
                                 }
@@ -206,16 +205,11 @@ export default {
                                 if (firstResponse.data.data[h] != undefined) {
                                     if (
                                         this.simili[0].name.toUpperCase() ==
-                                        firstResponse.data.data[
-                                            h
-                                        ].name.toUpperCase()
+                                        firstResponse.data.data[h].name.toUpperCase()
                                     ) {
-                                        this.simili[0].artistId =
-                                            firstResponse.data.data[h].id
+                                        this.simili[0].artistId = firstResponse.data.data[h].id
                                         this.simili[0].artistImage =
-                                            firstResponse.data.data[
-                                                h
-                                            ].picture_medium
+                                            firstResponse.data.data[h].picture_medium
                                         break
                                     }
                                 }
@@ -224,16 +218,11 @@ export default {
                                 if (secondResponse.data.data[h] != undefined) {
                                     if (
                                         this.simili[1].name.toUpperCase() ==
-                                        secondResponse.data.data[
-                                            h
-                                        ].name.toUpperCase()
+                                        secondResponse.data.data[h].name.toUpperCase()
                                     ) {
-                                        this.simili[1].artistId =
-                                            secondResponse.data.data[h].id
+                                        this.simili[1].artistId = secondResponse.data.data[h].id
                                         this.simili[1].artistImage =
-                                            secondResponse.data.data[
-                                                h
-                                            ].picture_medium
+                                            secondResponse.data.data[h].picture_medium
                                         break
                                     }
                                 }
@@ -242,16 +231,11 @@ export default {
                                 if (thirdResponse.data.data[h] != undefined) {
                                     if (
                                         this.simili[2].name.toUpperCase() ==
-                                        thirdResponse.data.data[
-                                            h
-                                        ].name.toUpperCase()
+                                        thirdResponse.data.data[h].name.toUpperCase()
                                     ) {
-                                        this.simili[2].artistId =
-                                            thirdResponse.data.data[h].id
+                                        this.simili[2].artistId = thirdResponse.data.data[h].id
                                         this.simili[2].artistImage =
-                                            thirdResponse.data.data[
-                                                h
-                                            ].picture_medium
+                                            thirdResponse.data.data[h].picture_medium
                                         break
                                     }
                                 }
@@ -260,16 +244,11 @@ export default {
                                 if (fourthResponse.data.data[h] != undefined) {
                                     if (
                                         this.simili[3].name.toUpperCase() ==
-                                        fourthResponse.data.data[
-                                            h
-                                        ].name.toUpperCase()
+                                        fourthResponse.data.data[h].name.toUpperCase()
                                     ) {
-                                        this.simili[3].artistId =
-                                            fourthResponse.data.data[h].id
+                                        this.simili[3].artistId = fourthResponse.data.data[h].id
                                         this.simili[3].artistImage =
-                                            fourthResponse.data.data[
-                                                h
-                                            ].picture_medium
+                                            fourthResponse.data.data[h].picture_medium
                                         break
                                     }
                                 }
@@ -278,16 +257,11 @@ export default {
                                 if (fifthResponse.data.data[h] != undefined) {
                                     if (
                                         this.simili[4].name.toUpperCase() ==
-                                        fifthResponse.data.data[
-                                            h
-                                        ].name.toUpperCase()
+                                        fifthResponse.data.data[h].name.toUpperCase()
                                     ) {
-                                        this.simili[4].artistId =
-                                            fifthResponse.data.data[h].id
+                                        this.simili[4].artistId = fifthResponse.data.data[h].id
                                         this.simili[4].artistImage =
-                                            fifthResponse.data.data[
-                                                h
-                                            ].picture_medium
+                                            fifthResponse.data.data[h].picture_medium
                                         break
                                     }
                                 }

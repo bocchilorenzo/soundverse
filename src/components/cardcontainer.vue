@@ -1,13 +1,7 @@
 <template>
-    <v-row align="center">
-        <v-col v-for="album in arrayRisultati" :key="album.albumId" cols="12" sm="4" lg="2" xl="2">
-            <v-row justify="center">
-                <albumCard
-                    :albumArray="album"
-                    :id="album.albumId"
-                    v-on:deletThis="rimuoviElemento"
-                />
-            </v-row>
+    <v-row align="center" no-gutters>
+        <v-col v-for="album in arrayRisultati" :key="album.albumId" xl="2" lg="2" md="3" sm="4">
+            <albumCard :albumArray="album" :id="album.albumId" v-on:deletThis="rimuoviElemento" />
         </v-col>
     </v-row>
 </template>

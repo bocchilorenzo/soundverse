@@ -1,12 +1,12 @@
 <template>
-    <v-row no-gutters justify="center">
+    <v-row no-gutters>
         <v-col
             v-for="artista in arrayRisultati"
             :key="artista.artistId"
-            cols="12"
-            sm="3"
-            lg="2"
             xl="2"
+            lg="2"
+            md="3"
+            sm="4"
         >
             <router-link
                 :to="{

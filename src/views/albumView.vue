@@ -5,30 +5,32 @@
             class="text-center"
             style="height: 100vh; display: flex; align-items:center;"
         >
-            <v-progress-circular :size="70" :width="7" color="indigo" indeterminate></v-progress-circular>
+            <v-progress-circular
+                :size="70"
+                :width="7"
+                color="indigo"
+                indeterminate
+            ></v-progress-circular>
         </v-col>
     </v-row>
     <v-row v-else>
-        <v-col cols="3" class="ml-2">
+        <v-col lg="3" sm="6" md="6" class="ml-2">
             <div id="sticky">
                 <v-img class="align-end" :src="infoAlbum[0].cover" width="100%"></v-img>
 
-                <p
-                    class="text-left font-weight-normal"
-                    display="inline-block"
-                >Genere: {{ infoAlbum[0].genre }}</p>
+                <p class="text-left font-weight-normal" display="inline-block">
+                    Genere: {{ infoAlbum[0].genre }}
+                </p>
                 <p class="text-left font-weight-normal" display="inline-block">
                     Numero tracce:
                     {{ infoAlbum[0].numberOfTracks }}
                 </p>
-                <p
-                    class="text-left font-weight-normal"
-                    display="inline-block"
-                >Data uscita: {{ infoAlbum[0].releaseDate }}</p>
-                <p
-                    class="text-left font-weight-normal"
-                    display="inline-block"
-                >Voto medio: {{ infoAlbum[0].voto }}</p>
+                <p class="text-left font-weight-normal" display="inline-block">
+                    Data uscita: {{ infoAlbum[0].releaseDate }}
+                </p>
+                <p class="text-left font-weight-normal" display="inline-block">
+                    Voto medio: {{ infoAlbum[0].voto }}
+                </p>
             </div>
         </v-col>
         <v-col v-if="infoAlbum[0] != undefined">
@@ -57,7 +59,7 @@
                 </v-list-item>
             </v-list>
         </v-col>
-        <v-col cols="3" v-if="user != null">
+        <v-col lg="3" sm="12" md="12" v-if="user != null">
             <div id="sticky">
                 <v-row justify="space-around" no-gutters>
                     <v-col class="pa-0 ma-1">
@@ -70,22 +72,23 @@
                                 :loading="loading1"
                                 :disabled="loading1"
                             >
-                                <v-icon
-                                    size="70"
-                                    v-if="daAscoltare.isDaAscoltare"
-                                    color="blue"
-                                >mdi-book-remove-multiple</v-icon>
-                                <v-icon size="70" v-else color="grey">mdi-book-plus-multiple-outline</v-icon>
+                                <v-icon size="70" v-if="daAscoltare.isDaAscoltare" color="blue"
+                                    >mdi-book-remove-multiple</v-icon
+                                >
+                                <v-icon size="70" v-else color="grey"
+                                    >mdi-book-plus-multiple-outline</v-icon
+                                >
                             </v-btn>
                         </v-row>
                         <p
                             class="font-weight-light caption text-center"
                             v-if="daAscoltare.isDaAscoltare"
-                        >Rimuovi dagli album da ascoltare</p>
-                        <p
-                            v-else
-                            class="font-weight-light caption text-center"
-                        >Aggiungi agli album da ascoltare</p>
+                        >
+                            Rimuovi dagli album da ascoltare
+                        </p>
+                        <p v-else class="font-weight-light caption text-center">
+                            Aggiungi agli album da ascoltare
+                        </p>
                     </v-col>
                     <v-col class="pa-0 ma-1">
                         <v-row justify="center">
@@ -97,22 +100,23 @@
                                 :loading="loading2"
                                 :disabled="loading2"
                             >
-                                <v-icon
-                                    size="70"
-                                    v-if="ascoltato.isAscoltato"
-                                    color="green"
-                                >mdi-folder-music</v-icon>
-                                <v-icon size="70" v-else color="grey">mdi-folder-music-outline</v-icon>
+                                <v-icon size="70" v-if="ascoltato.isAscoltato" color="green"
+                                    >mdi-folder-music</v-icon
+                                >
+                                <v-icon size="70" v-else color="grey"
+                                    >mdi-folder-music-outline</v-icon
+                                >
                             </v-btn>
                         </v-row>
                         <p
                             class="font-weight-light caption text-center"
                             v-if="ascoltato.isAscoltato"
-                        >Rimuovi dagli ascoltati</p>
-                        <p
-                            v-else
-                            class="font-weight-light caption text-center"
-                        >Aggiungi agli ascoltati</p>
+                        >
+                            Rimuovi dagli ascoltati
+                        </p>
+                        <p v-else class="font-weight-light caption text-center">
+                            Aggiungi agli ascoltati
+                        </p>
                     </v-col>
                     <v-col class="pa-0 ma-1">
                         <v-row justify="center">
@@ -124,22 +128,21 @@
                                 :loading="loading3"
                                 :disabled="loading3"
                             >
-                                <v-icon
-                                    size="70"
-                                    color="pink"
-                                    v-if="preferito.isPreferito"
-                                >mdi-heart</v-icon>
+                                <v-icon size="70" color="pink" v-if="preferito.isPreferito"
+                                    >mdi-heart</v-icon
+                                >
                                 <v-icon color="grey" size="70" v-else>mdi-heart-outline</v-icon>
                             </v-btn>
                         </v-row>
                         <p
                             class="font-weight-light caption text-center"
                             v-if="preferito.isPreferito"
-                        >Rimuovi dai preferiti</p>
-                        <p
-                            v-else
-                            class="font-weight-light caption text-center"
-                        >Aggiungi ai preferiti</p>
+                        >
+                            Rimuovi dai preferiti
+                        </p>
+                        <p v-else class="font-weight-light caption text-center">
+                            Aggiungi ai preferiti
+                        </p>
                     </v-col>
                 </v-row>
                 <v-divider></v-divider>
@@ -156,7 +159,7 @@
                 ></v-rating>
             </div>
         </v-col>
-        <v-col cols="12">
+        <v-col cols="12" class="ma-2">
             <h2>Recensioni</h2>
             <v-dialog v-model="dialog" max-width="600px">
                 <template v-slot:activator="{ on, attrs }" v-if="user != null">
@@ -188,18 +191,39 @@
                 </v-card>
             </v-dialog>
             <div v-for="review in reviews" :key="review.recensione">
-                <router-link
+                <v-card flat>
+                    <v-card-text>
+                        <v-row class="mb-4" align="center">
+                            <v-avatar color="grey" class="mr-4"></v-avatar>
+                            <router-link
+                                :to="{
+                                    name: 'profile',
+                                    path: '/profile/:username',
+                                    params: {
+                                        username: review.utente,
+                                    },
+                                }"
+                            >
+                                <strong class="title">{{ review.utente }}</strong>
+                            </router-link>
+
+                            <v-spacer></v-spacer>
+                        </v-row>
+                        <p>{{ review.recensione }}</p>
+                    </v-card-text>
+                </v-card>
+                <!--      <router-link
                     :to="{
-                    name: 'profile',
-                    path: '/profile/:username',
-                    params: {
-                        username: review.utente,
-                    },
-                }"
+                        name: 'profile',
+                        path: '/profile/:username',
+                        params: {
+                            username: review.utente,
+                        },
+                    }"
                 >
                     <p>{{ review.utente }}</p>
                 </router-link>
-                <p>{{ review.recensione }}</p>
+                <p>{{ review.recensione }}</p>-->
             </div>
         </v-col>
     </v-row>
@@ -483,22 +507,9 @@ export default {
             var month = a.getMonth() < 10 ? '0' + a.getMonth() : a.getMonth()
             var date = a.getDate() < 10 ? '0' + a.getDate() : a.getDate()
             var hour = a.getHours() < 10 ? '0' + a.getHours() : a.getHours()
-            var min =
-                a.getMinutes() < 10 ? '0' + a.getMinutes() : a.getMinutes()
-            var sec =
-                a.getSeconds() < 10 ? '0' + a.getSeconds() : a.getSeconds()
-            var time =
-                date +
-                '-' +
-                month +
-                '-' +
-                year +
-                ' ' +
-                hour +
-                ':' +
-                min +
-                ':' +
-                sec
+            var min = a.getMinutes() < 10 ? '0' + a.getMinutes() : a.getMinutes()
+            var sec = a.getSeconds() < 10 ? '0' + a.getSeconds() : a.getSeconds()
+            var time = date + '-' + month + '-' + year + ' ' + hour + ':' + min + ':' + sec
             return time
         },
         getVotoMedio() {
@@ -525,21 +536,15 @@ export default {
             var tmp = 0
             var newNumber = 0
             if (this.rating[0] == 0) {
-                tmp =
-                    this.infoAlbum[0].voto * this.infoAlbum[0].numVoti -
-                    this.oldRating[0]
+                tmp = this.infoAlbum[0].voto * this.infoAlbum[0].numVoti - this.oldRating[0]
                 newNumber = this.infoAlbum[0].numVoti - 1
             } else {
                 if (this.oldRating[0] != 0) {
-                    tmp =
-                        this.infoAlbum[0].voto * this.infoAlbum[0].numVoti -
-                        this.oldRating[0]
+                    tmp = this.infoAlbum[0].voto * this.infoAlbum[0].numVoti - this.oldRating[0]
                     newNumber = this.infoAlbum[0].numVoti
                     tmp += this.rating[0]
                 } else {
-                    tmp =
-                        this.infoAlbum[0].voto * this.infoAlbum[0].numVoti +
-                        this.rating[0]
+                    tmp = this.infoAlbum[0].voto * this.infoAlbum[0].numVoti + this.rating[0]
                     newNumber = this.infoAlbum[0].numVoti + 1
                 }
             }

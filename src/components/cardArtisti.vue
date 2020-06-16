@@ -1,6 +1,6 @@
 <template>
-    <div class="d-flex flex-column ma-3" style="align-items: center">
-        <v-hover v-slot:default="{ hover }" style="max-width: 200px">
+    <div class="d-flex flex-column ma-2" style="align-items: center; max-width: 200px">
+        <v-hover v-slot:default="{ hover }">
             <v-img
                 :src="artistArray.artistImage"
                 style="border-radius:50%"

@@ -1,9 +1,10 @@
 <template>
-    <div id="carousel" class="row">
-        <div class="col" v-for="album in albumArray.slice(2,8)" :key="album.id">
+    <v-row align="center" id="carousel" no-gutters>
+        <v-col lg="2" md="3" sm="4" v-for="album in albumArray.slice(2, 8)" :key="album.id">
             <albumCard v-if="check(album)" :albumArray="album" :id="album.albumId" />
-        </div>
-        <!--
+        </v-col>
+    </v-row>
+    <!--
         <v-sheet class="mx-auto my-2" cols="12" max-width="1500px">
             <h2 class="ma-2" @click="visualizzaLista(albumArray)">{{ albumArray[0] }}</h2>
             <v-slide-group
@@ -19,9 +20,7 @@
             </v-slide-group>
         </v-sheet>
         -->
-    </div>
 </template>
-
 
 <script>
 import albumCard from './card'

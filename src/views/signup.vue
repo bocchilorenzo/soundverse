@@ -9,11 +9,7 @@
                     label="E-mail"
                     required
                 ></v-text-field>
-                <v-text-field
-                    v-model="username"
-                    label="Username"
-                    required
-                ></v-text-field>
+                <v-text-field v-model="username" label="Username" required></v-text-field>
                 <v-text-field
                     type="password"
                     v-model="password"
@@ -56,9 +52,7 @@ export default {
         },
         async signUpFirebase() {
             try {
-                await firebase
-                    .auth()
-                    .createUserWithEmailAndPassword(this.email, this.password)
+                await firebase.auth().createUserWithEmailAndPassword(this.email, this.password)
                 alert('Account creato!')
                 this.$store.commit('updateUserFB')
                 var db = firebase.firestore()

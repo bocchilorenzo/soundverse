@@ -1,6 +1,6 @@
 <template>
     <v-hover v-slot:default="{ hover }">
-        <v-card class="mr-1" :elevation="hover ? 10 : 2">
+        <v-card class="ma-1" :elevation="hover ? 10 : 2" max-width="200" height="100%">
             <router-link
                 :to="{
                     name: 'album',
@@ -26,20 +26,20 @@
 
                     <v-list>
                         <v-list-item @click="favourite()">
-                            <v-list-item-title v-if="preferito.isPreferito">Rimuovi dai preferiti</v-list-item-title>
+                            <v-list-item-title v-if="preferito.isPreferito"
+                                >Rimuovi dai preferiti</v-list-item-title
+                            >
                             <v-list-item-title v-else>Aggiungi ai preferiti</v-list-item-title>
                         </v-list-item>
                         <v-list-item @click="listened()">
                             <v-list-item-title v-if="ascoltato.isAscoltato">
-                                Rimuovi dagli album
-                                ascoltati
+                                Rimuovi dagli album ascoltati
                             </v-list-item-title>
                             <v-list-item-title v-else>Segna come ascoltato</v-list-item-title>
                         </v-list-item>
                         <v-list-item @click="toListen()">
                             <v-list-item-title v-if="daAscoltare.isDaAscoltare">
-                                Rimuovi dagli album da
-                                ascoltare
+                                Rimuovi dagli album da ascoltare
                             </v-list-item-title>
                             <v-list-item-title v-else>Aggiungi ai da ascoltare</v-list-item-title>
                         </v-list-item>

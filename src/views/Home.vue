@@ -5,7 +5,11 @@
                 <div>
                     <v-row align="center">
                         <v-sheet>
-                            <v-skeleton-loader class="ma-2" width="600" type="heading"></v-skeleton-loader>
+                            <v-skeleton-loader
+                                class="ma-2"
+                                width="600"
+                                type="heading"
+                            ></v-skeleton-loader>
                         </v-sheet>
                     </v-row>
                     <div class="row">
@@ -29,12 +33,16 @@
                         </div>
                     </div>
                 </div>
-                <br>
-                <br>
+                <br />
+                <br />
                 <div>
                     <v-row align="center">
                         <v-sheet>
-                            <v-skeleton-loader class="ma-2" width="600" type="heading"></v-skeleton-loader>
+                            <v-skeleton-loader
+                                class="ma-2"
+                                width="600"
+                                type="heading"
+                            ></v-skeleton-loader>
                         </v-sheet>
                     </v-row>
                     <div class="row">
@@ -58,12 +66,16 @@
                         </div>
                     </div>
                 </div>
-                <br>
-                <br>
+                <br />
+                <br />
                 <div>
                     <v-row align="center">
                         <v-sheet>
-                            <v-skeleton-loader class="ma-2" width="600" type="heading"></v-skeleton-loader>
+                            <v-skeleton-loader
+                                class="ma-2"
+                                width="600"
+                                type="heading"
+                            ></v-skeleton-loader>
                         </v-sheet>
                     </v-row>
                     <div class="row">
@@ -90,23 +102,17 @@
                 <!--Aggiungere le nuove uscite-->
             </div>
             <div v-else>
-                <div class="row">
-                    <h2 class="ma-2">{{ worldAlbumArray[0] }}</h2>
-                </div>
+                <h2 class="ma-2">{{ worldAlbumArray[0] }}</h2>
                 <carousel :albumArray="worldAlbumArray" />
                 <div>
                     <a @click="visualizzaLista(worldAlbumArray)">Visualizza tutti</a>
                 </div>
-                <div class="row">
-                    <h2 class="ma-2">{{ italyAlbumArray[0] }}</h2>
-                </div>
+                <h2 class="ma-2">{{ italyAlbumArray[0] }}</h2>
                 <carousel :albumArray="italyAlbumArray" />
                 <div>
                     <a @click="visualizzaLista(italyAlbumArray)">Visualizza tutti</a>
                 </div>
-                <div class="row">
-                    <h2 class="ma-2">{{ hitsArray[0] }}</h2>
-                </div>
+                <h2 class="ma-2">{{ hitsArray[0] }}</h2>
                 <carousel :albumArray="hitsArray" />
                 <div>
                     <a @click="visualizzaLista(hitsArray)">Visualizza tutti</a>
