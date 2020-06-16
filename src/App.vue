@@ -1,5 +1,5 @@
 <template>
-    <v-app id="inspire">
+    <v-app id="app">
         <v-navigation-drawer v-model="drawer" app>
             <v-list dense>
                 <router-link to="/">
@@ -46,7 +46,7 @@
             </v-list>
         </v-navigation-drawer>
 
-        <v-app-bar app color="indigo" dark>
+        <v-app-bar app color="primary" dark>
             <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
             <v-toolbar-title class="mr-5">DeezerRate</v-toolbar-title>
             <v-spacer />
@@ -82,7 +82,6 @@ export default {
         source: String,
     },
     components: { searchBar, musicPlayer },
-
     data() {
         return {
             key: 0,
@@ -96,12 +95,12 @@ export default {
         }
     },
     created: function() {
+        this.$vuetify.theme.dark = true
         this.$store.commit('updateUserFB')
         this.currentUser = this.$store.state.user
         if (this.currentUser != null) {
             this.$store.commit('updateUsernameSetFB')
-        }
-        else{
+        } else {
             this.$store.commit('updateUsernameClearFB')
         }
     },

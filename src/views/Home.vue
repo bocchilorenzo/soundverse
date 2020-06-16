@@ -2,175 +2,115 @@
     <div class="home">
         <v-container class="fill-width" fluid>
             <div v-if="this.loading">
-                <v-sheet
-                    class="mx-auto my-2 px-3 pt-3 pb-3"
-                    cols="12"
-                    max-width="1500px"
-                >
-                    <h2 class="ma-2">Top Worldwide</h2>
-                    <v-slide-group class="pa-0">
-                        <v-slide-item>
-                            <v-skeleton-loader
-                                class="mx-3"
-                                width="200"
-                                type="card"
-                            ></v-skeleton-loader>
-                        </v-slide-item>
-                        <v-slide-item>
-                            <v-skeleton-loader
-                                class="mx-3"
-                                width="200"
-                                type="card"
-                            ></v-skeleton-loader>
-                        </v-slide-item>
-                        <v-slide-item>
-                            <v-skeleton-loader
-                                class="mx-3"
-                                width="200"
-                                type="card"
-                            ></v-skeleton-loader>
-                        </v-slide-item>
-                        <v-slide-item>
-                            <v-skeleton-loader
-                                class="mx-3"
-                                width="200"
-                                type="card"
-                            ></v-skeleton-loader>
-                        </v-slide-item>
-                        <v-slide-item>
-                            <v-skeleton-loader
-                                class="mx-3"
-                                width="200"
-                                type="card"
-                            ></v-skeleton-loader>
-                        </v-slide-item>
-                        <v-slide-item>
-                            <v-skeleton-loader
-                                class="mx-3"
-                                width="200"
-                                type="card"
-                            ></v-skeleton-loader>
-                        </v-slide-item>
-                        <v-slide-item>
-                            <v-skeleton-loader
-                                class="mx-3"
-                                width="200"
-                                type="card"
-                            ></v-skeleton-loader>
-                        </v-slide-item>
-                        <v-slide-item>
-                            <v-skeleton-loader
-                                class="mx-3"
-                                width="200"
-                                type="card"
-                            ></v-skeleton-loader>
-                        </v-slide-item>
-                        <v-slide-item>
-                            <v-skeleton-loader
-                                class="mx-3"
-                                width="200"
-                                type="card"
-                            ></v-skeleton-loader>
-                        </v-slide-item>
-                        <v-slide-item>
-                            <v-skeleton-loader
-                                class="mx-3"
-                                width="200"
-                                type="card"
-                            ></v-skeleton-loader>
-                        </v-slide-item>
-                    </v-slide-group>
-                </v-sheet>
-                <v-sheet
-                    class="mx-auto my-2 px-3 pt-3 pb-3"
-                    cols="12"
-                    max-width="1500px"
-                >
-                    <h2 class="ma-2">Top Italy</h2>
-                    <v-slide-group class="pa-0">
-                        <v-slide-item>
-                            <v-skeleton-loader
-                                class="mx-3"
-                                width="200"
-                                type="card"
-                            ></v-skeleton-loader>
-                        </v-slide-item>
-                        <v-slide-item>
-                            <v-skeleton-loader
-                                class="mx-3"
-                                width="200"
-                                type="card"
-                            ></v-skeleton-loader>
-                        </v-slide-item>
-                        <v-slide-item>
-                            <v-skeleton-loader
-                                class="mx-3"
-                                width="200"
-                                type="card"
-                            ></v-skeleton-loader>
-                        </v-slide-item>
-                        <v-slide-item>
-                            <v-skeleton-loader
-                                class="mx-3"
-                                width="200"
-                                type="card"
-                            ></v-skeleton-loader>
-                        </v-slide-item>
-                        <v-slide-item>
-                            <v-skeleton-loader
-                                class="mx-3"
-                                width="200"
-                                type="card"
-                            ></v-skeleton-loader>
-                        </v-slide-item>
-                        <v-slide-item>
-                            <v-skeleton-loader
-                                class="mx-3"
-                                width="200"
-                                type="card"
-                            ></v-skeleton-loader>
-                        </v-slide-item>
-                        <v-slide-item>
-                            <v-skeleton-loader
-                                class="mx-3"
-                                width="200"
-                                type="card"
-                            ></v-skeleton-loader>
-                        </v-slide-item>
-                        <v-slide-item>
-                            <v-skeleton-loader
-                                class="mx-3"
-                                width="200"
-                                type="card"
-                            ></v-skeleton-loader>
-                        </v-slide-item>
-                        <v-slide-item>
-                            <v-skeleton-loader
-                                class="mx-3"
-                                width="200"
-                                type="card"
-                            ></v-skeleton-loader>
-                        </v-slide-item>
-                        <v-slide-item>
-                            <v-skeleton-loader
-                                class="mx-3"
-                                width="200"
-                                type="card"
-                            ></v-skeleton-loader>
-                        </v-slide-item>
-                    </v-slide-group>
-                </v-sheet>
+                <div>
+                    <v-row align="center">
+                        <v-sheet>
+                            <v-skeleton-loader class="ma-2" width="600" type="heading"></v-skeleton-loader>
+                        </v-sheet>
+                    </v-row>
+                    <div class="row">
+                        <div class="col">
+                            <v-skeleton-loader class="mr-1" type="card"></v-skeleton-loader>
+                        </div>
+                        <div class="col">
+                            <v-skeleton-loader class="mr-1" type="card"></v-skeleton-loader>
+                        </div>
+                        <div class="col">
+                            <v-skeleton-loader class="mr-1" type="card"></v-skeleton-loader>
+                        </div>
+                        <div class="col">
+                            <v-skeleton-loader class="mr-1" type="card"></v-skeleton-loader>
+                        </div>
+                        <div class="col">
+                            <v-skeleton-loader class="mr-1" type="card"></v-skeleton-loader>
+                        </div>
+                        <div class="col">
+                            <v-skeleton-loader class="mr-1" type="card"></v-skeleton-loader>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <br>
+                <div>
+                    <v-row align="center">
+                        <v-sheet>
+                            <v-skeleton-loader class="ma-2" width="600" type="heading"></v-skeleton-loader>
+                        </v-sheet>
+                    </v-row>
+                    <div class="row">
+                        <div class="col">
+                            <v-skeleton-loader class="mr-1" type="card"></v-skeleton-loader>
+                        </div>
+                        <div class="col">
+                            <v-skeleton-loader class="mr-1" type="card"></v-skeleton-loader>
+                        </div>
+                        <div class="col">
+                            <v-skeleton-loader class="mr-1" type="card"></v-skeleton-loader>
+                        </div>
+                        <div class="col">
+                            <v-skeleton-loader class="mr-1" type="card"></v-skeleton-loader>
+                        </div>
+                        <div class="col">
+                            <v-skeleton-loader class="mr-1" type="card"></v-skeleton-loader>
+                        </div>
+                        <div class="col">
+                            <v-skeleton-loader class="mr-1" type="card"></v-skeleton-loader>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <br>
+                <div>
+                    <v-row align="center">
+                        <v-sheet>
+                            <v-skeleton-loader class="ma-2" width="600" type="heading"></v-skeleton-loader>
+                        </v-sheet>
+                    </v-row>
+                    <div class="row">
+                        <div class="col">
+                            <v-skeleton-loader class="mr-1" type="card"></v-skeleton-loader>
+                        </div>
+                        <div class="col">
+                            <v-skeleton-loader class="mr-1" type="card"></v-skeleton-loader>
+                        </div>
+                        <div class="col">
+                            <v-skeleton-loader class="mr-1" type="card"></v-skeleton-loader>
+                        </div>
+                        <div class="col">
+                            <v-skeleton-loader class="mr-1" type="card"></v-skeleton-loader>
+                        </div>
+                        <div class="col">
+                            <v-skeleton-loader class="mr-1" type="card"></v-skeleton-loader>
+                        </div>
+                        <div class="col">
+                            <v-skeleton-loader class="mr-1" type="card"></v-skeleton-loader>
+                        </div>
+                    </div>
+                </div>
                 <!--Aggiungere le nuove uscite-->
             </div>
             <div v-else>
-                <carousel
-                    :albumArray="worldAlbumArray"
-                    v-on:updateLista="prop"
-                />
-                <carousel
-                    :albumArray="italyAlbumArray"
-                    v-on:updateLista="prop"
-                />
+                <div class="row">
+                    <h2 class="ma-2">{{ worldAlbumArray[0] }}</h2>
+                </div>
+                <carousel :albumArray="worldAlbumArray" />
+                <div>
+                    <a @click="visualizzaLista(worldAlbumArray)">Visualizza tutti</a>
+                </div>
+                <div class="row">
+                    <h2 class="ma-2">{{ italyAlbumArray[0] }}</h2>
+                </div>
+                <carousel :albumArray="italyAlbumArray" />
+                <div>
+                    <a @click="visualizzaLista(italyAlbumArray)">Visualizza tutti</a>
+                </div>
+                <div class="row">
+                    <h2 class="ma-2">{{ hitsArray[0] }}</h2>
+                </div>
+                <carousel :albumArray="hitsArray" />
+                <div>
+                    <a @click="visualizzaLista(hitsArray)">Visualizza tutti</a>
+                </div>
             </div>
         </v-container>
     </div>
@@ -191,6 +131,7 @@ export default {
             //albumArray: [],
             worldAlbumArray: [],
             italyAlbumArray: [],
+            hitsArray: [],
             loading: true,
         }
     },
@@ -199,23 +140,26 @@ export default {
         //Aggiungere qualche playlist per genere o altro, non editorial perché le view sono basate sulle playlist
         if (
             this.worldAlbumArray[0] == undefined &&
-            this.italyAlbumArray[0] == undefined
+            this.italyAlbumArray[0] == undefined &&
+            this.hitsArray[0] == undefined
         ) {
             axios
                 .all([
                     axios({
-                        url:
-                            'https://api.deezer.com/playlist/3155776842?output=jsonp',
+                        url: 'https://api.deezer.com/playlist/3155776842?output=jsonp',
                         adapter: jsonpAdapter,
                     }),
                     axios({
-                        url:
-                            'https://api.deezer.com/playlist/1116187241?output=jsonp',
+                        url: 'https://api.deezer.com/playlist/1116187241?output=jsonp',
+                        adapter: jsonpAdapter,
+                    }),
+                    axios({
+                        url: 'https://api.deezer.com/playlist/65489479?output=jsonp',
                         adapter: jsonpAdapter,
                     }),
                 ])
                 .then(
-                    axios.spread((firstResponse, secondResponse) => {
+                    axios.spread((firstResponse, secondResponse, thirdResponse) => {
                         this.worldAlbumArray.push(firstResponse.data.title)
                         this.worldAlbumArray.push('3155776842')
                         var tmp1 = false
@@ -223,32 +167,15 @@ export default {
                         for (i = 0; i < 25; i++) {
                             var albumWorld = {
                                 id: i,
-                                title:
-                                    firstResponse.data.tracks.data[i].album[
-                                        'title'
-                                    ],
-                                cover:
-                                    firstResponse.data.tracks.data[i].album[
-                                        'cover_medium'
-                                    ],
-                                artist:
-                                    firstResponse.data.tracks.data[i].artist[
-                                        'name'
-                                    ],
-                                albumId:
-                                    firstResponse.data.tracks.data[i].album[
-                                        'id'
-                                    ],
+                                title: firstResponse.data.tracks.data[i].album['title'],
+                                cover: firstResponse.data.tracks.data[i].album['cover_medium'],
+                                artist: firstResponse.data.tracks.data[i].artist['name'],
+                                albumId: firstResponse.data.tracks.data[i].album['id'],
                                 albumLink:
                                     'https://deezer.com/album/' +
-                                    firstResponse.data.tracks.data[i].album[
-                                        'id'
-                                    ], //questo non servirà poi, è solo per testare ora
+                                    firstResponse.data.tracks.data[i].album['id'], //questo non servirà poi, è solo per testare ora
                             }
-                            tmp1 = this.checkDuplicati(
-                                'world',
-                                albumWorld.albumId
-                            )
+                            tmp1 = this.checkDuplicati('world', albumWorld.albumId)
                             if (tmp1 == false) {
                                 this.worldAlbumArray.push(albumWorld)
                             }
@@ -260,34 +187,37 @@ export default {
                         for (x = 0; x < 25; x++) {
                             var albumItaly = {
                                 id: x,
-                                title:
-                                    secondResponse.data.tracks.data[x].album[
-                                        'title'
-                                    ],
-                                cover:
-                                    secondResponse.data.tracks.data[x].album[
-                                        'cover_medium'
-                                    ],
-                                artist:
-                                    secondResponse.data.tracks.data[x].artist[
-                                        'name'
-                                    ],
-                                albumId:
-                                    secondResponse.data.tracks.data[x].album[
-                                        'id'
-                                    ],
+                                title: secondResponse.data.tracks.data[x].album['title'],
+                                cover: secondResponse.data.tracks.data[x].album['cover_medium'],
+                                artist: secondResponse.data.tracks.data[x].artist['name'],
+                                albumId: secondResponse.data.tracks.data[x].album['id'],
                                 albumLink:
                                     'https://deezer.com/album/' +
-                                    secondResponse.data.tracks.data[x].album[
-                                        'id'
-                                    ], //questo non servirà poi, è solo per testare ora
+                                    secondResponse.data.tracks.data[x].album['id'], //questo non servirà poi, è solo per testare ora
                             }
-                            tmp2 = this.checkDuplicati(
-                                'italy',
-                                albumItaly.albumId
-                            )
+                            tmp2 = this.checkDuplicati('italy', albumItaly.albumId)
                             if (tmp2 == false) {
                                 this.italyAlbumArray.push(albumItaly)
+                            }
+                        }
+                        this.hitsArray.push('Album delle ' + thirdResponse.data.title)
+                        this.hitsArray.push('65489479')
+                        var tmp3 = false
+                        var y = 0
+                        for (y = 0; y < 25; y++) {
+                            var albumHits = {
+                                id: y,
+                                title: thirdResponse.data.tracks.data[y].album['title'],
+                                cover: thirdResponse.data.tracks.data[y].album['cover_medium'],
+                                artist: thirdResponse.data.tracks.data[y].artist['name'],
+                                albumId: thirdResponse.data.tracks.data[y].album['id'],
+                                albumLink:
+                                    'https://deezer.com/album/' +
+                                    thirdResponse.data.tracks.data[y].album['id'], //questo non servirà poi, è solo per testare ora
+                            }
+                            tmp3 = this.checkDuplicati('hits', albumHits.albumId)
+                            if (tmp3 == false) {
+                                this.hitsArray.push(albumHits)
                             }
                         }
                     })
@@ -297,16 +227,22 @@ export default {
         }
     },
     methods: {
-        prop(arr) {
-            this.$emit('updateLista2', arr)
+        visualizzaLista(arrayAlbum) {
+            this.$router.push({
+                name: 'list',
+                params: { lista: arrayAlbum[1] },
+            })
+            this.$emit('updateLista2', arrayAlbum)
         },
         checkDuplicati(type, albumId) {
             var trovato = false
             var arr = Array
             if (type == 'world') {
                 arr = this.worldAlbumArray
-            } else {
+            } else if (type == 'italy') {
                 arr = this.italyAlbumArray
+            } else {
+                arr = this.hitsArray
             }
             for (var j = 0; j < arr.length; j++) {
                 if (arr != null) {

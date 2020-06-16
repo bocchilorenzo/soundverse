@@ -1,6 +1,6 @@
 <template>
-    <v-hover v-slot:default="{ hover }" style="max-width: 200px">
-        <v-card class="ma-2" :elevation="hover ? 10 : 2">
+    <v-hover v-slot:default="{ hover }">
+        <v-card class="mr-1" :elevation="hover ? 10 : 2">
             <router-link
                 :to="{
                     name: 'album',

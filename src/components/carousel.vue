@@ -1,9 +1,11 @@
 <template>
-    <div id="carousel">
-        <v-sheet class="mx-auto my-2 " cols="12" max-width="1500px">
-            <h2 class="ma-2" @click="visualizzaLista(albumArray)">
-                {{ albumArray[0] }}
-            </h2>
+    <div id="carousel" class="row">
+        <div class="col" v-for="album in albumArray.slice(2,8)" :key="album.id">
+            <albumCard v-if="check(album)" :albumArray="album" :id="album.albumId" />
+        </div>
+        <!--
+        <v-sheet class="mx-auto my-2" cols="12" max-width="1500px">
+            <h2 class="ma-2" @click="visualizzaLista(albumArray)">{{ albumArray[0] }}</h2>
             <v-slide-group
                 class="pa-0"
                 :prev-icon="prevIcon ? 'mdi-minus' : undefined"
@@ -12,16 +14,14 @@
                 :center-active="centerActive"
             >
                 <v-slide-item v-for="album in albumArray" :key="album.id">
-                    <albumCard
-                        v-if="check(album)"
-                        :albumArray="album"
-                        :id="album.albumId"
-                    />
+                    <albumCard v-if="check(album)" :albumArray="album" :id="album.albumId" />
                 </v-slide-item>
             </v-slide-group>
         </v-sheet>
+        -->
     </div>
 </template>
+
 
 <script>
 import albumCard from './card'
@@ -47,15 +47,7 @@ export default {
                 return false
             }
         },
-        visualizzaLista(arrayAlbum) {
-            this.$router.push({
-                name: 'list',
-                params: { lista: arrayAlbum[1] },
-            })
-            this.$emit('updateLista', arrayAlbum)
-        },
     },
 }
 </script>
-
 <style scoped></style>
