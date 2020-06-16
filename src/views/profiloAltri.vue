@@ -4,6 +4,10 @@
         <p>{{ email }}</p>
         <p>followers: {{ followers[0].num[0] }}</p>
         <p>following: {{ following[0].num[0] }}</p>
+        <div class="my-2">
+            <v-btn v-if="!segui[0]" color="primary">Segui</v-btn>
+            <v-btn color="primary" v-else>Non seguire più</v-btn>
+        </div>
     </div>
 </template>
 
@@ -13,10 +17,12 @@ export default {
     name: 'profiloAltri',
     data() {
         return {
+            user: this.$store.state.user,
             username: this.$route.params.username,
             email: this.$route.params.email,
             following: [{ num: [0], users: [] }],
             followers: [{ num: [0], users: [] }],
+            segui: [false],
         }
     },
     created() {
@@ -31,7 +37,7 @@ export default {
                     console.log('trovato')
                     check
                 } else {
-                    console.log('bruh')
+                    console.log('utente inesistente')
                 }
             })
             .catch(function(error) {
@@ -42,6 +48,7 @@ export default {
         checkInfo() {
             var db = firebase.firestore()
             var mail = this.email
+            var segui = this.segui
 
             var userData1 = db
                 .collection('utenti')
@@ -51,6 +58,12 @@ export default {
                 .collection('utenti')
                 .doc(mail)
                 .collection('following')
+
+            var userData3 = db
+                .collection('utenti')
+                .doc(this.user.email)
+                .collection('following')
+
             var followers = this.followers
             var following = this.following
 
@@ -88,6 +101,23 @@ export default {
                             following[0].users.push(followin)
                             following[0].num[0] += 1
                         })
+                    }
+                })
+                .catch(function(error) {
+                    console.log('Error getting document:', error)
+                })
+            console.log(this.user.email)
+            console.log(mail)
+            userData3
+                .doc(mail)
+                .get()
+                .then(function(doc) {
+                    if (doc.exists) {
+                        segui[0] = true
+                        console.log('lo segui')
+                    } else {
+                        segui[0] = false
+                        console.log('non lo segui')
                     }
                 })
                 .catch(function(error) {

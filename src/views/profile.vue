@@ -3,9 +3,9 @@
         <v-row v-if="user != null" align="center" justify="center" class="flex-column">
             <p style="text-align:center">Mail: {{ user.email }}</p>
             <p style="text-align:center">Username: {{ username }}</p>
-            <p style="text-align:center">Follower: {{ numFollower[0].n }}</p>
-            <p style="text-align:center">Seguiti: {{ numSeguiti[0].n }}</p>
-            <v-form ref="form" v-if="!notMine">
+            <p style="text-align:center">Follower: {{ followers[0].num[0] }}</p>
+            <p style="text-align:center">Seguiti: {{ following[0].num[0] }}</p>
+            <v-form ref="form">
                 <v-btn color="danger" @click="logout()">Logout</v-btn>
             </v-form>
         </v-row>
@@ -34,15 +34,67 @@ export default {
             usernameDB: this.$store.state.username,
             username: '',
             newUsername: '',
-            numFollower: [{ n: 0 }],
-            arrFollower: [],
-            numSeguiti: [{ n: 0 }],
-            arrSeguiti: [],
+            following: [{ num: [0], users: [] }],
+            followers: [{ num: [0], users: [] }],
             seguito: false,
         }
     },
     created: function() {
-        if (this.user == null && this.$route.params.username == null) {
+        var db = firebase.firestore()
+        var mail = this.user.email
+
+        var userData1 = db
+            .collection('utenti')
+            .doc(mail)
+            .collection('followers')
+        var userData2 = db
+            .collection('utenti')
+            .doc(mail)
+            .collection('following')
+
+        var followers = this.followers
+        var following = this.following
+
+        userData1
+            .get()
+            .then(function(querySnapshot) {
+                if (querySnapshot.empty == true) {
+                    console.log('no followers')
+                } else {
+                    querySnapshot.forEach(function(doc) {
+                        console.log(doc.id, ' => ', doc.data())
+                        var follower = {
+                            email: doc.id,
+                        }
+                        followers[0].users.push(follower)
+                        followers[0].num[0] += 1
+                    })
+                }
+            })
+            .catch(function(error) {
+                console.log('Error getting document:', error)
+            })
+
+        userData2
+            .get()
+            .then(function(querySnapshot) {
+                if (querySnapshot.empty == true) {
+                    console.log('no following')
+                } else {
+                    querySnapshot.forEach(function(doc) {
+                        console.log(doc.id, ' => ', doc.data())
+                        var followin = {
+                            email: doc.id,
+                        }
+                        following[0].users.push(followin)
+                        following[0].num[0] += 1
+                    })
+                }
+            })
+            .catch(function(error) {
+                console.log('Error getting document:', error)
+            })
+        /*    if (this.user == null && this.$route.params.username == null) {
             this.$router.replace({ name: 'login' })
         } else if (this.usernameDB == this.$route.params.username) {
             this.getUsername()
@@ -90,9 +142,9 @@ export default {
                 })
                 .catch(function(error) {
                     console.log('Error getting document:', error)
-                })
-            /* .then(() => this.switchFollowButton())*/
-        }
+                })*/
+        /* .then(() => this.switchFollowButton())*/
+
         /* else {
             this.username = this.$route.params.username
             this.stay()
