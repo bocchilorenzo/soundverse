@@ -3,8 +3,8 @@
         <v-row v-if="user != null" align="center" justify="center" class="flex-column">
             <p style="text-align:center">Mail: {{ user.email }}</p>
             <p style="text-align:center">Username: {{ username }}</p>
-            <p style="text-align:center">Follower: {{ followers[0].num[0] }}</p>
-            <p style="text-align:center">Seguiti: {{ following[0].num[0] }}</p>
+            <p style="text-align:center">Follower: {{ followers[0].num }}</p>
+            <p style="text-align:center">Seguiti: {{ following[0].num }}</p>
             <v-form ref="form">
                 <v-btn color="danger" @click="logout()">Logout</v-btn>
             </v-form>
@@ -34,8 +34,8 @@ export default {
             usernameDB: this.$store.state.username,
             username: '',
             newUsername: '',
-            following: [{ num: [0], users: [] }],
-            followers: [{ num: [0], users: [] }],
+            following: [{ num: 0, users: [] }],
+            followers: [{ num: 0, users: [] }],
             seguito: false,
         }
     },
@@ -67,7 +67,7 @@ export default {
                             email: doc.id,
                         }
                         followers[0].users.push(follower)
-                        followers[0].num[0] += 1
+                        followers[0].num += 1
                     })
                 }
             })
@@ -87,7 +87,7 @@ export default {
                             email: doc.id,
                         }
                         following[0].users.push(followin)
-                        following[0].num[0] += 1
+                        following[0].num += 1
                     })
                 }
             })

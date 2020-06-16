@@ -2,11 +2,11 @@
     <div>
         <p>{{ username }}</p>
         <p>{{ email }}</p>
-        <p>followers: {{ followers[0].num[0] }}</p>
-        <p>following: {{ following[0].num[0] }}</p>
-        <div class="my-2">
-            <v-btn v-if="!segui[0]" color="primary">Segui</v-btn>
-            <v-btn color="primary" v-else>Non seguire più</v-btn>
+        <p>followers: {{ followers[0].num }}</p>
+        <p>following: {{ following[0].num }}</p>
+        <div class="my-2" @click="followUnfollow()">
+            <v-btn v-if="segui.segui" color="primary">Non seguire più</v-btn>
+            <v-btn color="primary" v-else>Segui</v-btn>
         </div>
     </div>
 </template>
@@ -20,16 +20,18 @@ export default {
             user: this.$store.state.user,
             username: this.$route.params.username,
             email: this.$route.params.email,
-            following: [{ num: [0], users: [] }],
-            followers: [{ num: [0], users: [] }],
-            segui: [false],
+            following: [{ num: 0, users: [] }],
+            followers: [{ num: 0, users: [] }],
+            segui: { segui: false },
         }
     },
     created() {
+        console.log(this.segui)
         var db = firebase.firestore()
         var mail = this.email
         var userData = db.collection('utenti').doc(mail)
         var check = this.checkInfo()
+        //controlla se il profilo esiste
         userData
             .get()
             .then(function(doc) {
@@ -66,7 +68,7 @@ export default {
 
             var followers = this.followers
             var following = this.following
-
+            //controlla i seguaci e numero seguaci
             userData1
                 .get()
                 .then(function(querySnapshot) {
@@ -79,14 +81,14 @@ export default {
                                 email: doc.id,
                             }
                             followers[0].users.push(follower)
-                            followers[0].num[0] += 1
+                            followers[0].num += 1
                         })
                     }
                 })
                 .catch(function(error) {
                     console.log('Error getting document:', error)
                 })
-
+            //controlla i seguiti e numero seguiti
             userData2
                 .get()
                 .then(function(querySnapshot) {
@@ -99,7 +101,7 @@ export default {
                                 email: doc.id,
                             }
                             following[0].users.push(followin)
-                            following[0].num[0] += 1
+                            following[0].num += 1
                         })
                     }
                 })
@@ -108,21 +110,74 @@ export default {
                 })
             console.log(this.user.email)
             console.log(mail)
+            //controlla se l'utente segue questo user
             userData3
                 .doc(mail)
                 .get()
                 .then(function(doc) {
                     if (doc.exists) {
-                        segui[0] = true
+                        segui.segui = true
                         console.log('lo segui')
                     } else {
-                        segui[0] = false
+                        segui.segui = false
                         console.log('non lo segui')
                     }
                 })
                 .catch(function(error) {
                     console.log('Error getting document:', error)
                 })
+        },
+        followUnfollow() {
+            var db = firebase.firestore()
+            var mail = this.email
+            var username = this.username
+            var segui = this.segui
+            if (segui.segui) {
+                db.collection('utenti')
+                    .doc(this.user.email)
+                    .collection('following')
+                    .doc(mail)
+                    .delete()
+                    .then(function() {
+                        segui.segui = false
+                    })
+                db.collection('utenti')
+                    .doc(mail)
+                    .collection('followers')
+                    .doc(this.user.email)
+                    .delete()
+                    .catch(function(error) {
+                        console.error('Error removing document: ', error)
+                    })
+                    .catch(function(error) {
+                        console.error('Error removing document: ', error)
+                    })
+            } else {
+                db.collection('utenti')
+                    .doc(this.user.email)
+                    .collection('following')
+                    .doc(mail)
+                    .set({
+                        username: username,
+                    })
+                    .then(function() {
+                        segui.segui = true
+                    })
+                    .catch(function(error) {
+                        console.error('Error removing document: ', error)
+                    })
+                db.collection('utenti')
+                    .doc(mail)
+                    .collection('followers')
+                    .doc(this.user.email)
+                    .set({
+                        username: username,
+                    })
+
+                    .catch(function(error) {
+                        console.error('Error removing document: ', error)
+                    })
+            }
         },
     },
 }
