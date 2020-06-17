@@ -40,60 +40,64 @@ export default {
         }
     },
     created: function() {
-        var db = firebase.firestore()
-        var mail = this.user.email
+        if (this.user == null) {
+            this.$router.replace({ name: 'login' })
+        } else {
+            var db = firebase.firestore()
+            var mail = this.user.email
+            this.getUsername()
+            var userData1 = db
+                .collection('utenti')
+                .doc(mail)
+                .collection('followers')
+            var userData2 = db
+                .collection('utenti')
+                .doc(mail)
+                .collection('following')
 
-        var userData1 = db
-            .collection('utenti')
-            .doc(mail)
-            .collection('followers')
-        var userData2 = db
-            .collection('utenti')
-            .doc(mail)
-            .collection('following')
+            var followers = this.followers
+            var following = this.following
 
-        var followers = this.followers
-        var following = this.following
+            userData1
+                .get()
+                .then(function(querySnapshot) {
+                    if (querySnapshot.empty == true) {
+                        console.log('no followers')
+                    } else {
+                        querySnapshot.forEach(function(doc) {
+                            console.log(doc.id, ' => ', doc.data())
+                            var follower = {
+                                email: doc.id,
+                            }
+                            followers[0].users.push(follower)
+                            followers[0].num += 1
+                        })
+                    }
+                })
+                .catch(function(error) {
+                    console.log('Error getting document:', error)
+                })
 
-        userData1
-            .get()
-            .then(function(querySnapshot) {
-                if (querySnapshot.empty == true) {
-                    console.log('no followers')
-                } else {
-                    querySnapshot.forEach(function(doc) {
-                        console.log(doc.id, ' => ', doc.data())
-                        var follower = {
-                            email: doc.id,
-                        }
-                        followers[0].users.push(follower)
-                        followers[0].num += 1
-                    })
-                }
-            })
-            .catch(function(error) {
-                console.log('Error getting document:', error)
-            })
-
-        userData2
-            .get()
-            .then(function(querySnapshot) {
-                if (querySnapshot.empty == true) {
-                    console.log('no following')
-                } else {
-                    querySnapshot.forEach(function(doc) {
-                        console.log(doc.id, ' => ', doc.data())
-                        var followin = {
-                            email: doc.id,
-                        }
-                        following[0].users.push(followin)
-                        following[0].num += 1
-                    })
-                }
-            })
-            .catch(function(error) {
-                console.log('Error getting document:', error)
-            })
+            userData2
+                .get()
+                .then(function(querySnapshot) {
+                    if (querySnapshot.empty == true) {
+                        console.log('no following')
+                    } else {
+                        querySnapshot.forEach(function(doc) {
+                            console.log(doc.id, ' => ', doc.data())
+                            var followin = {
+                                email: doc.id,
+                            }
+                            following[0].users.push(followin)
+                            following[0].num += 1
+                        })
+                    }
+                })
+                .catch(function(error) {
+                    console.log('Error getting document:', error)
+                })
+        }
         /*    if (this.user == null && this.$route.params.username == null) {
             this.$router.replace({ name: 'login' })
         } else if (this.usernameDB == this.$route.params.username) {

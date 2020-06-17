@@ -1,5 +1,5 @@
 <template>
-    <v-row no-gutters>
+    <v-row no-gutters class="pt-3">
         <v-col
             v-for="artista in arrayRisultati"
             :key="artista.artistId"
@@ -7,6 +7,7 @@
             lg="2"
             md="3"
             sm="4"
+            class="pb-3 px-1 col-6"
         >
             <router-link
                 :to="{

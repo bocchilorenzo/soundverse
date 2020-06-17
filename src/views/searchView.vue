@@ -1,20 +1,60 @@
 <template>
     <div>
         <div v-if="loading == true">
-            <v-row align="center" justify="center">
-                <v-col
-                    cols="1"
-                    class="text-center"
-                    style="height: 100vh; display: flex; align-items:center;"
-                >
-                    <v-progress-circular
-                        :size="70"
-                        :width="7"
-                        color="indigo"
-                        indeterminate
-                    ></v-progress-circular>
-                </v-col>
-            </v-row>
+            <v-tabs
+                v-model="tab"
+                background-color="indigo"
+                class="elevation-2"
+                dark
+                :centered="centered"
+                :grow="grow"
+            >
+                <v-tabs-slider></v-tabs-slider>
+                <v-tab>Album</v-tab>
+                <v-tab>Artisti</v-tab>
+                <v-tab>Utenti</v-tab>
+                <v-tab-item style="background-color: none">
+                    <v-row align="center" no-gutters class="pt-2">
+                        <v-col
+                            v-for="n in 18"
+                            :key="n"
+                            xl="2"
+                            lg="2"
+                            md="3"
+                            sm="4"
+                            class="pb-3 px-1 col-6"
+                        >
+                            <v-skeleton-loader class="mx-2" type="card"></v-skeleton-loader>
+                        </v-col>
+                    </v-row>
+                </v-tab-item>
+                <v-tab-item>
+                    <v-row align="center" no-gutters class="pt-2">
+                        <v-col
+                            v-for="n in 12"
+                            :key="n"
+                            lg="2"
+                            md="3"
+                            sm="4"
+                            class="pb-3 px-1 col-6"
+                        >
+                            <v-skeleton-loader
+                                type="image"
+                                style="border-radius: 100%; margin: 0 auto"
+                                height="150px"
+                                width="150px"
+                            ></v-skeleton-loader>
+                        </v-col>
+                    </v-row>
+                </v-tab-item>
+                <v-tab-item>
+                    <v-row align="center" no-gutters class="pt-2">
+                        <v-col v-for="n in 6" :key="n" class="pb-3 px-1 col-12">
+                            <v-skeleton-loader class="mx-2" type="list-item"></v-skeleton-loader>
+                        </v-col>
+                    </v-row>
+                </v-tab-item>
+            </v-tabs>
         </div>
         <div v-else>
             <v-tabs
@@ -31,19 +71,13 @@
                 <v-tab>Artisti</v-tab>
                 <v-tab>Utenti</v-tab>
                 <v-tab-item>
-                    <v-card flat tile>
-                        <cardContainer :arrayRisultati="albums"></cardContainer>
-                    </v-card>
+                    <cardContainer :arrayRisultati="albums"></cardContainer>
                 </v-tab-item>
                 <v-tab-item>
-                    <v-card flat tile>
-                        <cardContainerArtisti :arrayRisultati="artisti"></cardContainerArtisti>
-                    </v-card>
+                    <cardContainerArtisti :arrayRisultati="artisti"></cardContainerArtisti>
                 </v-tab-item>
                 <v-tab-item>
-                    <v-card flat tile>
-                        <usersContainer :arrayRisultati="utenti"></usersContainer>
-                    </v-card>
+                    <usersContainer :arrayRisultati="utenti"></usersContainer>
                 </v-tab-item>
             </v-tabs>
         </div>
@@ -200,7 +234,7 @@ export default {
     },
     watch: {
         bottom(bottom) {
-            if (bottom) {
+            if (bottom && !this.loading) {
                 this.updateInfoAlbum()
             }
         },

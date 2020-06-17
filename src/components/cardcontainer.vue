@@ -1,6 +1,14 @@
 <template>
-    <v-row align="center" no-gutters>
-        <v-col v-for="album in arrayRisultati" :key="album.albumId" xl="2" lg="2" md="3" sm="4">
+    <v-row align="center" no-gutters class="pt-3">
+        <v-col
+            v-for="album in arrayRisultati"
+            :key="album.albumId"
+            xl="2"
+            lg="2"
+            md="3"
+            sm="4"
+            class="pb-3 px-1 col-6"
+        >
             <albumCard :albumArray="album" :id="album.albumId" v-on:deletThis="rimuoviElemento" />
         </v-col>
     </v-row>

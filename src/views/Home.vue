@@ -2,121 +2,50 @@
     <div class="home">
         <v-container class="fill-width" fluid>
             <div v-if="this.loading">
-                <div>
-                    <v-row align="center">
-                        <v-sheet>
-                            <v-skeleton-loader
-                                class="ma-2"
-                                width="600"
-                                type="heading"
-                            ></v-skeleton-loader>
-                        </v-sheet>
+                <div v-for="x in 3" :key="x">
+                    <v-row class="ma-2">
+                        <v-skeleton-loader ref="skeleton" type="heading" width="50em" class="mx-0"></v-skeleton-loader>
                     </v-row>
-                    <div class="row">
-                        <div class="col">
+                    <v-row align="center" no-gutters>
+                        <v-col v-for="n in 6" :key="n" lg="2" md="3" sm="4" class="pb-3 px-1 col-6">
                             <v-skeleton-loader class="mr-1" type="card"></v-skeleton-loader>
-                        </div>
-                        <div class="col">
-                            <v-skeleton-loader class="mr-1" type="card"></v-skeleton-loader>
-                        </div>
-                        <div class="col">
-                            <v-skeleton-loader class="mr-1" type="card"></v-skeleton-loader>
-                        </div>
-                        <div class="col">
-                            <v-skeleton-loader class="mr-1" type="card"></v-skeleton-loader>
-                        </div>
-                        <div class="col">
-                            <v-skeleton-loader class="mr-1" type="card"></v-skeleton-loader>
-                        </div>
-                        <div class="col">
-                            <v-skeleton-loader class="mr-1" type="card"></v-skeleton-loader>
-                        </div>
-                    </div>
-                </div>
-                <br />
-                <br />
-                <div>
-                    <v-row align="center">
-                        <v-sheet>
-                            <v-skeleton-loader
-                                class="ma-2"
-                                width="600"
-                                type="heading"
-                            ></v-skeleton-loader>
-                        </v-sheet>
+                        </v-col>
                     </v-row>
-                    <div class="row">
-                        <div class="col">
-                            <v-skeleton-loader class="mr-1" type="card"></v-skeleton-loader>
-                        </div>
-                        <div class="col">
-                            <v-skeleton-loader class="mr-1" type="card"></v-skeleton-loader>
-                        </div>
-                        <div class="col">
-                            <v-skeleton-loader class="mr-1" type="card"></v-skeleton-loader>
-                        </div>
-                        <div class="col">
-                            <v-skeleton-loader class="mr-1" type="card"></v-skeleton-loader>
-                        </div>
-                        <div class="col">
-                            <v-skeleton-loader class="mr-1" type="card"></v-skeleton-loader>
-                        </div>
-                        <div class="col">
-                            <v-skeleton-loader class="mr-1" type="card"></v-skeleton-loader>
-                        </div>
-                    </div>
-                </div>
-                <br />
-                <br />
-                <div>
-                    <v-row align="center">
-                        <v-sheet>
-                            <v-skeleton-loader
-                                class="ma-2"
-                                width="600"
-                                type="heading"
-                            ></v-skeleton-loader>
-                        </v-sheet>
+                    <v-row class="ma-2">
+                        <v-skeleton-loader ref="skeleton" type="button" class="mx-0"></v-skeleton-loader>
                     </v-row>
-                    <div class="row">
-                        <div class="col">
-                            <v-skeleton-loader class="mr-1" type="card"></v-skeleton-loader>
-                        </div>
-                        <div class="col">
-                            <v-skeleton-loader class="mr-1" type="card"></v-skeleton-loader>
-                        </div>
-                        <div class="col">
-                            <v-skeleton-loader class="mr-1" type="card"></v-skeleton-loader>
-                        </div>
-                        <div class="col">
-                            <v-skeleton-loader class="mr-1" type="card"></v-skeleton-loader>
-                        </div>
-                        <div class="col">
-                            <v-skeleton-loader class="mr-1" type="card"></v-skeleton-loader>
-                        </div>
-                        <div class="col">
-                            <v-skeleton-loader class="mr-1" type="card"></v-skeleton-loader>
-                        </div>
-                    </div>
+                    <br />
+                    <br />
                 </div>
-                <!--Aggiungere le nuove uscite-->
             </div>
             <div v-else>
+                <!--Aggiungere le nuove uscite-->
                 <h2 class="ma-2">{{ worldAlbumArray[0] }}</h2>
                 <carousel :albumArray="worldAlbumArray" />
-                <div>
-                    <a @click="visualizzaLista(worldAlbumArray)">Visualizza tutti</a>
+                <div class="my-2">
+                    <v-btn
+                        text
+                        color="primary"
+                        @click="visualizzaLista(worldAlbumArray)"
+                    >Visualizza tutti</v-btn>
                 </div>
+                <br />
                 <h2 class="ma-2">{{ italyAlbumArray[0] }}</h2>
                 <carousel :albumArray="italyAlbumArray" />
-                <div>
-                    <a @click="visualizzaLista(italyAlbumArray)">Visualizza tutti</a>
+                <div class="my-2">
+                    <v-btn
+                        text
+                        color="primary"
+                        @click="visualizzaLista(italyAlbumArray)"
+                    >Visualizza tutti</v-btn>
                 </div>
+                <br />
                 <h2 class="ma-2">{{ hitsArray[0] }}</h2>
                 <carousel :albumArray="hitsArray" />
-                <div>
-                    <a @click="visualizzaLista(hitsArray)">Visualizza tutti</a>
+                <div class="my-2">
+                    <v-btn text color="primary" @click="visualizzaLista(hitsArray)">Visualizza tutti</v-btn>
                 </div>
+                <br />
             </div>
         </v-container>
     </div>

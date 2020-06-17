@@ -1,5 +1,5 @@
 <template>
-    <div class="d-flex flex-column ma-2" style="align-items: center; max-width: 200px">
+    <div class="d-flex flex-column" style="margin: 0 auto; align-items: center; max-width: 150px">
         <v-hover v-slot:default="{ hover }">
             <v-img
                 :src="artistArray.artistImage"

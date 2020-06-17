@@ -65,9 +65,10 @@ export default {
         },
         async loginFirebase() {
             try {
-                await firebase
-                    .auth()
-                    .signInWithEmailAndPassword(this.email, this.password)
+                await firebase.auth().signInWithEmailAndPassword(
+                    this.email,
+                    this.password
+                )
                 alert('Login effettuato')
                 this.$router.replace({ name: 'home' })
                 this.$store.commit('updateUserFB')

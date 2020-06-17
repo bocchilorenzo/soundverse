@@ -1,6 +1,6 @@
 <template>
     <v-hover v-slot:default="{ hover }">
-        <v-card class="ma-1" :elevation="hover ? 10 : 2" max-width="200" height="100%">
+        <v-card style="margin: 0 auto" :elevation="hover ? 10 : 2" max-width="220" height="100%">
             <router-link
                 :to="{
                     name: 'album',
@@ -10,13 +10,8 @@
                 }"
             >
                 <v-img class="align-end" :src="albumArray.cover"></v-img>
-
-                <v-card-subtitle class="pb-0">{{ albumArray.artist }}</v-card-subtitle>
-
-                <v-card-text class="text--primary">{{ albumArray.title }}</v-card-text>
             </router-link>
-
-            <v-card-actions>
+            <v-card-actions style="position: absolute; top: 0; right: 0;">
                 <v-menu bottom right transition="slide-y-transition" :offset-y="offsety">
                     <template v-slot:activator="{ on }">
                         <v-btn icon v-on="on" @click="check()">
@@ -26,26 +21,36 @@
 
                     <v-list>
                         <v-list-item @click="favourite()">
-                            <v-list-item-title v-if="preferito.isPreferito"
-                                >Rimuovi dai preferiti</v-list-item-title
-                            >
+                            <v-list-item-title v-if="preferito.isPreferito">Rimuovi dai preferiti</v-list-item-title>
                             <v-list-item-title v-else>Aggiungi ai preferiti</v-list-item-title>
                         </v-list-item>
                         <v-list-item @click="listened()">
-                            <v-list-item-title v-if="ascoltato.isAscoltato">
-                                Rimuovi dagli album ascoltati
-                            </v-list-item-title>
+                            <v-list-item-title
+                                v-if="ascoltato.isAscoltato"
+                            >Rimuovi dagli album ascoltati</v-list-item-title>
                             <v-list-item-title v-else>Segna come ascoltato</v-list-item-title>
                         </v-list-item>
                         <v-list-item @click="toListen()">
-                            <v-list-item-title v-if="daAscoltare.isDaAscoltare">
-                                Rimuovi dagli album da ascoltare
-                            </v-list-item-title>
+                            <v-list-item-title
+                                v-if="daAscoltare.isDaAscoltare"
+                            >Rimuovi dagli album da ascoltare</v-list-item-title>
                             <v-list-item-title v-else>Aggiungi ai da ascoltare</v-list-item-title>
                         </v-list-item>
                     </v-list>
                 </v-menu>
             </v-card-actions>
+            <router-link
+                :to="{
+                    name: 'album',
+                    path: '/album/:id',
+                    params: { id: albumArray.albumId },
+                    props: true,
+                }"
+            >
+                <v-card-subtitle class="pb-0">{{ albumArray.artist }}</v-card-subtitle>
+
+                <v-card-text class="text--primary">{{ albumArray.title }}</v-card-text>
+            </router-link>
         </v-card>
     </v-hover>
 </template>
