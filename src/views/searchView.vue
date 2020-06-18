@@ -71,13 +71,70 @@
                 <v-tab>Artisti</v-tab>
                 <v-tab>Utenti</v-tab>
                 <v-tab-item>
-                    <cardContainer :arrayRisultati="albums"></cardContainer>
+                    <cardContainer
+                        v-if="albums.length != 0"
+                        :arrayRisultati="albums"
+                    ></cardContainer>
+                    <div v-else class="d-flex justify-center">
+                        <v-container
+                            class="d-inline-flex justify-center flex-column align-center"
+                            style="border-radius: 50%; height:400px;width:400px; margin:10px"
+                        >
+                            <svg style="width:150px;height:150px;" viewBox="0 0 24 24">
+                                <path
+                                    fill="#ececec"
+                                    d="M20,2H8A2,2 0 0,0 6,4V16A2,2 0 0,0 8,18H20A2,2 0 0,0 22,16V4A2,2 0 0,0 20,2M20,16H8V4H20M12.5,15A2.5,2.5 0 0,0 15,12.5V7H18V5H14V10.5C13.58,10.19 13.07,10 12.5,10A2.5,2.5 0 0,0 10,12.5A2.5,2.5 0 0,0 12.5,15M4,6H2V20A2,2 0 0,0 4,22H18V20H4"
+                                />
+                            </svg>
+                            <p style="width: 60%; text-align: center">
+                                Ops, nessun album trovato.
+                            </p>
+                        </v-container>
+                    </div>
                 </v-tab-item>
                 <v-tab-item>
-                    <cardContainerArtisti :arrayRisultati="artisti"></cardContainerArtisti>
+                    <cardContainerArtisti
+                        v-if="artisti.length != 0"
+                        :arrayRisultati="artisti"
+                    ></cardContainerArtisti>
+                    <div v-else class="d-flex justify-center">
+                        <v-container
+                            class="d-inline-flex justify-center flex-column align-center"
+                            style="border-radius: 50%; height:400px;width:400px; margin:10px"
+                        >
+                            <svg style="width:150px;height:150px;" viewBox="0 0 24 24">
+                                <path
+                                    fill="#ececec"
+                                    d="M20,2H8A2,2 0 0,0 6,4V16A2,2 0 0,0 8,18H20A2,2 0 0,0 22,16V4A2,2 0 0,0 20,2M20,16H8V4H20M12.5,15A2.5,2.5 0 0,0 15,12.5V7H18V5H14V10.5C13.58,10.19 13.07,10 12.5,10A2.5,2.5 0 0,0 10,12.5A2.5,2.5 0 0,0 12.5,15M4,6H2V20A2,2 0 0,0 4,22H18V20H4"
+                                />
+                            </svg>
+                            <p style="width: 60%; text-align: center">
+                                Ops, nessun artista trovato.
+                            </p>
+                        </v-container>
+                    </div>
                 </v-tab-item>
                 <v-tab-item>
-                    <usersContainer :arrayRisultati="utenti"></usersContainer>
+                    <usersContainer
+                        v-if="utenti.length != 0"
+                        :arrayRisultati="utenti"
+                    ></usersContainer>
+                    <div v-else class="d-flex justify-center">
+                        <v-container
+                            class="d-inline-flex justify-center flex-column align-center"
+                            style="border-radius: 50%; height:400px;width:400px; margin:10px"
+                        >
+                            <svg style="width:150px;height:150px;" viewBox="0 0 24 24">
+                                <path
+                                    fill="#ececec"
+                                    d="M20,2H8A2,2 0 0,0 6,4V16A2,2 0 0,0 8,18H20A2,2 0 0,0 22,16V4A2,2 0 0,0 20,2M20,16H8V4H20M12.5,15A2.5,2.5 0 0,0 15,12.5V7H18V5H14V10.5C13.58,10.19 13.07,10 12.5,10A2.5,2.5 0 0,0 10,12.5A2.5,2.5 0 0,0 12.5,15M4,6H2V20A2,2 0 0,0 4,22H18V20H4"
+                                />
+                            </svg>
+                            <p style="width: 60%; text-align: center">
+                                Ops, nessun utente trovato.
+                            </p>
+                        </v-container>
+                    </div>
                 </v-tab-item>
             </v-tabs>
         </div>

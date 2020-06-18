@@ -1,6 +1,6 @@
 <template>
     <div>
-        <p>{{ username }}</p>
+        <p>{{ username.un }}</p>
         <p>{{ email }}</p>
         <p>followers: {{ followers[0].num }}</p>
         <p>following: {{ following[0].num }}</p>
@@ -18,7 +18,8 @@ export default {
     data() {
         return {
             user: this.$store.state.user,
-            username: this.$route.params.username,
+            username: { un: this.$route.params.username },
+            myUsername: this.$store.state.username,
             email: this.$route.params.email,
             following: [{ num: 0, users: [] }],
             followers: [{ num: 0, users: [] }],
@@ -26,7 +27,6 @@ export default {
         }
     },
     created() {
-        console.log(this.segui)
         var db = firebase.firestore()
         var mail = this.email
         var userData = db.collection('utenti').doc(mail)
@@ -108,8 +108,6 @@ export default {
                 .catch(function(error) {
                     console.log('Error getting document:', error)
                 })
-            console.log(this.user.email)
-            console.log(mail)
             //controlla se l'utente segue questo user
             userData3
                 .doc(mail)
@@ -131,6 +129,8 @@ export default {
             var db = firebase.firestore()
             var mail = this.email
             var username = this.username
+            var myEmail = this.user.email
+            var myUsername = this.myUsername
             var segui = this.segui
             if (segui.segui) {
                 db.collection('utenti')
@@ -141,14 +141,14 @@ export default {
                     .then(function() {
                         segui.segui = false
                     })
+                    .catch(function(error) {
+                        console.error('Error removing document: ', error)
+                    })
                 db.collection('utenti')
                     .doc(mail)
                     .collection('followers')
                     .doc(this.user.email)
                     .delete()
-                    .catch(function(error) {
-                        console.error('Error removing document: ', error)
-                    })
                     .catch(function(error) {
                         console.error('Error removing document: ', error)
                     })
@@ -158,22 +158,24 @@ export default {
                     .collection('following')
                     .doc(mail)
                     .set({
-                        username: username,
+                        username: username.un,
+                    })
+
+                    .catch(function(error) {
+                        console.error('Error removing document: ', error)
+                    })
+                console.log(username.un, myUsername, this.$store.state.username)
+
+                db.collection('utenti')
+                    .doc(mail)
+                    .collection('followers')
+                    .doc(myEmail)
+                    .set({
+                        username: myUsername,
                     })
                     .then(function() {
                         segui.segui = true
                     })
-                    .catch(function(error) {
-                        console.error('Error removing document: ', error)
-                    })
-                db.collection('utenti')
-                    .doc(mail)
-                    .collection('followers')
-                    .doc(this.user.email)
-                    .set({
-                        username: username,
-                    })
-
                     .catch(function(error) {
                         console.error('Error removing document: ', error)
                     })

@@ -14,26 +14,28 @@
             <v-card-actions style="position: absolute; top: 0; right: 0;">
                 <v-menu bottom right transition="slide-y-transition" :offset-y="offsety">
                     <template v-slot:activator="{ on }">
-                        <v-btn icon v-on="on" @click="check()">
+                        <v-btn small fab v-on="on" @click="check()">
                             <v-icon>mdi-dots-vertical</v-icon>
                         </v-btn>
                     </template>
 
                     <v-list>
                         <v-list-item @click="favourite()">
-                            <v-list-item-title v-if="preferito.isPreferito">Rimuovi dai preferiti</v-list-item-title>
+                            <v-list-item-title v-if="preferito.isPreferito"
+                                >Rimuovi dai preferiti</v-list-item-title
+                            >
                             <v-list-item-title v-else>Aggiungi ai preferiti</v-list-item-title>
                         </v-list-item>
                         <v-list-item @click="listened()">
-                            <v-list-item-title
-                                v-if="ascoltato.isAscoltato"
-                            >Rimuovi dagli album ascoltati</v-list-item-title>
+                            <v-list-item-title v-if="ascoltato.isAscoltato"
+                                >Rimuovi dagli album ascoltati</v-list-item-title
+                            >
                             <v-list-item-title v-else>Segna come ascoltato</v-list-item-title>
                         </v-list-item>
                         <v-list-item @click="toListen()">
-                            <v-list-item-title
-                                v-if="daAscoltare.isDaAscoltare"
-                            >Rimuovi dagli album da ascoltare</v-list-item-title>
+                            <v-list-item-title v-if="daAscoltare.isDaAscoltare"
+                                >Rimuovi dagli album da ascoltare</v-list-item-title
+                            >
                             <v-list-item-title v-else>Aggiungi ai da ascoltare</v-list-item-title>
                         </v-list-item>
                     </v-list>

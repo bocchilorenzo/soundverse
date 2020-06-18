@@ -225,7 +225,6 @@ export default {
             //Metodo per settare correttamente l'username e aggiornare la vista
             this.username = usr
             this.$store.commit('updateUsernameSetFB')
-            this.segui('tot')
             /*
             this.$router.replace({
                 name: 'profile',
