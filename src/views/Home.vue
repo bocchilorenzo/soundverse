@@ -21,7 +21,7 @@
             <div v-else>
                 <!--Aggiungere le nuove uscite-->
                 <h2 class="ma-2">{{ worldAlbumArray[0] }}</h2>
-                <carousel :albumArray="worldAlbumArray" />
+                <carousel :albumArray="worldAlbumArray" :inizio=2 :fine=8 />
                 <div class="my-2">
                     <v-btn
                         text
@@ -31,7 +31,7 @@
                 </div>
                 <br />
                 <h2 class="ma-2">{{ italyAlbumArray[0] }}</h2>
-                <carousel :albumArray="italyAlbumArray" />
+                <carousel :albumArray="italyAlbumArray" :inizio=2 :fine=8 />
                 <div class="my-2">
                     <v-btn
                         text
@@ -41,7 +41,7 @@
                 </div>
                 <br />
                 <h2 class="ma-2">{{ hitsArray[0] }}</h2>
-                <carousel :albumArray="hitsArray" />
+                <carousel :albumArray="hitsArray" :inizio=2 :fine=8 />
                 <div class="my-2">
                     <v-btn text color="primary" @click="visualizzaLista(hitsArray)">Visualizza tutti</v-btn>
                 </div>
@@ -71,7 +71,7 @@ export default {
         }
     },
     created: function() {
-        //Aggiungere qualche playlist per genere o altro, non editorial perché le view sono basate sulle playlist
+        this.scrollToTop()
         if (
             this.worldAlbumArray[0] == undefined &&
             this.italyAlbumArray[0] == undefined &&
@@ -161,12 +161,15 @@ export default {
         }
     },
     methods: {
+        scrollToTop() {
+            window.scrollTo(0, 0)
+        },
         visualizzaLista(arrayAlbum) {
             this.$router.push({
                 name: 'list',
-                params: { lista: arrayAlbum[1] },
+                params: { type: "playlist", lista: arrayAlbum[1] },
             })
-            this.$emit('updateLista2', arrayAlbum)
+            //this.$emit('updateLista2', arrayAlbum)
         },
         checkDuplicati(type, albumId) {
             var trovato = false

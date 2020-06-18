@@ -27,6 +27,7 @@ export default {
         }
     },
     created() {
+        this.scrollToTop()
         var db = firebase.firestore()
         var mail = this.email
         var userData = db.collection('utenti').doc(mail)
@@ -47,6 +48,9 @@ export default {
             })
     },
     methods: {
+        scrollToTop() {
+            window.scrollTo(0, 0)
+        },
         checkInfo() {
             var db = firebase.firestore()
             var mail = this.email

@@ -256,6 +256,7 @@ export default {
         }
     },
     created: function() {
+        this.scrollToTop()
         var id = this.$route.params.id
         axios({
             url: 'https://api.deezer.com/album/' + id + '&output=jsonp',
@@ -294,6 +295,9 @@ export default {
             .finally(() => this.checkAdded())
     },
     methods: {
+        scrollToTop() {
+            window.scrollTo(0, 0)
+        },
         checkAdded() {
             if (this.user != null) {
                 var id = this.$route.params.id

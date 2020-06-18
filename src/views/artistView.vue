@@ -99,6 +99,7 @@ export default {
         albumCard,
     },
     created: function() {
+        this.scrollToTop()
         this.id = this.$route.params.artista
         window.addEventListener('scroll', () => {
             this.bottom = this.bottomVisible()
@@ -106,6 +107,9 @@ export default {
         this.updateInfoArtista()
     },
     methods: {
+        scrollToTop() {
+            window.scrollTo(0, 0)
+        },
         aggiorna() {
             this.id = this.$route.params.artista
             this.updateInfoArtista()

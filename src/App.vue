@@ -12,6 +12,16 @@
                         </v-list-item-content>
                     </v-list-item>
                 </router-link>
+                <router-link to="/generi">
+                    <v-list-item link>
+                        <v-list-item-action>
+                            <v-icon>mdi-playlist-music</v-icon>
+                        </v-list-item-action>
+                        <v-list-item-content>
+                            <v-list-item-title>Generi</v-list-item-title>
+                        </v-list-item-content>
+                    </v-list-item>
+                </router-link>
                 <v-divider></v-divider>
                 <router-link to="/ascoltati">
                     <v-list-item link>
@@ -64,9 +74,20 @@
                 :arrayRisultati="arrayRisultati"
                 v-on:play="play"
                 v-on:updateUser="updateUser"
+                :class="{ marginforplayer: show }"
+            ></router-view>
+            <!--
+            <router-view
+                :key="$route.fullPath"
+                :albumSearch="albumSearch"
+                :artistsSearch="artistsSearch"
+                :arrayRisultati="arrayRisultati"
+                v-on:play="play"
+                v-on:updateUser="updateUser"
                 v-on:updateLista2="prop"
                 :class="{ marginforplayer: show }"
             ></router-view>
+            -->
             <musicPlayer :file="file" class="player" v-if="show" v-on:hide="hide" />
         </v-content>
     </v-app>
@@ -108,9 +129,11 @@ export default {
         this.currentUser = this.$store.state.user
     },
     methods: {
+        /*
         prop(arr) {
             this.arrayRisultati = arr
         },
+        */
         play(link) {
             this.show = true
             this.file = link

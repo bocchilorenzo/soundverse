@@ -167,6 +167,7 @@ export default {
         }
     },
     created: function() {
+        this.scrollToTop()
         window.addEventListener('scroll', () => {
             this.bottom = this.bottomVisible()
         })
@@ -178,6 +179,9 @@ export default {
         usersContainer,
     },
     methods: {
+        scrollToTop() {
+            window.scrollTo(0, 0)
+        },
         checkDuplicati(albumId) {
             var trovato = false
             for (var j = 0; j < this.albums.length; j++) {

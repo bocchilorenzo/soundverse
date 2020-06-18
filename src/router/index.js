@@ -12,6 +12,8 @@ import ascoltati from '../views/ascoltati.vue'
 import daAscoltare from '../views/daAscoltare.vue'
 import preferiti from '../views/preferiti.vue'
 import profiloAltri from '../views/profiloAltri'
+import generi from '../views/generi'
+import genere from '../views/genere'
 
 Vue.use(VueRouter)
 
@@ -56,7 +58,7 @@ const routes = [
         component: profile,
     },
     {
-        path: '/list/:lista',
+        path: '/list/:type/:lista',
         name: 'list',
         component: listView,
     },
@@ -79,6 +81,16 @@ const routes = [
         path: '/preferiti',
         name: 'preferiti',
         component: preferiti,
+    },
+    {
+        path: '/generi',
+        name: 'generi',
+        component: generi,
+    },
+    {
+        path: '/genere/:id',
+        name: 'genere',
+        component: genere,
     },
 ]
 

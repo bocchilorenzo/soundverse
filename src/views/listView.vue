@@ -13,7 +13,7 @@
             </div>
             <div v-else>
                 <v-row align="center">
-                    <h2 class="ml-5">{{ title }}</h2>
+                    <h2 class="ml-5">Nuove uscite {{ title }}</h2>
                 </v-row>
                 <cardContainer :arrayRisultati="arrayRisultatiNew" />
             </div>
@@ -40,15 +40,24 @@ export default {
             stop: false,
             lastCycle: false,
             loading: true,
+            type: '',
         }
     },
     created: function() {
+        this.scrollToTop()
         window.addEventListener('scroll', () => {
             this.bottom = this.bottomVisible()
         })
+        this.type = this.$route.params.type
+        if (this.type == 'new') {
+            this.end = 20
+        }
         this.addAlbums()
     },
     methods: {
+        scrollToTop() {
+            window.scrollTo(0, 0)
+        },
         bottomVisible() {
             const scrollY = window.scrollY
             const visible = document.documentElement.clientHeight
@@ -70,17 +79,41 @@ export default {
             return trovato
         },
         addAlbums() {
-            if (this.stop == false) {
-                axios({
+            var call = null
+            if (this.type == 'playlist') {
+                call = axios({
                     url:
                         'https://api.deezer.com/playlist/' +
                         this.$route.params.lista +
                         '&output=jsonp',
                     adapter: jsonpAdapter,
                 })
-                    .then(response => {
+            } else {
+                call = axios.all([
+                    axios({
+                        url:
+                            'https://api.deezer.com/editorial/' +
+                            this.$route.params.lista +
+                            '&output=jsonp',
+                        adapter: jsonpAdapter,
+                    }),
+                    axios({
+                        url:
+                            'https://api.deezer.com/editorial/' +
+                            this.$route.params.lista +
+                            '/releases?index=' +
+                            this.start +
+                            '&output=jsonp',
+                        adapter: jsonpAdapter,
+                    }),
+                ])
+            }
+            if (this.stop == false) {
+                if (this.type == 'playlist') {
+                    call.then(response => {
                         var i = 0
                         var tmp = false
+
                         if (this.title == '') {
                             this.title = response.data.title
                         }
@@ -112,11 +145,43 @@ export default {
                             }
                         }
                     })
-                    .catch(error => {
-                        console.log(error)
-                        this.errored = true
-                    })
-                    .finally(() => (this.loading = false))
+                        .catch(error => {
+                            console.log(error)
+                            this.errored = true
+                        })
+                        .finally(() => (this.loading = false))
+                } else {
+                    call.then(
+                        axios.spread((firstResponse, secondResponse) => {
+                            this.title = firstResponse.data.name
+                            var x = 0
+                            for (x = 0; x < 20; x++) {
+                                if (secondResponse.data.data[x] != undefined) {
+                                    var albumNuovi = {
+                                        id: x,
+                                        title: secondResponse.data.data[x].title,
+                                        cover: secondResponse.data.data[x].cover_medium,
+                                        artist: secondResponse.data.data[x].artist['name'],
+                                        albumId: secondResponse.data.data[x].id,
+                                    }
+                                    this.arrayRisultatiNew.push(albumNuovi)
+                                }
+                            }
+                            this.start = this.end
+                            if (this.lastCycle == true) {
+                                this.stop = true
+                            } else {
+                                if (secondResponse.data.next != undefined) {
+                                    this.end += 20
+                                } else {
+                                    this.stop = true
+                                }
+                            }
+                        })
+                    )
+                        .catch(error => console.log(error))
+                        .finally(() => (this.loading = false))
+                }
             }
         },
     },
