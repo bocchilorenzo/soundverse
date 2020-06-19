@@ -8,12 +8,7 @@
                         class="text-center"
                         style="height: 100vh; display: flex; align-items:center;"
                     >
-                        <v-progress-circular
-                            :size="70"
-                            :width="7"
-                            color="indigo"
-                            indeterminate
-                        ></v-progress-circular>
+                        <v-progress-circular :size="70" :width="7" color="indigo" indeterminate></v-progress-circular>
                     </v-col>
                 </v-row>
                 <v-row v-else>
@@ -134,6 +129,26 @@ export default {
                             albumNumber: response.data.nb_album,
                         }
                         this.artistInfo.push(artistData)
+                        /*
+                        axios.defaults.headers.post['Content-Type'] ='application/x-www-form-urlencoded';
+                        axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
+                        axios
+                            .get(
+                                'https://api.deezer.com/artist/' + this.id + '/related&output=jsonp'
+                            )
+                            .then(response2 => {
+                                for (var i = 0; i < 5; i++) {
+                                    var artistData2 = {
+                                        artistId: response2.data.data[i].id,
+                                        name: response2.data.data[i].name,
+                                        artistImage: response2.data.data[i].picture_medium,
+                                    }
+                                    this.simili.push(artistData2)
+                                }
+                            })
+                            .catch(error => console.log(error))
+                            .finally(() => (this.caricatiSimili = true))
+                            */
                         var nome = this.artistInfo[0].name
                         nome = encodeURIComponent(nome.trim())
                         axios
