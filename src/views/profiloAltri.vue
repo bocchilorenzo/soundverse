@@ -57,6 +57,9 @@
                     </v-container>
                 </div>
             </v-tab-item>
+            <v-tab-item></v-tab-item>
+            <v-tab-item></v-tab-item>
+            <v-tab-item></v-tab-item>
         </v-tabs>
     </div>
 </template>
@@ -81,7 +84,6 @@ export default {
         }
     },
     created() {
-        console.log(this.myUsername.un)
         this.scrollToTop()
         var db = firebase.firestore()
         var mail = this.email
