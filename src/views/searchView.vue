@@ -3,7 +3,7 @@
         <div v-if="loading == true">
             <v-tabs
                 v-model="tab"
-                background-color="indigo"
+                color="primary"
                 class="elevation-2"
                 dark
                 :centered="centered"
@@ -59,7 +59,7 @@
         <div v-else>
             <v-tabs
                 v-model="tab"
-                background-color="indigo"
+                background-color="primary"
                 class="elevation-2"
                 dark
                 :centered="centered"

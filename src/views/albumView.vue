@@ -183,7 +183,7 @@
                 </div>
             </v-list>
         </v-col>
-        <v-col cols="12" lg="10" class="centrata">
+        <v-col cols="12">
             <h2 class="mx-2" style="display: inline">Recensioni</h2>
             <v-dialog v-model="dialog" max-width="600px">
                 <template v-slot:activator="{ on, attrs }" v-if="user != null">
@@ -228,11 +228,10 @@
                         <div class="mb-2 d-flex flex-column">
                             <router-link
                                 :to="{
-                                    name: 'profile',
-                                    path: '/profile/:username',
-                                    params: {
-                                        username: review.utente,
-                                    },
+                                    name: 'user',
+                                    path: '/user/:username',
+                                    params: { username: review.utente },
+                                    props: true,
                                 }"
                             >
                                 <strong class="title">{{ review.utente }}</strong>

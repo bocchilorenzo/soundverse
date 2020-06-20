@@ -1,6 +1,6 @@
 <template>
     <v-app id="app">
-        <v-navigation-drawer v-model="drawer" app :permanent="permanent">
+        <v-navigation-drawer v-model="drawer" app>
             <v-list dense>
                 <router-link to="/">
                     <v-list-item link>
@@ -57,7 +57,7 @@
         </v-navigation-drawer>
 
         <v-app-bar app color="primary" dark hide-on-scroll>
-            <v-app-bar-nav-icon @click.stop="drawer = !drawer" v-if="!permanent" />
+            <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
             <v-toolbar-title class="mr-5">DeezerRate</v-toolbar-title>
             <v-spacer />
             <searchBar />
@@ -130,19 +130,19 @@ export default {
         console.log(this.breakpoint)
         switch (this.breakpoint) {
             case 'xs':
-                this.permanent = false
+                this.drawer = false
                 break
             case 'sm':
-                this.permanent = false
+                this.drawer = false
                 break
             case 'md':
-                this.permanent = false
+                this.drawer = false
                 break
             case 'lg':
-                this.permanent = true
+                this.drawer = true
                 break
             case 'xl':
-                this.permanent = true
+                this.drawer = true
                 break
         }
     },
