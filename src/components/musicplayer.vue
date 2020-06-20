@@ -1,8 +1,7 @@
 <template>
-    <!--mettere npm i vuetify-audio per utilizzarlo-->
     <vuetify-audio
         :file="file"
-        color="indigo"
+        color="primary"
         :autoPlay="autoPlay"
         :ended="audioFinish"
         v-on:hide="audioFinish"

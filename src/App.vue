@@ -1,6 +1,6 @@
 <template>
     <v-app id="app">
-        <v-navigation-drawer v-model="drawer" app>
+        <v-navigation-drawer v-model="drawer" app :permanent="permanent">
             <v-list dense>
                 <router-link to="/">
                     <v-list-item link>
@@ -57,7 +57,7 @@
         </v-navigation-drawer>
 
         <v-app-bar app color="primary" dark hide-on-scroll>
-            <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
+            <v-app-bar-nav-icon @click.stop="drawer = !drawer" v-if="!permanent" />
             <v-toolbar-title class="mr-5">DeezerRate</v-toolbar-title>
             <v-spacer />
             <searchBar />
@@ -113,8 +113,11 @@ export default {
             show: false,
             albumSearch: null,
             artistsSearch: null,
+            permanent: false,
+            breakpoint: this.$vuetify.breakpoint.name,
         }
     },
+
     created: function() {
         this.$vuetify.theme.dark = true
         this.$store.commit('updateUserFB')
@@ -123,6 +126,24 @@ export default {
             this.$store.commit('updateUsernameSetFB')
         } else {
             this.$store.commit('updateUsernameClearFB')
+        }
+        console.log(this.breakpoint)
+        switch (this.breakpoint) {
+            case 'xs':
+                this.permanent = false
+                break
+            case 'sm':
+                this.permanent = false
+                break
+            case 'md':
+                this.permanent = false
+                break
+            case 'lg':
+                this.permanent = true
+                break
+            case 'xl':
+                this.permanent = true
+                break
         }
     },
     updated: function() {
