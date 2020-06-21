@@ -1,4 +1,5 @@
 <template>
+    <!--
     <v-app id="inspire">
         <v-content class="pa-0">
             <v-container class="fill-height" fluid>
@@ -63,15 +64,160 @@
             </v-container>
         </v-content>
     </v-app>
+    -->
+    <v-container class="fill-width" fluid>
+        <div v-if="this.loading">
+            <div class="centrata" style="width: 80%">
+                <v-row class="ma-2">
+                    <div
+                        v-if="this.$vuetify.breakpoint.name == 'xs' || this.$vuetify.breakpoint.name == 'sm'"
+                        class="centrata"
+                        style="width: 300px"
+                    >
+                        <v-skeleton-loader ref="skeleton" type="image" width="300px" class="mx-0"></v-skeleton-loader>
+                    </div>
+                    <div v-else class="d-flex flex-row">
+                        <v-skeleton-loader ref="skeleton" type="image" width="300px" class="mx-0"></v-skeleton-loader>
+                        <v-row class="ml-3 pt-2 d-flex flex-row" align="center">
+                            <v-col class="ma-2 col-12">
+                                <v-skeleton-loader
+                                    ref="skeleton"
+                                    type="heading"
+                                    width="100%"
+                                    class="mx-0"
+                                ></v-skeleton-loader>
+                            </v-col>
+                            <v-col
+                                v-for="n in 5"
+                                :key="n"
+                                xl="2"
+                                lg="2"
+                                md="3"
+                                sm="4"
+                                class="pb-3 px-1 col-6"
+                                style="margin:0 auto"
+                            >
+                                <v-skeleton-loader
+                                    type="image"
+                                    style="border-radius: 100%;"
+                                    height="100px"
+                                    width="100px"
+                                ></v-skeleton-loader>
+                            </v-col>
+                        </v-row>
+                    </div>
+                </v-row>
+                <v-row class="ma-2">
+                    <v-skeleton-loader ref="skeleton" type="heading" width="50em" class="mx-0"></v-skeleton-loader>
+                </v-row>
+                <v-row class="ma-2">
+                    <v-skeleton-loader ref="skeleton" type="heading" width="50em" class="mx-0"></v-skeleton-loader>
+                </v-row>
+                <br />
+                <v-row class="ma-2">
+                    <v-skeleton-loader ref="skeleton" type="text" width="100px" class="mx-0"></v-skeleton-loader>
+                </v-row>
+                <v-row align="center" no-gutters>
+                    <v-col v-for="n in 6" :key="n" lg="2" md="3" sm="4" class="pb-3 px-1 col-6">
+                        <v-skeleton-loader class="mr-1" type="card"></v-skeleton-loader>
+                    </v-col>
+                </v-row>
+                <br />
+                <br />
+            </div>
+        </div>
+        <v-row v-else>
+            <v-col sm="10" md="9" class="centrata">
+                <v-row>
+                    <v-col lg="3" sm="4" md="3">
+                        <v-img
+                            class="align-center rounded centrata"
+                            :src="artistInfo[0].picture"
+                            width="90%"
+                        ></v-img>
+                        <div
+                            v-if="this.$vuetify.breakpoint.name != 'xs' && this.$vuetify.breakpoint.name != 'sm'"
+                            class="centrata"
+                            style="width:90%"
+                        >
+                            <h1>{{ artistInfo[0].name }}</h1>
+                            <ul class="info-list">
+                                <li class="infoAlbumMain">
+                                    Numero album:
+                                    {{ artistInfo[0].albumNumber }}
+                                </li>
+                            </ul>
+                        </div>
+                    </v-col>
+                    <v-col
+                        v-if="this.$vuetify.breakpoint.name == 'xs' || this.$vuetify.breakpoint.name == 'sm'"
+                        lg="5"
+                        sm="3"
+                        md="5"
+                        class="d-flex justify-end align-start flex-column col-12"
+                    >
+                        <h1>{{ artistInfo[0].name }}</h1>
+                        <ul class="info-list">
+                            <li class="infoAlbumMain">
+                                Numero album:
+                                {{ artistInfo[0].albumNumber }}
+                            </li>
+                        </ul>
+                    </v-col>
+                    <v-col
+                        v-if="this.$vuetify.breakpoint.name != 'xs' && this.$vuetify.breakpoint.name != 'sm' && caricatiSimili == true"
+                        lg="9"
+                        sm="8"
+                        md="9"
+                        align-self="center"
+                    >
+                        <h2>Artisti simili</h2>
+                        <cardContainerArtisti :arrayRisultati="simili" :mode="mode" />
+                    </v-col>
+                </v-row>
+            </v-col>
+            <v-col
+                v-if="this.$vuetify.breakpoint.name == 'xs' || this.$vuetify.breakpoint.name == 'sm' && caricatiSimili == true"
+                sm="10"
+                md="9"
+                class="col-12 centrata"
+            >
+                <v-row no-gutters justify="center">
+                    <v-expansion-panels>
+                        <v-expansion-panel>
+                            <v-expansion-panel-header>Artisti simili</v-expansion-panel-header>
+                            <v-expansion-panel-content>
+                                <v-col class="col-12">
+                                    <cardContainerArtisti :arrayRisultati="simili" :mode="mode" />
+                                </v-col>
+                            </v-expansion-panel-content>
+                        </v-expansion-panel>
+                    </v-expansion-panels>
+                </v-row>
+            </v-col>
+            <v-col sm="10" md="9" class="centrata">
+                <v-row v-if="this.$vuetify.breakpoint.name == 'xs'" no-gutters justify="center">
+                    <h2>Album</h2>
+                    <v-col class="col-12">
+                        <cardContainer :arrayRisultati="albums" />
+                    </v-col>
+                </v-row>
+                <v-row v-else no-gutters>
+                    <h2 class="px-1">Album</h2>
+                    <v-col class="col-12">
+                        <cardContainer :arrayRisultati="albums" />
+                    </v-col>
+                </v-row>
+            </v-col>
+        </v-row>
+    </v-container>
 </template>
 
 <script>
 import axios from 'axios'
 import jsonpAdapter from 'axios-jsonp'
-/*import cardContainerArtisti from '../components/cardcontainerartisti'*/
-import artistCard from '../components/cardArtisti'
-import albumCard from '../components/card'
-/*import cardContainer from '../components/cardcontainer.vue'*/
+import cardContainerArtisti from '../components/cardcontainerartisti'
+import cardContainer from '../components/cardcontainer'
 export default {
     name: 'artistView',
     data() {
@@ -87,11 +233,12 @@ export default {
             loading: true,
             simili: [],
             caricatiSimili: false,
+            mode: 'artista',
         }
     },
     components: {
-        artistCard,
-        albumCard,
+        cardContainerArtisti,
+        cardContainer,
     },
     created: function() {
         this.scrollToTop()
@@ -357,5 +504,28 @@ export default {
 #sticky {
     position: sticky;
     top: 64px;
+}
+.info-list {
+    list-style: none;
+    direction: ltr;
+    margin: 0;
+    padding: 0;
+}
+.infoAlbum,
+.infoAlbumMain {
+    display: inline-block;
+}
+.infoAlbum::before {
+    content: '·';
+    margin: 0 4px;
+}
+.rounded {
+    border-radius: 0.5em;
+}
+.centrata {
+    margin: 0 auto;
+}
+.zeroMargine {
+    margin-bottom: 0;
 }
 </style>

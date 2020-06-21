@@ -1,5 +1,5 @@
 <template>
-    <div class="profile">
+    <v-container>
         <v-sheet style="margin:2em auto" class="pa-2" width="80%">
             <v-row v-if="user != null">
                 <v-col class="col-9 centrata">
@@ -44,7 +44,7 @@
             </v-form>
             </v-row>-->
         </v-sheet>
-    </div>
+    </v-container>
 </template>
 
 <script>

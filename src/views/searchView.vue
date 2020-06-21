@@ -96,6 +96,7 @@
                     <cardContainerArtisti
                         v-if="artisti.length != 0"
                         :arrayRisultati="artisti"
+                        :mode="mode"
                     ></cardContainerArtisti>
                     <div v-else class="d-flex justify-center">
                         <v-container
@@ -164,6 +165,7 @@ export default {
             stop: false,
             lastCycle: false,
             loading: true,
+            mode: 'ricerca',
         }
     },
     created: function() {

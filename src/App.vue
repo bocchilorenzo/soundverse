@@ -76,7 +76,6 @@
                 v-on:updateUser="updateUser"
                 :class="{ marginforplayer: show }"
                 v-on:login="snackLogin"
-                v-on:sheet="apriSheet"
             ></router-view>
             <!--
             <router-view
