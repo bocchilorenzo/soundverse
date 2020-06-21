@@ -15,6 +15,8 @@ export default new Vuetify({
             },
             dark: {
                 primary: colors.cyan.darken1,
+                danger: colors.red,
+                secondary: colors.cyan
             },
         },
     },

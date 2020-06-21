@@ -21,7 +21,7 @@
             <div v-else>
                 <!--Aggiungere le nuove uscite-->
                 <h2 class="ma-2">{{ worldAlbumArray[0] }}</h2>
-                <carousel :albumArray="worldAlbumArray" :inizio=2 :fine=8 />
+                <carousel :albumArray="worldAlbumArray" :inizio="2" :fine="8" />
                 <div class="my-2">
                     <v-btn
                         text
@@ -31,7 +31,7 @@
                 </div>
                 <br />
                 <h2 class="ma-2">{{ italyAlbumArray[0] }}</h2>
-                <carousel :albumArray="italyAlbumArray" :inizio=2 :fine=8 />
+                <carousel :albumArray="italyAlbumArray" :inizio="2" :fine="8" />
                 <div class="my-2">
                     <v-btn
                         text
@@ -41,7 +41,7 @@
                 </div>
                 <br />
                 <h2 class="ma-2">{{ hitsArray[0] }}</h2>
-                <carousel :albumArray="hitsArray" :inizio=2 :fine=8 />
+                <carousel :albumArray="hitsArray" :inizio="2" :fine="8" />
                 <div class="my-2">
                     <v-btn text color="primary" @click="visualizzaLista(hitsArray)">Visualizza tutti</v-btn>
                 </div>
@@ -167,7 +167,7 @@ export default {
         visualizzaLista(arrayAlbum) {
             this.$router.push({
                 name: 'list',
-                params: { type: "playlist", lista: arrayAlbum[1] },
+                params: { type: 'playlist', lista: arrayAlbum[1] },
             })
             //this.$emit('updateLista2', arrayAlbum)
         },

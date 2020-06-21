@@ -53,7 +53,7 @@ const routes = [
         component: profiloAltri,
     },
     {
-        path: '/profile/:username',
+        path: '/profile',
         name: 'profile',
         component: profile,
     },

@@ -56,7 +56,7 @@
             </v-list>
         </v-navigation-drawer>
 
-        <v-app-bar app color="primary" dark hide-on-scroll>
+        <v-app-bar app color="primary" dark :hide-on-scroll="breakpoint == 'xs'">
             <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
             <v-toolbar-title class="mr-5">DeezerRate</v-toolbar-title>
             <v-spacer />
@@ -75,6 +75,8 @@
                 v-on:play="play"
                 v-on:updateUser="updateUser"
                 :class="{ marginforplayer: show }"
+                v-on:login="snackLogin"
+                v-on:sheet="apriSheet"
             ></router-view>
             <!--
             <router-view
@@ -88,6 +90,12 @@
                 :class="{ marginforplayer: show }"
             ></router-view>
             -->
+            <v-snackbar v-model="snackbar" color="primary" :timeout="timeout">
+                {{ text }}
+                <template>
+                    <v-btn text @click="snackbar = false">Chiudi</v-btn>
+                </template>
+            </v-snackbar>
             <musicPlayer :file="file" class="player" v-if="show" v-on:hide="hide" />
         </v-content>
     </v-app>
@@ -115,19 +123,17 @@ export default {
             artistsSearch: null,
             permanent: false,
             breakpoint: this.$vuetify.breakpoint.name,
+            snackbar: false,
+            timeout: 4000,
+            text: '',
+            hidebar: false
         }
     },
-
     created: function() {
         this.$vuetify.theme.dark = true
         this.$store.commit('updateUserFB')
         this.currentUser = this.$store.state.user
-        if (this.currentUser != null) {
-            this.$store.commit('updateUsernameSetFB')
-        } else {
-            this.$store.commit('updateUsernameClearFB')
-        }
-        console.log(this.breakpoint)
+        this.setUsername()
         switch (this.breakpoint) {
             case 'xs':
                 this.drawer = false
@@ -150,11 +156,23 @@ export default {
         this.currentUser = this.$store.state.user
     },
     methods: {
+        setUsername() {
+            if (this.currentUser != null) {
+                this.$store.commit('updateUsernameSetFB')
+            } else {
+                this.$store.commit('updateUsernameClearFB')
+            }
+            console.log(this.$store.state.username)
+        },
         /*
         prop(arr) {
             this.arrayRisultati = arr
         },
         */
+        snackLogin(msg) {
+            this.text = msg
+            this.snackbar = true
+        },
         play(link) {
             this.show = true
             this.file = link
@@ -163,7 +181,6 @@ export default {
             this.show = bool
         },
         profile() {
-            console.log(this.currentUser)
             if (this.currentUser == null) {
                 this.$router.push({
                     name: 'login',
@@ -171,7 +188,6 @@ export default {
             } else {
                 this.$router.push({
                     name: 'profile',
-                    params: { username: this.$store.state.username },
                 })
             }
         },

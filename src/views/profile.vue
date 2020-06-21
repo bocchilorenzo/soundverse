@@ -1,26 +1,49 @@
 <template>
     <div class="profile">
-        <v-row v-if="user != null" align="center" justify="center" class="flex-column">
-            <p style="text-align:center">Mail: {{ user.email }}</p>
-            <p style="text-align:center">Username: {{ username }}</p>
-            <p style="text-align:center">Follower: {{ followers[0].num }}</p>
-            <p style="text-align:center">Seguiti: {{ following[0].num }}</p>
-            <v-form ref="form">
-                <v-btn color="danger" @click="logout()">Logout</v-btn>
-            </v-form>
-        </v-row>
-        <v-row v-if="user != null" align="center" justify="center" class="flex-column">
-            <v-text-field v-model="newUsername" label="Modifica username"></v-text-field>
-            <v-form ref="form">
-                <v-btn color="danger" @click="modUsername()">Modifica informazioni</v-btn>
-            </v-form>
-        </v-row>
-        <!--    <v-row align="center" justify="center" class="flex-column">
+        <v-sheet style="margin:2em auto" class="pa-2" width="80%">
+            <v-row v-if="user != null">
+                <v-col class="col-9 centrata">
+                    <h2>Informazioni account</h2>
+                </v-col>
+                <v-col class="col-9 centrata">
+                    <p>Mail: {{ user.email }}</p>
+                </v-col>
+                <v-col class="col-9 centrata">
+                    <p>Username: {{ username }}</p>
+                </v-col>
+                <v-col class="col-9 centrata">
+                    <p>Follower: {{ followers[0].num }}</p>
+                </v-col>
+                <v-col class="col-9 centrata">
+                    <p>Seguiti: {{ following[0].num }}</p>
+                </v-col>
+                <v-col class="col-9 centrata">
+                    <v-form ref="form">
+                        <v-btn color="danger" @click="logout()">Logout</v-btn>
+                    </v-form>
+                </v-col>
+            </v-row>
+            <v-divider></v-divider>
+            <v-row v-if="user != null">
+                <v-col class="col-9 centrata">
+                    <h2>Modifica informazioni</h2>
+                </v-col>
+                <v-col class="col-9 centrata">
+                    <v-text-field v-model="newUsername" label="Modifica username"></v-text-field>
+                </v-col>
+                <v-col class="col-9 centrata">
+                    <v-form ref="form">
+                        <v-btn color="secondary" @click="modUsername()">Modifica</v-btn>
+                    </v-form>
+                </v-col>
+            </v-row>
+            <!--    <v-row align="center" justify="center" class="flex-column">
             <v-form ref="form">
                 <v-btn v-if="!seguito" color="primary" @click="segui('f')">Follow</v-btn>
                 <v-btn v-else color="danger" @click="segui('u')">Unfollow</v-btn>
             </v-form>
-        </v-row>-->
+            </v-row>-->
+        </v-sheet>
     </div>
 </template>
 
@@ -238,7 +261,8 @@ export default {
         async logout() {
             try {
                 await firebase.auth().signOut()
-                alert('Logout effettuato!')
+                //alert('Logout effettuato!')
+                this.$emit('login', 'Logout effettuato')
                 this.$router.replace({ name: 'home' })
                 this.$store.commit('updateUserFB')
                 this.$store.commit('updateUsernameClearFB')
@@ -363,3 +387,9 @@ export default {
     },
 }
 </script>
+
+<style scoped>
+.centrata {
+    margin: 0 auto;
+}
+</style>

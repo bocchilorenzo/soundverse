@@ -1,32 +1,52 @@
 <template>
-    <div class="signup">
-        <h1 style="text-align:center">Registrazione</h1>
+    <v-container class="fill-height" fluid>
         <v-row align="center" justify="center">
-            <v-form ref="form">
-                <v-text-field
-                    v-model="email"
-                    :rules="emailRules"
-                    label="E-mail"
-                    required
-                ></v-text-field>
-                <v-text-field v-model="username" label="Username" required></v-text-field>
-                <v-text-field
-                    type="password"
-                    v-model="password"
-                    :rules="passRules"
-                    label="Password"
-                    required
-                ></v-text-field>
-                <v-btn @click="modUsername()">Registrati</v-btn>
-            </v-form>
+            <v-col cols="12" sm="8" md="4">
+                <v-card class="elevation-12">
+                    <v-toolbar color="primary" dark flat>
+                        <v-toolbar-title>Registrazione</v-toolbar-title>
+                        <v-spacer />
+                    </v-toolbar>
+                    <v-card-text>
+                        <v-form>
+                            <v-text-field
+                                v-model="email"
+                                :rules="emailRules"
+                                label="E-mail"
+                                required
+                                prepend-icon="mdi-email"
+                            />
+                            <v-text-field
+                                v-model="username"
+                                label="Username"
+                                required
+                                prepend-icon="mdi-account"
+                            ></v-text-field>
+
+                            <v-text-field
+                                type="password"
+                                v-model="password"
+                                :rules="passRules"
+                                label="Password"
+                                required
+                                prepend-icon="mdi-lock"
+                            />
+                        </v-form>
+                    </v-card-text>
+                    <v-card-actions>
+                        <p>
+                            <small>
+                                Hai già un account?
+                                <a @click="login()">Accedi</a>
+                            </small>
+                        </p>
+                        <v-spacer />
+                        <v-btn color="primary" @click="modUsername()">Registrati</v-btn>
+                    </v-card-actions>
+                </v-card>
+            </v-col>
         </v-row>
-        <v-row align="center" justify="center" class="mt-3">
-            <p>
-                Hai già un account?
-                <a @click="login()">Accedi</a>
-            </p>
-        </v-row>
-    </div>
+    </v-container>
 </template>
 
 <script>
@@ -53,7 +73,7 @@ export default {
         async signUpFirebase() {
             try {
                 await firebase.auth().createUserWithEmailAndPassword(this.email, this.password)
-                alert('Account creato!')
+                this.$emit('login', "Registrazione effettuata")
                 this.$store.commit('updateUserFB')
                 var db = firebase.firestore()
                 var usr = this.username
