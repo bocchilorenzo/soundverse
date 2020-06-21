@@ -72,9 +72,15 @@
                     <div
                         v-if="this.$vuetify.breakpoint.name == 'xs' || this.$vuetify.breakpoint.name == 'sm'"
                         class="centrata"
-                        style="width: 300px"
+                        style="width: 100%"
                     >
-                        <v-skeleton-loader ref="skeleton" type="image" width="300px" class="mx-0"></v-skeleton-loader>
+                        <v-skeleton-loader
+                            ref="skeleton"
+                            type="image"
+                            width="100%"
+                            max-width="300px"
+                            class="mx-0"
+                        ></v-skeleton-loader>
                     </div>
                     <div v-else class="d-flex flex-row">
                         <v-skeleton-loader ref="skeleton" type="image" width="300px" class="mx-0"></v-skeleton-loader>
@@ -114,6 +120,12 @@
                     <v-skeleton-loader ref="skeleton" type="heading" width="50em" class="mx-0"></v-skeleton-loader>
                 </v-row>
                 <br />
+                <v-row class="ma-2" v-if="this.$vuetify.breakpoint.name == 'xs' || this.$vuetify.breakpoint.name == 'sm'">
+                    <v-col class="col-12 pa-0">
+                        <v-skeleton-loader type="list-item"></v-skeleton-loader>
+                    </v-col>
+                </v-row>
+                <br v-if="this.$vuetify.breakpoint.name == 'xs' || this.$vuetify.breakpoint.name == 'sm'" />
                 <v-row class="ma-2">
                     <v-skeleton-loader ref="skeleton" type="text" width="100px" class="mx-0"></v-skeleton-loader>
                 </v-row>
