@@ -1,12 +1,77 @@
 <template>
-    <v-container>
-        <v-row align="center" justify="center" v-if="this.loading">
-            <v-col
-                cols="1"
-                class="text-center"
-                style="height: 100vh; display: flex; align-items:center;"
-            >
-                <v-progress-circular :size="70" :width="7" color="indigo" indeterminate></v-progress-circular>
+    <v-container class="fill-width" fluid>
+        <v-row v-if="this.loading">
+            <v-col sm="10" md="9" class="centrata">
+                <v-row class="ma-2">
+                    <div
+                        v-if="this.$vuetify.breakpoint.name == 'xs' || this.$vuetify.breakpoint.name == 'sm'"
+                        class="centrata"
+                        style="width: 100%"
+                    >
+                        <v-skeleton-loader
+                            ref="skeleton"
+                            type="image"
+                            width="100%"
+                            max-width="320px"
+                            class="centrata"
+                        ></v-skeleton-loader>
+                        <v-row class="ma-2">
+                            <v-skeleton-loader
+                                ref="skeleton"
+                                type="heading"
+                                width="50em"
+                                class="mx-0"
+                            ></v-skeleton-loader>
+                        </v-row>
+                        <v-row class="ma-2">
+                            <v-skeleton-loader ref="skeleton" type="text" width="50em" class="mx-0"></v-skeleton-loader>
+                        </v-row>
+                        <v-row class="ma-2">
+                            <v-skeleton-loader
+                                ref="skeleton"
+                                type="sentences"
+                                width="50em"
+                                class="mx-0"
+                            ></v-skeleton-loader>
+                        </v-row>
+                        <br />
+                    </div>
+                    <div v-else class="d-flex flex-row" style="width: 100%">
+                        <v-skeleton-loader ref="skeleton" type="image" width="300px" class="mx-0"></v-skeleton-loader>
+                        <v-row class="ml-3 pt-2 d-flex flex-row" align="center" style="width:100%">
+                            <v-col class="ma-2 col-12">
+                                <v-skeleton-loader
+                                    ref="skeleton"
+                                    type="heading"
+                                    width="100%"
+                                    class="mx-0"
+                                ></v-skeleton-loader>
+                            </v-col>
+                            <v-col class="ma-2 col-12">
+                                <v-skeleton-loader
+                                    ref="skeleton"
+                                    type="text"
+                                    width="100%"
+                                    class="mx-0"
+                                ></v-skeleton-loader>
+                            </v-col>
+                            <v-col class="ma-2 col-12">
+                                <v-skeleton-loader
+                                    ref="skeleton"
+                                    type="sentences"
+                                    width="100%"
+                                    class="mx-0"
+                                ></v-skeleton-loader>
+                            </v-col>
+                        </v-row>
+                    </div>
+                </v-row>
+                <br />
+                <v-row style="width:100%" class="mx-0">
+                    <v-col class="centrata col-12">
+                        <v-sheet width="100%" height="300px"></v-sheet>
+                    </v-col>
+                </v-row>
             </v-col>
         </v-row>
         <v-row v-else>

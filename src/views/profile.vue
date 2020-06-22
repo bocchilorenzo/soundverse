@@ -1,6 +1,119 @@
 <template>
     <v-container>
-        <v-sheet style="margin:2em auto" class="pa-2" width="80%">
+        <v-sheet v-if="loading" style="margin:2em auto" class="pa-2" width="80%">
+            <v-row>
+                <v-col class="col-9 centrata">
+                    <v-skeleton-loader
+                        ref="skeleton"
+                        type="heading"
+                        max-width="100%"
+                        width="50em"
+                        class="my-2"
+                    ></v-skeleton-loader>
+                </v-col>
+                <v-col class="col-9 centrata">
+                    <v-skeleton-loader ref="skeleton" type="text" width="100px" class="my-2"></v-skeleton-loader>
+                </v-col>
+                <v-col class="col-9 centrata">
+                    <v-skeleton-loader ref="skeleton" type="text" width="100px" class="my-2"></v-skeleton-loader>
+                </v-col>
+                <v-col class="col-9 centrata">
+                    <v-skeleton-loader ref="skeleton" type="text" width="100px" class="my-2"></v-skeleton-loader>
+                </v-col>
+                <v-col class="col-9 centrata">
+                    <v-skeleton-loader ref="skeleton" type="text" width="100px" class="my-2"></v-skeleton-loader>
+                </v-col>
+                <v-col class="col-9 centrata">
+                    <v-skeleton-loader ref="skeleton" type="button" class="my-2"></v-skeleton-loader>
+                </v-col>
+            </v-row>
+            <v-divider></v-divider>
+            <v-row>
+                <v-col class="col-9 centrata">
+                    <v-skeleton-loader
+                        ref="skeleton"
+                        type="heading"
+                        max-width="100%"
+                        width="50em"
+                        class="my-2"
+                    ></v-skeleton-loader>
+                </v-col>
+                <v-col class="col-9 centrata">
+                    <v-skeleton-loader ref="skeleton" type="text" width="100px" class="my-2"></v-skeleton-loader>
+                </v-col>
+                <v-col class="col-9 centrata">
+                    <v-skeleton-loader ref="skeleton" type="button" class="my-2"></v-skeleton-loader>
+                </v-col>
+            </v-row>
+        </v-sheet>
+        <v-sheet v-else style="margin:2em auto" class="pa-2" width="80%">
+            <!--Magari spostare in un componente il dialog, così ne usiamo uno solo ed è più ordinato-->
+            <v-dialog v-model="dialogSeguiti" scrollable max-width="300px">
+                <v-card>
+                    <v-card-title>Seguiti</v-card-title>
+                    <v-divider></v-divider>
+                    <v-card-text style="height: 300px;" class="pt-3">
+                        <usersContainer
+                            v-if="following[0].users.length != 0"
+                            :arrayRisultati="following[0].users"
+                        ></usersContainer>
+                        <!--EMPTY STATE NON TESTATO-->
+                        <div v-else class="d-flex justify-center">
+                            <v-container
+                                class="d-inline-flex justify-center flex-column align-center"
+                                style="border-radius: 50%; height:400px;width:400px; margin:10px"
+                            >
+                                <svg style="width:150px;height:150px;" viewBox="0 0 24 24">
+                                    <path
+                                        fill="#ececec"
+                                        d="M20,2H8A2,2 0 0,0 6,4V16A2,2 0 0,0 8,18H20A2,2 0 0,0 22,16V4A2,2 0 0,0 20,2M20,16H8V4H20M12.5,15A2.5,2.5 0 0,0 15,12.5V7H18V5H14V10.5C13.58,10.19 13.07,10 12.5,10A2.5,2.5 0 0,0 10,12.5A2.5,2.5 0 0,0 12.5,15M4,6H2V20A2,2 0 0,0 4,22H18V20H4"
+                                    />
+                                </svg>
+                                <p
+                                    style="width: 80%; text-align: center"
+                                >Nessun utente seguito</p>
+                            </v-container>
+                        </div>
+                    </v-card-text>
+                    <v-divider></v-divider>
+                    <v-card-actions>
+                        <v-btn color="danger" text @click="dialogSeguiti = false">Close</v-btn>
+                    </v-card-actions>
+                </v-card>
+            </v-dialog>
+            <v-dialog v-model="dialogFollower" scrollable max-width="300px">
+                <v-card>
+                    <v-card-title>Follower</v-card-title>
+                    <v-divider></v-divider>
+                    <v-card-text style="height: 300px;" class="pt-3">
+                        <usersContainer
+                            v-if="followers[0].users.length != 0"
+                            :arrayRisultati="followers[0].users"
+                        ></usersContainer>
+                        <!--EMPTY STATE NON TESTATO-->
+                        <div v-else class="d-flex justify-center">
+                            <v-container
+                                class="d-inline-flex justify-center flex-column align-center"
+                                style="border-radius: 50%; height:400px;width:400px; margin:10px"
+                            >
+                                <svg style="width:150px;height:150px;" viewBox="0 0 24 24">
+                                    <path
+                                        fill="#ececec"
+                                        d="M20,2H8A2,2 0 0,0 6,4V16A2,2 0 0,0 8,18H20A2,2 0 0,0 22,16V4A2,2 0 0,0 20,2M20,16H8V4H20M12.5,15A2.5,2.5 0 0,0 15,12.5V7H18V5H14V10.5C13.58,10.19 13.07,10 12.5,10A2.5,2.5 0 0,0 10,12.5A2.5,2.5 0 0,0 12.5,15M4,6H2V20A2,2 0 0,0 4,22H18V20H4"
+                                    />
+                                </svg>
+                                <p
+                                    style="width: 80%; text-align: center"
+                                >Nessun Follower</p>
+                            </v-container>
+                        </div>
+                    </v-card-text>
+                    <v-divider></v-divider>
+                    <v-card-actions>
+                        <v-btn color="danger" text @click="dialogFollower = false">Close</v-btn>
+                    </v-card-actions>
+                </v-card>
+            </v-dialog>
             <v-row v-if="user != null">
                 <v-col class="col-9 centrata">
                     <h2>Informazioni account</h2>
@@ -11,11 +124,11 @@
                 <v-col class="col-9 centrata">
                     <p>Username: {{ username }}</p>
                 </v-col>
-                <v-col class="col-9 centrata">
-                    <p>Follower: {{ followers[0].num }}</p>
+                <v-col class="col-9 centrata" @click="dialogFollower = true">
+                    <p><a>Follower: {{ followers[0].num }}</a></p>
                 </v-col>
-                <v-col class="col-9 centrata">
-                    <p>Seguiti: {{ following[0].num }}</p>
+                <v-col class="col-9 centrata" @click="dialogSeguiti = true">
+                    <p><a>Seguiti: {{ following[0].num }}</a></p>
                 </v-col>
                 <v-col class="col-9 centrata">
                     <v-form ref="form">
@@ -49,6 +162,7 @@
 
 <script>
 import firebase from 'firebase'
+import usersContainer from '../components/usersContainer'
 export default {
     name: 'profile',
     data() {
@@ -60,9 +174,17 @@ export default {
             following: [{ num: 0, users: [] }],
             followers: [{ num: 0, users: [] }],
             seguito: false,
+            loading: true,
+            loaded: [{ step: 0 }],
+            dialogSeguiti: false,
+            dialogFollower: false
         }
     },
+    components: {
+        usersContainer,
+    },
     created: function() {
+        this.scrollToTop()
         if (this.user == null) {
             this.$router.replace({ name: 'login' })
         } else {
@@ -80,23 +202,28 @@ export default {
 
             var followers = this.followers
             var following = this.following
+            var caricato = this.loaded
 
             userData1
                 .get()
                 .then(function(querySnapshot) {
                     if (querySnapshot.empty == true) {
                         console.log('no followers')
+                        caricato[0].step = caricato[0].step + 1
                     } else {
                         querySnapshot.forEach(function(doc) {
                             console.log(doc.id, ' => ', doc.data())
                             var follower = {
                                 email: doc.id,
+                                username: doc.data().username,
                             }
                             followers[0].users.push(follower)
                             followers[0].num += 1
                         })
+                        caricato[0].step = caricato[0].step + 1
                     }
                 })
+                .then(() => this.endLoading())
                 .catch(function(error) {
                     console.log('Error getting document:', error)
                 })
@@ -106,17 +233,21 @@ export default {
                 .then(function(querySnapshot) {
                     if (querySnapshot.empty == true) {
                         console.log('no following')
+                        caricato[0].step = caricato[0].step + 1
                     } else {
                         querySnapshot.forEach(function(doc) {
                             console.log(doc.id, ' => ', doc.data())
                             var followin = {
                                 email: doc.id,
+                                username: doc.data().username,
                             }
                             following[0].users.push(followin)
                             following[0].num += 1
                         })
+                        caricato[0].step = caricato[0].step + 1
                     }
                 })
+                .then(() => this.endLoading())
                 .catch(function(error) {
                     console.log('Error getting document:', error)
                 })
@@ -178,6 +309,9 @@ export default {
         }*/
     },
     methods: {
+        scrollToTop() {
+            window.scrollTo(0, 0)
+        },
         modUsername() {
             //Metodo che controlla se l'username è uguale a quello di prima, se è vuoto o meno e se è già presente nel db
             if (this.newUsername == this.username) {
@@ -269,6 +403,11 @@ export default {
                 //this.$emit('updateUser', Object)
             } catch (err) {
                 alert('Oops. ' + err.message)
+            }
+        },
+        endLoading() {
+            if (this.loaded[0].step == 2) {
+                this.loading = false
             }
         },
         /*    stay() {

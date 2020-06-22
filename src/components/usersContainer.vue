@@ -2,7 +2,7 @@
     <div>
         <div v-for="user in arrayRisultati" :key="user.username">
             <v-row>
-                <userList :dati="user" />
+                <userList style="width: 100%" :dati="user" />
             </v-row>
         </div>
     </div>
