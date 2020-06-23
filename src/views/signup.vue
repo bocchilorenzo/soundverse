@@ -73,7 +73,7 @@ export default {
         async signUpFirebase() {
             try {
                 await firebase.auth().createUserWithEmailAndPassword(this.email, this.password)
-                this.$emit('login', "Registrazione effettuata")
+                this.$emit('login', 'Registrazione effettuata')
                 this.$store.commit('updateUserFB')
                 var db = firebase.firestore()
                 var usr = this.username
@@ -85,10 +85,11 @@ export default {
                         username: usr,
                     })
                     .then(function() {
+                        localStorage.setItem('username', usr)
                         this.$store.commit('updateUsernameSetFB')
                     })
                     .catch(function(error) {
-                        alert('Qualcosa è andato storto, riprova')
+                        console.log('Qualcosa è andato storto, riprova')
                         console.log(error)
                     })
                 this.$router.replace({ name: 'home' })

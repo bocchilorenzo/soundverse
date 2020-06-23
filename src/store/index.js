@@ -7,7 +7,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
     state: {
         user: Object,
-        username: Object,
+        username: localStorage.getItem('username'),
     },
     mutations: {
         updateUserFB(state) {
@@ -22,7 +22,8 @@ export default new Vuex.Store({
                 .get()
                 .then(function(querySnapshot) {
                     usr = querySnapshot.data().username
-                    state.username = usr
+                    localStorage.setItem('username', usr)
+                    state.username = localStorage.getItem('username')
                 })
                 .catch(function(error) {
                     console.log('Error getting document:', error)
@@ -30,6 +31,7 @@ export default new Vuex.Store({
         },
         updateUsernameClearFB(state) {
             state.username = null
+            localStorage.removeItem('username')
         },
     },
 })

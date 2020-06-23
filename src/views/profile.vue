@@ -12,19 +12,43 @@
                     ></v-skeleton-loader>
                 </v-col>
                 <v-col class="col-9 centrata">
-                    <v-skeleton-loader ref="skeleton" type="text" width="100px" class="my-2"></v-skeleton-loader>
+                    <v-skeleton-loader
+                        ref="skeleton"
+                        type="text"
+                        width="100px"
+                        class="my-2"
+                    ></v-skeleton-loader>
                 </v-col>
                 <v-col class="col-9 centrata">
-                    <v-skeleton-loader ref="skeleton" type="text" width="100px" class="my-2"></v-skeleton-loader>
+                    <v-skeleton-loader
+                        ref="skeleton"
+                        type="text"
+                        width="100px"
+                        class="my-2"
+                    ></v-skeleton-loader>
                 </v-col>
                 <v-col class="col-9 centrata">
-                    <v-skeleton-loader ref="skeleton" type="text" width="100px" class="my-2"></v-skeleton-loader>
+                    <v-skeleton-loader
+                        ref="skeleton"
+                        type="text"
+                        width="100px"
+                        class="my-2"
+                    ></v-skeleton-loader>
                 </v-col>
                 <v-col class="col-9 centrata">
-                    <v-skeleton-loader ref="skeleton" type="text" width="100px" class="my-2"></v-skeleton-loader>
+                    <v-skeleton-loader
+                        ref="skeleton"
+                        type="text"
+                        width="100px"
+                        class="my-2"
+                    ></v-skeleton-loader>
                 </v-col>
                 <v-col class="col-9 centrata">
-                    <v-skeleton-loader ref="skeleton" type="button" class="my-2"></v-skeleton-loader>
+                    <v-skeleton-loader
+                        ref="skeleton"
+                        type="button"
+                        class="my-2"
+                    ></v-skeleton-loader>
                 </v-col>
             </v-row>
             <v-divider></v-divider>
@@ -39,10 +63,19 @@
                     ></v-skeleton-loader>
                 </v-col>
                 <v-col class="col-9 centrata">
-                    <v-skeleton-loader ref="skeleton" type="text" width="100px" class="my-2"></v-skeleton-loader>
+                    <v-skeleton-loader
+                        ref="skeleton"
+                        type="text"
+                        width="100px"
+                        class="my-2"
+                    ></v-skeleton-loader>
                 </v-col>
                 <v-col class="col-9 centrata">
-                    <v-skeleton-loader ref="skeleton" type="button" class="my-2"></v-skeleton-loader>
+                    <v-skeleton-loader
+                        ref="skeleton"
+                        type="button"
+                        class="my-2"
+                    ></v-skeleton-loader>
                 </v-col>
             </v-row>
         </v-sheet>
@@ -69,9 +102,7 @@
                                         d="M20,2H8A2,2 0 0,0 6,4V16A2,2 0 0,0 8,18H20A2,2 0 0,0 22,16V4A2,2 0 0,0 20,2M20,16H8V4H20M12.5,15A2.5,2.5 0 0,0 15,12.5V7H18V5H14V10.5C13.58,10.19 13.07,10 12.5,10A2.5,2.5 0 0,0 10,12.5A2.5,2.5 0 0,0 12.5,15M4,6H2V20A2,2 0 0,0 4,22H18V20H4"
                                     />
                                 </svg>
-                                <p
-                                    style="width: 80%; text-align: center"
-                                >Nessun utente seguito</p>
+                                <p style="width: 80%; text-align: center">Nessun utente seguito</p>
                             </v-container>
                         </div>
                     </v-card-text>
@@ -102,9 +133,7 @@
                                         d="M20,2H8A2,2 0 0,0 6,4V16A2,2 0 0,0 8,18H20A2,2 0 0,0 22,16V4A2,2 0 0,0 20,2M20,16H8V4H20M12.5,15A2.5,2.5 0 0,0 15,12.5V7H18V5H14V10.5C13.58,10.19 13.07,10 12.5,10A2.5,2.5 0 0,0 10,12.5A2.5,2.5 0 0,0 12.5,15M4,6H2V20A2,2 0 0,0 4,22H18V20H4"
                                     />
                                 </svg>
-                                <p
-                                    style="width: 80%; text-align: center"
-                                >Nessun Follower</p>
+                                <p style="width: 80%; text-align: center">Nessun Follower</p>
                             </v-container>
                         </div>
                     </v-card-text>
@@ -125,10 +154,14 @@
                     <p>Username: {{ username }}</p>
                 </v-col>
                 <v-col class="col-9 centrata" @click="dialogFollower = true">
-                    <p><a>Follower: {{ followers[0].num }}</a></p>
+                    <p>
+                        <a>Follower: {{ followers[0].num }}</a>
+                    </p>
                 </v-col>
                 <v-col class="col-9 centrata" @click="dialogSeguiti = true">
-                    <p><a>Seguiti: {{ following[0].num }}</a></p>
+                    <p>
+                        <a>Seguiti: {{ following[0].num }}</a>
+                    </p>
                 </v-col>
                 <v-col class="col-9 centrata">
                     <v-form ref="form">
@@ -177,7 +210,7 @@ export default {
             loading: true,
             loaded: [{ step: 0 }],
             dialogSeguiti: false,
-            dialogFollower: false
+            dialogFollower: false,
         }
     },
     components: {

@@ -125,7 +125,7 @@ export default {
             snackbar: false,
             timeout: 4000,
             text: '',
-            hidebar: false
+            hidebar: false,
         }
     },
     created: function() {
@@ -162,6 +162,7 @@ export default {
                 this.$store.commit('updateUsernameClearFB')
             }
             console.log(this.$store.state.username)
+            console.log(this.currentUser)
         },
         /*
         prop(arr) {

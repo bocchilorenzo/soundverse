@@ -57,7 +57,7 @@
                     </v-container>
                 </div>
             </v-tab-item>
-            <v-tab-item></v-tab-item>
+            <v-tab-item> </v-tab-item>
             <v-tab-item></v-tab-item>
             <v-tab-item></v-tab-item>
         </v-tabs>
@@ -81,6 +81,9 @@ export default {
             following: [{ num: 0, users: [] }],
             followers: [{ num: 0, users: [] }],
             segui: { segui: false },
+            ascoltati: { num: 0, album: [] },
+            daAscoltare: { num: 0, album: [] },
+            preferiti: { num: 0, album: [] },
         }
     },
     created() {
@@ -127,8 +130,27 @@ export default {
                 .doc(this.user.email)
                 .collection('following')
 
+            var ascoltati = db
+                .collection('utenti')
+                .doc(mail.email)
+                .collection('ascoltati')
+
+            var daAscoltare = db
+                .collection('utenti')
+                .doc(mail.email)
+                .collection('daAscoltare')
+
+            var preferiti = db
+                .collection('utenti')
+                .doc(mail.email)
+                .collection('preferiti')
+
             var followers = this.followers
             var following = this.following
+            var listened = this.ascoltati
+            var toListen = this.daAscoltare
+            var favourite = this.preferiti
+
             //controlla i seguaci e numero seguaci
             userData1
                 .get()
@@ -182,6 +204,71 @@ export default {
                     } else {
                         segui.segui = false
                         //console.log('non lo segui')
+                    }
+                })
+                .catch(function(error) {
+                    console.log('Error getting document:', error)
+                })
+
+            ascoltati
+                .get()
+                .then(function(querySnapshot) {
+                    if (querySnapshot.empty == true) {
+                        console.log('nessun ascoltato')
+                    } else {
+                        querySnapshot.forEach(function(doc) {
+                            //console.log(doc.id, ' => ', doc.data())
+                            var album = {
+                                id: doc.id,
+                                titolo: doc.data().titolo,
+                                rating: doc.data().rating,
+                            }
+                            listened.album.push(album)
+                            listened.num += 1
+                        })
+                    }
+                })
+                .catch(function(error) {
+                    console.log('Error getting document:', error)
+                })
+
+            daAscoltare
+                .get()
+                .then(function(querySnapshot) {
+                    if (querySnapshot.empty == true) {
+                        console.log('nessun ascoltato')
+                    } else {
+                        querySnapshot.forEach(function(doc) {
+                            //console.log(doc.id, ' => ', doc.data())
+                            var album = {
+                                id: doc.id,
+                                titolo: doc.data().titolo,
+                            }
+                            toListen.album.push(album)
+                            toListen.num += 1
+                        })
+                    }
+                })
+                .catch(function(error) {
+                    console.log('Error getting document:', error)
+                })
+
+            preferiti
+                .get()
+                .then(function(querySnapshot) {
+                    if (querySnapshot.empty == true) {
+                        console.log('nessun ascoltato')
+                    } else {
+                        querySnapshot.forEach(function(doc) {
+                            //console.log(doc.id, ' => ', doc.data())
+                            var album = {
+                                id: doc.id,
+                                titolo: doc.data().titolo,
+                                rating: doc.data().rating,
+                            }
+                            favourite.album.push(album)
+                            favourite.num += 1
+                        })
                     }
                 })
                 .catch(function(error) {
