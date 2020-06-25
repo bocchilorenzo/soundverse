@@ -5,7 +5,7 @@
                 <router-link to="/">
                     <v-list-item link>
                         <v-list-item-action>
-                            <v-icon>mdi-home</v-icon>
+                            <v-icon>mdi-home-outline</v-icon>
                         </v-list-item-action>
                         <v-list-item-content>
                             <v-list-item-title>Home</v-list-item-title>
@@ -15,7 +15,7 @@
                 <router-link to="/generi">
                     <v-list-item link>
                         <v-list-item-action>
-                            <v-icon>mdi-playlist-music</v-icon>
+                            <v-icon>mdi-playlist-music-outline</v-icon>
                         </v-list-item-action>
                         <v-list-item-content>
                             <v-list-item-title>Generi</v-list-item-title>
@@ -50,6 +50,16 @@
                         </v-list-item-action>
                         <v-list-item-content>
                             <v-list-item-title>Preferiti</v-list-item-title>
+                        </v-list-item-content>
+                    </v-list-item>
+                </router-link>
+                <router-link to="/about" class="bottom">
+                    <v-list-item link>
+                        <v-list-item-action>
+                            <v-icon>mdi-information-outline</v-icon>
+                        </v-list-item-action>
+                        <v-list-item-content>
+                            <v-list-item-title>About</v-list-item-title>
                         </v-list-item-content>
                     </v-list-item>
                 </router-link>
@@ -198,6 +208,25 @@ export default {
 }
 </script>
 <style>
+html {
+    --scrollbarBG: #37474f;
+    --thumbBG: #00acc1;
+}
+body::-webkit-scrollbar {
+    width: 12px;
+}
+body {
+    scrollbar-width: thin;
+    scrollbar-color: var(--thumbBG) var(--scrollbarBG);
+}
+body::-webkit-scrollbar-track {
+    background: var(--scrollbarBG);
+}
+body::-webkit-scrollbar-thumb {
+    background-color: var(--thumbBG);
+    border-radius: 6px;
+    border: 3px solid var(--scrollbarBG);
+}
 .player {
     position: fixed;
     bottom: 0;
@@ -208,5 +237,10 @@ export default {
 }
 a {
     text-decoration: none;
+}
+.bottom {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
 }
 </style>

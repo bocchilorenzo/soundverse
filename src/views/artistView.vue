@@ -120,12 +120,17 @@
                     <v-skeleton-loader ref="skeleton" type="heading" width="50em" class="mx-0"></v-skeleton-loader>
                 </v-row>
                 <br />
-                <v-row class="ma-2" v-if="this.$vuetify.breakpoint.name == 'xs' || this.$vuetify.breakpoint.name == 'sm'">
+                <v-row
+                    class="ma-2"
+                    v-if="this.$vuetify.breakpoint.name == 'xs' || this.$vuetify.breakpoint.name == 'sm'"
+                >
                     <v-col class="col-12 pa-0">
                         <v-skeleton-loader type="list-item"></v-skeleton-loader>
                     </v-col>
                 </v-row>
-                <br v-if="this.$vuetify.breakpoint.name == 'xs' || this.$vuetify.breakpoint.name == 'sm'" />
+                <br
+                    v-if="this.$vuetify.breakpoint.name == 'xs' || this.$vuetify.breakpoint.name == 'sm'"
+                />
                 <v-row class="ma-2">
                     <v-skeleton-loader ref="skeleton" type="text" width="100px" class="mx-0"></v-skeleton-loader>
                 </v-row>
@@ -159,6 +164,24 @@
                                     {{ artistInfo[0].albumNumber }}
                                 </li>
                             </ul>
+                            <a target="_blank" :href="artistInfo[0].share">
+                                <v-img
+                                    v-if="this.$vuetify.theme.dark"
+                                    src="../assets/light.png"
+                                    class="align-center"
+                                    style="margin:1em auto 0;"
+                                    width="40%"
+                                    min-width="18px"
+                                ></v-img>
+                                <v-img
+                                    v-else
+                                    src="../assets/dark.png"
+                                    class="align-center"
+                                    style="margin:1em auto 0;"
+                                    width="40%"
+                                    min-width="18px"
+                                ></v-img>
+                            </a>
                         </div>
                     </v-col>
                     <v-col
@@ -286,6 +309,7 @@ export default {
                             name: response.data.name,
                             picture: response.data.picture_big,
                             albumNumber: response.data.nb_album,
+                            share: response.data.share
                         }
                         this.artistInfo.push(artistData)
                         /*

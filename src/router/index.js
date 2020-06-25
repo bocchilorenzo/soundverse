@@ -14,6 +14,7 @@ import preferiti from '../views/preferiti.vue'
 import profiloAltri from '../views/profiloAltri'
 import generi from '../views/generi'
 import genere from '../views/genere'
+import about from '../views/About.vue'
 
 Vue.use(VueRouter)
 
@@ -91,6 +92,11 @@ const routes = [
         path: '/genere/:id',
         name: 'genere',
         component: genere,
+    },
+    {
+        path: '/about',
+        name: 'about',
+        component: about,
     },
 ]
 

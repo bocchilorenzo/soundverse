@@ -1,17 +1,19 @@
 <template>
     <div>
-        <h1 style="display: inline" class="ma-2">{{ username.un }}</h1>
-        <p>{{ email.email }}</p>
-        <div class="my-2" @click="followUnfollow()">
-            <v-btn v-if="segui.segui" color="primary">Non seguire più</v-btn>
-            <v-btn color="primary" v-else>Segui</v-btn>
+        <div class="mx-2">
+            <h1 style="display: inline" class="ma-2">{{ username.un }}</h1>
+            <p>{{ email.email }}</p>
+            <div class="my-2" @click="followUnfollow()">
+                <v-btn v-if="segui.segui" color="primary">Non seguire più</v-btn>
+                <v-btn color="primary" v-else>Segui</v-btn>
+            </div>
         </div>
         <v-tabs background-color="primary" dark grow>
-            <v-tab> Seguaci ({{ followers[0].num }}) </v-tab>
-            <v-tab> Seguiti ({{ following[0].num }}) </v-tab>
-            <v-tab> Ascoltati </v-tab>
-            <v-tab> Da ascoltare</v-tab>
-            <v-tab> Preferiti </v-tab>
+            <v-tab>Seguaci ({{ followers[0].num }})</v-tab>
+            <v-tab>Seguiti ({{ following[0].num }})</v-tab>
+            <v-tab>Ascoltati</v-tab>
+            <v-tab>Da ascoltare</v-tab>
+            <v-tab>Preferiti</v-tab>
 
             <v-tab-item>
                 <usersContainer
@@ -29,9 +31,7 @@
                                 d="M20,2H8A2,2 0 0,0 6,4V16A2,2 0 0,0 8,18H20A2,2 0 0,0 22,16V4A2,2 0 0,0 20,2M20,16H8V4H20M12.5,15A2.5,2.5 0 0,0 15,12.5V7H18V5H14V10.5C13.58,10.19 13.07,10 12.5,10A2.5,2.5 0 0,0 10,12.5A2.5,2.5 0 0,0 12.5,15M4,6H2V20A2,2 0 0,0 4,22H18V20H4"
                             />
                         </svg>
-                        <p style="width: 60%; text-align: center">
-                            Ops, nessun utente trovato.
-                        </p>
+                        <p style="width: 60%; text-align: center">Ops, nessun utente trovato.</p>
                     </v-container>
                 </div>
             </v-tab-item>
@@ -51,13 +51,11 @@
                                 d="M20,2H8A2,2 0 0,0 6,4V16A2,2 0 0,0 8,18H20A2,2 0 0,0 22,16V4A2,2 0 0,0 20,2M20,16H8V4H20M12.5,15A2.5,2.5 0 0,0 15,12.5V7H18V5H14V10.5C13.58,10.19 13.07,10 12.5,10A2.5,2.5 0 0,0 10,12.5A2.5,2.5 0 0,0 12.5,15M4,6H2V20A2,2 0 0,0 4,22H18V20H4"
                             />
                         </svg>
-                        <p style="width: 60%; text-align: center">
-                            Ops, nessun utente trovato.
-                        </p>
+                        <p style="width: 60%; text-align: center">Ops, nessun utente trovato.</p>
                     </v-container>
                 </div>
             </v-tab-item>
-            <v-tab-item> </v-tab-item>
+            <v-tab-item></v-tab-item>
             <v-tab-item></v-tab-item>
             <v-tab-item></v-tab-item>
         </v-tabs>
