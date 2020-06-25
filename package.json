@@ -11,22 +11,16 @@
         "axios": "^0.19.2",
         "axios-jsonp": "^1.0.4",
         "core-js": "^3.6.4",
-        "cors": "^2.8.5",
         "dns": "^0.2.2",
         "fetch-jsonp": "^1.1.3",
-        "firebase": "^7.14.2",
+        "firebase": "^7.15.4",
         "firebase-admin": "^8.12.1",
         "firebase-functions": "^3.7.0",
         "http2": "^3.3.7",
-        "swiper": "^5.4.3",
         "vue": "^2.6.11",
-        "vue-awesome-swiper": "^4.1.1",
-        "vue-router": "^3.1.6",
-        "vuelidate": "^0.7.5",
-        "vuetify": "^2.2.11",
-        "vuetify-audio": "^0.3.2",
-        "vuex": "^3.1.3",
-        "xhr2": "^0.2.0"
+        "vue-router": "^3.3.4",
+        "vuetify": "^2.3.2",
+        "vuetify-audio": "^0.3.2"
     },
     "devDependencies": {
         "@vue/cli-plugin-babel": "~4.3.0",
@@ -44,7 +38,7 @@
         "sass-loader": "^8.0.0",
         "vue-cli-plugin-vuetify": "^2.0.5",
         "vue-template-compiler": "^2.6.11",
-        "vuetify-loader": "^1.3.0"
+        "vuetify-loader": "^1.5.0"
     },
     "eslintConfig": {
         "root": true,

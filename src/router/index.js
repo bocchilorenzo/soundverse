@@ -4,13 +4,10 @@ import Home from '../views/Home.vue'
 import albumInformation from '../views/albumView.vue'
 import search from '../views/searchView.vue'
 import login from '../views/login.vue'
-import signup from '../views/signup.vue'
 import profile from '../views/profile.vue'
 import listView from '../views/listView.vue'
 import artistView from '../views/artistView.vue'
-import ascoltati from '../views/ascoltati.vue'
-import daAscoltare from '../views/daAscoltare.vue'
-import preferiti from '../views/preferiti.vue'
+import albumUtente from '../views/albumUtente.vue'
 import profiloAltri from '../views/profiloAltri'
 import generi from '../views/generi'
 import genere from '../views/genere'
@@ -46,7 +43,7 @@ const routes = [
     {
         path: '/signup',
         name: 'signup',
-        component: signup,
+        component: login,
     },
     {
         path: '/user/:username',
@@ -71,17 +68,17 @@ const routes = [
     {
         path: '/ascoltati',
         name: 'ascoltati',
-        component: ascoltati,
+        component: albumUtente,
     },
     {
         path: '/daAscoltare',
         name: 'daAscoltare',
-        component: daAscoltare,
+        component: albumUtente,
     },
     {
         path: '/preferiti',
         name: 'preferiti',
-        component: preferiti,
+        component: albumUtente,
     },
     {
         path: '/generi',
