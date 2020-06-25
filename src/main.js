@@ -3,7 +3,6 @@ import App from './App.vue'
 import router from './router'
 import vuetify from './plugins/vuetify'
 import firebase from 'firebase' //npm install --save firebase
-import store from './store'
 global.XMLHttpRequest = require('xhr2')
 
 Vue.config.productionTip = false
@@ -26,7 +25,6 @@ firebase.auth().onAuthStateChanged(() => {
     if (!app) {
         app = new Vue({
             router,
-            store,
             vuetify,
             render: h => h(App),
         }).$mount('#app')

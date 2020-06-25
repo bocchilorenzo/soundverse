@@ -74,10 +74,10 @@ export default {
             try {
                 await firebase.auth().createUserWithEmailAndPassword(this.email, this.password)
                 this.$emit('login', 'Registrazione effettuata')
-                this.$store.commit('updateUserFB')
                 var db = firebase.firestore()
                 var usr = this.username
-                var user = this.$store.state.user
+                localStorage.setItem('user', JSON.stringify(firebase.auth().currentUser))
+                var user = JSON.parse(localStorage.getItem('user'))
                 var email = user.email
                 var userData = db.collection('utenti').doc(email)
                 userData
@@ -86,7 +86,7 @@ export default {
                     })
                     .then(function() {
                         localStorage.setItem('username', usr)
-                        this.$store.commit('updateUsernameSetFB')
+                        //this.$store.commit('updateUsernameSetFB')
                     })
                     .catch(function(error) {
                         console.log('Qualcosa è andato storto, riprova')

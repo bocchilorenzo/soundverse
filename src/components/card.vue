@@ -69,7 +69,7 @@ export default {
             preferito: { isPreferito: false },
             ascoltato: { isAscoltato: false },
             daAscoltare: { isDaAscoltare: false },
-            user: this.$store.state.user,
+            user: JSON.parse(localStorage.getItem('user')),
         }
     },
     methods: {

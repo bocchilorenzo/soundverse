@@ -35,7 +35,7 @@ export default {
         }
     },
     created: function() {
-        if (this.dati.email == this.$store.state.user.email) {
+        if (this.dati.email == JSON.parse(localStorage.getItem('user')).email) {
             this.profiloMio = true
         }
     },

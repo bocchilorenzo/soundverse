@@ -67,18 +67,38 @@ export default {
         },
         async loginFirebase() {
             try {
+                console.log(this.email + " - " + this.password)
                 await firebase.auth().signInWithEmailAndPassword(this.email, this.password)
                 //alert('Login effettuato')
-                this.$emit('login', "Login effettuato")
+                this.$emit('login', 'Login effettuato')
+                localStorage.setItem('user', JSON.stringify(firebase.auth().currentUser))
+                this.setUsername()
                 this.$router.replace({ name: 'home' })
+                /*
                 this.$store.commit('updateUserFB')
                 this.$store.commit('updateUsernameSetFB')
+                */
                 //this.$emit('updateUser', firebase.auth().currentUser)
                 //$emit('nomeEvento', datoDaPassare) => vai in app.vue nel tag router view
             } catch (err) {
                 alert('Oops. ' + err.message)
             }
         },
+        setUsername() {
+            var db = firebase.firestore()
+            var email = JSON.parse(localStorage.getItem('user')).email
+            var userData = db.collection('utenti').doc(email)
+            var usr = ''
+            userData
+                .get()
+                .then(function(querySnapshot) {
+                    usr = querySnapshot.data().username
+                    localStorage.setItem('username', usr)
+                })
+                .catch(function(error) {
+                    console.log('Error getting document:', error)
+                })
+        }
     },
 }
 </script>

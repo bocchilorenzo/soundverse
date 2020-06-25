@@ -53,7 +53,8 @@
                         </v-list-item-content>
                     </v-list-item>
                 </router-link>
-                <router-link to="/about" class="bottom">
+                <v-divider></v-divider>
+                <router-link to="/about">
                     <v-list-item link>
                         <v-list-item-action>
                             <v-icon>mdi-information-outline</v-icon>
@@ -140,9 +141,8 @@ export default {
     },
     created: function() {
         this.$vuetify.theme.dark = true
-        this.$store.commit('updateUserFB')
-        this.currentUser = this.$store.state.user
-        this.setUsername()
+        this.currentUser = JSON.parse(localStorage.getItem('user'))
+        //this.setUsername()
         switch (this.breakpoint) {
             case 'xs':
                 this.drawer = false
@@ -162,7 +162,7 @@ export default {
         }
     },
     updated: function() {
-        this.currentUser = this.$store.state.user
+        this.currentUser = JSON.parse(localStorage.getItem('user'))
     },
     methods: {
         setUsername() {
@@ -237,10 +237,5 @@ body::-webkit-scrollbar-thumb {
 }
 a {
     text-decoration: none;
-}
-.bottom {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
 }
 </style>

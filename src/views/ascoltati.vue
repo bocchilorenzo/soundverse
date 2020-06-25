@@ -66,7 +66,7 @@ export default {
             idArray: [],
             loading: true,
             nonLoggato: false,
-            user: this.$store.state.user,
+            user: JSON.parse(localStorage.getItem('user')),
             bottom: false,
             start: 0,
             end: 30,

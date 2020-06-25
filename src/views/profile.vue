@@ -200,8 +200,8 @@ export default {
     name: 'profile',
     data() {
         return {
-            user: this.$store.state.user,
-            usernameDB: this.$store.state.username,
+            user: JSON.parse(localStorage.getItem('user')),
+            usernameDB: localStorage.getItem('username'),
             username: '',
             newUsername: '',
             following: [{ num: 0, users: [] }],
@@ -414,7 +414,7 @@ export default {
         updateUsername(usr) {
             //Metodo per settare correttamente l'username e aggiornare la vista
             this.username = usr
-            this.$store.commit('updateUsernameSetFB')
+            localStorage.setItem('username', this.username)
             /*
             this.$router.replace({
                 name: 'profile',
@@ -431,8 +431,8 @@ export default {
                 //alert('Logout effettuato!')
                 this.$emit('login', 'Logout effettuato')
                 this.$router.replace({ name: 'home' })
-                this.$store.commit('updateUserFB')
-                this.$store.commit('updateUsernameClearFB')
+                localStorage.removeItem('user')
+                localStorage.removeItem('username')
                 //this.$emit('updateUser', Object)
             } catch (err) {
                 alert('Oops. ' + err.message)

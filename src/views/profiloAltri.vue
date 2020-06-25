@@ -72,9 +72,9 @@ export default {
     },
     data() {
         return {
-            user: this.$store.state.user,
+            user: JSON.parse(localStorage.getItem('user')),
             username: { un: this.$route.params.username },
-            myUsername: { un: this.$store.state.username },
+            myUsername: { un: localStorage.getItem('username') },
             email: { email: null },
             following: [{ num: 0, users: [] }],
             followers: [{ num: 0, users: [] }],
@@ -311,7 +311,7 @@ export default {
                     .catch(function(error) {
                         console.error('Error removing document: ', error)
                     })
-                console.log(this.username.un, myUsername, this.$store.state.username)
+                console.log(this.username.un, myUsername, localStorage.getItem('username'))
 
                 db.collection('utenti')
                     .doc(mail.email)
