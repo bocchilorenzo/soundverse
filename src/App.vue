@@ -77,7 +77,7 @@
             </v-btn>
         </v-app-bar>
 
-        <v-content>
+        <v-main>
             <router-view
                 :key="$route.fullPath"
                 :albumSearch="albumSearch"
@@ -103,11 +103,11 @@
             <v-snackbar v-model="snackbar" color="primary" :timeout="timeout">
                 {{ text }}
                 <template>
-                    <v-btn text @click="snackbar = false">Chiudi</v-btn>
+                    <v-btn style="position:absolute; right: 0; top: 5px" text @click="snackbar = false">Chiudi</v-btn>
                 </template>
             </v-snackbar>
             <musicPlayer :file="file" class="player" v-if="show" v-on:hide="hide" />
-        </v-content>
+        </v-main>
     </v-app>
 </template>
 

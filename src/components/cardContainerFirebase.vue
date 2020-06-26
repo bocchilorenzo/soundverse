@@ -9,15 +9,13 @@
             sm="4"
             class="pb-3 px-1 col-6"
         >
-            <albumCard :albumArray="album" :id="album.albumId" v-on:deletThis="rimuoviElemento" />
+            <albumCard :albumArray="album" :id="album.albumId" />
         </v-col>
     </v-row>
 </template>
 
 <script>
 import albumCard from './card'
-import axios from 'axios'
-import jsonpAdapter from 'axios-jsonp'
 
 export default {
     name: 'cardContainerProva',
@@ -29,7 +27,7 @@ export default {
             loading: true,
             bottom: false,
             start: 0,
-            end: 30,
+            end: 15,
             stop: false,
             lastCycle: false,
         }
@@ -42,70 +40,36 @@ export default {
         this.addAlbums()
     },
     methods: {
-        rimuoviElemento(id) {
-            var i = 0
-            while (i < this.albumArray.length) {
-                if (this.albumArray[i].albumId == id) {
-                    this.albumArray.splice(i, i + 1)
-                    i = 0
-                    if (this.albumArray.length == 0) {
-                        this.vuoto.push({ vero: true })
-                    }
-                } else {
-                    i++
-                }
-            }
-            var x = 0
-            while (i < this.idArray.length) {
-                if (this.idArray[x].albumId == id) {
-                    this.idArray.splice(x, x + 1)
-                    x = 0
-                } else {
-                    x++
-                }
-            }
-        },
         addAlbums() {
             if (this.stop == false) {
+                if(this.idArray.length < 15){
+                    this.end = this.idArray.length
+                    this.lastCycle = true
+                }
                 for (var i = this.start; i < this.end; i++) {
                     if (this.idArray[i].albumId != undefined) {
-                        axios({
-                            url:
-                                'https://api.deezer.com/album/' +
-                                this.idArray[i].albumId +
-                                '&output=jsonp',
-                            adapter: jsonpAdapter,
-                        })
-                            .then(response => {
-                                var album = {
-                                    id: i,
-                                    title: response.data.title,
-                                    cover: response.data.cover_medium,
-                                    artist: response.data.artist.name,
-                                    albumId: response.data.id,
-                                    albumLink: response.data.link, //questo non servirà poi, è solo per testare ora
-                                }
-                                this.albumArray.push(album)
-                                this.start = this.end
-                                if (this.lastCycle == true) {
-                                    this.stop = true
-                                } else {
-                                    if (this.idArray.length > this.end + 30) {
-                                        this.end += 30
-                                    } else {
-                                        this.end = this.idArray.length - 1
-                                        this.lastCycle = true
-                                    }
-                                }
-                            })
-                            .catch(error => {
-                                console.log(error)
-                            })
-                            .finally(() => (this.loading = false))
+                        var album = {
+                            title: this.idArray[i].titolo,
+                            artist: this.idArray[i].artista,
+                            albumId: this.idArray[i].albumId,
+                            cover: this.idArray[i].cover
+                        }
+                        this.albumArray.push(album)
+                    }
+                }
+                this.start = this.end
+                if (this.lastCycle == true) {
+                    this.stop = true
+                } else {
+                    if (this.idArray.length > this.end + 15) {
+                        this.end += 15
+                    } else {
+                        this.end = this.idArray.length - 1
+                        this.lastCycle = true
                     }
                 }
             } else {
-                this.loading = false
+                //this.loading = false
             }
         },
         bottomVisible() {
@@ -118,6 +82,22 @@ export default {
         scrollToTop() {
             window.scrollTo(0, 0)
         },
+        /*
+        compareValues(key, order = 'asc') {
+            return function innerSort(a, b) {
+                const varA = typeof a[key] === 'string' ? a[key].toUpperCase() : a[key]
+                const varB = typeof b[key] === 'string' ? b[key].toUpperCase() : b[key]
+
+                let comparison = 0
+                if (varA > varB) {
+                    comparison = 1
+                } else if (varA < varB) {
+                    comparison = -1
+                }
+                return order === 'desc' ? comparison * -1 : comparison
+            }
+        },
+        */
     },
     watch: {
         bottom(bottom) {

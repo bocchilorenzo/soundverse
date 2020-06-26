@@ -408,6 +408,7 @@ export default {
                 var albumData = {
                     title: response.data.title,
                     cover: response.data.cover_big,
+                    cover_medium: response.data.cover_medium,
                     artist: response.data.artist['name'],
                     genre: response.data.genres['data'][0]['name'],
                     genreId: response.data.genres['data'][0][id],
@@ -518,13 +519,15 @@ export default {
                 .collection('ascoltati')
                 .doc(id.toString())
             var title = this.infoAlbum[0].title
+            var artist = this.infoAlbum[0].artist
+            var coverM = this.infoAlbum[0].cover_medium
             if (this.ascoltato.isAscoltato == true) {
                 userData.delete()
                 rating[0] = 0
                 this.ascoltato.isAscoltato = false
                 this.setVotoMedio()
             } else {
-                userData.set({ titolo: title, rating: rating[0] })
+                userData.set({ titolo: title, rating: rating[0], artista: artist, cover: coverM })
                 this.ascoltato.isAscoltato = true
             }
         },
@@ -538,11 +541,13 @@ export default {
                 .collection('daAscoltare')
                 .doc(id.toString())
             var title = this.infoAlbum[0].title
+            var artist = this.infoAlbum[0].artist
+            var coverM = this.infoAlbum[0].cover_medium
             if (this.daAscoltare.isDaAscoltare == true) {
                 userData.delete()
                 this.daAscoltare.isDaAscoltare = false
             } else {
-                userData.set({ titolo: title })
+                userData.set({ titolo: title, artista: artist, cover: coverM })
                 this.daAscoltare.isDaAscoltare = true
             }
         },
@@ -556,11 +561,13 @@ export default {
                 .collection('preferiti')
                 .doc(id.toString())
             var title = this.infoAlbum[0].title
+            var artist = this.infoAlbum[0].artist
+            var coverM = this.infoAlbum[0].cover_medium
             if (this.preferito.isPreferito == true) {
                 userData.delete()
                 this.preferito.isPreferito = false
             } else {
-                userData.set({ titolo: title })
+                userData.set({ titolo: title, artista: artist, cover: coverM })
                 this.preferito.isPreferito = true
             }
         },

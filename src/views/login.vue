@@ -29,14 +29,14 @@
                             </v-form>
                         </v-card-text>
                         <v-card-actions>
-                            <p>
+                            <p class="mx-2">
                                 <small>
                                     Non hai un account?
                                     <a @click="signup()">Registrati</a>
                                 </small>
                             </p>
                             <v-spacer />
-                            <v-btn color="primary" @click="loginFirebase()">Login</v-btn>
+                            <v-btn class="mx-2 mb-2" color="primary" @click="loginFirebase()">Login</v-btn>
                         </v-card-actions>
                     </v-card>
                 </v-col>
@@ -55,13 +55,15 @@
                                 <v-text-field
                                     v-model="email"
                                     :rules="emailRules"
-                                    label="E-mail"
+                                    label="E-mail*"
                                     required
                                     prepend-icon="mdi-email"
                                 />
                                 <v-text-field
                                     v-model="username"
-                                    label="Username"
+                                    :rules="[
+                                    () => !!username || 'Username richiesto']"
+                                    label="Username*"
                                     required
                                     prepend-icon="mdi-account"
                                 ></v-text-field>
@@ -70,21 +72,30 @@
                                     type="password"
                                     v-model="password"
                                     :rules="passRules"
-                                    label="Password"
+                                    label="Password*"
                                     required
                                     prepend-icon="mdi-lock"
                                 />
+                                <v-file-input
+                                    id="proPic"
+                                    :rules="rules"
+                                    accept="image/jpeg"
+                                    placeholder="Scegli una foto"
+                                    chips
+                                    prepend-icon="mdi-camera"
+                                    label="Foto profilo"
+                                ></v-file-input>
                             </v-form>
                         </v-card-text>
                         <v-card-actions>
-                            <p>
+                            <p class="mx-2">
                                 <small>
                                     Hai già un account?
                                     <a @click="login()">Accedi</a>
                                 </small>
                             </p>
                             <v-spacer />
-                            <v-btn color="primary" @click="modUsername()">Registrati</v-btn>
+                            <v-btn class="mx-2 mb-2" color="primary" @click="modUsername()">Registrati</v-btn>
                         </v-card-actions>
                     </v-card>
                 </v-col>
@@ -102,12 +113,19 @@ export default {
             email: '',
             password: '',
             password2: '',
+            username: '',
             passRules: [v => !!v || 'Password obbligatoria'],
             emailRules: [
                 v => !!v || 'E-mail obbligatoria',
                 v => /.+@.+\..+/.test(v) || 'La mail deve essere valida',
             ],
             type: this.$route.name,
+            rules: [
+                value =>
+                    !value ||
+                    value.size < 1000000 ||
+                    "Le dimensioni dell'immagine non devono superare 1 MB",
+            ],
         }
     },
     methods: {
@@ -173,11 +191,25 @@ export default {
                         console.log('Qualcosa è andato storto, riprova')
                         console.log(error)
                     })
-                this.$router.replace({ name: 'home' })
+
+                var storage = firebase.storage()
+                var pathReference = storage.ref('profile')
+                var file = document.getElementById('proPic').files[0]
+                var metadata = {
+                    contentType: 'image/jpeg',
+                    name: 'profile',
+                }
+                pathReference
+                    .child('/' + usr + '/' + 'profile.jpg')
+                    .put(file, metadata)
+                    .then(() => this.fine())
                 //this.$emit('updateUser', firebase.auth().currentUser)
             } catch (err) {
                 alert('Oops. ' + err.message)
             }
+        },
+        fine() {
+            this.$router.replace({ name: 'home' })
         },
         async modUsername() {
             //Metodo che controlla se l'username è vuoto o meno e se è già presente nel db

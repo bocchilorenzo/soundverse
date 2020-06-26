@@ -5,6 +5,15 @@
                 <v-col class="col-9 centrata">
                     <v-skeleton-loader
                         ref="skeleton"
+                        type="image"
+                        max-width="250px"
+                        min-width="100px"
+                        class="my-2"
+                    ></v-skeleton-loader>
+                </v-col>
+                <v-col class="col-9 centrata">
+                    <v-skeleton-loader
+                        ref="skeleton"
                         type="heading"
                         max-width="100%"
                         width="50em"
@@ -12,43 +21,19 @@
                     ></v-skeleton-loader>
                 </v-col>
                 <v-col class="col-9 centrata">
-                    <v-skeleton-loader
-                        ref="skeleton"
-                        type="text"
-                        width="100px"
-                        class="my-2"
-                    ></v-skeleton-loader>
+                    <v-skeleton-loader ref="skeleton" type="text" width="100px" class="my-2"></v-skeleton-loader>
                 </v-col>
                 <v-col class="col-9 centrata">
-                    <v-skeleton-loader
-                        ref="skeleton"
-                        type="text"
-                        width="100px"
-                        class="my-2"
-                    ></v-skeleton-loader>
+                    <v-skeleton-loader ref="skeleton" type="text" width="100px" class="my-2"></v-skeleton-loader>
                 </v-col>
                 <v-col class="col-9 centrata">
-                    <v-skeleton-loader
-                        ref="skeleton"
-                        type="text"
-                        width="100px"
-                        class="my-2"
-                    ></v-skeleton-loader>
+                    <v-skeleton-loader ref="skeleton" type="text" width="100px" class="my-2"></v-skeleton-loader>
                 </v-col>
                 <v-col class="col-9 centrata">
-                    <v-skeleton-loader
-                        ref="skeleton"
-                        type="text"
-                        width="100px"
-                        class="my-2"
-                    ></v-skeleton-loader>
+                    <v-skeleton-loader ref="skeleton" type="text" width="100px" class="my-2"></v-skeleton-loader>
                 </v-col>
                 <v-col class="col-9 centrata">
-                    <v-skeleton-loader
-                        ref="skeleton"
-                        type="button"
-                        class="my-2"
-                    ></v-skeleton-loader>
+                    <v-skeleton-loader ref="skeleton" type="button" class="my-2"></v-skeleton-loader>
                 </v-col>
             </v-row>
             <v-divider></v-divider>
@@ -63,19 +48,13 @@
                     ></v-skeleton-loader>
                 </v-col>
                 <v-col class="col-9 centrata">
-                    <v-skeleton-loader
-                        ref="skeleton"
-                        type="text"
-                        width="100px"
-                        class="my-2"
-                    ></v-skeleton-loader>
+                    <v-skeleton-loader ref="skeleton" type="text" width="100px" class="my-2"></v-skeleton-loader>
                 </v-col>
                 <v-col class="col-9 centrata">
-                    <v-skeleton-loader
-                        ref="skeleton"
-                        type="button"
-                        class="my-2"
-                    ></v-skeleton-loader>
+                    <v-skeleton-loader ref="skeleton" type="text" width="100px" class="my-2"></v-skeleton-loader>
+                </v-col>
+                <v-col class="col-9 centrata">
+                    <v-skeleton-loader ref="skeleton" type="button" class="my-2"></v-skeleton-loader>
                 </v-col>
             </v-row>
         </v-sheet>
@@ -145,6 +124,25 @@
             </v-dialog>
             <v-row v-if="user != null">
                 <v-col class="col-9 centrata">
+                    <v-img
+                        v-if="this.$vuetify.breakpoint.name == 'xs'"
+                        alt="Immagine profilo"
+                        height="250"
+                        width="250"
+                        class="centrata"
+                        contain
+                        :src="src.src"
+                    ></v-img>
+                    <v-img
+                        v-else
+                        alt="Immagine profilo"
+                        height="250"
+                        width="250"
+                        class="ma-2"
+                        :src="src.src"
+                    ></v-img>
+                </v-col>
+                <v-col class="col-9 centrata">
                     <h2>Informazioni account</h2>
                 </v-col>
                 <v-col class="col-9 centrata">
@@ -176,6 +174,17 @@
                 </v-col>
                 <v-col class="col-9 centrata">
                     <v-text-field v-model="newUsername" label="Modifica username"></v-text-field>
+                </v-col>
+                <v-col class="col-9 centrata">
+                    <v-file-input
+                        id="proPic"
+                        :rules="rules"
+                        accept="image/jpeg"
+                        placeholder="Modifica l'immagine"
+                        chips
+                        prepend-icon="mdi-camera"
+                        label="Foto profilo"
+                    ></v-file-input>
                 </v-col>
                 <v-col class="col-9 centrata">
                     <v-form ref="form">
@@ -211,6 +220,13 @@ export default {
             loaded: [{ step: 0 }],
             dialogSeguiti: false,
             dialogFollower: false,
+            src: { src: '' },
+            rules: [
+                value =>
+                    !value ||
+                    value.size < 1000000 ||
+                    "Le dimensioni dell'immagine non devono superare 1 MB",
+            ],
         }
     },
     components: {
@@ -221,6 +237,18 @@ export default {
         if (this.user == null) {
             this.$router.replace({ name: 'login' })
         } else {
+            var storage = firebase.storage()
+            var pathReference = storage.ref('profile')
+            var src = this.src
+            var username = this.usernameDB
+            pathReference
+                .child('/' + username + '/profile.jpg')
+                .getDownloadURL()
+                .then(function(url) {
+                    src.src = url
+                })
+                .catch(() => this.setDefaultPic(storage, src))
+
             var db = firebase.firestore()
             var mail = this.user.email
             this.getUsername()
@@ -342,57 +370,129 @@ export default {
         }*/
     },
     methods: {
+        setDefaultPic(storage, src) {
+            var pathReference = storage.ref('profile')
+            pathReference
+                .child('/default.jpg')
+                .getDownloadURL()
+                .then(function(url) {
+                    src.src = url
+                })
+        },
         scrollToTop() {
             window.scrollTo(0, 0)
         },
         modUsername() {
+            var db = firebase.firestore()
+            var storage = firebase.storage()
+            var pathReference = storage.ref('profile')
             //Metodo che controlla se l'username è uguale a quello di prima, se è vuoto o meno e se è già presente nel db
             if (this.newUsername == this.username) {
                 alert('Username uguale al precedente')
-            } else if (this.newUsername == '' || this.newUsername[0] == ' ') {
-                alert('Il campo non deve essere vuoto')
             } else {
-                var db = firebase.firestore()
-                var usr = this.newUsername
-                var userData = db.collection('utenti')
-                var isPresent = false
-                userData
-                    .get()
-                    .then(function(querySnapshot) {
-                        querySnapshot.forEach(function(doc) {
-                            // doc.data() is never undefined for query doc snapshots
-                            if (doc.data().username == usr) {
-                                isPresent = true
-                            }
-                        })
-                    })
-                    .catch(function(error) {
-                        console.log('Error getting document:', error)
-                    })
-                    .then(() => this.setUsername(isPresent))
+                if (this.newUsername == '' || this.newUsername[0] == ' ') {
+                    if (document.getElementById('proPic').files[0] == undefined) {
+                        alert('Niente da modificare')
+                    } else {
+                        let file = document.getElementById('proPic').files[0]
+                        let metadata = {
+                            contentType: 'image/jpeg',
+                            name: 'profile',
+                        }
+                        let usr1 = this.username
+                        pathReference
+                            .child('/' + usr1 + '/' + 'profile.jpg')
+                            .put(file, metadata)
+                            .then(() => this.set(true, 'img'))
+                        //inserire snackbar di successo
+                    }
+                } else {
+                    if (document.getElementById('proPic').files[0] == undefined) {
+                        let usr = this.newUsername
+                        let userData = db.collection('utenti')
+                        let isPresent = false
+                        userData
+                            .get()
+                            .then(function(querySnapshot) {
+                                querySnapshot.forEach(function(doc) {
+                                    // doc.data() is never undefined for query doc snapshots
+                                    if (doc.data().username == usr) {
+                                        isPresent = true
+                                    }
+                                })
+                            })
+                            .catch(function(error) {
+                                console.log('Error getting document:', error)
+                            })
+                            .then(() => this.set(isPresent, 'username'))
+                    } else {
+                        let file = document.getElementById('proPic').files[0]
+                        let metadata = {
+                            contentType: 'image/jpeg',
+                            name: 'profile',
+                        }
+                        let usr1 = this.username
+                        pathReference
+                            .child('/' + usr1 + '/' + 'profile.jpg')
+                            .put(file, metadata)
+                            .then(() => this.set(true, 'img'))
+                        //inserire snackbar di successo
+                        let usr = this.newUsername
+                        let userData = db.collection('utenti')
+                        let isPresent = false
+                        userData
+                            .get()
+                            .then(function(querySnapshot) {
+                                querySnapshot.forEach(function(doc) {
+                                    // doc.data() is never undefined for query doc snapshots
+                                    if (doc.data().username == usr) {
+                                        isPresent = true
+                                    }
+                                })
+                            })
+                            .catch(function(error) {
+                                console.log('Error getting document:', error)
+                            })
+                            .then(() => this.set(isPresent, 'username'))
+                    }
+                }
             }
         },
-        setUsername(isPresent) {
+        set(isPresent, mode) {
             //Metodo che se l'username è in uso non lo setta, altrimenti lo setta
-            if (isPresent) {
-                alert('Username già in uso')
+            if (mode == 'username') {
+                if (isPresent) {
+                    alert('Username già in uso')
+                } else {
+                    var db = firebase.firestore()
+                    var usr = this.newUsername
+                    var email = this.user.email
+                    var userData = db.collection('utenti').doc(email)
+                    userData
+                        .set({
+                            username: usr,
+                        })
+                        .then(function() {
+                            alert('Username aggiornato correttamente')
+                        })
+                        .catch(function(error) {
+                            alert('Qualcosa è andato storto, riprova')
+                            console.log(error)
+                        })
+                        .then(() => this.update(usr, 'username'))
+                }
             } else {
-                var db = firebase.firestore()
-                var usr = this.newUsername
-                var email = this.user.email
-                var userData = db.collection('utenti').doc(email)
-                userData
-                    .set({
-                        username: usr,
+                var storage = firebase.storage()
+                var pathReference = storage.ref('profile')
+                var src = this.src
+                var username = this.usernameDB
+                pathReference
+                    .child('/' + username + '/profile.jpg')
+                    .getDownloadURL()
+                    .then(function(url) {
+                        src.src = url
                     })
-                    .then(function() {
-                        alert('Username aggiornato correttamente')
-                    })
-                    .catch(function(error) {
-                        alert('Qualcosa è andato storto, riprova')
-                        console.log(error)
-                    })
-                    .then(() => this.updateUsername(usr))
+                    .then(() => this.update('', 'img'))
             }
         },
         getUsername() {
@@ -409,12 +509,22 @@ export default {
                 .catch(function(error) {
                     console.log('Error getting document:', error)
                 })
-                .then(() => this.updateUsername(usr))
+                .then(() => this.update(usr, 'initial'))
         },
-        updateUsername(usr) {
+        update(usr, mode) {
             //Metodo per settare correttamente l'username e aggiornare la vista
-            this.username = usr
-            localStorage.setItem('username', this.username)
+            if (mode == 'username') {
+                this.username = usr
+                localStorage.setItem('username', this.username)
+                this.$emit('login', 'Dati modificati correttamente')
+            } else if (mode == 'img') {
+                this.$emit('login', 'Dati modificati correttamente')
+            } else {
+                this.username = usr
+                localStorage.setItem('username', this.username)
+            }
+
+            //inserire snackbar di successo
             /*
             this.$router.replace({
                 name: 'profile',

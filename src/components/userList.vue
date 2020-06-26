@@ -31,12 +31,15 @@ export default {
     props: { dati: Object },
     data() {
         return {
+            utente: JSON.parse(localStorage.getItem('user')),
             profiloMio: false,
         }
     },
     created: function() {
-        if (this.dati.email == JSON.parse(localStorage.getItem('user')).email) {
-            this.profiloMio = true
+        if (this.utente != null) {
+            if (this.dati.email == this.utente.email) {
+                this.profiloMio = true
+            }
         }
     },
 }
