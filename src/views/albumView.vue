@@ -373,7 +373,7 @@
                             />
                         </svg>
                         <p class="centrata" style="width: 60%; text-align: center">
-                            Nessuna recensione
+                            Nessuna recensione.
                         </p>
                     </v-container>
                 </div>
