@@ -55,9 +55,16 @@
                     </v-container>
                 </div>
             </v-tab-item>
-            <v-tab-item></v-tab-item>
-            <v-tab-item></v-tab-item>
-            <v-tab-item></v-tab-item>
+            <!-- EMPTY STATE E CARICAMENTO DA INSERIRE -->
+            <v-tab-item>
+                <cardContainerFirebase :idArray="ascoltati.album" v-if="ascoltati.num != 0" />
+            </v-tab-item>
+            <v-tab-item>
+                <cardContainerFirebase :idArray="daAscoltare.album" v-if="ascoltati.num != 0" />
+            </v-tab-item>
+            <v-tab-item>
+                <cardContainerFirebase :idArray="preferiti.album" v-if="preferiti.num != 0" />
+            </v-tab-item>
         </v-tabs>
     </div>
 </template>
@@ -65,10 +72,12 @@
 <script>
 import usersContainer from '../components/usersContainer'
 import firebase from 'firebase'
+import cardContainerFirebase from '../components/cardContainerFirebase'
 export default {
     name: 'profiloAltri',
     components: {
         usersContainer,
+        cardContainerFirebase,
     },
     data() {
         return {
@@ -217,9 +226,7 @@ export default {
                         querySnapshot.forEach(function(doc) {
                             //console.log(doc.id, ' => ', doc.data())
                             var album = {
-                                id: doc.id,
-                                titolo: doc.data().titolo,
-                                rating: doc.data().rating,
+                                albumId: doc.id,
                             }
                             listened.album.push(album)
                             listened.num += 1
@@ -239,8 +246,7 @@ export default {
                         querySnapshot.forEach(function(doc) {
                             //console.log(doc.id, ' => ', doc.data())
                             var album = {
-                                id: doc.id,
-                                titolo: doc.data().titolo,
+                                albumId: doc.id,
                             }
                             toListen.album.push(album)
                             toListen.num += 1
@@ -260,9 +266,7 @@ export default {
                         querySnapshot.forEach(function(doc) {
                             //console.log(doc.id, ' => ', doc.data())
                             var album = {
-                                id: doc.id,
-                                titolo: doc.data().titolo,
-                                rating: doc.data().rating,
+                                albumId: doc.id,
                             }
                             favourite.album.push(album)
                             favourite.num += 1
