@@ -130,6 +130,8 @@ export default {
                 .collection('ascoltati')
                 .doc(id.toString())
             var title = this.albumArray.title
+            var cover = this.albumArray.cover
+            var artista = this.albumArray.artist
             if (this.ascoltato.isAscoltato == true) {
                 userData.delete()
                 if (this.$route.name == 'ascoltati') {
@@ -137,7 +139,7 @@ export default {
                 }
                 this.ascoltato.isAscoltato = false
             } else {
-                userData.set({ titolo: title, rating: 0 })
+                userData.set({ titolo: title, rating: 0, cover: cover, artista: artista })
                 this.ascoltato.isAscoltato = true
             }
         },
@@ -151,6 +153,8 @@ export default {
                 .collection('daAscoltare')
                 .doc(id.toString())
             var title = this.albumArray.title
+            var cover = this.albumArray.cover
+            var artista = this.albumArray.artist
             if (this.daAscoltare.isDaAscoltare == true) {
                 userData.delete()
                 if (this.$route.name == 'daAscoltare') {
@@ -158,7 +162,7 @@ export default {
                 }
                 this.daAscoltare.isDaAscoltare = false
             } else {
-                userData.set({ titolo: title })
+                userData.set({ titolo: title, cover: cover, artista: artista })
                 this.daAscoltare.isDaAscoltare = true
             }
         },
@@ -166,12 +170,15 @@ export default {
             var db = firebase.firestore()
             var email = this.user.email
             var id = this.albumArray.albumId
+
             var userData = db
                 .collection('utenti')
                 .doc(email)
                 .collection('preferiti')
                 .doc(id.toString())
             var title = this.albumArray.title
+            var cover = this.albumArray.cover
+            var artista = this.albumArray.artist
             if (this.preferito.isPreferito == true) {
                 userData.delete()
                 if (this.$route.name == 'preferiti') {
@@ -179,7 +186,7 @@ export default {
                 }
                 this.preferito.isPreferito = false
             } else {
-                userData.set({ titolo: title })
+                userData.set({ titolo: title, cover: cover, artista: artista })
                 this.preferito.isPreferito = true
             }
         },
