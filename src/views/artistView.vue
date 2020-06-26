@@ -70,7 +70,10 @@
             <div class="centrata" style="width: 80%">
                 <v-row class="ma-2">
                     <div
-                        v-if="this.$vuetify.breakpoint.name == 'xs' || this.$vuetify.breakpoint.name == 'sm'"
+                        v-if="
+                            this.$vuetify.breakpoint.name == 'xs' ||
+                                this.$vuetify.breakpoint.name == 'sm'
+                        "
                         class="centrata"
                         style="width: 100%"
                     >
@@ -83,7 +86,12 @@
                         ></v-skeleton-loader>
                     </div>
                     <div v-else class="d-flex flex-row">
-                        <v-skeleton-loader ref="skeleton" type="image" width="300px" class="mx-0"></v-skeleton-loader>
+                        <v-skeleton-loader
+                            ref="skeleton"
+                            type="image"
+                            width="300px"
+                            class="mx-0"
+                        ></v-skeleton-loader>
                         <v-row class="ml-3 pt-2 d-flex flex-row" align="center">
                             <v-col class="ma-2 col-12">
                                 <v-skeleton-loader
@@ -114,25 +122,46 @@
                     </div>
                 </v-row>
                 <v-row class="ma-2">
-                    <v-skeleton-loader ref="skeleton" type="heading" width="50em" class="mx-0"></v-skeleton-loader>
+                    <v-skeleton-loader
+                        ref="skeleton"
+                        type="heading"
+                        width="50em"
+                        class="mx-0"
+                    ></v-skeleton-loader>
                 </v-row>
                 <v-row class="ma-2">
-                    <v-skeleton-loader ref="skeleton" type="heading" width="50em" class="mx-0"></v-skeleton-loader>
+                    <v-skeleton-loader
+                        ref="skeleton"
+                        type="heading"
+                        width="50em"
+                        class="mx-0"
+                    ></v-skeleton-loader>
                 </v-row>
                 <br />
                 <v-row
                     class="ma-2"
-                    v-if="this.$vuetify.breakpoint.name == 'xs' || this.$vuetify.breakpoint.name == 'sm'"
+                    v-if="
+                        this.$vuetify.breakpoint.name == 'xs' ||
+                            this.$vuetify.breakpoint.name == 'sm'
+                    "
                 >
                     <v-col class="col-12 pa-0">
                         <v-skeleton-loader type="list-item"></v-skeleton-loader>
                     </v-col>
                 </v-row>
                 <br
-                    v-if="this.$vuetify.breakpoint.name == 'xs' || this.$vuetify.breakpoint.name == 'sm'"
+                    v-if="
+                        this.$vuetify.breakpoint.name == 'xs' ||
+                            this.$vuetify.breakpoint.name == 'sm'
+                    "
                 />
                 <v-row class="ma-2">
-                    <v-skeleton-loader ref="skeleton" type="text" width="100px" class="mx-0"></v-skeleton-loader>
+                    <v-skeleton-loader
+                        ref="skeleton"
+                        type="text"
+                        width="100px"
+                        class="mx-0"
+                    ></v-skeleton-loader>
                 </v-row>
                 <v-row align="center" no-gutters>
                     <v-col v-for="n in 6" :key="n" lg="2" md="3" sm="4" class="pb-3 px-1 col-6">
@@ -153,7 +182,10 @@
                             width="90%"
                         ></v-img>
                         <div
-                            v-if="this.$vuetify.breakpoint.name != 'xs' && this.$vuetify.breakpoint.name != 'sm'"
+                            v-if="
+                                this.$vuetify.breakpoint.name != 'xs' &&
+                                    this.$vuetify.breakpoint.name != 'sm'
+                            "
                             class="centrata"
                             style="width:90%"
                         >
@@ -185,7 +217,10 @@
                         </div>
                     </v-col>
                     <v-col
-                        v-if="this.$vuetify.breakpoint.name == 'xs' || this.$vuetify.breakpoint.name == 'sm'"
+                        v-if="
+                            this.$vuetify.breakpoint.name == 'xs' ||
+                                this.$vuetify.breakpoint.name == 'sm'
+                        "
                         lg="5"
                         sm="3"
                         md="5"
@@ -200,7 +235,11 @@
                         </ul>
                     </v-col>
                     <v-col
-                        v-if="this.$vuetify.breakpoint.name != 'xs' && this.$vuetify.breakpoint.name != 'sm' && caricatiSimili == true"
+                        v-if="
+                            this.$vuetify.breakpoint.name != 'xs' &&
+                                this.$vuetify.breakpoint.name != 'sm' &&
+                                caricatiSimili == true
+                        "
                         lg="9"
                         sm="8"
                         md="9"
@@ -212,7 +251,10 @@
                 </v-row>
             </v-col>
             <v-col
-                v-if="this.$vuetify.breakpoint.name == 'xs' || this.$vuetify.breakpoint.name == 'sm' && caricatiSimili == true"
+                v-if="
+                    this.$vuetify.breakpoint.name == 'xs' ||
+                        (this.$vuetify.breakpoint.name == 'sm' && caricatiSimili == true)
+                "
                 sm="10"
                 md="9"
                 class="col-12 centrata"
@@ -309,7 +351,7 @@ export default {
                             name: response.data.name,
                             picture: response.data.picture_big,
                             albumNumber: response.data.nb_album,
-                            share: response.data.share
+                            share: response.data.share,
                         }
                         this.artistInfo.push(artistData)
                         /*
@@ -498,12 +540,13 @@ export default {
                     adapter: jsonpAdapter,
                 })
                     .then(response => {
+                        var artist = this.artistInfo[0]
                         for (var i = 0; i < 25; i++) {
                             if (response.data.data[i] != undefined) {
                                 var albumsData = {
                                     title: response.data.data[i].title,
                                     cover: response.data.data[i].cover_medium,
-                                    artist: this.artistInfo.name,
+                                    artist: artist.name,
                                     albumId: response.data.data[i].id,
                                     albumLink: response.data.data[i].link, //questo non servirà poi, è solo per testare ora
                                 }
