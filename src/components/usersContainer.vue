@@ -1,7 +1,7 @@
 <template>
     <div>
         <div v-for="user in arrayRisultati" :key="user.username">
-            <v-row>
+            <v-row style="width:100%">
                 <userList style="width: 100%" :dati="user" />
             </v-row>
         </div>

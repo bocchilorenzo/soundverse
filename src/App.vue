@@ -67,7 +67,7 @@
             </v-list>
         </v-navigation-drawer>
 
-        <v-app-bar app color="primary" dark :hide-on-scroll="breakpoint == 'xs'">
+        <v-app-bar app flat color="primary" dark :hide-on-scroll="breakpoint == 'xs'">
             <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
             <v-toolbar-title class="mr-5">DeezerRate</v-toolbar-title>
             <v-spacer />

@@ -3,7 +3,7 @@
         <div v-if="loading == true">
             <v-tabs
                 v-model="tab"
-                color="primary"
+                background-color="primary"
                 class="elevation-2"
                 dark
                 :centered="centered"
@@ -13,7 +13,7 @@
                 <v-tab>Album</v-tab>
                 <v-tab>Artisti</v-tab>
                 <v-tab>Utenti</v-tab>
-                <v-tab-item style="background-color: none">
+                <v-tab-item>
                     <v-row align="center" no-gutters class="pt-2">
                         <v-col
                             v-for="n in 18"
@@ -49,8 +49,8 @@
                 </v-tab-item>
                 <v-tab-item>
                     <v-row align="center" no-gutters class="pt-2">
-                        <v-col v-for="n in 6" :key="n" class="pb-3 px-1 col-12">
-                            <v-skeleton-loader class="mx-2" type="list-item"></v-skeleton-loader>
+                        <v-col class="pb-3 px-1 col-12">
+                            <v-skeleton-loader class="mx-2" type="list-item-avatar"></v-skeleton-loader>
                         </v-col>
                     </v-row>
                 </v-tab-item>
@@ -66,7 +66,6 @@
                 :grow="grow"
             >
                 <v-tabs-slider></v-tabs-slider>
-                <!--Per ogni tab-item mettere lo stato empty-->
                 <v-tab>Album</v-tab>
                 <v-tab>Artisti</v-tab>
                 <v-tab>Utenti</v-tab>
@@ -74,6 +73,7 @@
                     <cardContainer
                         v-if="albums.length != 0"
                         :arrayRisultati="albums"
+                        v-on:login="snackMsg"
                     ></cardContainer>
                     <div v-else class="d-flex justify-center">
                         <v-container
@@ -86,9 +86,7 @@
                                     d="M20,2H8A2,2 0 0,0 6,4V16A2,2 0 0,0 8,18H20A2,2 0 0,0 22,16V4A2,2 0 0,0 20,2M20,16H8V4H20M12.5,15A2.5,2.5 0 0,0 15,12.5V7H18V5H14V10.5C13.58,10.19 13.07,10 12.5,10A2.5,2.5 0 0,0 10,12.5A2.5,2.5 0 0,0 12.5,15M4,6H2V20A2,2 0 0,0 4,22H18V20H4"
                                 />
                             </svg>
-                            <p style="width: 60%; text-align: center">
-                                Ops, nessun album trovato.
-                            </p>
+                            <p style="width: 60%; text-align: center">Ops, nessun album trovato.</p>
                         </v-container>
                     </div>
                 </v-tab-item>
@@ -109,17 +107,12 @@
                                     d="M20,2H8A2,2 0 0,0 6,4V16A2,2 0 0,0 8,18H20A2,2 0 0,0 22,16V4A2,2 0 0,0 20,2M20,16H8V4H20M12.5,15A2.5,2.5 0 0,0 15,12.5V7H18V5H14V10.5C13.58,10.19 13.07,10 12.5,10A2.5,2.5 0 0,0 10,12.5A2.5,2.5 0 0,0 12.5,15M4,6H2V20A2,2 0 0,0 4,22H18V20H4"
                                 />
                             </svg>
-                            <p style="width: 60%; text-align: center">
-                                Ops, nessun artista trovato.
-                            </p>
+                            <p style="width: 60%; text-align: center">Ops, nessun artista trovato.</p>
                         </v-container>
                     </div>
                 </v-tab-item>
                 <v-tab-item>
-                    <usersContainer
-                        v-if="utenti.length != 0"
-                        :arrayRisultati="utenti"
-                    ></usersContainer>
+                    <usersContainer v-if="utenti.length != 0" :arrayRisultati="utenti"></usersContainer>
                     <div v-else class="d-flex justify-center">
                         <v-container
                             class="d-inline-flex justify-center flex-column align-center"
@@ -131,9 +124,7 @@
                                     d="M20,2H8A2,2 0 0,0 6,4V16A2,2 0 0,0 8,18H20A2,2 0 0,0 22,16V4A2,2 0 0,0 20,2M20,16H8V4H20M12.5,15A2.5,2.5 0 0,0 15,12.5V7H18V5H14V10.5C13.58,10.19 13.07,10 12.5,10A2.5,2.5 0 0,0 10,12.5A2.5,2.5 0 0,0 12.5,15M4,6H2V20A2,2 0 0,0 4,22H18V20H4"
                                 />
                             </svg>
-                            <p style="width: 60%; text-align: center">
-                                Ops, nessun utente trovato.
-                            </p>
+                            <p style="width: 60%; text-align: center">Ops, nessun utente trovato.</p>
                         </v-container>
                     </div>
                 </v-tab-item>
@@ -181,6 +172,9 @@ export default {
         usersContainer,
     },
     methods: {
+        snackMsg(msg) {
+            this.$emit('login', msg)
+        },
         scrollToTop() {
             window.scrollTo(0, 0)
         },

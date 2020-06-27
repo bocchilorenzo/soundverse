@@ -9,7 +9,7 @@
             sm="4"
             class="pb-3 px-1 col-6"
         >
-            <albumCard :albumArray="album" :id="album.albumId" />
+            <albumCard :albumArray="album" :id="album.albumId" v-on:snack="snackMsg" />
         </v-col>
     </v-row>
 </template>
@@ -42,7 +42,7 @@ export default {
     methods: {
         addAlbums() {
             if (this.stop == false) {
-                if(this.idArray.length < 15){
+                if (this.idArray.length < 15) {
                     this.end = this.idArray.length
                     this.lastCycle = true
                 }
@@ -52,7 +52,7 @@ export default {
                             title: this.idArray[i].titolo,
                             artist: this.idArray[i].artista,
                             albumId: this.idArray[i].albumId,
-                            cover: this.idArray[i].cover
+                            cover: this.idArray[i].cover,
                         }
                         this.albumArray.push(album)
                     }
@@ -81,6 +81,9 @@ export default {
         },
         scrollToTop() {
             window.scrollTo(0, 0)
+        },
+        snackMsg(msg) {
+            this.$emit('login', msg)
         },
         /*
         compareValues(key, order = 'asc') {

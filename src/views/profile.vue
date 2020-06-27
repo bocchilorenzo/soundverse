@@ -172,9 +172,11 @@
                 <v-col class="col-9 centrata">
                     <h2>Modifica informazioni</h2>
                 </v-col>
+                <!--
                 <v-col class="col-9 centrata">
                     <v-text-field v-model="newUsername" label="Modifica username"></v-text-field>
                 </v-col>
+                -->
                 <v-col class="col-9 centrata">
                     <v-file-input
                         id="proPic"
@@ -212,7 +214,7 @@ export default {
             user: JSON.parse(localStorage.getItem('user')),
             usernameDB: localStorage.getItem('username'),
             username: '',
-            newUsername: '',
+            //newUsername: '',
             following: [{ num: 0, users: [] }],
             followers: [{ num: 0, users: [] }],
             seguito: false,
@@ -383,9 +385,25 @@ export default {
             window.scrollTo(0, 0)
         },
         modUsername() {
-            var db = firebase.firestore()
+            //var db = firebase.firestore()
             var storage = firebase.storage()
             var pathReference = storage.ref('profile')
+            if (document.getElementById('proPic').files[0] == undefined) {
+                alert('Niente da modificare')
+            } else {
+                let file = document.getElementById('proPic').files[0]
+                let metadata = {
+                    contentType: 'image/jpeg',
+                    name: 'profile',
+                }
+                let usr1 = this.username
+                pathReference
+                    .child('/' + usr1 + '/' + 'profile.jpg')
+                    .put(file, metadata)
+                    .then(() => this.set(/*true, 'img'*/))
+                //inserire snackbar di successo
+            }
+            /*
             //Metodo che controlla se l'username è uguale a quello di prima, se è vuoto o meno e se è già presente nel db
             if (this.newUsername == this.username) {
                 alert('Username uguale al precedente')
@@ -457,8 +475,21 @@ export default {
                     }
                 }
             }
+            */
         },
-        set(isPresent, mode) {
+        set(/*isPresent, mode*/) {
+            var storage = firebase.storage()
+            var pathReference = storage.ref('profile')
+            var src = this.src
+            var username = this.usernameDB
+            pathReference
+                .child('/' + username + '/profile.jpg')
+                .getDownloadURL()
+                .then(function(url) {
+                    src.src = url
+                })
+                .then(() => this.update('', 'img'))
+            /*
             //Metodo che se l'username è in uso non lo setta, altrimenti lo setta
             if (mode == 'username') {
                 if (isPresent) {
@@ -472,11 +503,9 @@ export default {
                         .set({
                             username: usr,
                         })
-                        .then(function() {
-                            alert('Username aggiornato correttamente')
-                        })
+                        .then(() => this.update(usr, 'username'))
                         .catch(function(error) {
-                            alert('Qualcosa è andato storto, riprova')
+                            this.$emit('login', 'Qualcosa è andato storto, riprova')
                             console.log(error)
                         })
                         .then(() => this.update(usr, 'username'))
@@ -494,6 +523,7 @@ export default {
                     })
                     .then(() => this.update('', 'img'))
             }
+            */
         },
         getUsername() {
             //Metodo usato all'inizio per prelevare l'username dal db
@@ -512,6 +542,13 @@ export default {
                 .then(() => this.update(usr, 'initial'))
         },
         update(usr, mode) {
+            if (mode == 'img') {
+                this.$emit('login', 'Immagine modificata correttamente')
+            } else {
+                this.username = usr
+                localStorage.setItem('username', this.username)
+            }
+            /*
             //Metodo per settare correttamente l'username e aggiornare la vista
             if (mode == 'username') {
                 this.username = usr
@@ -523,7 +560,7 @@ export default {
                 this.username = usr
                 localStorage.setItem('username', this.username)
             }
-
+            */
             //inserire snackbar di successo
             /*
             this.$router.replace({

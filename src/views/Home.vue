@@ -20,7 +20,7 @@
         <div v-else>
             <!--Aggiungere le nuove uscite-->
             <h2 class="ma-2">{{ worldAlbumArray[0] }}</h2>
-            <carousel :albumArray="worldAlbumArray" :inizio="2" :fine="8" />
+            <carousel :albumArray="worldAlbumArray" :inizio="2" :fine="8" v-on:login="snackMsg" />
             <div class="my-2">
                 <v-btn
                     text
@@ -30,7 +30,7 @@
             </div>
             <br />
             <h2 class="ma-2">{{ italyAlbumArray[0] }}</h2>
-            <carousel :albumArray="italyAlbumArray" :inizio="2" :fine="8" />
+            <carousel :albumArray="italyAlbumArray" :inizio="2" :fine="8" v-on:login="snackMsg" />
             <div class="my-2">
                 <v-btn
                     text
@@ -40,7 +40,7 @@
             </div>
             <br />
             <h2 class="ma-2">{{ hitsArray[0] }}</h2>
-            <carousel :albumArray="hitsArray" :inizio="2" :fine="8" />
+            <carousel :albumArray="hitsArray" :inizio="2" :fine="8" v-on:login="snackMsg" />
             <div class="my-2">
                 <v-btn text color="primary" @click="visualizzaLista(hitsArray)">Visualizza tutti</v-btn>
             </div>
@@ -189,6 +189,9 @@ export default {
                 }
             }
             return trovato
+        },
+        snackMsg(msg) {
+            this.$emit('login', msg)
         },
     },
     inject: ['theme'],

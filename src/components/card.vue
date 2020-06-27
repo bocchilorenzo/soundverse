@@ -21,22 +21,20 @@
 
                     <v-list>
                         <v-list-item @click="favourite()">
-                            <v-list-item-title v-if="preferito.isPreferito"
-                                >Rimuovi dai preferiti</v-list-item-title
-                            >
+                            <v-list-item-title v-if="preferito.isPreferito">Rimuovi dai preferiti</v-list-item-title>
                             <v-list-item-title v-else>Aggiungi ai preferiti</v-list-item-title>
                         </v-list-item>
                         <v-list-item @click="listened()">
-                            <v-list-item-title v-if="ascoltato.isAscoltato"
-                                >Rimuovi dagli album ascoltati</v-list-item-title
-                            >
+                            <v-list-item-title
+                                v-if="ascoltato.isAscoltato"
+                            >Rimuovi dagli album ascoltati</v-list-item-title>
                             <v-list-item-title v-else>Segna come ascoltato</v-list-item-title>
                         </v-list-item>
                         <v-list-item @click="toListen()">
-                            <v-list-item-title v-if="daAscoltare.isDaAscoltare"
-                                >Rimuovi dagli album da ascoltare</v-list-item-title
-                            >
-                            <v-list-item-title v-else>Aggiungi ai da ascoltare</v-list-item-title>
+                            <v-list-item-title
+                                v-if="daAscoltare.isDaAscoltare"
+                            >Rimuovi dalla coda di ascolto</v-list-item-title>
+                            <v-list-item-title v-else>Aggiungi alla coda di ascolto</v-list-item-title>
                         </v-list-item>
                     </v-list>
                 </v-menu>
@@ -138,9 +136,11 @@ export default {
                     this.$emit('deletThis', this.albumArray.albumId)
                 }
                 this.ascoltato.isAscoltato = false
+                this.$emit('snack', 'Rimosso dagli ascoltati')
             } else {
                 userData.set({ titolo: title, rating: 0, cover: cover, artista: artista })
                 this.ascoltato.isAscoltato = true
+                this.$emit('snack', 'Aggiunto agli ascoltati')
             }
         },
         toListen() {
@@ -161,9 +161,11 @@ export default {
                     this.$emit('deletThis', this.albumArray.albumId)
                 }
                 this.daAscoltare.isDaAscoltare = false
+                this.$emit('snack', 'Rimosso dalla coda di ascolto')
             } else {
                 userData.set({ titolo: title, cover: cover, artista: artista })
                 this.daAscoltare.isDaAscoltare = true
+                this.$emit('snack', 'Aggiunto alla coda di ascolto')
             }
         },
         favourite() {
@@ -185,9 +187,11 @@ export default {
                     this.$emit('deletThis', this.albumArray.albumId)
                 }
                 this.preferito.isPreferito = false
+                this.$emit('snack', 'Rimosso dai preferiti')
             } else {
                 userData.set({ titolo: title, cover: cover, artista: artista })
                 this.preferito.isPreferito = true
+                this.$emit('snack', 'Aggiunto ai preferiti')
             }
         },
     },

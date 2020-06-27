@@ -86,12 +86,7 @@
                         ></v-skeleton-loader>
                     </div>
                     <div v-else class="d-flex flex-row">
-                        <v-skeleton-loader
-                            ref="skeleton"
-                            type="image"
-                            width="300px"
-                            class="mx-0"
-                        ></v-skeleton-loader>
+                        <v-skeleton-loader ref="skeleton" type="image" width="300px" class="mx-0"></v-skeleton-loader>
                         <v-row class="ml-3 pt-2 d-flex flex-row" align="center">
                             <v-col class="ma-2 col-12">
                                 <v-skeleton-loader
@@ -122,20 +117,10 @@
                     </div>
                 </v-row>
                 <v-row class="ma-2">
-                    <v-skeleton-loader
-                        ref="skeleton"
-                        type="heading"
-                        width="50em"
-                        class="mx-0"
-                    ></v-skeleton-loader>
+                    <v-skeleton-loader ref="skeleton" type="heading" width="50em" class="mx-0"></v-skeleton-loader>
                 </v-row>
                 <v-row class="ma-2">
-                    <v-skeleton-loader
-                        ref="skeleton"
-                        type="heading"
-                        width="50em"
-                        class="mx-0"
-                    ></v-skeleton-loader>
+                    <v-skeleton-loader ref="skeleton" type="heading" width="50em" class="mx-0"></v-skeleton-loader>
                 </v-row>
                 <br />
                 <v-row
@@ -156,12 +141,7 @@
                     "
                 />
                 <v-row class="ma-2">
-                    <v-skeleton-loader
-                        ref="skeleton"
-                        type="text"
-                        width="100px"
-                        class="mx-0"
-                    ></v-skeleton-loader>
+                    <v-skeleton-loader ref="skeleton" type="text" width="100px" class="mx-0"></v-skeleton-loader>
                 </v-row>
                 <v-row align="center" no-gutters>
                     <v-col v-for="n in 6" :key="n" lg="2" md="3" sm="4" class="pb-3 px-1 col-6">
@@ -276,13 +256,13 @@
                 <v-row v-if="this.$vuetify.breakpoint.name == 'xs'" no-gutters justify="center">
                     <h2>Album</h2>
                     <v-col class="col-12">
-                        <cardContainer :arrayRisultati="albums" />
+                        <cardContainer :arrayRisultati="albums" v-on:login="snackMsg" />
                     </v-col>
                 </v-row>
                 <v-row v-else no-gutters>
                     <h2 class="px-1">Album</h2>
                     <v-col class="col-12">
-                        <cardContainer :arrayRisultati="albums" />
+                        <cardContainer :arrayRisultati="albums" v-on:login="snackMsg" />
                     </v-col>
                 </v-row>
             </v-col>
@@ -326,6 +306,9 @@ export default {
         this.updateInfoArtista()
     },
     methods: {
+        snackMsg(msg) {
+            this.$emit('login', msg)
+        },
         scrollToTop() {
             window.scrollTo(0, 0)
         },

@@ -15,7 +15,7 @@
                 <v-row align="center">
                     <h2 class="ml-5">Nuove uscite {{ title }}</h2>
                 </v-row>
-                <cardContainer :arrayRisultati="arrayRisultatiNew" />
+                <cardContainer :arrayRisultati="arrayRisultatiNew" v-on:login="snackMsg" />
             </div>
         </v-container>
     </div>
@@ -55,6 +55,9 @@ export default {
         this.addAlbums()
     },
     methods: {
+        snackMsg(msg) {
+            this.$emit('login', msg)
+        },
         scrollToTop() {
             window.scrollTo(0, 0)
         },

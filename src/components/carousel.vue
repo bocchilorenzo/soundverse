@@ -1,7 +1,19 @@
 <template>
     <v-row align="center" id="carousel" no-gutters>
-        <v-col lg="2" md="3" sm="4" class="pb-3 px-1 col-6" v-for="album in albumArray.slice(inizio, fine)" :key="album.albumId">
-            <albumCard v-if="check(album)" :albumArray="album" :id="album.albumId" />
+        <v-col
+            lg="2"
+            md="3"
+            sm="4"
+            class="pb-3 px-1 col-6"
+            v-for="album in albumArray.slice(inizio, fine)"
+            :key="album.albumId"
+        >
+            <albumCard
+                v-if="check(album)"
+                :albumArray="album"
+                :id="album.albumId"
+                v-on:snack="snackMsg"
+            />
         </v-col>
     </v-row>
     <!--
@@ -19,7 +31,7 @@
                 </v-slide-item>
             </v-slide-group>
         </v-sheet>
-        -->
+    -->
 </template>
 
 <script>
@@ -29,7 +41,7 @@ export default {
     props: {
         albumArray: Array,
         inizio: Number,
-        fine: Number
+        fine: Number,
     },
     components: { albumCard },
     data() {
@@ -47,6 +59,9 @@ export default {
             } else {
                 return false
             }
+        },
+        snackMsg(msg) {
+            this.$emit('login', msg)
         },
     },
 }

@@ -9,6 +9,9 @@
         }"
     >
         <v-list-item class="mx-2">
+            <v-list-item-avatar>
+                <v-img :src="src.src"></v-img>
+            </v-list-item-avatar>
             <v-list-item-content>
                 <v-list-item-title>{{ dati.username }}</v-list-item-title>
             </v-list-item-content>
@@ -18,6 +21,9 @@
             name: 'profile',
         }">
         <v-list-item class="mx-2">
+            <v-list-item-avatar>
+                <v-img :src="src.src"></v-img>
+            </v-list-item-avatar>
             <v-list-item-content>
                 <v-list-item-title>{{ dati.username }}</v-list-item-title>
             </v-list-item-content>
@@ -26,6 +32,7 @@
 </template>
 
 <script>
+import firebase from 'firebase'
 export default {
     name: 'userList',
     props: { dati: Object },
@@ -33,6 +40,7 @@ export default {
         return {
             utente: JSON.parse(localStorage.getItem('user')),
             profiloMio: false,
+            src: { src: '' },
         }
     },
     created: function() {
@@ -40,7 +48,32 @@ export default {
             if (this.dati.email == this.utente.email) {
                 this.profiloMio = true
             }
+            this.updateImgUser()
         }
+    },
+    methods: {
+        updateImgUser() {
+            var storage = firebase.storage()
+            var pathReference = storage.ref('profile')
+            var src = this.src
+            var q = this.dati.username
+            pathReference
+                .child('/' + q + '/profile.jpg')
+                .getDownloadURL()
+                .then(function(url) {
+                    src.src = url
+                })
+                .catch(() => this.setDefaultPic(storage, src))
+        },
+        setDefaultPic(storage, src) {
+            var pathReference = storage.ref('profile')
+            pathReference
+                .child('/default.jpg')
+                .getDownloadURL()
+                .then(function(url) {
+                    src.src = url
+                })
+        },
     },
 }
 </script>
