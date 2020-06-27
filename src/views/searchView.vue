@@ -50,7 +50,10 @@
                 <v-tab-item>
                     <v-row align="center" no-gutters class="pt-2">
                         <v-col class="pb-3 px-1 col-12">
-                            <v-skeleton-loader class="mx-2" type="list-item-avatar"></v-skeleton-loader>
+                            <v-skeleton-loader
+                                class="mx-2"
+                                type="list-item-avatar"
+                            ></v-skeleton-loader>
                         </v-col>
                     </v-row>
                 </v-tab-item>
@@ -107,12 +110,17 @@
                                     d="M20,2H8A2,2 0 0,0 6,4V16A2,2 0 0,0 8,18H20A2,2 0 0,0 22,16V4A2,2 0 0,0 20,2M20,16H8V4H20M12.5,15A2.5,2.5 0 0,0 15,12.5V7H18V5H14V10.5C13.58,10.19 13.07,10 12.5,10A2.5,2.5 0 0,0 10,12.5A2.5,2.5 0 0,0 12.5,15M4,6H2V20A2,2 0 0,0 4,22H18V20H4"
                                 />
                             </svg>
-                            <p style="width: 60%; text-align: center">Ops, nessun artista trovato.</p>
+                            <p style="width: 60%; text-align: center">
+                                Ops, nessun artista trovato.
+                            </p>
                         </v-container>
                     </div>
                 </v-tab-item>
                 <v-tab-item>
-                    <usersContainer v-if="utenti.length != 0" :arrayRisultati="utenti"></usersContainer>
+                    <usersContainer
+                        v-if="utenti.length != 0"
+                        :arrayRisultati="utenti"
+                    ></usersContainer>
                     <div v-else class="d-flex justify-center">
                         <v-container
                             class="d-inline-flex justify-center flex-column align-center"
@@ -124,7 +132,9 @@
                                     d="M20,2H8A2,2 0 0,0 6,4V16A2,2 0 0,0 8,18H20A2,2 0 0,0 22,16V4A2,2 0 0,0 20,2M20,16H8V4H20M12.5,15A2.5,2.5 0 0,0 15,12.5V7H18V5H14V10.5C13.58,10.19 13.07,10 12.5,10A2.5,2.5 0 0,0 10,12.5A2.5,2.5 0 0,0 12.5,15M4,6H2V20A2,2 0 0,0 4,22H18V20H4"
                                 />
                             </svg>
-                            <p style="width: 60%; text-align: center">Ops, nessun utente trovato.</p>
+                            <p style="width: 60%; text-align: center">
+                                Ops, nessun utente trovato.
+                            </p>
                         </v-container>
                     </div>
                 </v-tab-item>
@@ -198,6 +208,7 @@ export default {
             const bottomOfPage = visible + scrollY >= pageHeight
             return bottomOfPage || pageHeight < visible
         },
+        //chiamata API agli artisti che coincidono con il parametro della route
         updateInfoArtisti() {
             var q = this.$route.params.q
             axios({
@@ -219,6 +230,7 @@ export default {
                 .catch(error => console.log(error))
                 .finally(() => this.updateInfoAlbum())
         },
+        //chiamata API agli album che coincidono con il parametro della route con scroll infinito
         updateInfoAlbum() {
             var q = this.$route.params.q
             if (this.stop == false) {
@@ -266,6 +278,7 @@ export default {
                     .finally(() => this.updateInfoUsers())
             }
         },
+        //preleva da firebase gli utenti trovati
         updateInfoUsers() {
             var q = this.$route.params.q
             var db = firebase.firestore()

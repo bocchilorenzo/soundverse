@@ -21,19 +21,43 @@
                     ></v-skeleton-loader>
                 </v-col>
                 <v-col class="col-9 centrata">
-                    <v-skeleton-loader ref="skeleton" type="text" width="100px" class="my-2"></v-skeleton-loader>
+                    <v-skeleton-loader
+                        ref="skeleton"
+                        type="text"
+                        width="100px"
+                        class="my-2"
+                    ></v-skeleton-loader>
                 </v-col>
                 <v-col class="col-9 centrata">
-                    <v-skeleton-loader ref="skeleton" type="text" width="100px" class="my-2"></v-skeleton-loader>
+                    <v-skeleton-loader
+                        ref="skeleton"
+                        type="text"
+                        width="100px"
+                        class="my-2"
+                    ></v-skeleton-loader>
                 </v-col>
                 <v-col class="col-9 centrata">
-                    <v-skeleton-loader ref="skeleton" type="text" width="100px" class="my-2"></v-skeleton-loader>
+                    <v-skeleton-loader
+                        ref="skeleton"
+                        type="text"
+                        width="100px"
+                        class="my-2"
+                    ></v-skeleton-loader>
                 </v-col>
                 <v-col class="col-9 centrata">
-                    <v-skeleton-loader ref="skeleton" type="text" width="100px" class="my-2"></v-skeleton-loader>
+                    <v-skeleton-loader
+                        ref="skeleton"
+                        type="text"
+                        width="100px"
+                        class="my-2"
+                    ></v-skeleton-loader>
                 </v-col>
                 <v-col class="col-9 centrata">
-                    <v-skeleton-loader ref="skeleton" type="button" class="my-2"></v-skeleton-loader>
+                    <v-skeleton-loader
+                        ref="skeleton"
+                        type="button"
+                        class="my-2"
+                    ></v-skeleton-loader>
                 </v-col>
             </v-row>
             <v-divider></v-divider>
@@ -48,18 +72,31 @@
                     ></v-skeleton-loader>
                 </v-col>
                 <v-col class="col-9 centrata">
-                    <v-skeleton-loader ref="skeleton" type="text" width="100px" class="my-2"></v-skeleton-loader>
+                    <v-skeleton-loader
+                        ref="skeleton"
+                        type="text"
+                        width="100px"
+                        class="my-2"
+                    ></v-skeleton-loader>
                 </v-col>
                 <v-col class="col-9 centrata">
-                    <v-skeleton-loader ref="skeleton" type="text" width="100px" class="my-2"></v-skeleton-loader>
+                    <v-skeleton-loader
+                        ref="skeleton"
+                        type="text"
+                        width="100px"
+                        class="my-2"
+                    ></v-skeleton-loader>
                 </v-col>
                 <v-col class="col-9 centrata">
-                    <v-skeleton-loader ref="skeleton" type="button" class="my-2"></v-skeleton-loader>
+                    <v-skeleton-loader
+                        ref="skeleton"
+                        type="button"
+                        class="my-2"
+                    ></v-skeleton-loader>
                 </v-col>
             </v-row>
         </v-sheet>
         <v-sheet v-else style="margin:2em auto" class="pa-2" width="80%">
-            <!--Magari spostare in un componente il dialog, così ne usiamo uno solo ed è più ordinato-->
             <v-dialog v-model="dialogSeguiti" scrollable max-width="300px">
                 <v-card>
                     <v-card-title>Seguiti</v-card-title>
@@ -69,19 +106,18 @@
                             v-if="following[0].users.length != 0"
                             :arrayRisultati="following[0].users"
                         ></usersContainer>
-                        <!--EMPTY STATE NON TESTATO-->
                         <div v-else class="d-flex justify-center">
                             <v-container
                                 class="d-inline-flex justify-center flex-column align-center"
-                                style="border-radius: 50%; height:400px;width:400px; margin:10px"
+                                style="border-radius: 50%; margin:10px"
                             >
                                 <svg style="width:150px;height:150px;" viewBox="0 0 24 24">
                                     <path
-                                        fill="#ececec"
-                                        d="M20,2H8A2,2 0 0,0 6,4V16A2,2 0 0,0 8,18H20A2,2 0 0,0 22,16V4A2,2 0 0,0 20,2M20,16H8V4H20M12.5,15A2.5,2.5 0 0,0 15,12.5V7H18V5H14V10.5C13.58,10.19 13.07,10 12.5,10A2.5,2.5 0 0,0 10,12.5A2.5,2.5 0 0,0 12.5,15M4,6H2V20A2,2 0 0,0 4,22H18V20H4"
+                                        fill="currentColor"
+                                        d="M12,4A4,4 0 0,1 16,8C16,9.95 14.6,11.58 12.75,11.93L8.07,7.25C8.42,5.4 10.05,4 12,4M12.28,14L18.28,20L20,21.72L18.73,23L15.73,20H4V18C4,16.16 6.5,14.61 9.87,14.14L2.78,7.05L4.05,5.78L12.28,14M20,18V19.18L15.14,14.32C18,14.93 20,16.35 20,18Z"
                                     />
                                 </svg>
-                                <p style="width: 80%; text-align: center">Nessun utente seguito</p>
+                                <p style="width: 80%; text-align: center">Nessun utente seguito.</p>
                             </v-container>
                         </div>
                     </v-card-text>
@@ -100,19 +136,18 @@
                             v-if="followers[0].users.length != 0"
                             :arrayRisultati="followers[0].users"
                         ></usersContainer>
-                        <!--EMPTY STATE NON TESTATO-->
                         <div v-else class="d-flex justify-center">
                             <v-container
                                 class="d-inline-flex justify-center flex-column align-center"
-                                style="border-radius: 50%; height:400px;width:400px; margin:10px"
+                                style="border-radius: 50%;  margin:10px"
                             >
                                 <svg style="width:150px;height:150px;" viewBox="0 0 24 24">
                                     <path
-                                        fill="#ececec"
-                                        d="M20,2H8A2,2 0 0,0 6,4V16A2,2 0 0,0 8,18H20A2,2 0 0,0 22,16V4A2,2 0 0,0 20,2M20,16H8V4H20M12.5,15A2.5,2.5 0 0,0 15,12.5V7H18V5H14V10.5C13.58,10.19 13.07,10 12.5,10A2.5,2.5 0 0,0 10,12.5A2.5,2.5 0 0,0 12.5,15M4,6H2V20A2,2 0 0,0 4,22H18V20H4"
+                                        fill="currentColor"
+                                        d="M12,4A4,4 0 0,1 16,8C16,9.95 14.6,11.58 12.75,11.93L8.07,7.25C8.42,5.4 10.05,4 12,4M12.28,14L18.28,20L20,21.72L18.73,23L15.73,20H4V18C4,16.16 6.5,14.61 9.87,14.14L2.78,7.05L4.05,5.78L12.28,14M20,18V19.18L15.14,14.32C18,14.93 20,16.35 20,18Z"
                                     />
                                 </svg>
-                                <p style="width: 80%; text-align: center">Nessun Follower</p>
+                                <p style="width: 80%; text-align: center">Nessun follower.</p>
                             </v-container>
                         </div>
                     </v-card-text>
@@ -299,7 +334,7 @@ export default {
                         caricato[0].step = caricato[0].step + 1
                     } else {
                         querySnapshot.forEach(function(doc) {
-                            console.log(doc.id, ' => ', doc.data())
+                            // console.log(doc.id, ' => ', doc.data())
                             var followin = {
                                 email: doc.id,
                                 username: doc.data().username,

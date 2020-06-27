@@ -103,7 +103,12 @@
             <v-snackbar v-model="snackbar" color="primary" :timeout="timeout">
                 {{ text }}
                 <template>
-                    <v-btn style="position:absolute; right: 0; top: 5px" text @click="snackbar = false">Chiudi</v-btn>
+                    <v-btn
+                        style="position:absolute; right: 0; top: 5px"
+                        text
+                        @click="snackbar = false"
+                        >Chiudi</v-btn
+                    >
                 </template>
             </v-snackbar>
             <musicPlayer :file="file" class="player" v-if="show" v-on:hide="hide" />
@@ -142,7 +147,7 @@ export default {
     created: function() {
         this.$vuetify.theme.dark = true
         this.currentUser = JSON.parse(localStorage.getItem('user'))
-        //this.setUsername()
+        //a seconda del breakpoint il drawer è aperto o chiuso di default
         switch (this.breakpoint) {
             case 'xs':
                 this.drawer = false
@@ -165,20 +170,6 @@ export default {
         this.currentUser = JSON.parse(localStorage.getItem('user'))
     },
     methods: {
-        setUsername() {
-            if (this.currentUser != null) {
-                this.$store.commit('updateUsernameSetFB')
-            } else {
-                this.$store.commit('updateUsernameClearFB')
-            }
-            console.log(this.$store.state.username)
-            console.log(this.currentUser)
-        },
-        /*
-        prop(arr) {
-            this.arrayRisultati = arr
-        },
-        */
         snackLogin(msg) {
             this.text = msg
             this.snackbar = true
