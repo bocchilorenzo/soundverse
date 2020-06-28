@@ -69,6 +69,7 @@ export default {
         }
     },
     created: function() {
+        this.$emit('toggleBurger', 'home')
         this.$emit('brand', "Home")
         this.scrollToTop()
         if (

@@ -270,7 +270,8 @@ export default {
         usersContainer,
     },
     created: function() {
-        this.$emit('brand', "Profilo")
+        this.$emit('toggleBurger', 'freccia')
+        this.$emit('brand', "")
         this.scrollToTop()
         if (this.user == null) {
             this.$router.replace({ name: 'login' })

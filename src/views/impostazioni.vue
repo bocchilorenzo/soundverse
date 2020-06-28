@@ -97,6 +97,7 @@ export default {
         }
     },
     created: function() {
+        this.$emit('toggleBurger', 'home')
         this.$emit('brand', "Impostazioni")
         if (this.tema == true) {
             this.temaBtn = 'chiaro'

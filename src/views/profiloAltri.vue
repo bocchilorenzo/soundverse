@@ -287,6 +287,7 @@ export default {
         }
     },
     created() {
+        this.$emit('toggleBurger', 'freccia')
         this.$emit('brand', '')
         this.scrollToTop()
         var storage = firebase.storage()

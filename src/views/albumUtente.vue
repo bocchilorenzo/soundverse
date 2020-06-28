@@ -191,6 +191,7 @@ export default {
         cardContainer,
     },
     created: function() {
+        this.$emit('toggleBurger', 'home')
         var nameCapitalized = this.type.charAt(0).toUpperCase() + this.type.slice(1)
         if (nameCapitalized == 'DaAscoltare') {
             this.$emit('brand', "Da ascoltare")

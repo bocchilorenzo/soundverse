@@ -133,8 +133,8 @@ export default {
         }
     },
     created: function() {
-        var nameCapitalized = this.type.charAt(0).toUpperCase() + this.type.slice(1)
-        this.$emit('brand', nameCapitalized)
+        this.$emit('toggleBurger', 'freccia')
+        this.$emit('brand', '')
     },
     methods: {
         signup() {

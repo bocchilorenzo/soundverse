@@ -247,7 +247,8 @@ export default {
         cardContainer,
     },
     created: function() {
-        this.$emit('brand', 'Artista')
+        this.$emit('toggleBurger', 'freccia')
+        this.$emit('brand', '')
         this.scrollToTop()
         this.id = this.$route.params.artista
         window.addEventListener('scroll', () => {

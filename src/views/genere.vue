@@ -82,9 +82,10 @@ export default {
         }
     },
     created: function() {
+        this.$emit('toggleBurger', 'freccia')
+        this.$emit('brand', '')
         this.scrollToTop()
         this.addAlbums()
-        this.$emit('brand', 'Generi')
     },
     methods: {
         scrollToTop() {

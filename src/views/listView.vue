@@ -59,6 +59,7 @@ export default {
         }
     },
     created: function() {
+        this.$emit('toggleBurger', 'freccia')
         this.$emit('brand', '')
         this.scrollToTop()
         window.addEventListener('scroll', () => {

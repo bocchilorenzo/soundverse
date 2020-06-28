@@ -170,7 +170,8 @@ export default {
         }
     },
     created: function() {
-        this.$emit('brand', "Ricerca")
+        this.$emit('toggleBurger', 'freccia')
+        this.$emit('brand', "")
         this.scrollToTop()
         window.addEventListener('scroll', () => {
             this.bottom = this.bottomVisible()

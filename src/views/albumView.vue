@@ -413,7 +413,8 @@ export default {
         }
     },
     created: function() {
-        this.$emit('brand', 'Album')
+        this.$emit('toggleBurger', 'freccia')
+        this.$emit('brand', '')
         this.scrollToTop()
         var id = this.$route.params.id
         //preleva le info dell'artista tramite chiamata API

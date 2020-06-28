@@ -68,7 +68,10 @@
         </v-navigation-drawer>
 
         <v-app-bar app flat color="primary" :dark="tema" :hide-on-scroll="breakpoint == 'xs'">
-            <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
+            <v-app-bar-nav-icon v-if="burger" @click.stop="drawer = !drawer" />
+            <v-app-bar-nav-icon v-else @click.stop="navigateBack()">
+                <v-icon>mdi-arrow-left</v-icon>
+            </v-app-bar-nav-icon>
             <v-toolbar-title class="mr-5">{{branding}}</v-toolbar-title>
             <v-spacer />
             <searchBar />
@@ -89,6 +92,7 @@
                 v-on:login="snackLogin"
                 v-on:tema="toggleTema"
                 v-on:brand="changeBrand"
+                v-on:toggleBurger="toggleBurger"
             ></router-view>
             <!--
             <router-view
@@ -145,6 +149,8 @@ export default {
             text: '',
             hidebar: false,
             tema: true,
+            burger: true,
+            firstTime: 0
         }
     },
     created: function() {
@@ -184,7 +190,24 @@ export default {
         this.currentUser = JSON.parse(localStorage.getItem('user'))
     },
     methods: {
-        changeBrand(brand){
+        navigateBack() {
+            if (document.referrer == '' && this.firstTime == 0) {
+                this.$router.push({
+                    name: 'home',
+                })
+                this.firstTime = 1
+            } else {
+                this.$router.go(-1)
+            }
+        },
+        toggleBurger(mode) {
+            if (mode == 'freccia') {
+                this.burger = false
+            } else {
+                this.burger = true
+            }
+        },
+        changeBrand(brand) {
             this.branding = brand
         },
         toggleTema() {

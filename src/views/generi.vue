@@ -50,6 +50,7 @@ export default {
         }
     },
     created: function() {
+        this.$emit('toggleBurger', 'home')
         this.scrollToTop()
         this.addGenres()
         this.$emit('brand', "Generi")
