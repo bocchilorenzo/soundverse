@@ -13,18 +13,19 @@
                     class="d-inline-flex justify-center flex-column align-center"
                     style="border-radius: 50%; height:500px;width:500px; margin:10px"
                 >
-                    <svg style="width:150px;height:150px;" viewBox="0 0 24 24">
+                    <svg style="width:80%;max-width:150px;max-height:150px;" viewBox="0 0 24 24">
                         <path
                             fill="#ececec"
                             d="M20,2H8A2,2 0 0,0 6,4V16A2,2 0 0,0 8,18H20A2,2 0 0,0 22,16V4A2,2 0 0,0 20,2M20,16H8V4H20M12.5,15A2.5,2.5 0 0,0 15,12.5V7H18V5H14V10.5C13.58,10.19 13.07,10 12.5,10A2.5,2.5 0 0,0 10,12.5A2.5,2.5 0 0,0 12.5,15M4,6H2V20A2,2 0 0,0 4,22H18V20H4"
                         />
                     </svg>
-                    <h3 style="width: 60%; text-align: center" class="my-3">
-                        Nessun album tra gli ascoltati.
-                    </h3>
-                    <p style="width: 60%; text-align: center">
-                        Tutti gli album che aggiungerai agli ascoltati verrano visualizzati qui.
-                    </p>
+                    <h3
+                        style="width: 60%; text-align: center"
+                        class="my-3"
+                    >Nessun album tra gli ascoltati.</h3>
+                    <p
+                        style="width: 60%; text-align: center"
+                    >Tutti gli album che aggiungerai agli ascoltati verrano visualizzati qui.</p>
                 </v-container>
             </div>
             <div v-else>
@@ -33,15 +34,15 @@
                         class="d-inline-flex justify-center flex-column align-center"
                         style="border-radius: 50%; height:400px;width:400px; margin:10px"
                     >
-                        <svg style="width:150px;height:150px;" viewBox="0 0 24 24">
+                        <svg style="width:80%;max-width:150px;max-height:150px;" viewBox="0 0 24 24">
                             <path
                                 fill="#ececec"
                                 d="M20 12V7H22V13H20M20 17H22V15H20M10 13C12.67 13 18 14.34 18 17V20H2V17C2 14.34 7.33 13 10 13M10 4A4 4 0 0 1 14 8A4 4 0 0 1 10 12A4 4 0 0 1 6 8A4 4 0 0 1 10 4M10 14.9C7.03 14.9 3.9 16.36 3.9 17V18.1H16.1V17C16.1 16.36 12.97 14.9 10 14.9M10 5.9A2.1 2.1 0 0 0 7.9 8A2.1 2.1 0 0 0 10 10.1A2.1 2.1 0 0 0 12.1 8A2.1 2.1 0 0 0 10 5.9Z"
                             />
                         </svg>
-                        <p style="width: 60%; text-align: center">
-                            Per visualizzare il contenuto di questa sezione effettua il login.
-                        </p>
+                        <p
+                            style="width: 60%; text-align: center"
+                        >Per visualizzare il contenuto di questa sezione effettua il login.</p>
                     </v-container>
                 </div>
                 <div v-else>
@@ -66,18 +67,19 @@
                     class="d-inline-flex justify-center flex-column align-center"
                     style="border-radius: 50%; height:500px;width:500px; margin:10px"
                 >
-                    <svg style="width:150px;height:150px;" viewBox="0 0 24 24">
+                    <svg style="width:80%;max-width:150px;max-height:150px;" viewBox="0 0 24 24">
                         <path
                             fill="#ececec"
                             d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"
                         />
                     </svg>
-                    <h3 style="width: 60%; text-align: center" class="my-3">
-                        Complimenti! Non hai nessun album da ascoltare.
-                    </h3>
-                    <p style="width: 60%; text-align: center">
-                        Tutti gli album che aggiungerai ai da ascoltare verrano visualizzati qui.
-                    </p>
+                    <h3
+                        style="width: 60%; text-align: center"
+                        class="my-3"
+                    >Complimenti! Non hai nessun album da ascoltare.</h3>
+                    <p
+                        style="width: 60%; text-align: center"
+                    >Tutti gli album che aggiungerai ai da ascoltare verrano visualizzati qui.</p>
                 </v-container>
             </div>
             <div v-else>
@@ -86,15 +88,15 @@
                         class="d-inline-flex justify-center flex-column align-center"
                         style="border-radius: 50%; height:400px;width:400px; margin:10px"
                     >
-                        <svg style="width:150px;height:150px;" viewBox="0 0 24 24">
+                        <svg style="width:80%;max-width:150px;max-height:150px;" viewBox="0 0 24 24">
                             <path
                                 fill="#ececec"
                                 d="M20 12V7H22V13H20M20 17H22V15H20M10 13C12.67 13 18 14.34 18 17V20H2V17C2 14.34 7.33 13 10 13M10 4A4 4 0 0 1 14 8A4 4 0 0 1 10 12A4 4 0 0 1 6 8A4 4 0 0 1 10 4M10 14.9C7.03 14.9 3.9 16.36 3.9 17V18.1H16.1V17C16.1 16.36 12.97 14.9 10 14.9M10 5.9A2.1 2.1 0 0 0 7.9 8A2.1 2.1 0 0 0 10 10.1A2.1 2.1 0 0 0 12.1 8A2.1 2.1 0 0 0 10 5.9Z"
                             />
                         </svg>
-                        <p style="width: 60%; text-align: center">
-                            Per visualizzare il contenuto di questa sezione effettua il login.
-                        </p>
+                        <p
+                            style="width: 60%; text-align: center"
+                        >Per visualizzare il contenuto di questa sezione effettua il login.</p>
                     </v-container>
                 </div>
                 <div v-else>
@@ -119,18 +121,19 @@
                     class="d-inline-flex justify-center flex-column align-center"
                     style="border-radius: 50%; height:500px;width:500px; margin:10px;"
                 >
-                    <svg style="width:150px;height:150px;" viewBox="0 0 24 24">
+                    <svg style="width:80%;max-width:150px;max-height:150px;" viewBox="0 0 24 24">
                         <path
                             fill="currentColor"
                             d="M1,4.27L2.28,3L20,20.72L18.73,22L15.18,18.44L13.45,20.03L12,21.35L10.55,20.03C5.4,15.36 2,12.27 2,8.5C2,7.55 2.23,6.67 2.63,5.9L1,4.27M7.5,3C9.24,3 10.91,3.81 12,5.08C13.09,3.81 14.76,3 16.5,3C19.58,3 22,5.41 22,8.5C22,11.07 20.42,13.32 17.79,15.97L5.27,3.45C5.95,3.16 6.7,3 7.5,3Z"
                         />
                     </svg>
-                    <h3 style="width: 60%; text-align: center" class="my-3">
-                        Nessun album tra i preferiti.
-                    </h3>
-                    <p style="width: 60%; text-align: center">
-                        Tutti gli album che aggiungerai ai preferiti verrano visualizzati qui.
-                    </p>
+                    <h3
+                        style="width: 60%; text-align: center"
+                        class="my-3"
+                    >Nessun album tra i preferiti.</h3>
+                    <p
+                        style="width: 60%; text-align: center"
+                    >Tutti gli album che aggiungerai ai preferiti verrano visualizzati qui.</p>
                 </v-container>
             </div>
             <div v-else>
@@ -139,15 +142,15 @@
                         class="d-inline-flex justify-center flex-column align-center"
                         style="border-radius: 50%; height:400px;width:400px; margin:10px"
                     >
-                        <svg style="width:150px;height:150px;" viewBox="0 0 24 24">
+                        <svg style="width:80%;max-width:150px;max-height:150px;" viewBox="0 0 24 24">
                             <path
                                 fill="#ececec"
                                 d="M20 12V7H22V13H20M20 17H22V15H20M10 13C12.67 13 18 14.34 18 17V20H2V17C2 14.34 7.33 13 10 13M10 4A4 4 0 0 1 14 8A4 4 0 0 1 10 12A4 4 0 0 1 6 8A4 4 0 0 1 10 4M10 14.9C7.03 14.9 3.9 16.36 3.9 17V18.1H16.1V17C16.1 16.36 12.97 14.9 10 14.9M10 5.9A2.1 2.1 0 0 0 7.9 8A2.1 2.1 0 0 0 10 10.1A2.1 2.1 0 0 0 12.1 8A2.1 2.1 0 0 0 10 5.9Z"
                             />
                         </svg>
-                        <p style="width: 60%; text-align: center">
-                            Per visualizzare il contenuto di questa sezione effettua il login.
-                        </p>
+                        <p
+                            style="width: 60%; text-align: center"
+                        >Per visualizzare il contenuto di questa sezione effettua il login.</p>
                     </v-container>
                 </div>
                 <div v-else>
@@ -188,6 +191,12 @@ export default {
         cardContainer,
     },
     created: function() {
+        var nameCapitalized = this.type.charAt(0).toUpperCase() + this.type.slice(1)
+        if (nameCapitalized == 'DaAscoltare') {
+            this.$emit('brand', "Da ascoltare")
+        } else {
+            this.$emit('brand', nameCapitalized)
+        }
         this.scrollToTop()
         window.addEventListener('scroll', () => {
             this.bottom = this.bottomVisible()

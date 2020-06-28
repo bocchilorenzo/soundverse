@@ -1,70 +1,4 @@
 <template>
-    <!--
-    <v-app id="inspire">
-        <v-content class="pa-0">
-            <v-container class="fill-height" fluid>
-                <v-row v-if="this.loading" align="center" justify="center">
-                    <v-col
-                        cols="1"
-                        class="text-center"
-                        style="height: 100vh; display: flex; align-items:center;"
-                    >
-                        <v-progress-circular :size="70" :width="7" color="indigo" indeterminate></v-progress-circular>
-                    </v-col>
-                </v-row>
-                <v-row v-else>
-                    <v-col cols="2">
-                        <v-row id="sticky">
-                            <v-img
-                                class="align-end"
-                                :src="artistInfo[0].picture"
-                                contain
-                                style="width:200px"
-                            ></v-img>
-                            <h1 display="inline-block">{{ artistInfo[0].name }}</h1>
-                            <p display="inline-block">
-                                Numero album:
-                                {{ artistInfo[0].albumNumber }}
-                            </p>
-                        </v-row>
-                    </v-col>
-                    <v-col cols="8">
-                        <v-row align="center">
-                            <v-col
-                                v-for="album in albums"
-                                :key="album.albumId"
-                                cols="12"
-                                sm="4"
-                                lg="3"
-                                xl="2"
-                            >
-                                <v-row justify="center">
-                                    <albumCard :albumArray="album" :id="album.albumId" />
-                                </v-row>
-                            </v-col>
-                        </v-row>
-                    </v-col>
-                    <v-col cols="2" v-if="caricatiSimili == true">
-                        <v-row no-gutters justify="center">
-                            <v-col v-for="artista in simili" :key="artista.artistId">
-                                <router-link
-                                    :to="{
-                                        name: 'artist',
-                                        path: '/artist/:artista',
-                                        params: { artista: artista.artistId },
-                                        props: true,
-                                    }"
-                                >
-                                    <artistCard :artistArray="artista" :id="artista.artistId" />
-                                </router-link>
-                            </v-col>
-                        </v-row>
-                    </v-col>
-                </v-row>
-            </v-container>
-        </v-content>
-    </v-app>
-    -->
     <v-container class="fill-width" fluid>
         <div v-if="this.loading">
             <div class="centrata" style="width: 80%">
@@ -151,6 +85,20 @@
                 <br />
                 <br />
             </div>
+        </div>
+        <div v-else-if="esiste.esiste == false" class="d-flex justify-center">
+            <v-container
+                class="d-inline-flex justify-center flex-column align-center"
+                style="border-radius: 50%; height:400px;width:400px; margin:10px"
+            >
+                <svg style="width:80%;max-width:150px;max-height:150px" viewBox="0 0 24 24">
+                    <path
+                        fill="#ececec"
+                        d="M15,14C17.67,14 23,15.33 23,18V20H7V18C7,15.33 12.33,14 15,14M15,12A4,4 0 0,1 11,8A4,4 0 0,1 15,4A4,4 0 0,1 19,8A4,4 0 0,1 15,12M5,9.59L7.12,7.46L8.54,8.88L6.41,11L8.54,13.12L7.12,14.54L5,12.41L2.88,14.54L1.46,13.12L3.59,11L1.46,8.88L2.88,7.46L5,9.59Z"
+                    />
+                </svg>
+                <p style="width: 60%; text-align: center">Artista inesistente</p>
+            </v-container>
         </div>
         <v-row v-else>
             <v-col sm="10" md="9" class="centrata">
@@ -291,6 +239,7 @@ export default {
             simili: [],
             caricatiSimili: false,
             mode: 'artista',
+            esiste: { esiste: true },
         }
     },
     components: {
@@ -298,6 +247,7 @@ export default {
         cardContainer,
     },
     created: function() {
+        this.$emit('brand', 'Artista')
         this.scrollToTop()
         this.id = this.$route.params.artista
         window.addEventListener('scroll', () => {
@@ -330,14 +280,15 @@ export default {
                     adapter: jsonpAdapter,
                 })
                     .then(response => {
-                        var artistData = {
-                            name: response.data.name,
-                            picture: response.data.picture_big,
-                            albumNumber: response.data.nb_album,
-                            share: response.data.share,
-                        }
-                        this.artistInfo.push(artistData)
-                        /*
+                        if (response.data.error == undefined) {
+                            var artistData = {
+                                name: response.data.name,
+                                picture: response.data.picture_big,
+                                albumNumber: response.data.nb_album,
+                                share: response.data.share,
+                            }
+                            this.artistInfo.push(artistData)
+                            /*
                         axios.defaults.headers.post['Content-Type'] ='application/x-www-form-urlencoded';
                         axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
                         axios
@@ -357,24 +308,28 @@ export default {
                             .catch(error => console.log(error))
                             .finally(() => (this.caricatiSimili = true))
                             */
-                        var nome = this.artistInfo[0].name
-                        nome = encodeURIComponent(nome.trim())
-                        axios
-                            .get(
-                                'https://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=' +
-                                    nome +
-                                    '&api_key=008dd2405a84da9505c1b2dd4dffd5e4&format=json'
-                            )
-                            .then(response => {
-                                for (var i = 0; i < 5; i++) {
-                                    var artistData2 = {
-                                        name: response.data.artist.similar.artist[i].name,
+                            var nome = this.artistInfo[0].name
+                            nome = encodeURIComponent(nome.trim())
+                            axios
+                                .get(
+                                    'https://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=' +
+                                        nome +
+                                        '&api_key=008dd2405a84da9505c1b2dd4dffd5e4&format=json'
+                                )
+                                .then(response => {
+                                    for (var i = 0; i < 5; i++) {
+                                        var artistData2 = {
+                                            name: response.data.artist.similar.artist[i].name,
+                                        }
+                                        this.simili.push(artistData2)
                                     }
-                                    this.simili.push(artistData2)
-                                }
-                            })
-                            .catch(error => console.log(error))
-                            .finally(() => this.updateSimili())
+                                })
+                                .catch(error => console.log(error))
+                                .finally(() => this.updateSimili())
+                        }
+                        else{
+                            this.esiste.esiste = false
+                        }
                     })
                     .catch(error => console.log(error))
                     .finally(() => this.updateInfoAlbum())

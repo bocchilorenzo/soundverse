@@ -1,6 +1,6 @@
 <template>
     <v-container>
-        <v-sheet v-if="loading" style="margin:2em auto" class="pa-2" width="80%">
+        <v-sheet v-if="loading" class="pa-2 centraRadius" width="80%" color="sheet">
             <v-row>
                 <v-col class="col-9 centrata">
                     <v-skeleton-loader
@@ -96,7 +96,7 @@
                 </v-col>
             </v-row>
         </v-sheet>
-        <v-sheet v-else style="margin:2em auto" class="pa-2" width="80%">
+        <v-sheet v-else class="pa-2 centraRadius" width="80%" color="sheet">
             <v-dialog v-model="dialogSeguiti" scrollable max-width="300px">
                 <v-card>
                     <v-card-title>Seguiti</v-card-title>
@@ -225,7 +225,7 @@
                 </v-col>
                 <v-col class="col-9 centrata">
                     <v-form ref="form">
-                        <v-btn color="secondary" @click="modUsername()">Modifica</v-btn>
+                        <v-btn color="primary" @click="modUsername()">Modifica</v-btn>
                     </v-form>
                 </v-col>
             </v-row>
@@ -270,6 +270,7 @@ export default {
         usersContainer,
     },
     created: function() {
+        this.$emit('brand', "Profilo")
         this.scrollToTop()
         if (this.user == null) {
             this.$router.replace({ name: 'login' })
@@ -745,5 +746,10 @@ export default {
 <style scoped>
 .centrata {
     margin: 0 auto;
+}
+
+.centraRadius{
+    margin: 2em auto;
+    border-radius: 1em;
 }
 </style>

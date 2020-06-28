@@ -1,5 +1,5 @@
 <template>
-    <v-app id="app">
+    <v-app id="app" oncontextmenu="return false;">
         <v-navigation-drawer v-model="drawer" app>
             <v-list dense>
                 <router-link to="/">
@@ -54,22 +54,22 @@
                     </v-list-item>
                 </router-link>
                 <v-divider></v-divider>
-                <router-link to="/about">
+                <router-link to="/impostazioni">
                     <v-list-item link>
                         <v-list-item-action>
-                            <v-icon>mdi-information-outline</v-icon>
+                            <v-icon>mdi-cog-outline</v-icon>
                         </v-list-item-action>
                         <v-list-item-content>
-                            <v-list-item-title>About</v-list-item-title>
+                            <v-list-item-title>Impostazioni</v-list-item-title>
                         </v-list-item-content>
                     </v-list-item>
                 </router-link>
             </v-list>
         </v-navigation-drawer>
 
-        <v-app-bar app flat color="primary" dark :hide-on-scroll="breakpoint == 'xs'">
+        <v-app-bar app flat color="primary" :dark="tema" :hide-on-scroll="breakpoint == 'xs'">
             <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
-            <v-toolbar-title class="mr-5">DeezerRate</v-toolbar-title>
+            <v-toolbar-title class="mr-5">{{branding}}</v-toolbar-title>
             <v-spacer />
             <searchBar />
             <v-btn icon @click="profile()" class="ml-3">
@@ -87,6 +87,8 @@
                 v-on:updateUser="updateUser"
                 :class="{ marginforplayer: show }"
                 v-on:login="snackLogin"
+                v-on:tema="toggleTema"
+                v-on:brand="changeBrand"
             ></router-view>
             <!--
             <router-view
@@ -107,8 +109,7 @@
                         style="position:absolute; right: 0; top: 5px"
                         text
                         @click="snackbar = false"
-                        >Chiudi</v-btn
-                    >
+                    >Chiudi</v-btn>
                 </template>
             </v-snackbar>
             <musicPlayer :file="file" class="player" v-if="show" v-on:hide="hide" />
@@ -129,6 +130,7 @@ export default {
     data() {
         return {
             key: 0,
+            branding: '',
             drawer: false,
             arrayRisultati: null,
             file: null,
@@ -142,10 +144,22 @@ export default {
             timeout: 4000,
             text: '',
             hidebar: false,
+            tema: true,
         }
     },
     created: function() {
-        this.$vuetify.theme.dark = true
+        if (localStorage.getItem('dark') == null) {
+            this.$vuetify.theme.dark = true
+            this.tema = true
+        } else {
+            if (localStorage.getItem('dark') == 'true') {
+                this.$vuetify.theme.dark = true
+                this.tema = true
+            } else {
+                this.$vuetify.theme.dark = false
+                this.tema = false
+            }
+        }
         this.currentUser = JSON.parse(localStorage.getItem('user'))
         //a seconda del breakpoint il drawer è aperto o chiuso di default
         switch (this.breakpoint) {
@@ -170,6 +184,13 @@ export default {
         this.currentUser = JSON.parse(localStorage.getItem('user'))
     },
     methods: {
+        changeBrand(brand){
+            this.branding = brand
+        },
+        toggleTema() {
+            this.$vuetify.theme.dark = !this.$vuetify.theme.dark
+            localStorage.setItem('dark', this.$vuetify.theme.dark)
+        },
         snackLogin(msg) {
             this.text = msg
             this.snackbar = true
@@ -228,5 +249,12 @@ body::-webkit-scrollbar-thumb {
 }
 a {
     text-decoration: none;
+}
+#app {
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 </style>

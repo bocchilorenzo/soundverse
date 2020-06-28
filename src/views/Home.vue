@@ -69,6 +69,7 @@ export default {
         }
     },
     created: function() {
+        this.$emit('brand', "Home")
         this.scrollToTop()
         if (
             this.worldAlbumArray[0] == undefined &&

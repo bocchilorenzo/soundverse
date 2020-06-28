@@ -95,7 +95,11 @@
                                 </small>
                             </p>
                             <v-spacer />
-                            <v-btn class="mx-2 mb-2" color="primary" @click="modUsername()">Registrati</v-btn>
+                            <v-btn
+                                class="mx-2 mb-2"
+                                color="primary"
+                                @click="modUsername()"
+                            >Registrati</v-btn>
                         </v-card-actions>
                     </v-card>
                 </v-col>
@@ -127,6 +131,10 @@ export default {
                     "Le dimensioni dell'immagine non devono superare 1 MB",
             ],
         }
+    },
+    created: function() {
+        var nameCapitalized = this.type.charAt(0).toUpperCase() + this.type.slice(1)
+        this.$emit('brand', nameCapitalized)
     },
     methods: {
         signup() {

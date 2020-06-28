@@ -11,7 +11,7 @@ import albumUtente from '../views/albumUtente.vue'
 import profiloAltri from '../views/profiloAltri'
 import generi from '../views/generi'
 import genere from '../views/genere'
-import about from '../views/About.vue'
+import impostazioni from '../views/impostazioni.vue'
 
 Vue.use(VueRouter)
 
@@ -91,9 +91,9 @@ const routes = [
         component: genere,
     },
     {
-        path: '/about',
-        name: 'about',
-        component: about,
+        path: '/impostazioni',
+        name: 'impostazioni',
+        component: impostazioni,
     },
 ]
 

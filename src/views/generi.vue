@@ -52,6 +52,7 @@ export default {
     created: function() {
         this.scrollToTop()
         this.addGenres()
+        this.$emit('brand', "Generi")
     },
     methods: {
         scrollToTop() {

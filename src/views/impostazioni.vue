@@ -1,15 +1,24 @@
 <template>
     <v-container>
-        <v-sheet style="margin:2em auto" class="pa-2" width="80%">
+        <v-sheet color="sheet" class="pa-2 centraRadius" width="80%">
             <v-row>
+                <v-col class="col-9 centrata">
+                    <span>Cambia colore del tema</span>
+                    <v-btn class="mx-2 mb-2" color="primary" @click="cambiaTema()">Tema {{temaBtn}}</v-btn>
+                </v-col>
                 <v-col class="col-10 centrata">
-                    <h2>
+                    <h3>
+                        Informazioni
+                    </h3>
+                </v-col>
+                <v-col class="col-9 centrata">
+                    <h4>
                         Progetto per il corso di
                         <a
                             target="_blank"
                             href="https://www.esse3.unitn.it/Guide/PaginaADErogata.do?ad_er_id=2018*N0*N0*S2*42805*90191&ANNO_ACCADEMICO=2018&mostra_percorsi=S"
                         >Informatica ed elementi di programmazione II</a>
-                    </h2>
+                    </h4>
                 </v-col>
                 <v-col class="col-9 centrata">
                     <span>Gruppo di:</span>
@@ -44,6 +53,9 @@
                             <a target="_blank" href="https://developers.deezer.com/api">Deezer API</a>
                         </li>
                         <li>
+                            <a target="_blank" href="https://www.last.fm/api/">Last.fm API</a>
+                        </li>
+                        <li>
                             <a target="_blank" href="https://firebase.google.com/">Firebase</a>
                         </li>
                     </ul>
@@ -72,7 +84,7 @@
 
 <script>
 export default {
-    name: 'about',
+    name: 'impostazioni',
     data() {
         return {
             generiArray: [],
@@ -80,14 +92,39 @@ export default {
             start: 0,
             end: 25,
             stop: false,
+            tema: this.$vuetify.theme.dark,
+            temaBtn: '',
         }
     },
-    created: function() {},
+    created: function() {
+        this.$emit('brand', "Impostazioni")
+        if (this.tema == true) {
+            this.temaBtn = 'chiaro'
+        } else {
+            this.temaBtn = 'scuro'
+        }
+    },
+    methods: {
+        cambiaTema() {
+            if (this.tema == true) {
+                this.temaBtn = 'scuro'
+            } else {
+                this.temaBtn = 'chiaro'
+            }
+            this.$emit('tema')
+            this.tema = this.$vuetify.theme.dark
+        },
+    },
 }
 </script>
 
 <style scoped>
 .centrata {
     margin: 0 auto;
+}
+
+.centraRadius{
+    margin: 2em auto;
+    border-radius: 1em;
 }
 </style>
