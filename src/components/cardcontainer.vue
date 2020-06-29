@@ -9,7 +9,12 @@
             sm="4"
             class="pb-3 px-1 col-6"
         >
-            <albumCard :albumArray="album" :id="album.albumId" v-on:deletThis="rimuoviElemento" v-on:snack="snackMsg" />
+            <albumCard
+                :albumArray="album"
+                :id="album.albumId"
+                v-on:deletThis="rimuoviElemento"
+                v-on:snack="snackMsg"
+            />
         </v-col>
     </v-row>
 </template>

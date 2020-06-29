@@ -22,6 +22,7 @@ export default {
     methods: {
         search() {
             var pathName = this.$route.name
+            //se la query è valida aggiorna la view con parametro l'input dell'utente
             if (pathName != 'search') {
                 if (this.input != '' && this.input.length > 1) {
                     this.$router.push({
@@ -32,13 +33,8 @@ export default {
                 } else {
                     console.log('Query non valida o campo vuoto. Riprova')
                 }
-                //window.scrollBy(0, 1)
             } else {
-                if (
-                    this.input != '' &&
-                    this.prevInput != this.input &&
-                    this.input.length > 1
-                ) {
+                if (this.input != '' && this.prevInput != this.input && this.input.length > 1) {
                     this.$router.replace({
                         name: 'search',
                         params: { q: this.input },
@@ -47,7 +43,6 @@ export default {
                 } else {
                     console.log('Query non valida o campo vuoto. Riprova')
                 }
-                //window.scrollBy(0, 1)
             }
         },
     },

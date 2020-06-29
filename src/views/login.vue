@@ -36,7 +36,9 @@
                                 </small>
                             </p>
                             <v-spacer />
-                            <v-btn class="mx-2 mb-2" color="primary" @click="loginFirebase()">Login</v-btn>
+                            <v-btn class="mx-2 mb-2" color="primary" @click="loginFirebase()"
+                                >Login</v-btn
+                            >
                         </v-card-actions>
                     </v-card>
                 </v-col>
@@ -61,8 +63,7 @@
                                 />
                                 <v-text-field
                                     v-model="username"
-                                    :rules="[
-                                    () => !!username || 'Username richiesto']"
+                                    :rules="[() => !!username || 'Username richiesto']"
                                     label="Username*"
                                     required
                                     prepend-icon="mdi-account"
@@ -95,11 +96,9 @@
                                 </small>
                             </p>
                             <v-spacer />
-                            <v-btn
-                                class="mx-2 mb-2"
-                                color="primary"
-                                @click="modUsername()"
-                            >Registrati</v-btn>
+                            <v-btn class="mx-2 mb-2" color="primary" @click="modUsername()"
+                                >Registrati</v-btn
+                            >
                         </v-card-actions>
                     </v-card>
                 </v-col>
@@ -142,19 +141,11 @@ export default {
         },
         async loginFirebase() {
             try {
-                console.log(this.email + ' - ' + this.password)
                 await firebase.auth().signInWithEmailAndPassword(this.email, this.password)
-                //alert('Login effettuato')
                 this.$emit('login', 'Login effettuato')
                 localStorage.setItem('user', JSON.stringify(firebase.auth().currentUser))
                 this.setUsername()
                 this.$router.replace({ name: 'home' })
-                /*
-                this.$store.commit('updateUserFB')
-                this.$store.commit('updateUsernameSetFB')
-                */
-                //this.$emit('updateUser', firebase.auth().currentUser)
-                //$emit('nomeEvento', datoDaPassare) => vai in app.vue nel tag router view
             } catch (err) {
                 alert('Oops. ' + err.message)
             }

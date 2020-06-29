@@ -271,11 +271,12 @@ export default {
     },
     created: function() {
         this.$emit('toggleBurger', 'freccia')
-        this.$emit('brand', "")
+        this.$emit('brand', '')
         this.scrollToTop()
         if (this.user == null) {
             this.$router.replace({ name: 'login' })
         } else {
+            //preleva l'immagine profilo dell'utente attualmente loggato dallo storage di firebase, i follower e i seguiti
             var storage = firebase.storage()
             var pathReference = storage.ref('profile')
             var src = this.src
@@ -308,11 +309,11 @@ export default {
                 .get()
                 .then(function(querySnapshot) {
                     if (querySnapshot.empty == true) {
-                        console.log('no followers')
+                        //console.log('no followers')
                         caricato[0].step = caricato[0].step + 1
                     } else {
                         querySnapshot.forEach(function(doc) {
-                            console.log(doc.id, ' => ', doc.data())
+                            //console.log(doc.id, ' => ', doc.data())
                             var follower = {
                                 email: doc.id,
                                 username: doc.data().username,
@@ -332,7 +333,7 @@ export default {
                 .get()
                 .then(function(querySnapshot) {
                     if (querySnapshot.empty == true) {
-                        console.log('no following')
+                        //console.log('no following')
                         caricato[0].step = caricato[0].step + 1
                     } else {
                         querySnapshot.forEach(function(doc) {
@@ -352,63 +353,9 @@ export default {
                     console.log('Error getting document:', error)
                 })
         }
-        /*    if (this.user == null && this.$route.params.username == null) {
-            this.$router.replace({ name: 'login' })
-        } else if (this.usernameDB == this.$route.params.username) {
-            this.getUsername()
-            var email = this.user.email
-            var db = firebase.firestore()
-            var userData = db
-                .collection('utenti')
-                .doc(email)
-                .collection('seguiti')
-            var user2 = db
-                .collection('utenti')
-                .doc(email)
-                .collection('follower')
-            var followers = this.arrFollower
-            var following = this.arrSeguiti
-            var numSeguiti = this.numSeguiti
-            var numFollower = this.numFollower
-            userData
-                .get()
-                .then(function(querySnapshot) {
-                    if (querySnapshot.size == 0) {
-                        numSeguiti[0].n = 0
-                    } else {
-                        console.log(querySnapshot)
-                        querySnapshot.forEach(function(doc) {
-                            following.push(doc.data().mail)
-                        })
-                        numSeguiti[0].n = following.length
-                    }
-                })
-                .catch(function(error) {
-                    console.log('Error getting document:', error)
-                })
-            user2
-                .get()
-                .then(function(querySnapshot) {
-                    if (querySnapshot.size == 0) {
-                        numFollower[0].n = 0
-                    } else {
-                        querySnapshot.forEach(function(doc) {
-                            followers.push(doc.data().mail)
-                        })
-                        numFollower[0].n = followers.length
-                    }
-                })
-                .catch(function(error) {
-                    console.log('Error getting document:', error)
-                })*/
-        /* .then(() => this.switchFollowButton())*/
-
-        /* else {
-            this.username = this.$route.params.username
-            this.stay()
-        }*/
     },
     methods: {
+        //funzione per settare l'immagine profilo di default nel caso in cui l'utente non ne ha impostata una
         setDefaultPic(storage, src) {
             var pathReference = storage.ref('profile')
             pathReference
@@ -526,44 +473,9 @@ export default {
                     src.src = url
                 })
                 .then(() => this.update('', 'img'))
-            /*
-            //Metodo che se l'username è in uso non lo setta, altrimenti lo setta
-            if (mode == 'username') {
-                if (isPresent) {
-                    alert('Username già in uso')
-                } else {
-                    var db = firebase.firestore()
-                    var usr = this.newUsername
-                    var email = this.user.email
-                    var userData = db.collection('utenti').doc(email)
-                    userData
-                        .set({
-                            username: usr,
-                        })
-                        .then(() => this.update(usr, 'username'))
-                        .catch(function(error) {
-                            this.$emit('login', 'Qualcosa è andato storto, riprova')
-                            console.log(error)
-                        })
-                        .then(() => this.update(usr, 'username'))
-                }
-            } else {
-                var storage = firebase.storage()
-                var pathReference = storage.ref('profile')
-                var src = this.src
-                var username = this.usernameDB
-                pathReference
-                    .child('/' + username + '/profile.jpg')
-                    .getDownloadURL()
-                    .then(function(url) {
-                        src.src = url
-                    })
-                    .then(() => this.update('', 'img'))
-            }
-            */
         },
+        //Metodo usato all'inizio per prelevare l'username dal db
         getUsername() {
-            //Metodo usato all'inizio per prelevare l'username dal db
             var db = firebase.firestore()
             var email = this.user.email
             var userData = db.collection('utenti').doc(email)
@@ -585,26 +497,6 @@ export default {
                 this.username = usr
                 localStorage.setItem('username', this.username)
             }
-            /*
-            //Metodo per settare correttamente l'username e aggiornare la vista
-            if (mode == 'username') {
-                this.username = usr
-                localStorage.setItem('username', this.username)
-                this.$emit('login', 'Dati modificati correttamente')
-            } else if (mode == 'img') {
-                this.$emit('login', 'Dati modificati correttamente')
-            } else {
-                this.username = usr
-                localStorage.setItem('username', this.username)
-            }
-            */
-            //inserire snackbar di successo
-            /*
-            this.$router.replace({
-                name: 'profile',
-                params: { username: this.$store.state.username },
-            })
-            */
         },
         logoutRoute() {
             this.$router.replace({ name: 'home' })
@@ -627,119 +519,6 @@ export default {
                 this.loading = false
             }
         },
-        /*    stay() {
-            var db = firebase.firestore()
-            var usr = this.$route.params.username
-            var userData = db.collection('utenti')
-            var presente = true
-            userData
-                .where('username', '==', usr)
-                .get()
-                .then(function(querySnapshot) {
-                    if (querySnapshot.size == 0) {
-                        presente = false
-                    }
-                })
-                .catch(function(error) {
-                    console.log('Error getting document:', error)
-                })
-                .then(() => this.stay2(presente))
-        },
-        stay2(presente) {
-            if (presente == false) {
-                alert('Utente inesistente. Clicca Ok per tornare alla home.')
-                setTimeout(() => this.$router.replace({ name: 'home' }), 1000)
-            } else {
-                this.segui('tot')
-            }
-        },    */
-        /*    segui(mode) {
-            var db = firebase.firestore()
-            //var email = this.user.email
-            var username = this.$route.params.username
-            var emailFollow = ''
-            var userData = db.collection('utenti')
-            if (mode == 'f') {
-                userData.where('username', '==', username)
-                userData
-                    .get()
-                    .then(function(querySnapshot) {
-                        emailFollow = querySnapshot.docs[0].id
-                    })
-                    .catch(function(error) {
-                        console.log('Error getting document:', error)
-                    })
-                    .then(() => this.followUnfollow('f', emailFollow))
-            } else if (mode == 'u') {
-                userData.where('username', '==', username)
-                userData
-                    .get()
-                    .then(function(querySnapshot) {
-                        emailFollow = querySnapshot.docs[0].id
-                    })
-                    .catch(function(error) {
-                        console.log('Error getting document:', error)
-                    })
-                    .then(() => this.followUnfollow('u', emailFollow))
-            } else {
-                userData.where('username', '==', username)
-                userData
-                    .get()
-                    .then(function(querySnapshot) {
-                        emailFollow = querySnapshot.docs[0].id
-                    })
-                    .catch(function(error) {
-                        console.log('Error getting document:', error)
-                    })
-                    .then(() => this.fetchFollowEFollowers(emailFollow))
-            }
-        },
-        followUnfollow(mode, emailFollow) {
-            var db = firebase.firestore()
-            var email = this.user.email
-            var userData = db
-                .collection('utenti')
-                .doc(email)
-                .collection('seguiti')
-            var user2 = db
-                .collection('utenti')
-                .doc(emailFollow)
-                .collection('follower')
-            if (mode == 'f') {
-                userData.doc().set({ mail: emailFollow })
-                user2.doc().set({ mail: email })
-                this.seguito = true
-            } else {
-                userData.where('mail', '==', emailFollow)
-                userData.get().then(function(querySnapshot) {
-                    querySnapshot.forEach(function(doc) {
-                        doc.ref.delete()
-                    })
-                })
-                user2.where('mail', '==', email)
-                user2.get().then(function(querySnapshot) {
-                    querySnapshot.forEach(function(doc) {
-                        doc.ref.delete()
-                    })
-                })
-                this.seguito = false
-            }
-        },   */
-
-        /*     switchFollowButton() {
-            if (this.user != null) {
-                var trovato = false
-                var cont = 0
-                while (!trovato && cont < this.arrFollower.length) {
-                    if (this.arrFollower[cont] == this.user.email) {
-                        trovato = true
-                        this.seguito = true
-                    } else {
-                        cont++
-                    }
-                }
-            }
-        },  */
     },
 }
 </script>
@@ -749,7 +528,7 @@ export default {
     margin: 0 auto;
 }
 
-.centraRadius{
+.centraRadius {
     margin: 2em auto;
     border-radius: 1em;
 }

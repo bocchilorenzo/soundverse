@@ -21,20 +21,24 @@
 
                     <v-list>
                         <v-list-item @click="favourite()">
-                            <v-list-item-title v-if="preferito.isPreferito">Rimuovi dai preferiti</v-list-item-title>
+                            <v-list-item-title v-if="preferito.isPreferito"
+                                >Rimuovi dai preferiti</v-list-item-title
+                            >
                             <v-list-item-title v-else>Aggiungi ai preferiti</v-list-item-title>
                         </v-list-item>
                         <v-list-item @click="listened()">
-                            <v-list-item-title
-                                v-if="ascoltato.isAscoltato"
-                            >Rimuovi dagli album ascoltati</v-list-item-title>
+                            <v-list-item-title v-if="ascoltato.isAscoltato"
+                                >Rimuovi dagli album ascoltati</v-list-item-title
+                            >
                             <v-list-item-title v-else>Segna come ascoltato</v-list-item-title>
                         </v-list-item>
                         <v-list-item @click="toListen()">
-                            <v-list-item-title
-                                v-if="daAscoltare.isDaAscoltare"
-                            >Rimuovi dalla coda di ascolto</v-list-item-title>
-                            <v-list-item-title v-else>Aggiungi alla coda di ascolto</v-list-item-title>
+                            <v-list-item-title v-if="daAscoltare.isDaAscoltare"
+                                >Rimuovi dalla coda di ascolto</v-list-item-title
+                            >
+                            <v-list-item-title v-else
+                                >Aggiungi alla coda di ascolto</v-list-item-title
+                            >
                         </v-list-item>
                     </v-list>
                 </v-menu>
@@ -71,6 +75,7 @@ export default {
         }
     },
     methods: {
+        //controlla se l'album è negli ascoltati, da ascoltare o preferiti dell'utente attualmente loggato
         check() {
             var id = this.albumArray.albumId
             var ascoltato = this.ascoltato
@@ -118,6 +123,7 @@ export default {
                     console.log('Error getting document:', error)
                 })
         },
+        //aggiunge l'album agli ascoltati del'utente attualmente loggato
         listened() {
             var db = firebase.firestore()
             var email = this.user.email
@@ -143,6 +149,7 @@ export default {
                 this.$emit('snack', 'Aggiunto agli ascoltati')
             }
         },
+        //aggiunge l'album ai da ascoltare del'utente attualmente loggato
         toListen() {
             var db = firebase.firestore()
             var email = this.user.email
@@ -168,6 +175,7 @@ export default {
                 this.$emit('snack', 'Aggiunto alla coda di ascolto')
             }
         },
+        //aggiunge l'album ai preferiti dell'utente attualmente loggato
         favourite() {
             var db = firebase.firestore()
             var email = this.user.email
