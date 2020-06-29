@@ -7,9 +7,7 @@
                     <v-btn class="mx-2 mb-2" color="primary" @click="cambiaTema()">Tema {{temaBtn}}</v-btn>
                 </v-col>
                 <v-col class="col-10 centrata">
-                    <h3>
-                        Informazioni
-                    </h3>
+                    <h3>Informazioni</h3>
                 </v-col>
                 <v-col class="col-9 centrata">
                     <h4>
@@ -41,19 +39,33 @@
             <v-divider></v-divider>
             <v-row>
                 <v-col class="col-9 centrata">
-                    <span>Tecnologie utilizzate:</span>
+                    <span>API utilizzate:</span>
+
+                    <ul>
+                        <li>
+                            <v-img
+                                v-if="this.$vuetify.theme.dark"
+                                src="../assets/Deezer_Logo_RVB_White.svg"
+                                width="100px"
+                            ></v-img>
+                            <v-img v-else src="../assets/Deezer_Logo_RVB_Black.svg" width="100px"></v-img>
+                        </li>
+                        <li>
+                            <a target="_blank" href="https://www.last.fm/api/">Last.fm API</a>
+                        </li>
+                    </ul>
+                </v-col>
+            </v-row>
+            <v-divider></v-divider>
+            <v-row>
+                <v-col class="col-9 centrata">
+                    <span>Altre tecnologie:</span>
                     <ul>
                         <li>
                             <a target="_blank" href="https://vuejs.org/">Vue JS</a>
                         </li>
                         <li>
                             <a target="_blank" href="https://vuetifyjs.com/en/">Vuetify</a>
-                        </li>
-                        <li>
-                            <a target="_blank" href="https://developers.deezer.com/api">Deezer API</a>
-                        </li>
-                        <li>
-                            <a target="_blank" href="https://www.last.fm/api/">Last.fm API</a>
                         </li>
                         <li>
                             <a target="_blank" href="https://firebase.google.com/">Firebase</a>
@@ -98,7 +110,7 @@ export default {
     },
     created: function() {
         this.$emit('toggleBurger', 'home')
-        this.$emit('brand', "Impostazioni")
+        this.$emit('brand', 'Impostazioni')
         if (this.tema == true) {
             this.temaBtn = 'chiaro'
         } else {
@@ -124,7 +136,7 @@ export default {
     margin: 0 auto;
 }
 
-.centraRadius{
+.centraRadius {
     margin: 2em auto;
     border-radius: 1em;
 }

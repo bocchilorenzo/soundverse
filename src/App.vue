@@ -106,12 +106,13 @@
                 :class="{ marginforplayer: show }"
             ></router-view>
             -->
-            <v-snackbar v-model="snackbar" color="primary" :timeout="timeout">
+            <v-snackbar v-model="snackbar" :timeout="timeout">
                 {{ text }}
                 <template>
                     <v-btn
                         style="position:absolute; right: 0; top: 5px"
                         text
+                        color="primary"
                         @click="snackbar = false"
                     >Chiudi</v-btn>
                 </template>
@@ -245,7 +246,7 @@ export default {
 <style>
 html {
     --scrollbarBG: #37474f;
-    --thumbBG: #00acc1;
+    --thumbBG: #3769c8;
 }
 body::-webkit-scrollbar {
     width: 12px;

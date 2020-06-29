@@ -8,17 +8,18 @@ export default new Vuetify({
     theme: {
         themes: {
             light: {
-                primary: colors.cyan.darken1,
+                primary: '#3769c8',
+                primaryCard: "#7196fc",
                 danger: colors.red,
-                secondary: colors.grey.darken1,
-                accent: colors.shades.black,
+                secondary: "#2d96c8",
                 error: colors.red.accent3,
-                sheet: colors.cyan.lighten5
+                sheet: "#d1ebff"
             },
             dark: {
-                primary: colors.cyan.darken1,
+                primary: '#3769c8',
+                primaryCard: "#001a68",
                 danger: colors.red,
-                secondary: colors.cyan,
+                secondary: "#2d96c8",
                 sheet: colors.grey.darken4
             },
         },

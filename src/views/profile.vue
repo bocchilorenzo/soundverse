@@ -97,7 +97,7 @@
             </v-row>
         </v-sheet>
         <v-sheet v-else class="pa-2 centraRadius" width="80%" color="sheet">
-            <v-dialog v-model="dialogSeguiti" scrollable max-width="300px">
+            <v-dialog v-model="dialogSeguiti" scrollable max-width="300px" overlay-color="secondary">
                 <v-card>
                     <v-card-title>Seguiti</v-card-title>
                     <v-divider></v-divider>
@@ -127,7 +127,7 @@
                     </v-card-actions>
                 </v-card>
             </v-dialog>
-            <v-dialog v-model="dialogFollower" scrollable max-width="300px">
+            <v-dialog v-model="dialogFollower" scrollable max-width="300px" overlay-color="secondary">
                 <v-card>
                     <v-card-title>Follower</v-card-title>
                     <v-divider></v-divider>
