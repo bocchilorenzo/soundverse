@@ -48,8 +48,8 @@ export default {
             if (this.dati.email == this.utente.email) {
                 this.profiloMio = true
             }
-            this.updateImgUser()
         }
+        this.updateImgUser()
     },
     methods: {
         //Preleva l'immagine dell'utente cercato

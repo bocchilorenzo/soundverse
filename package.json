@@ -8,6 +8,7 @@
         "lint": "vue-cli-service lint"
     },
     "dependencies": {
+        "array-move": "^2.2.2",
         "axios": "^0.19.2",
         "axios-jsonp": "^1.0.4",
         "core-js": "^3.6.4",

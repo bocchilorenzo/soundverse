@@ -27,12 +27,7 @@
                             ></v-skeleton-loader>
                         </v-row>
                         <v-row class="ma-2">
-                            <v-skeleton-loader
-                                ref="skeleton"
-                                type="text"
-                                width="50em"
-                                class="mx-0"
-                            ></v-skeleton-loader>
+                            <v-skeleton-loader ref="skeleton" type="text" width="50em" class="mx-0"></v-skeleton-loader>
                         </v-row>
                         <v-row class="ma-2">
                             <v-skeleton-loader
@@ -45,12 +40,7 @@
                         <br />
                     </div>
                     <div v-else class="d-flex flex-row" style="width: 100%">
-                        <v-skeleton-loader
-                            ref="skeleton"
-                            type="image"
-                            width="300px"
-                            class="mx-0"
-                        ></v-skeleton-loader>
+                        <v-skeleton-loader ref="skeleton" type="image" width="300px" class="mx-0"></v-skeleton-loader>
                         <v-row class="ml-3 pt-2 d-flex flex-row" align="center" style="width:100%">
                             <v-col class="ma-2 col-12">
                                 <v-skeleton-loader
@@ -82,12 +72,7 @@
                 <br />
                 <v-row style="width:100%" class="mx-0">
                     <v-col class="centrata col-12">
-                        <v-sheet
-                            width="100%"
-                            height="300px"
-                            color="sheet"
-                            class="centraRadius"
-                        ></v-sheet>
+                        <v-sheet width="100%" height="300px" color="sheet" class="centraRadius"></v-sheet>
                     </v-col>
                 </v-row>
             </v-col>
@@ -141,9 +126,7 @@
                         class="d-flex justify-end align-start flex-column col-12"
                     >
                         <h1>{{ infoAlbum[0].title }}</h1>
-                        <v-chip small v-if="infoAlbum[0].explicit" disabled class="my-1"
-                            >Esplicito</v-chip
-                        >
+                        <v-chip small v-if="infoAlbum[0].explicit" disabled class="my-1">Esplicito</v-chip>
                         <router-link
                             :to="{
                                 name: 'artist',
@@ -158,9 +141,7 @@
                         <ul class="info-list">
                             <li class="infoAlbumMain">Tracce: {{ infoAlbum[0].numberOfTracks }}</li>
                             <li class="infoAlbum">Data uscita: {{ infoAlbum[0].releaseDate }}</li>
-                            <li class="infoAlbum">
-                                Voto utenti: {{ infoAlbum[0].voto.toFixed(2) }}
-                            </li>
+                            <li class="infoAlbum">Voto utenti: {{ infoAlbum[0].voto.toFixed(2) }}</li>
                         </ul>
                         <v-row justify="space-around" no-gutters>
                             <v-col class="pa-0 my-2" align-self="start">
@@ -177,22 +158,22 @@
                                             size="50"
                                             v-if="daAscoltare.isDaAscoltare"
                                             color="blue"
-                                            >mdi-book-remove-multiple</v-icon
-                                        >
-                                        <v-icon size="50" v-else color="grey"
-                                            >mdi-book-plus-multiple-outline</v-icon
-                                        >
+                                        >mdi-book-remove-multiple</v-icon>
+                                        <v-icon
+                                            size="50"
+                                            v-else
+                                            color="grey"
+                                        >mdi-book-plus-multiple-outline</v-icon>
                                     </v-btn>
                                 </v-row>
                                 <p
                                     class="zeroMargine font-weight-light caption text-center"
                                     v-if="daAscoltare.isDaAscoltare"
-                                >
-                                    Rimuovi dagli album da ascoltare
-                                </p>
-                                <p v-else class="zeroMargine font-weight-light caption text-center">
-                                    Aggiungi agli album da ascoltare
-                                </p>
+                                >Rimuovi dagli album da ascoltare</p>
+                                <p
+                                    v-else
+                                    class="zeroMargine font-weight-light caption text-center"
+                                >Aggiungi agli album da ascoltare</p>
                             </v-col>
                             <v-col class="pa-0 my-2" align-self="start">
                                 <v-row justify="center">
@@ -204,23 +185,26 @@
                                         :loading="loading2"
                                         :disabled="loading2 || user == null"
                                     >
-                                        <v-icon size="50" v-if="ascoltato.isAscoltato" color="green"
-                                            >mdi-folder-music</v-icon
-                                        >
-                                        <v-icon size="50" v-else color="grey"
-                                            >mdi-folder-music-outline</v-icon
-                                        >
+                                        <v-icon
+                                            size="50"
+                                            v-if="ascoltato.isAscoltato"
+                                            color="green"
+                                        >mdi-folder-music</v-icon>
+                                        <v-icon
+                                            size="50"
+                                            v-else
+                                            color="grey"
+                                        >mdi-folder-music-outline</v-icon>
                                     </v-btn>
                                 </v-row>
                                 <p
                                     class="zeroMargine font-weight-light caption text-center"
                                     v-if="ascoltato.isAscoltato"
-                                >
-                                    Rimuovi dagli ascoltati
-                                </p>
-                                <p v-else class="zeroMargine font-weight-light caption text-center">
-                                    Aggiungi agli ascoltati
-                                </p>
+                                >Rimuovi dagli ascoltati</p>
+                                <p
+                                    v-else
+                                    class="zeroMargine font-weight-light caption text-center"
+                                >Aggiungi agli ascoltati</p>
                             </v-col>
                             <v-col class="pa-0 my-2" align-self="start">
                                 <v-row justify="center">
@@ -232,23 +216,22 @@
                                         :loading="loading3"
                                         :disabled="loading3 || user == null"
                                     >
-                                        <v-icon size="50" color="pink" v-if="preferito.isPreferito"
-                                            >mdi-heart</v-icon
-                                        >
-                                        <v-icon color="grey" size="50" v-else
-                                            >mdi-heart-outline</v-icon
-                                        >
+                                        <v-icon
+                                            size="50"
+                                            color="pink"
+                                            v-if="preferito.isPreferito"
+                                        >mdi-heart</v-icon>
+                                        <v-icon color="grey" size="50" v-else>mdi-heart-outline</v-icon>
                                     </v-btn>
                                 </v-row>
                                 <p
                                     class="zeroMargine font-weight-light caption text-center"
                                     v-if="preferito.isPreferito"
-                                >
-                                    Rimuovi dai preferiti
-                                </p>
-                                <p v-else class="zeroMargine font-weight-light caption text-center">
-                                    Aggiungi ai preferiti
-                                </p>
+                                >Rimuovi dai preferiti</p>
+                                <p
+                                    v-else
+                                    class="zeroMargine font-weight-light caption text-center"
+                                >Aggiungi ai preferiti</p>
                             </v-col>
                         </v-row>
                         <v-row justify="center" no-gutters>
@@ -285,19 +268,14 @@
             </v-col>
             <v-col cols="12">
                 <h2 class="mx-2" style="display: inline;">Recensioni</h2>
+                <v-btn
+                    color="primary"
+                    class="mx-2"
+                    @click="dialog = true"
+                    :disabled="user == null"
+                    style="display: inline; float: right"
+                >{{btnTxt}}</v-btn>
                 <v-dialog v-model="dialog" max-width="600px" overlay-color="secondary">
-                    <template v-slot:activator="{ on, attrs }">
-                        <v-btn
-                            color="primary"
-                            class="mx-2"
-                            style="display: inline; float: right"
-                            dark
-                            :disabled="user == null"
-                            v-bind="attrs"
-                            v-on="on"
-                            >Scrivi</v-btn
-                        >
-                    </template>
                     <v-card>
                         <v-card-text>
                             <v-container>
@@ -316,7 +294,7 @@
                         </v-card-text>
                         <v-card-actions>
                             <v-spacer></v-spacer>
-                            <v-btn color="danger" text @click="dialog = false">Chiudi</v-btn>
+                            <v-btn color="danger" text @click="dialog = false">Annulla</v-btn>
                             <v-btn color="primary" text @click="save_review">Salva</v-btn>
                         </v-card-actions>
                     </v-card>
@@ -327,6 +305,7 @@
                         :key="review.recensione"
                         flat
                         class="mt-2 mx-2"
+                        color="sheet"
                     >
                         <v-card-text>
                             <div class="mb-2 d-flex flex-column">
@@ -347,10 +326,7 @@
                         </v-card-text>
                     </v-card>
                     <div class="text-center">
-                        <v-pagination
-                            v-model="page"
-                            :length="Math.ceil(reviews.length / 5)"
-                        ></v-pagination>
+                        <v-pagination v-model="page" :length="Math.ceil(reviews.length / 5)"></v-pagination>
                     </div>
                 </div>
                 <div v-else class="d-flex justify-center">
@@ -367,9 +343,10 @@
                                 d="M20 12A8 8 0 1 0 12 20A8 8 0 0 0 20 12M22 12A10 10 0 1 1 12 2A10 10 0 0 1 22 12M15.5 8A1.5 1.5 0 1 1 14 9.5A1.54 1.54 0 0 1 15.5 8M10 9.5A1.5 1.5 0 1 1 8.5 8A1.54 1.54 0 0 1 10 9.5M17 15H13A4 4 0 0 0 9.53 17L7.8 16A6 6 0 0 1 13 13H17Z"
                             />
                         </svg>
-                        <p class="centrata" style="width: 60%; text-align: center">
-                            Nessuna recensione.
-                        </p>
+                        <p
+                            class="centrata"
+                            style="width: 60%; text-align: center"
+                        >Nessuna recensione.</p>
                     </v-container>
                 </div>
             </v-col>
@@ -381,6 +358,8 @@
 import firebase from 'firebase'
 import axios from 'axios'
 import jsonpAdapter from 'axios-jsonp'
+const arrayMove = require('array-move')
+
 export default {
     name: 'albumInformation',
     data() {
@@ -406,6 +385,7 @@ export default {
             page: 1,
             reviewPage: [],
             cursor: 0,
+            btnTxt: 'Scrivi',
         }
     },
 
@@ -475,6 +455,7 @@ export default {
             window.scrollTo(0, 0)
         },
         checkAdded() {
+            this.getReviews()
             if (this.user != null) {
                 var id = this.$route.params.id
                 var ascoltato = this.ascoltato
@@ -485,7 +466,6 @@ export default {
                 var preferito = this.preferito
                 var db = firebase.firestore()
                 var userData = db.collection('utenti').doc(this.user.email)
-                this.getReviews()
                 //controlla se l'album è negli ascoltati dell'utente
                 userData
                     .collection('ascoltati')
@@ -524,7 +504,6 @@ export default {
                     .then(function(doc) {
                         if (doc.exists) {
                             preferito.isPreferito = true
-                            console.log('è tra i preferiti')
                         }
                     })
                     .catch(function(error) {
@@ -612,39 +591,86 @@ export default {
                 this.$emit('login', 'Aggiunto ai preferiti')
             }
         },
-        //salva la recensione dell'album con timestamp e nome utente
+        //salva la recensione dell'album con timestamp e nome utente, oppure preleva l'id per modificarla
         save_review() {
             var db = firebase.firestore()
             var recensioneTmp = this.recensione
             var mail = this.user.email
             var id = this.$route.params.id
             var time = Date.now()
-            var review = db
+            if (this.btnTxt == 'Scrivi') {
+                let review = db
+                    .collection('album')
+                    .doc(id.toString())
+                    .collection('reviews')
+
+                review
+                    .add({
+                        utente: mail,
+                        recensione: recensioneTmp,
+                        timestamp: time,
+                    })
+                    .then(() => this.emitta('Recensione inserita', 'mod'))
+                    .catch(() => this.emitta("Errore nell'aggiunta"))
+                var rec = {
+                    utente: this.username,
+                    recensione: recensioneTmp,
+                    timestamp: this.timeConverter(time),
+                }
+                this.reviews.unshift(rec)
+                this.reviewPage.pop()
+                this.reviewPage.unshift(rec)
+                this.dialog = false
+            } else {
+                var docId = ['']
+                let review = db
+                    .collection('album')
+                    .doc(id.toString())
+                    .collection('reviews')
+                review
+                    .where('utente', '==', this.user.email)
+                    .get()
+                    .then(function(querySnapshot) {
+                        querySnapshot.forEach(function(doc) {
+                            docId[0] = doc.id
+                        })
+                    })
+                    .then(() => this.modificaReview(docId))
+            }
+        },
+        //modifica la recensione dell'utente
+        modificaReview(docId) {
+            var db = firebase.firestore()
+            var recensioneTmp = this.recensione
+            var id = this.$route.params.id
+            var time = Date.now()
+            let review = db
                 .collection('album')
                 .doc(id.toString())
                 .collection('reviews')
+                .doc(docId[0])
             review
-                .add({
-                    utente: mail,
-                    recensione: recensioneTmp,
-                    timestamp: time,
-                })
-                .then(function() {
-                    this.$emit('login', 'Recensione inserita')
-                })
-                .catch(function(error) {
-                    this.$emit('login', "Errore nell'aggiunta")
-                    console.log('Error: ', error)
-                })
-            var rec = {
+                .update({ recensione: recensioneTmp, timestamp: time })
+                .then(() => this.emitta('Recensione modificata'))
+                .catch(() => this.emitta('Errore nella modifica'))
+
+            var rec1 = {
                 utente: this.username,
                 recensione: recensioneTmp,
                 timestamp: this.timeConverter(time),
             }
-            this.reviews.unshift(rec)
-            this.reviewPage.pop()
-            this.reviewPage.unshift(rec)
+
+            this.reviews.shift()
+            this.reviews.unshift(rec1)
+            this.reviewPage.shift()
+            this.reviewPage.unshift(rec1)
             this.dialog = false
+        },
+        emitta(msg, mode) {
+            if (mode == 'mod') {
+                this.btnTxt = 'Modifica'
+            }
+            this.$emit('login', msg)
         },
         //preleva le review dell'album da firebase
         getReviews() {
@@ -666,9 +692,23 @@ export default {
                 .catch(function(error) {
                     console.log('Error getting documents: ', error)
                 })
+                .then(() => this.checkCurrentUserReview())
                 .then(() => this.emailToUsername())
+                .then(() => this.checkModifica())
                 .finally(() => this.paginateReviews())
         },
+        //Controlla se l'utente corrente ha fatto o meno una recensione per l'album
+        checkModifica() {
+            if (this.user != null) {
+                for (var i = 0; i < this.reviews.length; i++) {
+                    if (this.reviews[i].utente == this.user.email) {
+                        this.btnTxt = 'Modifica'
+                        this.recensione = this.reviews[i].recensione
+                    }
+                }
+            }
+        },
+        //Converte da email a username
         emailToUsername() {
             var db = firebase.firestore()
             var userData = db.collection('utenti')
@@ -699,6 +739,17 @@ export default {
                     this.reviews[i].utente = usernameArr[i].username
                 }
                 this.loading = false
+            }
+        },
+        //sposta al primo posto delle recensioni la recensione dell'utente corrente (se c'è)
+        checkCurrentUserReview() {
+            if (this.user != null) {
+                for (var i = 0; i < this.reviews.length; i++) {
+                    if (this.reviews[i].utente == this.user.email) {
+                        arrayMove.mutate(this.reviews, i, 0)
+                        break
+                    }
+                }
             }
         },
         //Metodo per convertire la data da timestamp al formato GG-MM-AAAA HH:MM:SS
