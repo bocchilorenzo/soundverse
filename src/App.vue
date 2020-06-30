@@ -67,12 +67,12 @@
             </v-list>
         </v-navigation-drawer>
 
-        <v-app-bar app flat color="primary" :dark="tema" :hide-on-scroll="breakpoint == 'xs'">
+        <v-app-bar app flat color="primary" dark :hide-on-scroll="breakpoint == 'xs'">
             <v-app-bar-nav-icon v-if="burger" @click.stop="drawer = !drawer" />
             <v-app-bar-nav-icon v-else @click.stop="navigateBack()">
                 <v-icon>mdi-arrow-left</v-icon>
             </v-app-bar-nav-icon>
-            <v-toolbar-title class="mr-5">{{branding}}</v-toolbar-title>
+            <v-toolbar-title class="mr-5">{{ branding }}</v-toolbar-title>
             <v-spacer />
             <searchBar />
             <v-btn icon @click="profile()" class="ml-3">
@@ -102,7 +102,8 @@
                         text
                         color="primary"
                         @click="snackbar = false"
-                    >Chiudi</v-btn>
+                        >Chiudi</v-btn
+                    >
                 </template>
             </v-snackbar>
             <musicPlayer :file="file" class="player" v-if="show" v-on:hide="hide" />
