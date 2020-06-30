@@ -85,6 +85,7 @@ export default {
             const bottomOfPage = visible + scrollY >= pageHeight
             return bottomOfPage || pageHeight < visible
         },
+        //Controlla se ci sono duplicati di un certo album
         checkDuplicati(albumId) {
             var trovato = false
             for (var j = 0; j < this.arrayRisultatiNew.length; j++) {
@@ -98,6 +99,7 @@ export default {
             }
             return trovato
         },
+        //Aggiunge gli album dalla playlist
         addAlbums() {
             var call = null
             if (this.type == 'playlist') {

@@ -20,6 +20,7 @@ export default {
         }
     },
     methods: {
+        //Avvia la ricerca
         search() {
             var pathName = this.$route.name
             //se la query è valida aggiorna la view con parametro l'input dell'utente

@@ -16,6 +16,7 @@
             />
         </v-col>
     </v-row>
+    <!--Vecchio carousel, era un vero carousel ma che abbiamo eliminato per problemi di layout e usabilità-->
     <!--
         <v-sheet class="mx-auto my-2" cols="12" max-width="1500px">
             <h2 class="ma-2" @click="visualizzaLista(albumArray)">{{ albumArray[0] }}</h2>

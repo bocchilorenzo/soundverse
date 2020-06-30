@@ -36,9 +36,7 @@
                                 </small>
                             </p>
                             <v-spacer />
-                            <v-btn class="mx-2 mb-2" color="primary" @click="loginFirebase()"
-                                >Login</v-btn
-                            >
+                            <v-btn class="mx-2 mb-2" color="primary" @click="loginFirebase()">Login</v-btn>
                         </v-card-actions>
                     </v-card>
                 </v-col>
@@ -96,9 +94,11 @@
                                 </small>
                             </p>
                             <v-spacer />
-                            <v-btn class="mx-2 mb-2" color="primary" @click="modUsername()"
-                                >Registrati</v-btn
-                            >
+                            <v-btn
+                                class="mx-2 mb-2"
+                                color="primary"
+                                @click="modUsername()"
+                            >Registrati</v-btn>
                         </v-card-actions>
                     </v-card>
                 </v-col>
@@ -136,9 +136,11 @@ export default {
         this.$emit('brand', '')
     },
     methods: {
+        //Reindirizza alla registrazione
         signup() {
             this.$router.replace({ name: 'signup' })
         },
+        //Esegue il login
         async loginFirebase() {
             try {
                 await firebase.auth().signInWithEmailAndPassword(this.email, this.password)
@@ -150,6 +152,7 @@ export default {
                 alert('Oops. ' + err.message)
             }
         },
+        //Imposta l'username localmente
         setUsername() {
             var db = firebase.firestore()
             var email = JSON.parse(localStorage.getItem('user')).email
@@ -165,9 +168,11 @@ export default {
                     console.log('Error getting document:', error)
                 })
         },
+        //Reindirizza al login
         login() {
             this.$router.replace({ name: 'login' })
         },
+        //Esegue la registrazione
         async signUpFirebase() {
             try {
                 await firebase.auth().createUserWithEmailAndPassword(this.email, this.password)
@@ -184,7 +189,6 @@ export default {
                     })
                     .then(function() {
                         localStorage.setItem('username', usr)
-                        //this.$store.commit('updateUsernameSetFB')
                     })
                     .catch(function(error) {
                         console.log('Qualcosa è andato storto, riprova')
@@ -202,7 +206,6 @@ export default {
                     .child('/' + usr + '/' + 'profile.jpg')
                     .put(file, metadata)
                     .then(() => this.fine())
-                //this.$emit('updateUser', firebase.auth().currentUser)
             } catch (err) {
                 alert('Oops. ' + err.message)
             }
@@ -210,8 +213,8 @@ export default {
         fine() {
             this.$router.replace({ name: 'home' })
         },
+        //Metodo che controlla se l'username è vuoto o meno e se è già presente nel db
         async modUsername() {
-            //Metodo che controlla se l'username è vuoto o meno e se è già presente nel db
             if (this.username == '' || this.username[0] == ' ') {
                 alert('Il campo username non deve essere vuoto')
             } else {
@@ -223,7 +226,6 @@ export default {
                     .get()
                     .then(function(querySnapshot) {
                         querySnapshot.forEach(function(doc) {
-                            // doc.data() is never undefined for query doc snapshots
                             if (doc.data().username == usr) {
                                 isPresent = true
                             }
@@ -235,8 +237,8 @@ export default {
                     .then(() => this.setUsernameSignup(isPresent))
             }
         },
+        //Metodo che se l'username è in uso non lo setta, altrimenti lo setta
         setUsernameSignup(isPresent) {
-            //Metodo che se l'username è in uso non lo setta, altrimenti lo setta
             if (isPresent) {
                 alert('Username già in uso')
             } else {

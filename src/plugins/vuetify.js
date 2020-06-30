@@ -9,7 +9,8 @@ export default new Vuetify({
         themes: {
             light: {
                 primary: '#3769c8',
-                primaryCard: "#7196fc",
+                //primaryCard: "#7196fc",
+                primaryCard: '#c1d5ff',
                 danger: colors.red,
                 secondary: "#2d96c8",
                 error: colors.red.accent3,
@@ -17,7 +18,8 @@ export default new Vuetify({
             },
             dark: {
                 primary: '#3769c8',
-                primaryCard: "#001a68",
+                //primaryCard: "#001a68",
+                primaryCard: '#182e57',
                 danger: colors.red,
                 secondary: "#2d96c8",
                 sheet: colors.grey.darken4

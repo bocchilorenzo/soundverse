@@ -21,6 +21,7 @@ export default {
         }
     },
     methods: {
+        //Chiude il player
         audioFinish() {
             this.$emit('hide', this.hidePlayer)
         },

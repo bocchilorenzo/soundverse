@@ -88,15 +88,18 @@ export default {
         this.addAlbums()
     },
     methods: {
+        //Ricolloca lo scrolling all'inizio
         scrollToTop() {
             window.scrollTo(0, 0)
         },
+        //Effettua il routing alla view per la lista passando l'id
         visualizzaLista(id) {
             this.$router.push({
                 name: 'list',
                 params: { type: 'new', lista: id },
             })
         },
+        //Preleva gli album dalle API
         addAlbums() {
             axios
                 .all([

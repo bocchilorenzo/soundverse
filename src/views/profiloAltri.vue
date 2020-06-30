@@ -324,6 +324,7 @@ export default {
         this.$emit('toggleBurger', 'freccia')
         this.$emit('brand', '')
         this.scrollToTop()
+        //Preleva l'immagine di profilo dallo storage
         var storage = firebase.storage()
         var pathReference = storage.ref('profile')
         var src = this.src
@@ -361,6 +362,7 @@ export default {
         snackMsg(msg) {
             this.$emit('login', msg)
         },
+        //Se l'immagine non esiste, allora preleva quella di default
         setDefaultPic(storage, src) {
             var pathReference = storage.ref('profile')
             pathReference
@@ -373,6 +375,7 @@ export default {
         scrollToTop() {
             window.scrollTo(0, 0)
         },
+        //Se l'utente esiste ne preleva le informazioni dal DB
         checkInfo() {
             if (this.esiste.esiste == false) {
                 this.loading = false
@@ -481,7 +484,6 @@ export default {
                     .then(function(querySnapshot) {
                         if (querySnapshot.empty == false) {
                             querySnapshot.forEach(function(doc) {
-                                //console.log(doc.id, ' => ', doc.data())
                                 var album = {
                                     albumId: doc.id,
                                     titolo: doc.data().titolo,
@@ -525,7 +527,6 @@ export default {
                     .then(function(querySnapshot) {
                         if (querySnapshot.empty == false) {
                             querySnapshot.forEach(function(doc) {
-                                //console.log(doc.id, ' => ', doc.data())
                                 var album = {
                                     albumId: doc.id,
                                     titolo: doc.data().titolo,

@@ -52,6 +52,7 @@ export default {
         }
     },
     methods: {
+        //Preleva l'immagine dell'utente cercato
         updateImgUser() {
             var storage = firebase.storage()
             var pathReference = storage.ref('profile')
@@ -65,6 +66,7 @@ export default {
                 })
                 .catch(() => this.setDefaultPic(storage, src))
         },
+        //Se l'utente non ha un'immagine, imposta quella di default
         setDefaultPic(storage, src) {
             var pathReference = storage.ref('profile')
             pathReference

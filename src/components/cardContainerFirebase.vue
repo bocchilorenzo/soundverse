@@ -40,6 +40,7 @@ export default {
         this.addAlbums()
     },
     methods: {
+        //Aggiunge gli album all'array
         addAlbums() {
             if (this.stop == false) {
                 if (this.idArray.length < 15) {
@@ -72,6 +73,7 @@ export default {
                 //this.loading = false
             }
         },
+        //Controlla se siamo arrivati alla fine della pagina
         bottomVisible() {
             const scrollY = window.scrollY
             const visible = document.documentElement.clientHeight
@@ -85,22 +87,6 @@ export default {
         snackMsg(msg) {
             this.$emit('login', msg)
         },
-        /*
-        compareValues(key, order = 'asc') {
-            return function innerSort(a, b) {
-                const varA = typeof a[key] === 'string' ? a[key].toUpperCase() : a[key]
-                const varB = typeof b[key] === 'string' ? b[key].toUpperCase() : b[key]
-
-                let comparison = 0
-                if (varA > varB) {
-                    comparison = 1
-                } else if (varA < varB) {
-                    comparison = -1
-                }
-                return order === 'desc' ? comparison * -1 : comparison
-            }
-        },
-        */
     },
     watch: {
         bottom(bottom) {

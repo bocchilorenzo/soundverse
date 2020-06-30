@@ -20,12 +20,7 @@
                         ></v-skeleton-loader>
                     </div>
                     <div v-else class="d-flex flex-row">
-                        <v-skeleton-loader
-                            ref="skeleton"
-                            type="image"
-                            width="300px"
-                            class="mx-0"
-                        ></v-skeleton-loader>
+                        <v-skeleton-loader ref="skeleton" type="image" width="300px" class="mx-0"></v-skeleton-loader>
                         <v-row class="ml-3 pt-2 d-flex flex-row" align="center">
                             <v-col class="ma-2 col-12">
                                 <v-skeleton-loader
@@ -56,20 +51,10 @@
                     </div>
                 </v-row>
                 <v-row class="ma-2">
-                    <v-skeleton-loader
-                        ref="skeleton"
-                        type="heading"
-                        width="50em"
-                        class="mx-0"
-                    ></v-skeleton-loader>
+                    <v-skeleton-loader ref="skeleton" type="heading" width="50em" class="mx-0"></v-skeleton-loader>
                 </v-row>
                 <v-row class="ma-2">
-                    <v-skeleton-loader
-                        ref="skeleton"
-                        type="heading"
-                        width="50em"
-                        class="mx-0"
-                    ></v-skeleton-loader>
+                    <v-skeleton-loader ref="skeleton" type="heading" width="50em" class="mx-0"></v-skeleton-loader>
                 </v-row>
                 <br />
                 <v-row
@@ -90,12 +75,7 @@
                     "
                 />
                 <v-row class="ma-2">
-                    <v-skeleton-loader
-                        ref="skeleton"
-                        type="text"
-                        width="100px"
-                        class="mx-0"
-                    ></v-skeleton-loader>
+                    <v-skeleton-loader ref="skeleton" type="text" width="100px" class="mx-0"></v-skeleton-loader>
                 </v-row>
                 <v-row align="center" no-gutters>
                     <v-col v-for="n in 6" :key="n" lg="2" md="3" sm="4" class="pb-3 px-1 col-6">
@@ -271,6 +251,7 @@ export default {
         this.$emit('brand', '')
         this.scrollToTop()
         this.id = this.$route.params.artista
+        //EventListener per attivare lo scrolling infinito
         window.addEventListener('scroll', () => {
             this.bottom = this.bottomVisible()
         })
@@ -280,13 +261,11 @@ export default {
         snackMsg(msg) {
             this.$emit('login', msg)
         },
+        //Ricolloca lo scrolling all'inizio
         scrollToTop() {
             window.scrollTo(0, 0)
         },
-        aggiorna() {
-            this.id = this.$route.params.artista
-            this.updateInfoArtista()
-        },
+        //Controllo se si è arrivati o meno alla fine della pagina
         bottomVisible() {
             const scrollY = window.scrollY
             const visible = document.documentElement.clientHeight
@@ -294,6 +273,7 @@ export default {
             const bottomOfPage = visible + scrollY >= pageHeight
             return bottomOfPage || pageHeight < visible
         },
+        //Preleva le informazioni dell'artista dalle API
         updateInfoArtista() {
             if (this.stop == false) {
                 axios({
@@ -309,25 +289,26 @@ export default {
                                 share: response.data.share,
                             }
                             this.artistInfo.push(artistData)
+                            //Vecchio metodo per prelevare i correlati dalle api, restituisce CORS quindi abbiamo deciso di usare altre API
                             /*
-                        axios.defaults.headers.post['Content-Type'] ='application/x-www-form-urlencoded';
-                        axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
-                        axios
-                            .get(
-                                'https://api.deezer.com/artist/' + this.id + '/related&output=jsonp'
-                            )
-                            .then(response2 => {
-                                for (var i = 0; i < 5; i++) {
-                                    var artistData2 = {
-                                        artistId: response2.data.data[i].id,
-                                        name: response2.data.data[i].name,
-                                        artistImage: response2.data.data[i].picture_medium,
+                            axios.defaults.headers.post['Content-Type'] ='application/x-www-form-urlencoded';
+                            axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
+                            axios
+                                .get(
+                                    'https://api.deezer.com/artist/' + this.id + '/related&output=jsonp'
+                                )
+                                .then(response2 => {
+                                    for (var i = 0; i < 5; i++) {
+                                        var artistData2 = {
+                                            artistId: response2.data.data[i].id,
+                                            name: response2.data.data[i].name,
+                                            artistImage: response2.data.data[i].picture_medium,
+                                        }
+                                        this.simili.push(artistData2)
                                     }
-                                    this.simili.push(artistData2)
-                                }
-                            })
-                            .catch(error => console.log(error))
-                            .finally(() => (this.caricatiSimili = true))
+                                })
+                                .catch(error => console.log(error))
+                                .finally(() => (this.caricatiSimili = true))
                             */
                             var nome = this.artistInfo[0].name
                             nome = encodeURIComponent(nome.trim())
@@ -355,6 +336,7 @@ export default {
                     .finally(() => this.updateInfoAlbum())
             }
         },
+        //Preleva le informazioni per gli artisti simili dalle API, confronta i dati delle due API per sapere se tenere o meno un artista
         updateSimili() {
             axios
                 .all([
@@ -475,6 +457,7 @@ export default {
                 .catch(error => console.log(error))
                 .finally(() => (this.caricatiSimili = true))
         },
+        //Se un artista non è stato trovato su Deezer, viene rimosso dall'array
         rimuoviVuoti() {
             var i = 0
             while (i < this.simili.length) {
@@ -486,7 +469,7 @@ export default {
                 }
             }
         },
-        //chiama gli album dell'artista con scroll infinito
+        //Chiama gli album dell'artista con scroll infinito
         updateInfoAlbum() {
             if (this.stop == false) {
                 axios({
@@ -507,7 +490,7 @@ export default {
                                     cover: response.data.data[i].cover_medium,
                                     artist: artist.name,
                                     albumId: response.data.data[i].id,
-                                    albumLink: response.data.data[i].link, //questo non servirà poi, è solo per testare ora
+                                    albumLink: response.data.data[i].link,
                                 }
                                 this.albums.push(albumsData)
                             }
@@ -529,6 +512,7 @@ export default {
             }
         },
     },
+    //Ogni volta che si raggiunge il fondo vengono aggiunti altri album
     watch: {
         bottom(bottom) {
             if (bottom) {

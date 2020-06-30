@@ -27,7 +27,7 @@ export default {
     props: { arrayRisultati: Array },
     components: { albumCard },
     methods: {
-        //metodo da usare per rimuovere l'album dall'array
+        //Metodo da usare per rimuovere l'album dall'array
         rimuoviElemento(id) {
             this.$emit('delete', id)
         },

@@ -56,9 +56,11 @@ export default {
         this.$emit('brand', "Generi")
     },
     methods: {
+        //Ricolloca lo scrolling all'inizio
         scrollToTop() {
             window.scrollTo(0, 0)
         },
+        //Preleva i generi dalle API
         addGenres() {
             if (this.stop == false) {
                 axios({
@@ -91,6 +93,7 @@ export default {
                 this.loading = false
             }
         },
+        //Esegue la route al genere selezionato
         selezionaGenere(id) {
             this.$router.push({
                 name: 'genere',

@@ -21,43 +21,19 @@
                     ></v-skeleton-loader>
                 </v-col>
                 <v-col class="col-9 centrata">
-                    <v-skeleton-loader
-                        ref="skeleton"
-                        type="text"
-                        width="100px"
-                        class="my-2"
-                    ></v-skeleton-loader>
+                    <v-skeleton-loader ref="skeleton" type="text" width="100px" class="my-2"></v-skeleton-loader>
                 </v-col>
                 <v-col class="col-9 centrata">
-                    <v-skeleton-loader
-                        ref="skeleton"
-                        type="text"
-                        width="100px"
-                        class="my-2"
-                    ></v-skeleton-loader>
+                    <v-skeleton-loader ref="skeleton" type="text" width="100px" class="my-2"></v-skeleton-loader>
                 </v-col>
                 <v-col class="col-9 centrata">
-                    <v-skeleton-loader
-                        ref="skeleton"
-                        type="text"
-                        width="100px"
-                        class="my-2"
-                    ></v-skeleton-loader>
+                    <v-skeleton-loader ref="skeleton" type="text" width="100px" class="my-2"></v-skeleton-loader>
                 </v-col>
                 <v-col class="col-9 centrata">
-                    <v-skeleton-loader
-                        ref="skeleton"
-                        type="text"
-                        width="100px"
-                        class="my-2"
-                    ></v-skeleton-loader>
+                    <v-skeleton-loader ref="skeleton" type="text" width="100px" class="my-2"></v-skeleton-loader>
                 </v-col>
                 <v-col class="col-9 centrata">
-                    <v-skeleton-loader
-                        ref="skeleton"
-                        type="button"
-                        class="my-2"
-                    ></v-skeleton-loader>
+                    <v-skeleton-loader ref="skeleton" type="button" class="my-2"></v-skeleton-loader>
                 </v-col>
             </v-row>
             <v-divider></v-divider>
@@ -72,32 +48,23 @@
                     ></v-skeleton-loader>
                 </v-col>
                 <v-col class="col-9 centrata">
-                    <v-skeleton-loader
-                        ref="skeleton"
-                        type="text"
-                        width="100px"
-                        class="my-2"
-                    ></v-skeleton-loader>
+                    <v-skeleton-loader ref="skeleton" type="text" width="100px" class="my-2"></v-skeleton-loader>
                 </v-col>
                 <v-col class="col-9 centrata">
-                    <v-skeleton-loader
-                        ref="skeleton"
-                        type="text"
-                        width="100px"
-                        class="my-2"
-                    ></v-skeleton-loader>
+                    <v-skeleton-loader ref="skeleton" type="text" width="100px" class="my-2"></v-skeleton-loader>
                 </v-col>
                 <v-col class="col-9 centrata">
-                    <v-skeleton-loader
-                        ref="skeleton"
-                        type="button"
-                        class="my-2"
-                    ></v-skeleton-loader>
+                    <v-skeleton-loader ref="skeleton" type="button" class="my-2"></v-skeleton-loader>
                 </v-col>
             </v-row>
         </v-sheet>
         <v-sheet v-else class="pa-2 centraRadius" width="80%" color="sheet">
-            <v-dialog v-model="dialogSeguiti" scrollable max-width="300px" overlay-color="secondary">
+            <v-dialog
+                v-model="dialogSeguiti"
+                scrollable
+                max-width="300px"
+                overlay-color="secondary"
+            >
                 <v-card>
                     <v-card-title>Seguiti</v-card-title>
                     <v-divider></v-divider>
@@ -113,7 +80,7 @@
                             >
                                 <svg style="width:150px;height:150px;" viewBox="0 0 24 24">
                                     <path
-                                        fill="currentColor"
+                                        fill="2d96c8"
                                         d="M12,4A4,4 0 0,1 16,8C16,9.95 14.6,11.58 12.75,11.93L8.07,7.25C8.42,5.4 10.05,4 12,4M12.28,14L18.28,20L20,21.72L18.73,23L15.73,20H4V18C4,16.16 6.5,14.61 9.87,14.14L2.78,7.05L4.05,5.78L12.28,14M20,18V19.18L15.14,14.32C18,14.93 20,16.35 20,18Z"
                                     />
                                 </svg>
@@ -127,7 +94,12 @@
                     </v-card-actions>
                 </v-card>
             </v-dialog>
-            <v-dialog v-model="dialogFollower" scrollable max-width="300px" overlay-color="secondary">
+            <v-dialog
+                v-model="dialogFollower"
+                scrollable
+                max-width="300px"
+                overlay-color="secondary"
+            >
                 <v-card>
                     <v-card-title>Follower</v-card-title>
                     <v-divider></v-divider>
@@ -143,7 +115,7 @@
                             >
                                 <svg style="width:150px;height:150px;" viewBox="0 0 24 24">
                                     <path
-                                        fill="currentColor"
+                                        fill="2d96c8"
                                         d="M12,4A4,4 0 0,1 16,8C16,9.95 14.6,11.58 12.75,11.93L8.07,7.25C8.42,5.4 10.05,4 12,4M12.28,14L18.28,20L20,21.72L18.73,23L15.73,20H4V18C4,16.16 6.5,14.61 9.87,14.14L2.78,7.05L4.05,5.78L12.28,14M20,18V19.18L15.14,14.32C18,14.93 20,16.35 20,18Z"
                                     />
                                 </svg>
@@ -225,7 +197,7 @@
                 </v-col>
                 <v-col class="col-9 centrata">
                     <v-form ref="form">
-                        <v-btn color="primary" @click="modUsername()">Modifica</v-btn>
+                        <v-btn color="primary" @click="modifica()">Modifica</v-btn>
                     </v-form>
                 </v-col>
             </v-row>
@@ -365,10 +337,12 @@ export default {
                     src.src = url
                 })
         },
+        //Ricolloca lo scrolling all'inizio
         scrollToTop() {
             window.scrollTo(0, 0)
         },
-        modUsername() {
+        //Modifica l'immagine di profilo, prima modificava anche l'username ma avremmo avuto problemi con lo storage
+        modifica() {
             //var db = firebase.firestore()
             var storage = firebase.storage()
             var pathReference = storage.ref('profile')
@@ -461,6 +435,7 @@ export default {
             }
             */
         },
+        //Imposta la nuova src per l'immagine
         set(/*isPresent, mode*/) {
             var storage = firebase.storage()
             var pathReference = storage.ref('profile')
@@ -490,6 +465,7 @@ export default {
                 })
                 .then(() => this.update(usr, 'initial'))
         },
+        //Aggiorna l'username all'inizio e poi esegue un emit per la snackbar in caso di cambio immagine
         update(usr, mode) {
             if (mode == 'img') {
                 this.$emit('login', 'Immagine modificata correttamente')
@@ -498,9 +474,7 @@ export default {
                 localStorage.setItem('username', this.username)
             }
         },
-        logoutRoute() {
-            this.$router.replace({ name: 'home' })
-        },
+        //Esegue il logout
         async logout() {
             try {
                 await firebase.auth().signOut()

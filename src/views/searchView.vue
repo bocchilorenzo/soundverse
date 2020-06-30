@@ -199,6 +199,7 @@ export default {
         scrollToTop() {
             window.scrollTo(0, 0)
         },
+        //Controlla se l'album esiste già
         checkDuplicati(albumId) {
             var trovato = false
             for (var j = 0; j < this.albums.length; j++) {
@@ -264,7 +265,6 @@ export default {
                                     cover: response.data.data[i]['cover_medium'],
                                     artist: response.data.data[i].artist['name'],
                                     albumId: response.data.data[i]['id'],
-                                    albumLink: response.data.data[i]['link'], //questo non servirà poi, è solo per testare ora
                                     explicit: response.data.data[i]['explicit_lyrics'],
                                 }
                                 tmp = this.checkDuplicati(risultati.albumId)

@@ -94,18 +94,6 @@
                 v-on:brand="changeBrand"
                 v-on:toggleBurger="toggleBurger"
             ></router-view>
-            <!--
-            <router-view
-                :key="$route.fullPath"
-                :albumSearch="albumSearch"
-                :artistsSearch="artistsSearch"
-                :arrayRisultati="arrayRisultati"
-                v-on:play="play"
-                v-on:updateUser="updateUser"
-                v-on:updateLista2="prop"
-                :class="{ marginforplayer: show }"
-            ></router-view>
-            -->
             <v-snackbar v-model="snackbar" :timeout="timeout">
                 {{ text }}
                 <template>
@@ -151,10 +139,10 @@ export default {
             hidebar: false,
             tema: true,
             burger: true,
-            firstTime: 0
         }
     },
     created: function() {
+        //Imposta il tema in base a ciò che è salvato nello storage
         if (localStorage.getItem('dark') == null) {
             this.$vuetify.theme.dark = true
             this.tema = true
@@ -168,7 +156,7 @@ export default {
             }
         }
         this.currentUser = JSON.parse(localStorage.getItem('user'))
-        //a seconda del breakpoint il drawer è aperto o chiuso di default
+        //A seconda del breakpoint il drawer è aperto o chiuso di default
         switch (this.breakpoint) {
             case 'xs':
                 this.drawer = false
@@ -191,16 +179,11 @@ export default {
         this.currentUser = JSON.parse(localStorage.getItem('user'))
     },
     methods: {
+        //Torna indietro nella cronologia
         navigateBack() {
-            if (document.referrer == '' && this.firstTime == 0) {
-                this.$router.push({
-                    name: 'home',
-                })
-                this.firstTime = 1
-            } else {
-                this.$router.go(-1)
-            }
+            this.$router.go(-1)
         },
+        //Cambia tra freccia e burger per il menu laterale
         toggleBurger(mode) {
             if (mode == 'freccia') {
                 this.burger = false
@@ -208,17 +191,21 @@ export default {
                 this.burger = true
             }
         },
+        //Imposta il branding nella navbar
         changeBrand(brand) {
             this.branding = brand
         },
+        //Modifica il tema da chiaro a scuro e viceversa
         toggleTema() {
             this.$vuetify.theme.dark = !this.$vuetify.theme.dark
             localStorage.setItem('dark', this.$vuetify.theme.dark)
         },
+        //Mostra la snackbar con il messaggio che riceve
         snackLogin(msg) {
             this.text = msg
             this.snackbar = true
         },
+        //Fa partire la riproduzione del brano
         play(link) {
             this.show = true
             this.file = link
@@ -226,6 +213,7 @@ export default {
         hide(bool) {
             this.show = bool
         },
+        //Se l'utente è nulla reindirizza al login, altrimenti al profilo personale
         profile() {
             if (this.currentUser == null) {
                 this.$router.push({

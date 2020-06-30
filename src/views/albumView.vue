@@ -281,11 +281,6 @@
                         >Scrivi</v-btn>
                     </template>
                     <v-card>
-                        <!--
-                    <v-card-title>
-                        <span class="headline">Recensione</span>
-                    </v-card-title>
-                        -->
                         <v-card-text>
                             <v-container>
                                 <v-row>
@@ -391,51 +386,54 @@ export default {
         this.$emit('toggleBurger', 'freccia')
         this.$emit('brand', '')
         this.scrollToTop()
-        var id = this.$route.params.id
-        //preleva le info dell'artista tramite chiamata API
-        axios({
-            url: 'https://api.deezer.com/album/' + id + '&output=jsonp',
-            adapter: jsonpAdapter,
-        })
-            .then(response => {
-                if (response.data.error == undefined) {
-                    var albumData = {
-                        title: response.data.title,
-                        cover: response.data.cover_big,
-                        cover_medium: response.data.cover_medium,
-                        artist: response.data.artist['name'],
-                        genre: response.data.genres['data'][0]['name'],
-                        genreId: response.data.genres['data'][0][id],
-                        numberOfTracks: response.data.nb_tracks,
-                        explicit: response.data.explicit_lyrics,
-                        releaseDate: response.data.release_date,
-                        artistId: response.data.artist['id'],
-                        artistPicture: response.data.artist['picture_medium'],
-                        share: response.data.share,
-                        trackList: [],
-                        voto: 0,
-                        numVoti: 0,
-                    }
-                    for (var i = 0; i < response.data.tracks['data'].length; i++) {
-                        albumData.trackList[i] = {
-                            songId: response.data.tracks['data'][i]['id'],
-                            songTitle: response.data.tracks['data'][i]['title'],
-                            songPreview: response.data.tracks['data'][i]['preview'],
-                        }
-                    }
-                    this.infoAlbum.push(albumData)
-                } else {
-                    this.esiste.esiste = false
-                }
-            })
-            .catch(error => {
-                console.log(error)
-                this.errored = true
-            })
-            .then(() => this.getVotoMedio())
-            .finally(() => this.checkAdded())
+        this.getAlbum()
     },
     methods: {
+        //Preleva le info dell'album tramite chiamata API
+        getAlbum() {
+            var id = this.$route.params.id
+            axios({
+                url: 'https://api.deezer.com/album/' + id + '&output=jsonp',
+                adapter: jsonpAdapter,
+            })
+                .then(response => {
+                    if (response.data.error == undefined) {
+                        var albumData = {
+                            title: response.data.title,
+                            cover: response.data.cover_big,
+                            cover_medium: response.data.cover_medium,
+                            artist: response.data.artist['name'],
+                            genre: response.data.genres['data'][0]['name'],
+                            genreId: response.data.genres['data'][0][id],
+                            numberOfTracks: response.data.nb_tracks,
+                            explicit: response.data.explicit_lyrics,
+                            releaseDate: response.data.release_date,
+                            artistId: response.data.artist['id'],
+                            artistPicture: response.data.artist['picture_medium'],
+                            share: response.data.share,
+                            trackList: [],
+                            voto: 0,
+                            numVoti: 0,
+                        }
+                        for (var i = 0; i < response.data.tracks['data'].length; i++) {
+                            albumData.trackList[i] = {
+                                songId: response.data.tracks['data'][i]['id'],
+                                songTitle: response.data.tracks['data'][i]['title'],
+                                songPreview: response.data.tracks['data'][i]['preview'],
+                            }
+                        }
+                        this.infoAlbum.push(albumData)
+                    } else {
+                        this.esiste.esiste = false
+                    }
+                })
+                .catch(error => {
+                    console.log(error)
+                    this.errored = true
+                })
+                .then(() => this.getVotoMedio())
+                .finally(() => this.checkAdded())
+        },
         scrollToTop() {
             window.scrollTo(0, 0)
         },
