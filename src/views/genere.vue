@@ -51,7 +51,12 @@
                 <h2 class="ma-2">Ultime uscite</h2>
                 <carousel :albumArray="uscite" :inizio="0" :fine="10" />
                 <div class="my-2">
-                    <v-btn text color="primary" @click="visualizzaLista(id)">Visualizza tutti</v-btn>
+                    <v-btn
+                        text
+                        color="primary"
+                        @click="visualizzaLista(id)"
+                        name="Visualizza tutti"
+                    >Visualizza tutti</v-btn>
                 </div>
                 <br />
                 <h2 class="ma-2">Selezione Deezer</h2>

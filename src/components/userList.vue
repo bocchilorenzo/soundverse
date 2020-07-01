@@ -10,7 +10,7 @@
     >
         <v-list-item class="mx-2">
             <v-list-item-avatar>
-                <v-img :src="src.src"></v-img>
+                <v-img :src="src.src" alt="Immagine utente"></v-img>
             </v-list-item-avatar>
             <v-list-item-content>
                 <v-list-item-title>{{ dati.username }}</v-list-item-title>
@@ -22,7 +22,7 @@
         }">
         <v-list-item class="mx-2">
             <v-list-item-avatar>
-                <v-img :src="src.src"></v-img>
+                <v-img :src="src.src" alt="Immagine utente"></v-img>
             </v-list-item-avatar>
             <v-list-item-content>
                 <v-list-item-title>{{ dati.username }}</v-list-item-title>

@@ -75,7 +75,7 @@
             <v-toolbar-title class="mr-5">{{ branding }}</v-toolbar-title>
             <v-spacer />
             <searchBar />
-            <v-btn icon @click="profile()" class="ml-3">
+            <v-btn icon @click="profile()" class="ml-3" name="Pulsante account o login">
                 <v-icon dark>mdi-account-circle</v-icon>
             </v-btn>
         </v-app-bar>
@@ -102,6 +102,7 @@
                         text
                         color="primary"
                         @click="snackbar = false"
+                        name="Pulsante chiudi"
                         >Chiudi</v-btn
                     >
                 </template>

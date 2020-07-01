@@ -36,7 +36,12 @@
                                 </small>
                             </p>
                             <v-spacer />
-                            <v-btn class="mx-2 mb-2" color="primary" @click="loginFirebase()">Login</v-btn>
+                            <v-btn
+                                class="mx-2 mb-2"
+                                color="primary"
+                                @click="loginFirebase()"
+                                name="Pulsante login"
+                            >Login</v-btn>
                         </v-card-actions>
                     </v-card>
                 </v-col>
@@ -98,6 +103,7 @@
                                 class="mx-2 mb-2"
                                 color="primary"
                                 @click="modUsername()"
+                                name="Pulsante registrazione"
                             >Registrati</v-btn>
                         </v-card-actions>
                     </v-card>

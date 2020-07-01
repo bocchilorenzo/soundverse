@@ -99,6 +99,7 @@
                             class="align-center rounded centrata"
                             :src="infoAlbum[0].cover"
                             width="90%"
+                            alt="Cover album"
                         ></v-img>
                         <a target="_blank" :href="infoAlbum[0].share">
                             <v-img
@@ -108,6 +109,7 @@
                                 style="margin:1em auto 0;"
                                 width="40%"
                                 min-width="18px"
+                                alt="Ascolta su Deezer"
                             ></v-img>
                             <v-img
                                 v-else
@@ -116,6 +118,7 @@
                                 style="margin:1em auto 0;"
                                 width="40%"
                                 min-width="18px"
+                                alt="Ascolta su Deezer"
                             ></v-img>
                         </a>
                     </v-col>
@@ -153,6 +156,7 @@
                                         width="50"
                                         :loading="loading1"
                                         :disabled="loading1 || user == null"
+                                        name="Pulsante da ascoltare"
                                     >
                                         <v-icon
                                             size="50"
@@ -184,6 +188,7 @@
                                         width="50"
                                         :loading="loading2"
                                         :disabled="loading2 || user == null"
+                                        name="Pulsante ascoltati"
                                     >
                                         <v-icon
                                             size="50"
@@ -215,6 +220,7 @@
                                         width="50"
                                         :loading="loading3"
                                         :disabled="loading3 || user == null"
+                                        name="Pulsante preferiti"
                                     >
                                         <v-icon
                                             size="50"
@@ -274,6 +280,7 @@
                     @click="dialog = true"
                     :disabled="user == null"
                     style="display: inline; float: right"
+                    name="Scrivi recensione"
                 >{{btnTxt}}</v-btn>
                 <v-dialog v-model="dialog" max-width="600px" overlay-color="secondary">
                     <v-card>
@@ -294,8 +301,18 @@
                         </v-card-text>
                         <v-card-actions>
                             <v-spacer></v-spacer>
-                            <v-btn color="danger" text @click="dialog = false">Annulla</v-btn>
-                            <v-btn color="primary" text @click="save_review">Salva</v-btn>
+                            <v-btn
+                                color="danger"
+                                text
+                                @click="dialog = false"
+                                name="Pulsante annulla"
+                            >Annulla</v-btn>
+                            <v-btn
+                                color="primary"
+                                text
+                                @click="save_review"
+                                name="Pulsante salva"
+                            >Salva</v-btn>
                         </v-card-actions>
                     </v-card>
                 </v-dialog>

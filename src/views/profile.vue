@@ -90,7 +90,12 @@
                     </v-card-text>
                     <v-divider></v-divider>
                     <v-card-actions>
-                        <v-btn color="danger" text @click="dialogSeguiti = false">Close</v-btn>
+                        <v-btn
+                            color="danger"
+                            text
+                            @click="dialogSeguiti = false"
+                            name="Chiudi dialog"
+                        >Chiudi</v-btn>
                     </v-card-actions>
                 </v-card>
             </v-dialog>
@@ -125,7 +130,12 @@
                     </v-card-text>
                     <v-divider></v-divider>
                     <v-card-actions>
-                        <v-btn color="danger" text @click="dialogFollower = false">Close</v-btn>
+                        <v-btn
+                            color="danger"
+                            text
+                            @click="dialogFollower = false"
+                            name="Chiudi dialog"
+                        >Chiudi</v-btn>
                     </v-card-actions>
                 </v-card>
             </v-dialog>
@@ -170,7 +180,7 @@
                 </v-col>
                 <v-col class="col-9 centrata">
                     <v-form ref="form">
-                        <v-btn color="danger" @click="logout()">Logout</v-btn>
+                        <v-btn color="danger" @click="logout()" name="Effettua logout">Logout</v-btn>
                     </v-form>
                 </v-col>
             </v-row>
@@ -197,7 +207,11 @@
                 </v-col>
                 <v-col class="col-9 centrata">
                     <v-form ref="form">
-                        <v-btn color="primary" @click="modifica()">Modifica</v-btn>
+                        <v-btn
+                            color="primary"
+                            @click="modifica()"
+                            name="Modifica informazioni"
+                        >Modifica</v-btn>
                     </v-form>
                 </v-col>
             </v-row>

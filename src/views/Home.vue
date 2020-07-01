@@ -26,6 +26,7 @@
                     text
                     color="primary"
                     @click="visualizzaLista(worldAlbumArray)"
+                    name="Visualizza tutti World"
                 >Visualizza tutti</v-btn>
             </div>
             <br />
@@ -36,13 +37,19 @@
                     text
                     color="primary"
                     @click="visualizzaLista(italyAlbumArray)"
+                    name="Visualizza tutti Italy"
                 >Visualizza tutti</v-btn>
             </div>
             <br />
             <h2 class="ma-2">{{ hitsArray[0] }}</h2>
             <carousel :albumArray="hitsArray" :inizio="2" :fine="8" v-on:login="snackMsg" />
             <div class="my-2">
-                <v-btn text color="primary" @click="visualizzaLista(hitsArray)">Visualizza tutti</v-btn>
+                <v-btn
+                    text
+                    color="primary"
+                    @click="visualizzaLista(hitsArray)"
+                    name="Visualizza tutti Hits"
+                >Visualizza tutti</v-btn>
             </div>
             <br />
         </div>

@@ -1,5 +1,5 @@
 <template>
-    <v-row align="center" id="carousel" no-gutters>
+    <v-row align="center" no-gutters>
         <v-col
             lg="2"
             md="3"

@@ -4,7 +4,12 @@
             <v-row>
                 <v-col class="col-9 centrata">
                     <span>Cambia colore del tema</span>
-                    <v-btn class="mx-2 mb-2" color="primary" @click="cambiaTema()">Tema {{temaBtn}}</v-btn>
+                    <v-btn
+                        class="mx-2 mb-2"
+                        color="primary"
+                        @click="cambiaTema()"
+                        name="Cambia tema"
+                    >Tema {{temaBtn}}</v-btn>
                 </v-col>
                 <v-col class="col-10 centrata">
                     <h3>Informazioni</h3>
@@ -47,8 +52,14 @@
                                 v-if="this.$vuetify.theme.dark"
                                 src="../assets/Deezer_Logo_RVB_White.svg"
                                 width="100px"
+                                alt="Logo Deezer White"
                             ></v-img>
-                            <v-img v-else src="../assets/Deezer_Logo_RVB_Black.svg" width="100px"></v-img>
+                            <v-img
+                                v-else
+                                src="../assets/Deezer_Logo_RVB_Black.svg"
+                                width="100px"
+                                alt="Logo Deezer Black"
+                            ></v-img>
                         </li>
                         <li>
                             <a target="_blank" href="https://www.last.fm/api/">Last.fm API</a>

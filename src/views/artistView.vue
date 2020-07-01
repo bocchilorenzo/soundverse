@@ -108,6 +108,7 @@
                             class="align-center rounded centrata"
                             :src="artistInfo[0].picture"
                             width="90%"
+                            alt="Immagine artista"
                         ></v-img>
                         <div
                             v-if="
@@ -132,6 +133,7 @@
                                     style="margin:1em auto 0;"
                                     width="40%"
                                     min-width="18px"
+                                    alt="Ascolta su Deezer"
                                 ></v-img>
                                 <v-img
                                     v-else
@@ -140,6 +142,7 @@
                                     style="margin:1em auto 0;"
                                     width="40%"
                                     min-width="18px"
+                                    alt="Ascolta su Deezer"
                                 ></v-img>
                             </a>
                         </div>

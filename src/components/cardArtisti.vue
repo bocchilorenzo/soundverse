@@ -9,6 +9,7 @@
                 :src="artistArray.artistImage"
                 style="border-radius:50%"
                 :elevation="hover ? 10 : 2"
+                alt="Immagine artista"
             ></v-img>
         </v-hover>
 
@@ -24,6 +25,7 @@
                 :src="artistArray.artistImage"
                 style="border-radius:50%"
                 :elevation="hover ? 10 : 2"
+                alt="Immagine artista"
             ></v-img>
         </v-hover>
 

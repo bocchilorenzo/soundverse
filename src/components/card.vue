@@ -15,12 +15,12 @@
                     props: true,
                 }"
             >
-                <v-img class="align-end" :src="albumArray.cover"></v-img>
+                <v-img class="align-end" :src="albumArray.cover" alt="Cover album"></v-img>
             </router-link>
             <v-card-actions v-if="user != null" style="position: absolute; top: 0; right: 0;">
                 <v-menu bottom right transition="slide-y-transition" :offset-y="offsety">
                     <template v-slot:activator="{ on }">
-                        <v-btn small fab v-on="on" @click="check()">
+                        <v-btn small fab v-on="on" @click="check()" name="Pulsante menu">
                             <v-icon>mdi-dots-vertical</v-icon>
                         </v-btn>
                     </template>
