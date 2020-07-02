@@ -11,6 +11,7 @@
 </template>
 
 <script>
+import stripHtml from "string-strip-html";
 export default {
     name: 'searchBar',
     data() {
@@ -22,13 +23,15 @@ export default {
     methods: {
         //Avvia la ricerca
         search() {
+            var query = ""
             var pathName = this.$route.name
             //se la query è valida aggiorna la view con parametro l'input dell'utente
             if (pathName != 'search') {
                 if (this.input != '' && this.input.length > 1) {
+                    query = stripHtml(this.input)
                     this.$router.push({
                         name: 'search',
-                        params: { q: this.input },
+                        params: { q: query },
                     })
                     this.prevInput = this.input
                 } else {
@@ -36,11 +39,12 @@ export default {
                 }
             } else {
                 if (this.input != '' && this.prevInput != this.input && this.input.length > 1) {
+                    query = stripHtml(this.input)
                     this.$router.replace({
                         name: 'search',
-                        params: { q: this.input },
+                        params: { q: query },
                     })
-                    this.prevInput = this.input
+                    this.prevInput = query
                 } else {
                     console.log('Query non valida o campo vuoto. Riprova')
                 }

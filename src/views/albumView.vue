@@ -375,6 +375,7 @@
 import firebase from 'firebase'
 import axios from 'axios'
 import jsonpAdapter from 'axios-jsonp'
+import stripHtml from "string-strip-html";
 const arrayMove = require('array-move')
 
 export default {
@@ -611,7 +612,7 @@ export default {
         //salva la recensione dell'album con timestamp e nome utente, oppure preleva l'id per modificarla
         save_review() {
             var db = firebase.firestore()
-            var recensioneTmp = this.recensione
+            var recensioneTmp = stripHtml(this.recensione)
             var mail = this.user.email
             var id = this.$route.params.id
             var time = Date.now()
@@ -658,7 +659,7 @@ export default {
         //modifica la recensione dell'utente
         modificaReview(docId) {
             var db = firebase.firestore()
-            var recensioneTmp = this.recensione
+            var recensioneTmp = stripHtml(this.recensione)
             var id = this.$route.params.id
             var time = Date.now()
             let review = db
