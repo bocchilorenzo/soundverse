@@ -1,10 +1,10 @@
 <template>
     <div>
         <v-container v-if="type == 'login'" class="fill-height" fluid>
-            <formLogin />
+            <formLogin v-on:login="emitta" />
         </v-container>
         <v-container v-else class="fill-height" fluid>
-            <formSignup />
+            <formSignup v-on:login="emitta" />
         </v-container>
     </div>
 </template>
@@ -26,6 +26,11 @@ export default {
     components: {
         formLogin,
         formSignup,
+    },
+    methods: {
+        emitta(msg) {
+            this.$emit('login', msg)
+        },
     },
 }
 </script>

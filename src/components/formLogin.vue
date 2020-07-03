@@ -7,7 +7,7 @@
                     <v-spacer />
                 </v-toolbar>
                 <v-card-text>
-                    <v-form>
+                    <v-form ref="form">
                         <v-text-field
                             v-model="email"
                             :rules="emailRules"
@@ -39,8 +39,7 @@
                         color="primary"
                         @click="loginFirebase()"
                         name="Pulsante login"
-                        >Login</v-btn
-                    >
+                    >Login</v-btn>
                 </v-card-actions>
             </v-card>
         </v-col>
@@ -59,7 +58,7 @@ export default {
             passRules: [v => !!v || 'Password obbligatoria'],
             emailRules: [
                 v => !!v || 'E-mail obbligatoria',
-                v => /.+@.+\..+/.test(v) || 'La mail deve essere valida',
+                v => /.+@.+\..+/.test(v) || 'E-mail non valida',
             ],
         }
     },
@@ -70,18 +69,22 @@ export default {
         },
         //Esegue il login
         async loginFirebase() {
-            var cleanEmail = ''
-            var cleanPass = ''
-            try {
-                cleanEmail = stripHtml(this.email)
-                cleanPass = stripHtml(this.password)
-                await firebase.auth().signInWithEmailAndPassword(cleanEmail, cleanPass)
-                this.$emit('login', 'Login effettuato')
-                localStorage.setItem('user', JSON.stringify(firebase.auth().currentUser))
-                this.setUsername()
-                this.fine()
-            } catch (err) {
-                alert('Oops. ' + err.message)
+            if (this.$refs.form.validate()) {
+                var cleanEmail = ''
+                var cleanPass = ''
+                try {
+                    cleanEmail = stripHtml(this.email)
+                    cleanPass = stripHtml(this.password)
+                    await firebase.auth().signInWithEmailAndPassword(cleanEmail, cleanPass)
+                    this.$emit('login', 'Login effettuato')
+                    localStorage.setItem('user', JSON.stringify(firebase.auth().currentUser))
+                    this.setUsername()
+                    this.fine()
+                } catch (err) {
+                    this.$emit('login', 'Email o password errati. Riprova')
+                }
+            } else {
+                this.$emit('login', 'Uno o più campi non validi. Riprova')
             }
         },
         //Imposta l'username localmente

@@ -227,7 +227,7 @@ export default {
                 this.$router.push({
                     name: 'login',
                 })
-            } else {
+            } else if(this.$route.name != "profile"){
                 this.$router.push({
                     name: 'profile',
                 })

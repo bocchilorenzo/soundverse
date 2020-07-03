@@ -7,7 +7,7 @@
                     <v-spacer />
                 </v-toolbar>
                 <v-card-text>
-                    <v-form>
+                    <v-form ref="form">
                         <v-text-field
                             v-model="email"
                             :rules="emailRules"
@@ -21,8 +21,9 @@
                             label="Username*"
                             required
                             prepend-icon="mdi-account"
+                            counter="20"
+                            maxlength="20"
                         ></v-text-field>
-
                         <v-text-field
                             type="password"
                             v-model="password"
@@ -55,8 +56,14 @@
                         color="primary"
                         @click="modUsername()"
                         name="Pulsante registrazione"
-                        >Registrati</v-btn
-                    >
+                    >Registrati</v-btn>
+
+                    <v-btn
+                        class="mx-2 mb-2"
+                        color="primary"
+                        @click="prova()"
+                        name="Pulsante registrazione"
+                    >prova</v-btn>
                 </v-card-actions>
             </v-card>
         </v-col>
@@ -73,10 +80,13 @@ export default {
             email: '',
             password: '',
             username: '',
-            passRules: [v => !!v || 'Password obbligatoria'],
+            passRules: [
+                v => !!v || 'Password obbligatoria',
+                v => (v && v.length >= 6) || 'Almeno 6 caratteri',
+            ],
             emailRules: [
                 v => !!v || 'E-mail obbligatoria',
-                v => /.+@.+\..+/.test(v) || 'La mail deve essere valida',
+                v => /.+@.+\..+/.test(v) || 'E-mail non valida',
             ],
             rules: [
                 value =>
@@ -87,6 +97,9 @@ export default {
         }
     },
     methods: {
+        prova() {
+            console.log(this.emailRules[0])
+        },
         //Reindirizza al login
         login() {
             this.$router.replace({ name: 'login' })
@@ -130,7 +143,7 @@ export default {
                     .put(file, metadata)
                     .then(() => this.fine())
             } catch (err) {
-                alert('Oops. ' + err.message)
+                this.$emit('login', 'Email già utilizzata. Riprova')
             }
         },
         fine() {
@@ -138,32 +151,36 @@ export default {
         },
         //Metodo che controlla se l'username è vuoto o meno e se è già presente nel db
         async modUsername() {
-            if (this.username == '' || this.username[0] == ' ') {
-                alert('Il campo username non deve essere vuoto')
-            } else {
-                var db = firebase.firestore()
-                var usr = stripHtml(this.username)
-                var userData = db.collection('utenti')
-                var isPresent = false
-                userData
-                    .get()
-                    .then(function(querySnapshot) {
-                        querySnapshot.forEach(function(doc) {
-                            if (doc.data().username == usr) {
-                                isPresent = true
-                            }
+            if (this.$refs.form.validate()) {
+                if (this.username == '' || this.username[0] == ' ') {
+                    this.$emit('login', 'Il campo username non deve essere vuoto')
+                } else {
+                    var db = firebase.firestore()
+                    var usr = stripHtml(this.username)
+                    var userData = db.collection('utenti')
+                    var isPresent = false
+                    userData
+                        .get()
+                        .then(function(querySnapshot) {
+                            querySnapshot.forEach(function(doc) {
+                                if (doc.data().username == usr) {
+                                    isPresent = true
+                                }
+                            })
                         })
-                    })
-                    .catch(function(error) {
-                        console.log('Error getting document:', error)
-                    })
-                    .then(() => this.setUsernameSignup(isPresent))
+                        .catch(function(error) {
+                            console.log('Error getting document:', error)
+                        })
+                        .then(() => this.setUsernameSignup(isPresent))
+                }
+            } else {
+                this.$emit('login', 'Uno o più campi non validi. Riprova')
             }
         },
         //Metodo che se l'username è in uso non lo setta, altrimenti lo setta
         setUsernameSignup(isPresent) {
             if (isPresent) {
-                alert('Username già in uso')
+                this.$emit('login', 'Username già in uso')
             } else {
                 this.signUpFirebase()
             }

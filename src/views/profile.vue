@@ -21,43 +21,19 @@
                     ></v-skeleton-loader>
                 </v-col>
                 <v-col class="col-9 centrata">
-                    <v-skeleton-loader
-                        ref="skeleton"
-                        type="text"
-                        width="100px"
-                        class="my-2"
-                    ></v-skeleton-loader>
+                    <v-skeleton-loader ref="skeleton" type="text" width="100px" class="my-2"></v-skeleton-loader>
                 </v-col>
                 <v-col class="col-9 centrata">
-                    <v-skeleton-loader
-                        ref="skeleton"
-                        type="text"
-                        width="100px"
-                        class="my-2"
-                    ></v-skeleton-loader>
+                    <v-skeleton-loader ref="skeleton" type="text" width="100px" class="my-2"></v-skeleton-loader>
                 </v-col>
                 <v-col class="col-9 centrata">
-                    <v-skeleton-loader
-                        ref="skeleton"
-                        type="text"
-                        width="100px"
-                        class="my-2"
-                    ></v-skeleton-loader>
+                    <v-skeleton-loader ref="skeleton" type="text" width="100px" class="my-2"></v-skeleton-loader>
                 </v-col>
                 <v-col class="col-9 centrata">
-                    <v-skeleton-loader
-                        ref="skeleton"
-                        type="text"
-                        width="100px"
-                        class="my-2"
-                    ></v-skeleton-loader>
+                    <v-skeleton-loader ref="skeleton" type="text" width="100px" class="my-2"></v-skeleton-loader>
                 </v-col>
                 <v-col class="col-9 centrata">
-                    <v-skeleton-loader
-                        ref="skeleton"
-                        type="button"
-                        class="my-2"
-                    ></v-skeleton-loader>
+                    <v-skeleton-loader ref="skeleton" type="button" class="my-2"></v-skeleton-loader>
                 </v-col>
             </v-row>
             <v-divider></v-divider>
@@ -72,27 +48,13 @@
                     ></v-skeleton-loader>
                 </v-col>
                 <v-col class="col-9 centrata">
-                    <v-skeleton-loader
-                        ref="skeleton"
-                        type="text"
-                        width="100px"
-                        class="my-2"
-                    ></v-skeleton-loader>
+                    <v-skeleton-loader ref="skeleton" type="text" width="100px" class="my-2"></v-skeleton-loader>
                 </v-col>
                 <v-col class="col-9 centrata">
-                    <v-skeleton-loader
-                        ref="skeleton"
-                        type="text"
-                        width="100px"
-                        class="my-2"
-                    ></v-skeleton-loader>
+                    <v-skeleton-loader ref="skeleton" type="text" width="100px" class="my-2"></v-skeleton-loader>
                 </v-col>
                 <v-col class="col-9 centrata">
-                    <v-skeleton-loader
-                        ref="skeleton"
-                        type="button"
-                        class="my-2"
-                    ></v-skeleton-loader>
+                    <v-skeleton-loader ref="skeleton" type="button" class="my-2"></v-skeleton-loader>
                 </v-col>
             </v-row>
         </v-sheet>
@@ -138,8 +100,7 @@
                             text
                             @click="dialogSeguiti = false"
                             name="Chiudi dialog"
-                            >Chiudi</v-btn
-                        >
+                        >Chiudi</v-btn>
                     </v-card-actions>
                 </v-card>
             </v-dialog>
@@ -179,8 +140,7 @@
                             text
                             @click="dialogFollower = false"
                             name="Chiudi dialog"
-                            >Chiudi</v-btn
-                        >
+                        >Chiudi</v-btn>
                     </v-card-actions>
                 </v-card>
             </v-dialog>
@@ -215,10 +175,8 @@
                     </p>
                 </v-col>
                 <v-col class="col-9 centrata">
-                    <v-form ref="form">
-                        <v-btn color="danger" @click="logout()" name="Effettua logout"
-                            >Logout</v-btn
-                        >
+                    <v-form ref="logout">
+                        <v-btn color="danger" @click="logout()" name="Effettua logout">Logout</v-btn>
                     </v-form>
                 </v-col>
             </v-row>
@@ -233,21 +191,21 @@
                 </v-col>
                 -->
                 <v-col class="col-9 centrata">
-                    <v-file-input
-                        id="proPic"
-                        :rules="rules"
-                        accept="image/jpeg"
-                        placeholder="Modifica l'immagine"
-                        chips
-                        prepend-icon="mdi-camera"
-                        label="Foto profilo"
-                    ></v-file-input>
-                </v-col>
-                <v-col class="col-9 centrata">
                     <v-form ref="form">
-                        <v-btn color="primary" @click="modifica()" name="Modifica informazioni"
-                            >Modifica</v-btn
-                        >
+                        <v-file-input
+                            id="proPic"
+                            :rules="rules"
+                            accept="image/jpeg"
+                            placeholder="Modifica l'immagine"
+                            chips
+                            prepend-icon="mdi-camera"
+                            label="Foto profilo"
+                        ></v-file-input>
+                        <v-btn
+                            color="primary"
+                            @click="modifica()"
+                            name="Modifica informazioni"
+                        >Modifica</v-btn>
                     </v-form>
                 </v-col>
             </v-row>
@@ -412,22 +370,26 @@ export default {
         //Modifica l'immagine di profilo, prima modificava anche l'username ma avremmo avuto problemi con lo storage
         modifica() {
             //var db = firebase.firestore()
-            var storage = firebase.storage()
-            var pathReference = storage.ref('profile')
-            if (document.getElementById('proPic').files[0] == undefined) {
-                alert('Niente da modificare')
-            } else {
-                let file = document.getElementById('proPic').files[0]
-                let metadata = {
-                    contentType: 'image/jpeg',
-                    name: 'profile',
+            if (this.$refs.form.validate()) {
+                var storage = firebase.storage()
+                var pathReference = storage.ref('profile')
+                if (document.getElementById('proPic').files[0] == undefined) {
+                    this.$emit('login', 'Niente da modificare')
+                } else {
+                    let file = document.getElementById('proPic').files[0]
+                    let metadata = {
+                        contentType: 'image/jpeg',
+                        name: 'profile',
+                    }
+                    let usr1 = this.username
+                    pathReference
+                        .child('/' + usr1 + '/' + 'profile.jpg')
+                        .put(file, metadata)
+                        .then(() => this.set(/*true, 'img'*/))
                 }
-                let usr1 = this.username
-                pathReference
-                    .child('/' + usr1 + '/' + 'profile.jpg')
-                    .put(file, metadata)
-                    .then(() => this.set(/*true, 'img'*/))
-                //inserire snackbar di successo
+            }
+            else{
+                this.$emit('login', 'Errore: immagine troppo grande')
             }
             /*
             //Metodo che controlla se l'username è uguale a quello di prima, se è vuoto o meno e se è già presente nel db
@@ -536,6 +498,7 @@ export default {
         //Aggiorna l'username all'inizio e poi esegue un emit per la snackbar in caso di cambio immagine
         update(usr, mode) {
             if (mode == 'img') {
+                this.scrollToTop()
                 this.$emit('login', 'Immagine modificata correttamente')
             } else {
                 this.username = usr
