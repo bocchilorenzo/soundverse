@@ -72,9 +72,9 @@
             <v-app-bar-nav-icon v-else @click.stop="navigateBack()">
                 <v-icon>mdi-arrow-left</v-icon>
             </v-app-bar-nav-icon>
-            <v-toolbar-title class="mr-5">{{ branding }}</v-toolbar-title>
+            <v-toolbar-title class="mr-2">{{ branding }}</v-toolbar-title>
             <v-spacer />
-            <searchBar />
+            <searchBar :collapseSearch="collapseSearch" />
             <v-btn icon @click="profile()" class="ml-3" name="Pulsante account o login">
                 <v-icon dark>mdi-account-circle</v-icon>
             </v-btn>
@@ -141,6 +141,7 @@ export default {
             hidebar: false,
             tema: true,
             burger: true,
+            collapseSearch: false,
         }
     },
     created: function() {
@@ -162,18 +163,23 @@ export default {
         switch (this.breakpoint) {
             case 'xs':
                 this.drawer = false
+                this.collapseSearch = true
                 break
             case 'sm':
                 this.drawer = false
+                this.collapseSearch = true
                 break
             case 'md':
                 this.drawer = false
+                this.collapseSearch = false
                 break
             case 'lg':
                 this.drawer = true
+                this.collapseSearch = false
                 break
             case 'xl':
                 this.drawer = true
+                this.collapseSearch = false
                 break
         }
     },
