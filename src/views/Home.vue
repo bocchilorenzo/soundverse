@@ -3,7 +3,12 @@
         <div v-if="this.loading">
             <div v-for="x in 3" :key="x">
                 <v-row class="ma-2">
-                    <v-skeleton-loader ref="skeleton" type="heading" width="50em" class="mx-0"></v-skeleton-loader>
+                    <v-skeleton-loader
+                        ref="skeleton"
+                        type="heading"
+                        width="50em"
+                        class="mx-0"
+                    ></v-skeleton-loader>
                 </v-row>
                 <v-row align="center" no-gutters>
                     <v-col v-for="n in 6" :key="n" lg="2" md="3" sm="4" class="pb-3 px-1 col-6">
@@ -11,7 +16,11 @@
                     </v-col>
                 </v-row>
                 <v-row class="ma-2">
-                    <v-skeleton-loader ref="skeleton" type="button" class="mx-0"></v-skeleton-loader>
+                    <v-skeleton-loader
+                        ref="skeleton"
+                        type="button"
+                        class="mx-0"
+                    ></v-skeleton-loader>
                 </v-row>
                 <br />
                 <br />
@@ -27,7 +36,8 @@
                     color="primary"
                     @click="visualizzaLista(worldAlbumArray)"
                     name="Visualizza tutti World"
-                >Visualizza tutti</v-btn>
+                    >Visualizza tutti</v-btn
+                >
             </div>
             <br />
             <h2 class="ma-2">{{ italyAlbumArray[0] }}</h2>
@@ -38,7 +48,8 @@
                     color="primary"
                     @click="visualizzaLista(italyAlbumArray)"
                     name="Visualizza tutti Italy"
-                >Visualizza tutti</v-btn>
+                    >Visualizza tutti</v-btn
+                >
             </div>
             <br />
             <h2 class="ma-2">{{ hitsArray[0] }}</h2>
@@ -49,7 +60,8 @@
                     color="primary"
                     @click="visualizzaLista(hitsArray)"
                     name="Visualizza tutti Hits"
-                >Visualizza tutti</v-btn>
+                    >Visualizza tutti</v-btn
+                >
             </div>
             <br />
         </div>

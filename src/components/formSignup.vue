@@ -55,17 +55,17 @@
                         color="primary"
                         @click="modUsername()"
                         name="Pulsante registrazione"
-                    >Registrati</v-btn>
+                        >Registrati</v-btn
+                    >
                 </v-card-actions>
             </v-card>
         </v-col>
     </v-row>
 </template>
 
-
 <script>
 import firebase from 'firebase'
-import stripHtml from "string-strip-html";
+import stripHtml from 'string-strip-html'
 export default {
     name: 'formSignup',
     data() {
@@ -93,8 +93,8 @@ export default {
         },
         //Esegue la registrazione
         async signUpFirebase() {
-            var cleanEmail = ""
-            var cleanPass = ""
+            var cleanEmail = ''
+            var cleanPass = ''
             try {
                 cleanEmail = stripHtml(this.email)
                 cleanPass = stripHtml(this.password)

@@ -3,7 +3,12 @@
         <v-container class="fill-width" fluid>
             <div v-if="this.loading">
                 <v-row class="ma-2">
-                    <v-skeleton-loader ref="skeleton" type="heading" width="50em" class="mx-0"></v-skeleton-loader>
+                    <v-skeleton-loader
+                        ref="skeleton"
+                        type="heading"
+                        width="50em"
+                        class="mx-0"
+                    ></v-skeleton-loader>
                 </v-row>
                 <v-row align="center" no-gutters>
                     <v-col v-for="n in 20" :key="n" lg="2" md="3" sm="4" class="pb-3 px-1 col-6">

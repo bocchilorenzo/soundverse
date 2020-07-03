@@ -12,17 +12,17 @@ export default new Vuetify({
                 //primaryCard: "#7196fc",
                 primaryCard: '#c1d5ff',
                 danger: colors.red,
-                secondary: "#2d96c8",
+                secondary: '#2d96c8',
                 error: colors.red.accent3,
-                sheet: "#d1ebff"
+                sheet: '#d1ebff',
             },
             dark: {
                 primary: '#3769c8',
                 //primaryCard: "#001a68",
                 primaryCard: '#182e57',
                 danger: colors.red,
-                secondary: "#2d96c8",
-                sheet: colors.grey.darken4
+                secondary: '#2d96c8',
+                sheet: colors.grey.darken4,
             },
         },
     },

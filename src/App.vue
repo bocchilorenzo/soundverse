@@ -167,7 +167,7 @@ export default {
                 break
             case 'sm':
                 this.drawer = false
-                this.collapseSearch = true
+                this.collapseSearch = false
                 break
             case 'md':
                 this.drawer = false

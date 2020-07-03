@@ -39,13 +39,13 @@
                         color="primary"
                         @click="loginFirebase()"
                         name="Pulsante login"
-                    >Login</v-btn>
+                        >Login</v-btn
+                    >
                 </v-card-actions>
             </v-card>
         </v-col>
     </v-row>
 </template>
-
 
 <script>
 import firebase from 'firebase'
