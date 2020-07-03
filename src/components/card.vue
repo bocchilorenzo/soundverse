@@ -15,7 +15,12 @@
                     props: true,
                 }"
             >
-                <v-img class="align-end" :src="albumArray.cover" alt="Cover album"></v-img>
+                <v-img
+                    class="align-end"
+                    :src="albumArray.cover"
+                    alt="Cover album"
+                    title="Cover album"
+                ></v-img>
             </router-link>
             <v-card-actions v-if="user != null" style="position: absolute; top: 0; right: 0;">
                 <v-menu bottom right transition="slide-y-transition" :offset-y="offsety">
@@ -57,7 +62,7 @@
                     props: true,
                 }"
             >
-                <v-card-subtitle class="pb-0">{{ albumArray.artist }}</v-card-subtitle>
+                <v-card-subtitle class="crop pb-0">{{ albumArray.artist }}</v-card-subtitle>
 
                 <v-card-text class="crop text--primary">{{ albumArray.title }}</v-card-text>
             </router-link>

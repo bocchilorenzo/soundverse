@@ -20,7 +20,12 @@
                         ></v-skeleton-loader>
                     </div>
                     <div v-else class="d-flex flex-row">
-                        <v-skeleton-loader ref="skeleton" type="image" width="300px" class="mx-0"></v-skeleton-loader>
+                        <v-skeleton-loader
+                            ref="skeleton"
+                            type="image"
+                            width="300px"
+                            class="mx-0"
+                        ></v-skeleton-loader>
                         <v-row class="ml-3 pt-2 d-flex flex-row" align="center">
                             <v-col class="ma-2 col-12">
                                 <v-skeleton-loader
@@ -51,10 +56,20 @@
                     </div>
                 </v-row>
                 <v-row class="ma-2">
-                    <v-skeleton-loader ref="skeleton" type="heading" width="50em" class="mx-0"></v-skeleton-loader>
+                    <v-skeleton-loader
+                        ref="skeleton"
+                        type="heading"
+                        width="50em"
+                        class="mx-0"
+                    ></v-skeleton-loader>
                 </v-row>
                 <v-row class="ma-2">
-                    <v-skeleton-loader ref="skeleton" type="heading" width="50em" class="mx-0"></v-skeleton-loader>
+                    <v-skeleton-loader
+                        ref="skeleton"
+                        type="heading"
+                        width="50em"
+                        class="mx-0"
+                    ></v-skeleton-loader>
                 </v-row>
                 <br />
                 <v-row
@@ -75,7 +90,12 @@
                     "
                 />
                 <v-row class="ma-2">
-                    <v-skeleton-loader ref="skeleton" type="text" width="100px" class="mx-0"></v-skeleton-loader>
+                    <v-skeleton-loader
+                        ref="skeleton"
+                        type="text"
+                        width="100px"
+                        class="mx-0"
+                    ></v-skeleton-loader>
                 </v-row>
                 <v-row align="center" no-gutters>
                     <v-col v-for="n in 6" :key="n" lg="2" md="3" sm="4" class="pb-3 px-1 col-6">
@@ -109,6 +129,7 @@
                             :src="artistInfo[0].picture"
                             width="90%"
                             alt="Immagine artista"
+                            title="Immagine artista"
                         ></v-img>
                         <div
                             v-if="
@@ -134,6 +155,7 @@
                                     width="40%"
                                     min-width="18px"
                                     alt="Ascolta su Deezer"
+                                    title="Ascolta su Deezer"
                                 ></v-img>
                                 <v-img
                                     v-else
@@ -143,6 +165,7 @@
                                     width="40%"
                                     min-width="18px"
                                     alt="Ascolta su Deezer"
+                                    title="Ascolta su Deezer"
                                 ></v-img>
                             </a>
                         </div>

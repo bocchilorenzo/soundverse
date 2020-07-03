@@ -1,6 +1,6 @@
 <template>
     <v-container>
-        <v-sheet color="sheet" class="pa-2 centraRadius" width="80%">
+        <v-sheet color="sheet" class="pa-2 centraRadius" :class="{ small: wide, large: !wide }">
             <v-row>
                 <v-col class="col-9 centrata">
                     <span>Cambia colore del tema</span>
@@ -9,7 +9,8 @@
                         color="primary"
                         @click="cambiaTema()"
                         name="Cambia tema"
-                    >Tema {{temaBtn}}</v-btn>
+                        >Tema {{ temaBtn }}</v-btn
+                    >
                 </v-col>
                 <v-col class="col-10 centrata">
                     <h3>Informazioni</h3>
@@ -20,23 +21,22 @@
                         <a
                             target="_blank"
                             href="https://www.esse3.unitn.it/Guide/PaginaADErogata.do?ad_er_id=2018*N0*N0*S2*42805*90191&ANNO_ACCADEMICO=2018&mostra_percorsi=S"
-                        >Informatica ed elementi di programmazione II</a>
+                            >Informatica ed elementi di programmazione II</a
+                        >
                     </h4>
                 </v-col>
                 <v-col class="col-9 centrata">
                     <span>Gruppo di:</span>
                     <ul>
                         <li>
-                            <a
-                                target="_blank"
-                                href="https://github.com/bocchilorenzo"
-                            >Bocchi Lorenzo</a>
+                            <a target="_blank" href="https://github.com/bocchilorenzo"
+                                >Bocchi Lorenzo</a
+                            >
                         </li>
                         <li>
-                            <a
-                                target="_blank"
-                                href="https://github.com/valefras"
-                            >Frasnelli Valentino</a>
+                            <a target="_blank" href="https://github.com/valefras"
+                                >Frasnelli Valentino</a
+                            >
                         </li>
                     </ul>
                 </v-col>
@@ -53,12 +53,14 @@
                                 src="../assets/Deezer_Logo_RVB_White.svg"
                                 width="100px"
                                 alt="Logo Deezer White"
+                                title="Logo Deezer White"
                             ></v-img>
                             <v-img
                                 v-else
                                 src="../assets/Deezer_Logo_RVB_Black.svg"
                                 width="100px"
                                 alt="Logo Deezer Black"
+                                title="Logo Deezer Black"
                             ></v-img>
                         </li>
                         <li>
@@ -100,9 +102,27 @@ export default {
             stop: false,
             tema: this.$vuetify.theme.dark,
             temaBtn: '',
+            wide: false,
         }
     },
     created: function() {
+        switch (this.$vuetify.breakpoint.name) {
+            case 'xs':
+                this.wide = true
+                break
+            case 'sm':
+                this.wide = true
+                break
+            case 'md':
+                this.wide = false
+                break
+            case 'lg':
+                this.wide = false
+                break
+            case 'xl':
+                this.wide = false
+                break
+        }
         this.$emit('toggleBurger', 'home')
         this.$emit('brand', 'Impostazioni')
         if (this.tema == true) {
@@ -139,5 +159,11 @@ export default {
 .centraRadius {
     margin: 2em auto;
     border-radius: 1em;
+}
+.large {
+    width: 80%;
+}
+.small {
+    width: 100%;
 }
 </style>

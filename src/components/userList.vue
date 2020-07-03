@@ -10,19 +10,22 @@
     >
         <v-list-item class="mx-2">
             <v-list-item-avatar>
-                <v-img :src="src.src" alt="Immagine utente"></v-img>
+                <v-img :src="src.src" alt="Immagine utente" title="Immagine utente"></v-img>
             </v-list-item-avatar>
             <v-list-item-content>
                 <v-list-item-title>{{ dati.username }}</v-list-item-title>
             </v-list-item-content>
         </v-list-item>
     </router-link>
-    <router-link v-else :to="{
+    <router-link
+        v-else
+        :to="{
             name: 'profile',
-        }">
+        }"
+    >
         <v-list-item class="mx-2">
             <v-list-item-avatar>
-                <v-img :src="src.src" alt="Immagine utente"></v-img>
+                <v-img :src="src.src" alt="Immagine utente" title="Immagine utente"></v-img>
             </v-list-item-avatar>
             <v-list-item-content>
                 <v-list-item-title>{{ dati.username }}</v-list-item-title>

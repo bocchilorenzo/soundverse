@@ -21,19 +21,43 @@
                     ></v-skeleton-loader>
                 </v-col>
                 <v-col class="col-9 centrata">
-                    <v-skeleton-loader ref="skeleton" type="text" width="100px" class="my-2"></v-skeleton-loader>
+                    <v-skeleton-loader
+                        ref="skeleton"
+                        type="text"
+                        width="100px"
+                        class="my-2"
+                    ></v-skeleton-loader>
                 </v-col>
                 <v-col class="col-9 centrata">
-                    <v-skeleton-loader ref="skeleton" type="text" width="100px" class="my-2"></v-skeleton-loader>
+                    <v-skeleton-loader
+                        ref="skeleton"
+                        type="text"
+                        width="100px"
+                        class="my-2"
+                    ></v-skeleton-loader>
                 </v-col>
                 <v-col class="col-9 centrata">
-                    <v-skeleton-loader ref="skeleton" type="text" width="100px" class="my-2"></v-skeleton-loader>
+                    <v-skeleton-loader
+                        ref="skeleton"
+                        type="text"
+                        width="100px"
+                        class="my-2"
+                    ></v-skeleton-loader>
                 </v-col>
                 <v-col class="col-9 centrata">
-                    <v-skeleton-loader ref="skeleton" type="text" width="100px" class="my-2"></v-skeleton-loader>
+                    <v-skeleton-loader
+                        ref="skeleton"
+                        type="text"
+                        width="100px"
+                        class="my-2"
+                    ></v-skeleton-loader>
                 </v-col>
                 <v-col class="col-9 centrata">
-                    <v-skeleton-loader ref="skeleton" type="button" class="my-2"></v-skeleton-loader>
+                    <v-skeleton-loader
+                        ref="skeleton"
+                        type="button"
+                        class="my-2"
+                    ></v-skeleton-loader>
                 </v-col>
             </v-row>
             <v-divider></v-divider>
@@ -48,17 +72,36 @@
                     ></v-skeleton-loader>
                 </v-col>
                 <v-col class="col-9 centrata">
-                    <v-skeleton-loader ref="skeleton" type="text" width="100px" class="my-2"></v-skeleton-loader>
+                    <v-skeleton-loader
+                        ref="skeleton"
+                        type="text"
+                        width="100px"
+                        class="my-2"
+                    ></v-skeleton-loader>
                 </v-col>
                 <v-col class="col-9 centrata">
-                    <v-skeleton-loader ref="skeleton" type="text" width="100px" class="my-2"></v-skeleton-loader>
+                    <v-skeleton-loader
+                        ref="skeleton"
+                        type="text"
+                        width="100px"
+                        class="my-2"
+                    ></v-skeleton-loader>
                 </v-col>
                 <v-col class="col-9 centrata">
-                    <v-skeleton-loader ref="skeleton" type="button" class="my-2"></v-skeleton-loader>
+                    <v-skeleton-loader
+                        ref="skeleton"
+                        type="button"
+                        class="my-2"
+                    ></v-skeleton-loader>
                 </v-col>
             </v-row>
         </v-sheet>
-        <v-sheet v-else class="pa-2 centraRadius" width="80%" color="sheet">
+        <v-sheet
+            v-else
+            class="pa-2 centraRadius"
+            :class="{ small: wide, large: !wide }"
+            color="sheet"
+        >
             <v-dialog
                 v-model="dialogSeguiti"
                 scrollable
@@ -95,7 +138,8 @@
                             text
                             @click="dialogSeguiti = false"
                             name="Chiudi dialog"
-                        >Chiudi</v-btn>
+                            >Chiudi</v-btn
+                        >
                     </v-card-actions>
                 </v-card>
             </v-dialog>
@@ -135,28 +179,20 @@
                             text
                             @click="dialogFollower = false"
                             name="Chiudi dialog"
-                        >Chiudi</v-btn>
+                            >Chiudi</v-btn
+                        >
                     </v-card-actions>
                 </v-card>
             </v-dialog>
             <v-row v-if="user != null">
                 <v-col class="col-9 centrata">
                     <v-img
-                        v-if="this.$vuetify.breakpoint.name == 'xs'"
-                        alt="Immagine profilo"
-                        height="250"
-                        width="250"
-                        class="centrata"
-                        contain
-                        :src="src.src"
-                    ></v-img>
-                    <v-img
-                        v-else
                         alt="Immagine profilo"
                         height="250"
                         width="250"
                         class="ma-2"
                         :src="src.src"
+                        title="Immagine profilo"
                     ></v-img>
                 </v-col>
                 <v-col class="col-9 centrata">
@@ -180,7 +216,9 @@
                 </v-col>
                 <v-col class="col-9 centrata">
                     <v-form ref="form">
-                        <v-btn color="danger" @click="logout()" name="Effettua logout">Logout</v-btn>
+                        <v-btn color="danger" @click="logout()" name="Effettua logout"
+                            >Logout</v-btn
+                        >
                     </v-form>
                 </v-col>
             </v-row>
@@ -207,11 +245,9 @@
                 </v-col>
                 <v-col class="col-9 centrata">
                     <v-form ref="form">
-                        <v-btn
-                            color="primary"
-                            @click="modifica()"
-                            name="Modifica informazioni"
-                        >Modifica</v-btn>
+                        <v-btn color="primary" @click="modifica()" name="Modifica informazioni"
+                            >Modifica</v-btn
+                        >
                     </v-form>
                 </v-col>
             </v-row>
@@ -250,6 +286,7 @@ export default {
                     value.size < 1000000 ||
                     "Le dimensioni dell'immagine non devono superare 1 MB",
             ],
+            wide: false,
         }
     },
     components: {
@@ -262,6 +299,23 @@ export default {
         if (this.user == null) {
             this.$router.replace({ name: 'login' })
         } else {
+            switch (this.$vuetify.breakpoint.name) {
+                case 'xs':
+                    this.wide = true
+                    break
+                case 'sm':
+                    this.wide = true
+                    break
+                case 'md':
+                    this.wide = false
+                    break
+                case 'lg':
+                    this.wide = false
+                    break
+                case 'xl':
+                    this.wide = false
+                    break
+            }
             //preleva l'immagine profilo dell'utente attualmente loggato dallo storage di firebase, i follower e i seguiti
             var storage = firebase.storage()
             var pathReference = storage.ref('profile')
@@ -519,5 +573,11 @@ export default {
 .centraRadius {
     margin: 2em auto;
     border-radius: 1em;
+}
+.large {
+    width: 80%;
+}
+.small {
+    width: 100%;
 }
 </style>

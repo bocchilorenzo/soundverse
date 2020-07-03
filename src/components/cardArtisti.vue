@@ -10,6 +10,7 @@
                 style="border-radius:50%"
                 :elevation="hover ? 10 : 2"
                 alt="Immagine artista"
+                title="Immagine artista"
             ></v-img>
         </v-hover>
 
@@ -26,6 +27,7 @@
                 style="border-radius:50%"
                 :elevation="hover ? 10 : 2"
                 alt="Immagine artista"
+                title="Immagine artista"
             ></v-img>
         </v-hover>
 

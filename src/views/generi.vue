@@ -24,6 +24,7 @@
                                 height="200px"
                                 :src="genre.picture"
                                 alt="Immagine genere"
+                                title="Immagine genere"
                             >
                                 <v-card-title>{{ genre.name }}</v-card-title>
                             </v-img>
@@ -54,7 +55,7 @@ export default {
         this.$emit('toggleBurger', 'home')
         this.scrollToTop()
         this.addGenres()
-        this.$emit('brand', "Generi")
+        this.$emit('brand', 'Generi')
     },
     methods: {
         //Ricolloca lo scrolling all'inizio
