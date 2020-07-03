@@ -86,6 +86,12 @@
                     </ul>
                 </v-col>
             </v-row>
+            <v-divider></v-divider>
+            <v-row>
+                <v-col class="col-9 centrata">
+                    <span>Logo/favicon disegnato da <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> e scaricato da <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a></span>
+                </v-col>
+            </v-row>
         </v-sheet>
     </v-container>
 </template>
