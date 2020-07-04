@@ -52,18 +52,12 @@
                     </p>
                     <v-spacer />
                     <v-btn
+                        rounded
                         class="mx-2 mb-2"
                         color="primary"
                         @click="modUsername()"
                         name="Pulsante registrazione"
                     >Registrati</v-btn>
-
-                    <v-btn
-                        class="mx-2 mb-2"
-                        color="primary"
-                        @click="prova()"
-                        name="Pulsante registrazione"
-                    >prova</v-btn>
                 </v-card-actions>
             </v-card>
         </v-col>
@@ -97,9 +91,6 @@ export default {
         }
     },
     methods: {
-        prova() {
-            console.log(this.emailRules[0])
-        },
         //Reindirizza al login
         login() {
             this.$router.replace({ name: 'login' })

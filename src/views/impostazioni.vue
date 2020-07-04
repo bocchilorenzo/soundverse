@@ -5,6 +5,7 @@
                 <v-col class="col-9 centrata">
                     <span>Cambia colore del tema</span>
                     <v-btn
+                        rounded
                         class="mx-2 mb-2"
                         color="primary"
                         @click="cambiaTema()"

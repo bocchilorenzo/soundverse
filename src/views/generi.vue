@@ -24,7 +24,7 @@
                                 height="200px"
                                 :src="genre.picture"
                                 alt="Immagine genere"
-                                title="Immagine genere"
+                                :title="genre.name"
                             >
                                 <v-card-title>{{ genre.name }}</v-card-title>
                             </v-img>

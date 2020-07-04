@@ -176,7 +176,12 @@
                 </v-col>
                 <v-col class="col-9 centrata">
                     <v-form ref="logout">
-                        <v-btn color="danger" @click="logout()" name="Effettua logout">Logout</v-btn>
+                        <v-btn
+                            rounded
+                            color="danger"
+                            @click="logout()"
+                            name="Effettua logout"
+                        >Logout</v-btn>
                     </v-form>
                 </v-col>
             </v-row>
@@ -202,6 +207,7 @@
                             label="Foto profilo"
                         ></v-file-input>
                         <v-btn
+                            rounded
                             color="primary"
                             @click="modifica()"
                             name="Modifica informazioni"
@@ -387,8 +393,7 @@ export default {
                         .put(file, metadata)
                         .then(() => this.set(/*true, 'img'*/))
                 }
-            }
-            else{
+            } else {
                 this.$emit('login', 'Errore: immagine troppo grande')
             }
             /*

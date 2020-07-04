@@ -100,7 +100,7 @@
                             :src="infoAlbum[0].cover"
                             width="90%"
                             alt="Cover album"
-                            title="Cover album"
+                            :title="infoAlbum[0].title"
                         ></v-img>
                         <a target="_blank" :href="infoAlbum[0].share">
                             <v-img
@@ -147,7 +147,7 @@
                         <ul class="info-list">
                             <li class="infoAlbumMain">Tracce: {{ infoAlbum[0].numberOfTracks }}</li>
                             <li class="infoAlbum">Data uscita: {{ infoAlbum[0].releaseDate }}</li>
-                            <li class="infoAlbum">Voto utenti: {{ infoAlbum[0].voto.toFixed(2) }}</li>
+                            <li class="infoAlbum">Voto utenti: {{ infoAlbum[0].voto.toFixed(1) }}</li>
                         </ul>
                         <v-row justify="space-around" no-gutters>
                             <v-col class="pa-0 my-2" align-self="start">
@@ -279,11 +279,12 @@
             <v-col cols="12">
                 <h2 class="mx-2" style="display: inline;">Recensioni</h2>
                 <v-btn
+                    rounded
                     color="primary"
                     class="mx-2"
                     @click="dialog = true"
                     :disabled="user == null"
-                    style="display: inline; float: right"
+                    style="display: inline; float:right"
                     name="Scrivi recensione"
                 >{{ btnTxt }}</v-btn>
                 <v-dialog v-model="dialog" max-width="600px" overlay-color="secondary">
@@ -320,6 +321,7 @@
                                 text
                                 @click="save_review"
                                 name="Pulsante salva"
+                                :loading="salvaLoad"
                             >Salva</v-btn>
                         </v-card-actions>
                     </v-card>
@@ -334,6 +336,17 @@
                     >
                         <v-card-text>
                             <div class="mb-2 d-flex flex-column">
+                                <v-btn
+                                    rounded
+                                    v-if="review.utente == username"
+                                    color="danger"
+                                    class="mx-2 mt-2"
+                                    @click="eliminaReview()"
+                                    :disabled="user == null"
+                                    style="display: inline; position: absolute; right:0; top:0;"
+                                    name="Elimina recensione"
+                                    :loading="eliminaLoad"
+                                >Elimina</v-btn>
                                 <router-link
                                     :to="{
                                         name: 'user',
@@ -413,6 +426,8 @@ export default {
             rules: [value => (value || '').length <= 2000 || 'Massimo 2000 caratteri'],
             cursor: 0,
             btnTxt: 'Scrivi',
+            eliminaLoad: false,
+            salvaLoad: false,
         }
     },
 
@@ -423,6 +438,30 @@ export default {
         this.getAlbum()
     },
     methods: {
+        eliminaReview() {
+            this.eliminaLoad = true
+            var db = firebase.firestore()
+            var id = this.$route.params.id
+            var recensioni = this.reviews
+            var idRec = recensioni[0].id
+            var reviews = db
+                .collection('album')
+                .doc(id.toString())
+                .collection('reviews')
+                .doc(idRec)
+            reviews
+                .delete()
+                .then(function() {
+                    recensioni.shift()
+                })
+                .then(() => (this.reviewPage = []))
+                .then(() => this.paginateReviews())
+                .then(() => (this.eliminaLoad = false))
+                .then(() => this.emitta('Recensione eliminata', 'del'))
+                .catch(function(error) {
+                    console.log('Error getting documents: ', error)
+                })
+        },
         paginateReviews() {
             if (this.reviews.length != 0) {
                 this.cursor = (this.page - 1) * 5
@@ -620,12 +659,20 @@ export default {
         },
         //salva la recensione dell'album con timestamp e nome utente, oppure preleva l'id per modificarla
         save_review() {
+            this.salvaLoad = true
             if (this.$refs.form.validate()) {
                 var db = firebase.firestore()
                 var recensioneTmp = stripHtml(this.recensione)
                 var mail = this.user.email
                 var id = this.$route.params.id
                 var time = Date.now()
+                var idRec =
+                    Math.random()
+                        .toString(36)
+                        .substring(2, 15) +
+                    Math.random()
+                        .toString(36)
+                        .substring(2, 15)
                 if (this.btnTxt == 'Scrivi') {
                     let review = db
                         .collection('album')
@@ -633,22 +680,17 @@ export default {
                         .collection('reviews')
 
                     review
-                        .add({
+                        .doc(idRec)
+                        .set({
                             utente: mail,
                             recensione: recensioneTmp,
                             timestamp: time,
                         })
+                        .then(() => (this.salvaLoad = false))
+                        .then(() => (this.dialog = false))
+                        .then(() => this.addLocally(recensioneTmp, idRec, time))
                         .then(() => this.emitta('Recensione inserita', 'mod'))
                         .catch(() => this.emitta("Errore nell'aggiunta"))
-                    var rec = {
-                        utente: this.username,
-                        recensione: recensioneTmp,
-                        timestamp: this.timeConverter(time),
-                    }
-                    this.reviews.unshift(rec)
-                    this.reviewPage.pop()
-                    this.reviewPage.unshift(rec)
-                    this.dialog = false
                 } else {
                     var docId = ['']
                     let review = db
@@ -666,7 +708,26 @@ export default {
                         .then(() => this.modificaReview(docId))
                 }
             } else {
+                this.salvaLoad = false
                 this.emitta('Errore. Recensione troppo lunga')
+            }
+        },
+        addLocally(recensioneTmp, idRec, time, mode) {
+            var rec = {
+                utente: this.username,
+                recensione: recensioneTmp,
+                timestamp: this.timeConverter(time),
+                id: idRec,
+            }
+            if (mode == 'update') {
+                this.reviews.shift()
+                this.reviews.unshift(rec)
+                this.reviewPage.shift()
+                this.reviewPage.unshift(rec)
+            } else {
+                this.reviews.unshift(rec)
+                this.reviewPage.pop()
+                this.reviewPage.unshift(rec)
             }
         },
         //modifica la recensione dell'utente
@@ -682,24 +743,19 @@ export default {
                 .doc(docId[0])
             review
                 .update({ recensione: recensioneTmp, timestamp: time })
+                .then(() => (this.salvaLoad = false))
+                .then(() => (this.dialog = false))
+                .then(() => this.addLocally(recensioneTmp, docId[0], time, 'update'))
                 .then(() => this.emitta('Recensione modificata'))
                 .catch(() => this.emitta('Errore nella modifica'))
-
-            var rec1 = {
-                utente: this.username,
-                recensione: recensioneTmp,
-                timestamp: this.timeConverter(time),
-            }
-
-            this.reviews.shift()
-            this.reviews.unshift(rec1)
-            this.reviewPage.shift()
-            this.reviewPage.unshift(rec1)
-            this.dialog = false
         },
         emitta(msg, mode) {
             if (mode == 'mod') {
                 this.btnTxt = 'Modifica'
+                this.dialog = false
+            } else if (mode == 'del') {
+                this.btnTxt = 'Scrivi'
+                this.dialog = false
             }
             this.$emit('login', msg)
         },
@@ -717,7 +773,13 @@ export default {
                 .get()
                 .then(function(querySnapshot) {
                     querySnapshot.forEach(function(doc) {
-                        recensioni.push(doc.data())
+                        var recensione = {
+                            recensione: doc.data().recensione,
+                            timestamp: doc.data().timestamp,
+                            utente: doc.data().utente,
+                            id: doc.id,
+                        }
+                        recensioni.push(recensione)
                     })
                 })
                 .catch(function(error) {

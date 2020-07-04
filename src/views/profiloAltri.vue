@@ -148,7 +148,7 @@
                     <h1 style="display: inline">{{ username.un }}</h1>
                     <p>{{ email.email }}</p>
                     <div v-if="user != null" class="my-2" @click="followUnfollow()">
-                        <v-btn v-if="segui.segui" color="primary" name="Pulsante unfollow"
+                        <v-btn v-if="segui.segui" rounded color="primary" name="Pulsante unfollow"
                             >Non seguire più</v-btn
                         >
                         <v-btn color="primary" v-else name="Pulsante follow">Segui</v-btn>

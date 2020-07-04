@@ -23,6 +23,7 @@
                             label="Password"
                             required
                             prepend-icon="mdi-lock"
+                            @keyup.enter="loginFirebase()"
                         />
                     </v-form>
                 </v-card-text>
@@ -35,6 +36,7 @@
                     </p>
                     <v-spacer />
                     <v-btn
+                        rounded
                         class="mx-2 mb-2"
                         color="primary"
                         @click="loginFirebase()"

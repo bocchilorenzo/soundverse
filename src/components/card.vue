@@ -19,7 +19,7 @@
                     class="align-end"
                     :src="albumArray.cover"
                     alt="Cover album"
-                    title="Cover album"
+                    :title="albumArray.title"
                 ></v-img>
             </router-link>
             <v-card-actions v-if="user != null" style="position: absolute; top: 0; right: 0;">

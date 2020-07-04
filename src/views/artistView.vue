@@ -129,7 +129,7 @@
                             :src="artistInfo[0].picture"
                             width="90%"
                             alt="Immagine artista"
-                            title="Immagine artista"
+                            :title="artistInfo[0].name"
                         ></v-img>
                         <div
                             v-if="
