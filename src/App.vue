@@ -107,7 +107,13 @@
                     >
                 </template>
             </v-snackbar>
-            <musicPlayer :file="file" class="player" v-if="show" v-on:hide="hide" />
+            <musicPlayer
+                :file="file"
+                class="player"
+                :class="{ exp: !drawer, coll: drawer }"
+                v-if="show"
+                v-on:hide="hide"
+            />
         </v-main>
     </v-app>
 </template>
@@ -227,7 +233,7 @@ export default {
                 this.$router.push({
                     name: 'login',
                 })
-            } else if(this.$route.name != "profile"){
+            } else if (this.$route.name != 'profile') {
                 this.$router.push({
                     name: 'profile',
                 })
@@ -262,7 +268,12 @@ body::-webkit-scrollbar-thumb {
 .player {
     position: fixed;
     bottom: 0;
+}
+.exp {
     width: 100%;
+}
+.coll {
+    width: calc(100% - 256px);
 }
 .marginforplayer {
     margin-bottom: 100px;

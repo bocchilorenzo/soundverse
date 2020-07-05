@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import VuetifyAudio from 'vuetify-audio'
+import VuetifyAudio from '../components/vuetify-audio'
 export default {
     name: 'musicPlayer',
     components: { VuetifyAudio },

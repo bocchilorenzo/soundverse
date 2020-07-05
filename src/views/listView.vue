@@ -32,7 +32,7 @@
             </div>
             <div v-else>
                 <v-row align="center">
-                    <h2 class="ml-5">Nuove uscite {{ title }}</h2>
+                    <h2 class="ml-5">{{ title }}</h2>
                 </v-row>
                 <cardContainer :arrayRisultati="arrayRisultatiNew" v-on:login="snackMsg" />
             </div>
@@ -185,7 +185,7 @@ export default {
                     call.then(
                         axios.spread((firstResponse, secondResponse) => {
                             if (firstResponse.data.error == undefined) {
-                                this.title = firstResponse.data.name
+                                this.title = 'Ultime uscite' + firstResponse.data.name
                                 var x = 0
                                 for (x = 0; x < 20; x++) {
                                     if (secondResponse.data.data[x] != undefined) {
