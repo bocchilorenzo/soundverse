@@ -8,9 +8,7 @@
                 @click.native="setPosition()"
                 :disabled="!loaded"
             ></v-progress-linear>
-            <p style="text-align: right; margin-bottom: 4px; margin-right: 8px">
-                {{ currentTime }} / {{ duration }}
-            </p>
+            <p style="text-align: right; margin-bottom: 4px;">{{ currentTime }} / {{ duration }}</p>
             <v-btn
                 large
                 icon
