@@ -21,8 +21,7 @@
         "string-strip-html": "^4.5.0",
         "vue": "^2.6.11",
         "vue-router": "^3.3.4",
-        "vuetify": "^2.3.2",
-        "vuetify-audio": "^0.3.2"
+        "vuetify": "^2.3.2"
     },
     "devDependencies": {
         "@vue/cli-plugin-babel": "~4.3.0",
