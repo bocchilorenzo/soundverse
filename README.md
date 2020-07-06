@@ -1,6 +1,7 @@
 # Soundverse
 
 Soundverse è un'applicazione a singola pagina realizzata con Vue.js e Vuetify. I contenuti sono forniti dall'API di Deezer e last.fm. Lo scopo di Soundverse è di fornire una piattaforma di scoperta e discussione di album musicali che permette agli utenti di tenere traccia degli album ascoltati, dare un rating, recensirli e scoprirne di nuovi, seguire altri utenti e scoprire cosa questi ascoltano.
+La demo è disponibile su [soundverse.ga](https://soundverse.ga/)
 
 ## Viste e componenti
 

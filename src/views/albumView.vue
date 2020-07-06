@@ -348,11 +348,21 @@
                                     :loading="eliminaLoad"
                                 >Elimina</v-btn>
                                 <router-link
+                                    v-if="username != review.utente"
                                     :to="{
                                         name: 'user',
                                         path: '/user/:username',
                                         params: { username: review.utente },
                                         props: true,
+                                    }"
+                                >
+                                    <strong class="title">{{ review.utente }}</strong>
+                                </router-link>
+                                <router-link
+                                    v-else
+                                    :to="{
+                                        name: 'profile',
+                                        path: '/profile'
                                     }"
                                 >
                                     <strong class="title">{{ review.utente }}</strong>

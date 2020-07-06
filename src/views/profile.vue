@@ -150,7 +150,7 @@
                         alt="Immagine profilo"
                         height="250"
                         width="250"
-                        class="ma-2"
+                        style="margin: 0!important"
                         :src="src.src"
                         title="Immagine profilo"
                     ></v-img>
