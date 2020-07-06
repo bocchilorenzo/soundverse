@@ -57,6 +57,7 @@
                         color="primary"
                         @click="modUsername()"
                         name="Pulsante registrazione"
+                        :loading="loadBtn"
                     >Registrati</v-btn>
                 </v-card-actions>
             </v-card>
@@ -65,7 +66,9 @@
 </template>
 
 <script>
-import firebase from 'firebase'
+import firebase from 'firebase/app'
+import 'firebase/firestore'
+import 'firebase/auth'
 import stripHtml from 'string-strip-html'
 export default {
     name: 'formSignup',
@@ -88,6 +91,7 @@ export default {
                     value.size < 1000000 ||
                     "Le dimensioni dell'immagine non devono superare 1 MB",
             ],
+            loadBtn: false
         }
     },
     methods: {
@@ -138,6 +142,7 @@ export default {
             }
         },
         fine() {
+            this.loadBtn = false
             this.$router.replace({ name: 'home' })
         },
         //Metodo che controlla se l'username è vuoto o meno e se è già presente nel db
@@ -146,6 +151,7 @@ export default {
                 if (this.username == '' || this.username[0] == ' ') {
                     this.$emit('login', 'Il campo username non deve essere vuoto')
                 } else {
+                    this.loadBtn = true
                     var db = firebase.firestore()
                     var usr = stripHtml(this.username)
                     var userData = db.collection('utenti')
@@ -171,6 +177,7 @@ export default {
         //Metodo che se l'username è in uso non lo setta, altrimenti lo setta
         setUsernameSignup(isPresent) {
             if (isPresent) {
+                this.loadBtn = false
                 this.$emit('login', 'Username già in uso')
             } else {
                 this.signUpFirebase()

@@ -226,7 +226,9 @@
 </template>
 
 <script>
-import firebase from 'firebase'
+import firebase from 'firebase/app'
+import 'firebase/firestore'
+import 'firebase/storage'
 import usersContainer from '../components/usersContainer'
 export default {
     name: 'profile',

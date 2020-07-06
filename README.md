@@ -52,3 +52,6 @@ L’utente può cercare album, artisti e altri utenti. Gli album possono essere 
 -   snackbar = per mostrare all’utente errori o dei messaggi di successo (es. “Login effettuato”), abbiamo scelto di utilizzare una snackbar. Questa scelta deriva da uno studio precedente della documentazione di material, che ci ha portato a preferire la snackbar rispetto a un semplice alert
 -   cambio tema = per la modifica del tema, salviamo la preferenza nel localstorage. In questo modo la scelta rimane ed evitiamo di doverla far rifare all’utente
 -   utilizzo del localstorage anziché dei cookie = essendo l’utente un oggetto abbastanza complesso, abbiamo pensato di utilizzarlo in localstorage poiché la gestione risulta semplificata e non ci serve inviare le informazioni che salviamo con le varie richieste HTTP
+
+## "Problema" noto
+Quando si clicca sul menu della card le azioni ci mettono circa 100ms per aggiornare il testo correttamente. Questo è dovuto al fatto che il controllo nel database se il singolo album è stato aggiunto a una collezione o meno lo facciamo proprio quando l'utente clicca il menu, evitando così di sprecare molte chiamate che servirebbero se avessimo fatto un unico controllo iniziale per tutti gli album nella vista.

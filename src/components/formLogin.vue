@@ -41,6 +41,7 @@
                         color="primary"
                         @click="loginFirebase()"
                         name="Pulsante login"
+                        :loading="loadBtn"
                     >Login</v-btn>
                 </v-card-actions>
             </v-card>
@@ -49,7 +50,9 @@
 </template>
 
 <script>
-import firebase from 'firebase'
+import firebase from 'firebase/app'
+import 'firebase/firestore'
+import 'firebase/auth'
 import stripHtml from 'string-strip-html'
 export default {
     name: 'formLogin',
@@ -62,6 +65,7 @@ export default {
                 v => !!v || 'E-mail obbligatoria',
                 v => /.+@.+\..+/.test(v) || 'E-mail non valida',
             ],
+            loadBtn: false,
         }
     },
     methods: {
@@ -72,6 +76,7 @@ export default {
         //Esegue il login
         async loginFirebase() {
             if (this.$refs.form.validate()) {
+                this.loadBtn = true
                 var cleanEmail = ''
                 var cleanPass = ''
                 try {
@@ -83,6 +88,7 @@ export default {
                     this.setUsername()
                     this.fine()
                 } catch (err) {
+                    this.loadBtn = false
                     this.$emit('login', 'Email o password errati. Riprova')
                 }
             } else {
@@ -106,6 +112,7 @@ export default {
                 })
         },
         fine() {
+            this.loadBtn = false
             this.$router.replace({ name: 'home' })
         },
     },

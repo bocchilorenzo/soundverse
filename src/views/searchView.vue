@@ -158,7 +158,8 @@ import usersContainer from '../components/usersContainer'
 import cardContainerArtisti from '../components/cardcontainerartisti'
 import axios from 'axios'
 import jsonpAdapter from 'axios-jsonp'
-import firebase from 'firebase'
+import firebase from 'firebase/app'
+import 'firebase/firestore'
 export default {
     name: 'search',
     data() {
