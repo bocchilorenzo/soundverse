@@ -91,7 +91,7 @@ export default {
                     value.size < 1000000 ||
                     "Le dimensioni dell'immagine non devono superare 1 MB",
             ],
-            loadBtn: false
+            loadBtn: false,
         }
     },
     methods: {
@@ -139,6 +139,7 @@ export default {
                     .then(() => this.fine())
             } catch (err) {
                 this.$emit('login', 'Email già utilizzata. Riprova')
+                this.loadBtn = false
             }
         },
         fine() {

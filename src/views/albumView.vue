@@ -408,7 +408,6 @@ import 'firebase/firestore'
 import axios from 'axios'
 import jsonpAdapter from 'axios-jsonp'
 import stripHtml from 'string-strip-html'
-const arrayMove = require('array-move')
 
 export default {
     name: 'albumInformation',
@@ -850,7 +849,9 @@ export default {
             if (this.user != null) {
                 for (var i = 0; i < this.reviews.length; i++) {
                     if (this.reviews[i].utente == this.user.email) {
-                        arrayMove.mutate(this.reviews, i, 0)
+                        var tmp = this.reviews[i]
+                        this.reviews.splice(i,1)
+                        this.reviews.unshift(tmp)
                         break
                     }
                 }

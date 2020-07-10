@@ -20,12 +20,7 @@
                         ></v-skeleton-loader>
                     </div>
                     <div v-else class="d-flex flex-row">
-                        <v-skeleton-loader
-                            ref="skeleton"
-                            type="image"
-                            width="300px"
-                            class="mx-0"
-                        ></v-skeleton-loader>
+                        <v-skeleton-loader ref="skeleton" type="image" width="300px" class="mx-0"></v-skeleton-loader>
                         <v-row class="ml-3 pt-2 d-flex flex-row" align="center">
                             <v-col class="ma-2 col-12">
                                 <v-skeleton-loader
@@ -56,20 +51,10 @@
                     </div>
                 </v-row>
                 <v-row class="ma-2">
-                    <v-skeleton-loader
-                        ref="skeleton"
-                        type="heading"
-                        width="50em"
-                        class="mx-0"
-                    ></v-skeleton-loader>
+                    <v-skeleton-loader ref="skeleton" type="heading" width="50em" class="mx-0"></v-skeleton-loader>
                 </v-row>
                 <v-row class="ma-2">
-                    <v-skeleton-loader
-                        ref="skeleton"
-                        type="heading"
-                        width="50em"
-                        class="mx-0"
-                    ></v-skeleton-loader>
+                    <v-skeleton-loader ref="skeleton" type="heading" width="50em" class="mx-0"></v-skeleton-loader>
                 </v-row>
                 <br />
                 <v-row
@@ -90,12 +75,7 @@
                     "
                 />
                 <v-row class="ma-2">
-                    <v-skeleton-loader
-                        ref="skeleton"
-                        type="text"
-                        width="100px"
-                        class="mx-0"
-                    ></v-skeleton-loader>
+                    <v-skeleton-loader ref="skeleton" type="text" width="100px" class="mx-0"></v-skeleton-loader>
                 </v-row>
                 <v-row align="center" no-gutters>
                     <v-col v-for="n in 6" :key="n" lg="2" md="3" sm="4" class="pb-3 px-1 col-6">
@@ -345,11 +325,13 @@ export default {
                                         '&api_key=008dd2405a84da9505c1b2dd4dffd5e4&format=json'
                                 )
                                 .then(response => {
-                                    for (var i = 0; i < 5; i++) {
-                                        var artistData2 = {
-                                            name: response.data.artist.similar.artist[i].name,
+                                    if (response.data.artist.similar.artist.length != 0) {
+                                        for (var i = 0; i < 5; i++) {
+                                            var artistData2 = {
+                                                name: response.data.artist.similar.artist[i].name,
+                                            }
+                                            this.simili.push(artistData2)
                                         }
-                                        this.simili.push(artistData2)
                                     }
                                 })
                                 .catch(error => console.log(error))
@@ -364,124 +346,126 @@ export default {
         },
         //Preleva le informazioni per gli artisti simili dalle API, confronta i dati delle due API per sapere se tenere o meno un artista
         updateSimili() {
-            axios
-                .all([
-                    axios({
-                        url:
-                            'https://api.deezer.com/search/artist?q=' +
-                            this.simili[0].name +
-                            '&output=jsonp',
-                        adapter: jsonpAdapter,
-                    }),
-                    axios({
-                        url:
-                            'https://api.deezer.com/search/artist?q=' +
-                            this.simili[1].name +
-                            '&output=jsonp',
-                        adapter: jsonpAdapter,
-                    }),
-                    axios({
-                        url:
-                            'https://api.deezer.com/search/artist?q=' +
-                            this.simili[2].name +
-                            '&output=jsonp',
-                        adapter: jsonpAdapter,
-                    }),
-                    axios({
-                        url:
-                            'https://api.deezer.com/search/artist?q=' +
-                            this.simili[3].name +
-                            '&output=jsonp',
-                        adapter: jsonpAdapter,
-                    }),
-                    axios({
-                        url:
-                            'https://api.deezer.com/search/artist?q=' +
-                            this.simili[4].name +
-                            '&output=jsonp',
-                        adapter: jsonpAdapter,
-                    }),
-                ])
-                .then(
-                    axios.spread(
-                        (
-                            firstResponse,
-                            secondResponse,
-                            thirdResponse,
-                            fourthResponse,
-                            fifthResponse
-                        ) => {
-                            for (let h = 0; h < 25; h++) {
-                                if (firstResponse.data.data[h] != undefined) {
-                                    if (
-                                        this.simili[0].name.toUpperCase() ==
-                                        firstResponse.data.data[h].name.toUpperCase()
-                                    ) {
-                                        this.simili[0].artistId = firstResponse.data.data[h].id
-                                        this.simili[0].artistImage =
-                                            firstResponse.data.data[h].picture_medium
-                                        break
+            if (this.simili.length != 0) {
+                axios
+                    .all([
+                        axios({
+                            url:
+                                'https://api.deezer.com/search/artist?q=' +
+                                this.simili[0].name +
+                                '&output=jsonp',
+                            adapter: jsonpAdapter,
+                        }),
+                        axios({
+                            url:
+                                'https://api.deezer.com/search/artist?q=' +
+                                this.simili[1].name +
+                                '&output=jsonp',
+                            adapter: jsonpAdapter,
+                        }),
+                        axios({
+                            url:
+                                'https://api.deezer.com/search/artist?q=' +
+                                this.simili[2].name +
+                                '&output=jsonp',
+                            adapter: jsonpAdapter,
+                        }),
+                        axios({
+                            url:
+                                'https://api.deezer.com/search/artist?q=' +
+                                this.simili[3].name +
+                                '&output=jsonp',
+                            adapter: jsonpAdapter,
+                        }),
+                        axios({
+                            url:
+                                'https://api.deezer.com/search/artist?q=' +
+                                this.simili[4].name +
+                                '&output=jsonp',
+                            adapter: jsonpAdapter,
+                        }),
+                    ])
+                    .then(
+                        axios.spread(
+                            (
+                                firstResponse,
+                                secondResponse,
+                                thirdResponse,
+                                fourthResponse,
+                                fifthResponse
+                            ) => {
+                                for (let h = 0; h < 25; h++) {
+                                    if (firstResponse.data.data[h] != undefined) {
+                                        if (
+                                            this.simili[0].name.toUpperCase() ==
+                                            firstResponse.data.data[h].name.toUpperCase()
+                                        ) {
+                                            this.simili[0].artistId = firstResponse.data.data[h].id
+                                            this.simili[0].artistImage =
+                                                firstResponse.data.data[h].picture_medium
+                                            break
+                                        }
+                                    }
+                                }
+                                for (let h = 0; h < 25; h++) {
+                                    if (secondResponse.data.data[h] != undefined) {
+                                        if (
+                                            this.simili[1].name.toUpperCase() ==
+                                            secondResponse.data.data[h].name.toUpperCase()
+                                        ) {
+                                            this.simili[1].artistId = secondResponse.data.data[h].id
+                                            this.simili[1].artistImage =
+                                                secondResponse.data.data[h].picture_medium
+                                            break
+                                        }
+                                    }
+                                }
+                                for (let h = 0; h < 25; h++) {
+                                    if (thirdResponse.data.data[h] != undefined) {
+                                        if (
+                                            this.simili[2].name.toUpperCase() ==
+                                            thirdResponse.data.data[h].name.toUpperCase()
+                                        ) {
+                                            this.simili[2].artistId = thirdResponse.data.data[h].id
+                                            this.simili[2].artistImage =
+                                                thirdResponse.data.data[h].picture_medium
+                                            break
+                                        }
+                                    }
+                                }
+                                for (let h = 0; h < 25; h++) {
+                                    if (fourthResponse.data.data[h] != undefined) {
+                                        if (
+                                            this.simili[3].name.toUpperCase() ==
+                                            fourthResponse.data.data[h].name.toUpperCase()
+                                        ) {
+                                            this.simili[3].artistId = fourthResponse.data.data[h].id
+                                            this.simili[3].artistImage =
+                                                fourthResponse.data.data[h].picture_medium
+                                            break
+                                        }
+                                    }
+                                }
+                                for (let h = 0; h < 25; h++) {
+                                    if (fifthResponse.data.data[h] != undefined) {
+                                        if (
+                                            this.simili[4].name.toUpperCase() ==
+                                            fifthResponse.data.data[h].name.toUpperCase()
+                                        ) {
+                                            this.simili[4].artistId = fifthResponse.data.data[h].id
+                                            this.simili[4].artistImage =
+                                                fifthResponse.data.data[h].picture_medium
+                                            break
+                                        }
                                     }
                                 }
                             }
-                            for (let h = 0; h < 25; h++) {
-                                if (secondResponse.data.data[h] != undefined) {
-                                    if (
-                                        this.simili[1].name.toUpperCase() ==
-                                        secondResponse.data.data[h].name.toUpperCase()
-                                    ) {
-                                        this.simili[1].artistId = secondResponse.data.data[h].id
-                                        this.simili[1].artistImage =
-                                            secondResponse.data.data[h].picture_medium
-                                        break
-                                    }
-                                }
-                            }
-                            for (let h = 0; h < 25; h++) {
-                                if (thirdResponse.data.data[h] != undefined) {
-                                    if (
-                                        this.simili[2].name.toUpperCase() ==
-                                        thirdResponse.data.data[h].name.toUpperCase()
-                                    ) {
-                                        this.simili[2].artistId = thirdResponse.data.data[h].id
-                                        this.simili[2].artistImage =
-                                            thirdResponse.data.data[h].picture_medium
-                                        break
-                                    }
-                                }
-                            }
-                            for (let h = 0; h < 25; h++) {
-                                if (fourthResponse.data.data[h] != undefined) {
-                                    if (
-                                        this.simili[3].name.toUpperCase() ==
-                                        fourthResponse.data.data[h].name.toUpperCase()
-                                    ) {
-                                        this.simili[3].artistId = fourthResponse.data.data[h].id
-                                        this.simili[3].artistImage =
-                                            fourthResponse.data.data[h].picture_medium
-                                        break
-                                    }
-                                }
-                            }
-                            for (let h = 0; h < 25; h++) {
-                                if (fifthResponse.data.data[h] != undefined) {
-                                    if (
-                                        this.simili[4].name.toUpperCase() ==
-                                        fifthResponse.data.data[h].name.toUpperCase()
-                                    ) {
-                                        this.simili[4].artistId = fifthResponse.data.data[h].id
-                                        this.simili[4].artistImage =
-                                            fifthResponse.data.data[h].picture_medium
-                                        break
-                                    }
-                                }
-                            }
-                        }
+                        )
                     )
-                )
-                .then(() => this.rimuoviVuoti())
-                .catch(error => console.log(error))
-                .finally(() => (this.caricatiSimili = true))
+                    .then(() => this.rimuoviVuoti())
+                    .catch(error => console.log(error))
+                    .finally(() => (this.caricatiSimili = true))
+            }
         },
         //Se un artista non è stato trovato su Deezer, viene rimosso dall'array
         rimuoviVuoti() {

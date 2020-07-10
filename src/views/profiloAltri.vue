@@ -233,7 +233,7 @@
                                 />
                             </svg>
                             <h4 style="width: 60%; text-align: center" class="my-3">
-                                Nessun album tra gli ascoltati.
+                                Nessun album ascoltato
                             </h4>
                         </v-container>
                     </div>
@@ -241,7 +241,7 @@
                 <v-tab-item>
                     <cardContainerFirebase
                         :idArray="daAscoltare.album"
-                        v-if="ascoltati.num != 0"
+                        v-if="daAscoltare.num != 0"
                         v-on:login="snackMsg"
                     />
                     <div v-else class="d-flex justify-center">
@@ -259,7 +259,7 @@
                                 />
                             </svg>
                             <h4 style="width: 60%; text-align: center" class="my-3">
-                                Nessun album tra i da ascoltare.
+                                Nessun album da ascoltare
                             </h4>
                         </v-container>
                     </div>
@@ -285,7 +285,7 @@
                                 />
                             </svg>
                             <h4 style="width: 60%; text-align: center" class="my-3">
-                                Nessun album tra i preferiti.
+                                Nessun album tra i preferiti
                             </h4>
                         </v-container>
                     </div>

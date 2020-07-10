@@ -3,22 +3,12 @@
         <v-container class="fill-width" fluid>
             <div v-if="this.loading">
                 <v-row class="ma-2">
-                    <v-skeleton-loader
-                        ref="skeleton"
-                        type="heading"
-                        width="50em"
-                        class="mx-0"
-                    ></v-skeleton-loader>
+                    <v-skeleton-loader ref="skeleton" type="heading" width="50em" class="mx-0"></v-skeleton-loader>
                 </v-row>
                 <br />
                 <div v-for="x in 3" :key="x">
                     <v-row class="ma-2">
-                        <v-skeleton-loader
-                            ref="skeleton"
-                            type="heading"
-                            width="50em"
-                            class="mx-0"
-                        ></v-skeleton-loader>
+                        <v-skeleton-loader ref="skeleton" type="heading" width="50em" class="mx-0"></v-skeleton-loader>
                     </v-row>
                     <v-row align="center" no-gutters>
                         <v-col
@@ -29,19 +19,11 @@
                             sm="4"
                             class="pb-3 px-1 col-6"
                         >
-                            <v-skeleton-loader
-                                type="card"
-                                style="margin: 0 auto"
-                                max-width="220"
-                            ></v-skeleton-loader>
+                            <v-skeleton-loader type="card" style="margin: 0 auto" max-width="220"></v-skeleton-loader>
                         </v-col>
                     </v-row>
                     <v-row class="ma-2">
-                        <v-skeleton-loader
-                            ref="skeleton"
-                            type="button"
-                            class="mx-0"
-                        ></v-skeleton-loader>
+                        <v-skeleton-loader ref="skeleton" type="button" class="mx-0"></v-skeleton-loader>
                     </v-row>
                     <br />
                     <br />
@@ -64,18 +46,21 @@
             <div v-else>
                 <h1 class="ma-2">{{ nomeGenere }}</h1>
                 <h2 class="ma-2">Top 10</h2>
-                <carousel :albumArray="classifica" :inizio="0" :fine="10" />
+                <carousel :albumArray="classifica" :inizio="0" :fine="10" v-on:login="snackMsg" />
                 <br />
                 <h2 class="ma-2">Ultime uscite</h2>
-                <carousel :albumArray="uscite" :inizio="0" :fine="10" />
+                <carousel :albumArray="uscite" :inizio="0" :fine="10" v-on:login="snackMsg" />
                 <div class="my-2">
-                    <v-btn text color="primary" @click="visualizzaLista(id)" name="Visualizza tutti"
-                        >Visualizza tutti</v-btn
-                    >
+                    <v-btn
+                        text
+                        color="primary"
+                        @click="visualizzaLista(id)"
+                        name="Visualizza tutti"
+                    >Visualizza tutti</v-btn>
                 </div>
                 <br />
                 <h2 class="ma-2">Selezione Deezer</h2>
-                <carousel :albumArray="selezione" :inizio="0" :fine="10" />
+                <carousel :albumArray="selezione" :inizio="0" :fine="10" v-on:login="snackMsg" />
                 <br />
             </div>
         </v-container>
@@ -108,6 +93,9 @@ export default {
         this.addAlbums()
     },
     methods: {
+        snackMsg(msg) {
+            this.$emit('login', msg)
+        },
         //Ricolloca lo scrolling all'inizio
         scrollToTop() {
             window.scrollTo(0, 0)

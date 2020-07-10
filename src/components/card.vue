@@ -128,7 +128,6 @@ export default {
                 .then(function(doc) {
                     if (doc.exists) {
                         preferito.isPreferito = true
-                        console.log('è tra i preferiti')
                     }
                 })
                 .catch(function(error) {
