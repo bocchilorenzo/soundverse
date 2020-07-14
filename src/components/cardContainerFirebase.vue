@@ -33,7 +33,6 @@ export default {
         }
     },
     created: function() {
-        this.scrollToTop()
         window.addEventListener('scroll', () => {
             this.bottom = this.bottomVisible()
         })
@@ -80,9 +79,6 @@ export default {
             const pageHeight = document.documentElement.scrollHeight - 200
             const bottomOfPage = visible + scrollY >= pageHeight
             return bottomOfPage || pageHeight < visible
-        },
-        scrollToTop() {
-            window.scrollTo(0, 0)
         },
         snackMsg(msg) {
             this.$emit('login', msg)

@@ -208,7 +208,6 @@ export default {
         } else {
             this.$emit('brand', nameCapitalized)
         }
-        this.scrollToTop()
         window.addEventListener('scroll', () => {
             this.bottom = this.bottomVisible()
         })
@@ -374,10 +373,6 @@ export default {
             const pageHeight = document.documentElement.scrollHeight - 200
             const bottomOfPage = visible + scrollY >= pageHeight
             return bottomOfPage || pageHeight < visible
-        },
-        //Ricolloca lo scrolling all'inizio
-        scrollToTop() {
-            window.scrollTo(0, 0)
         },
     },
     watch: {

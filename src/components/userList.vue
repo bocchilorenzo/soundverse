@@ -10,7 +10,8 @@
     >
         <v-list-item class="mx-2">
             <v-list-item-avatar>
-                <v-img :src="src.src" alt="Immagine utente" :title="dati.username"></v-img>
+                <v-skeleton-loader v-if="imageLoad.loaded" type="avatar"></v-skeleton-loader>
+                <v-img v-else :src="src.src" alt="Immagine utente" :title="dati.username"></v-img>
             </v-list-item-avatar>
             <v-list-item-content>
                 <v-list-item-title>{{ dati.username }}</v-list-item-title>
@@ -22,7 +23,8 @@
         }">
         <v-list-item class="mx-2">
             <v-list-item-avatar>
-                <v-img :src="src.src" alt="Immagine utente" :title="dati.username"></v-img>
+                <v-skeleton-loader v-if="imageLoad.loaded" type="avatar"></v-skeleton-loader>
+                <v-img v-else :src="src.src" alt="Immagine utente" :title="dati.username"></v-img>
             </v-list-item-avatar>
             <v-list-item-content>
                 <v-list-item-title>{{ dati.username }}</v-list-item-title>
@@ -35,14 +37,17 @@
 import firebase from 'firebase/app'
 import 'firebase/firestore'
 import 'firebase/storage'
+import imgLoaderMixin from '../mixins/imgLoaderMixin'
 export default {
     name: 'userList',
     props: { dati: Object },
+    mixins: [imgLoaderMixin],
     data() {
         return {
             utente: JSON.parse(localStorage.getItem('user')),
             profiloMio: false,
             src: { src: '' },
+            imageLoad: {loaded: true}
         }
     },
     created: function() {
@@ -66,6 +71,7 @@ export default {
                 .then(function(url) {
                     src.src = url
                 })
+                .then(() => this.waitImg(this.src.src, this.imageLoad))
                 .catch(() => this.setDefaultPic(storage, src))
         },
         //Se l'utente non ha un'immagine, imposta quella di default
@@ -77,6 +83,7 @@ export default {
                 .then(function(url) {
                     src.src = url
                 })
+                .then(() => this.waitImg(this.src.src, this.imageLoad))
         },
     },
 }

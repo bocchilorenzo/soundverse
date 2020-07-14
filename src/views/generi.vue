@@ -53,15 +53,10 @@ export default {
     },
     created: function() {
         this.$emit('toggleBurger', 'home')
-        this.scrollToTop()
         this.addGenres()
         this.$emit('brand', 'Generi')
     },
     methods: {
-        //Ricolloca lo scrolling all'inizio
-        scrollToTop() {
-            window.scrollTo(0, 0)
-        },
         //Preleva i generi dalle API
         addGenres() {
             if (this.stop == false) {

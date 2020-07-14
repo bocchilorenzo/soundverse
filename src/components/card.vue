@@ -15,7 +15,18 @@
                     props: true,
                 }"
             >
+                <div
+                    v-if="imageLoad.loaded"
+                    data-v-2a3b5576
+                    aria-busy="true"
+                    aria-live="polite"
+                    role="alert"
+                    class="imgContainer v-skeleton-loader mx-0 v-skeleton-loader--is-loading theme--dark"
+                >
+                    <div class="imgLoad v-skeleton-loader__image v-skeleton-loader__bone"></div>
+                </div>
                 <v-img
+                    v-else
                     class="align-end"
                     :src="albumArray.cover"
                     alt="Cover album"
@@ -32,24 +43,20 @@
 
                     <v-list>
                         <v-list-item @click="favourite()">
-                            <v-list-item-title v-if="preferito.isPreferito"
-                                >Rimuovi dai preferiti</v-list-item-title
-                            >
+                            <v-list-item-title v-if="preferito.isPreferito">Rimuovi dai preferiti</v-list-item-title>
                             <v-list-item-title v-else>Aggiungi ai preferiti</v-list-item-title>
                         </v-list-item>
                         <v-list-item @click="listened()">
-                            <v-list-item-title v-if="ascoltato.isAscoltato"
-                                >Rimuovi dagli album ascoltati</v-list-item-title
-                            >
+                            <v-list-item-title
+                                v-if="ascoltato.isAscoltato"
+                            >Rimuovi dagli album ascoltati</v-list-item-title>
                             <v-list-item-title v-else>Segna come ascoltato</v-list-item-title>
                         </v-list-item>
                         <v-list-item @click="toListen()">
-                            <v-list-item-title v-if="daAscoltare.isDaAscoltare"
-                                >Rimuovi dalla coda di ascolto</v-list-item-title
-                            >
-                            <v-list-item-title v-else
-                                >Aggiungi alla coda di ascolto</v-list-item-title
-                            >
+                            <v-list-item-title
+                                v-if="daAscoltare.isDaAscoltare"
+                            >Rimuovi dalla coda di ascolto</v-list-item-title>
+                            <v-list-item-title v-else>Aggiungi alla coda di ascolto</v-list-item-title>
                         </v-list-item>
                     </v-list>
                 </v-menu>
@@ -73,10 +80,12 @@
 <script>
 import firebase from 'firebase/app'
 import 'firebase/firestore'
+import imgLoaderMixin from '../mixins/imgLoaderMixin'
 
 export default {
     name: 'albumCard',
     props: { albumArray: Object },
+    mixins: [imgLoaderMixin],
     data() {
         return {
             offsety: true,
@@ -84,7 +93,11 @@ export default {
             ascoltato: { isAscoltato: false },
             daAscoltare: { isDaAscoltare: false },
             user: JSON.parse(localStorage.getItem('user')),
+            imageLoad: { loaded: true },
         }
+    },
+    created() {
+        this.waitImg(this.albumArray.cover, this.imageLoad)
     },
     methods: {
         //controlla se l'album è negli ascoltati, da ascoltare o preferiti dell'utente attualmente loggato
@@ -221,5 +234,22 @@ export default {
     overflow: hidden;
     white-space: nowrap; /* Don't forget this one */
     text-overflow: ellipsis;
+}
+.imgContainer {
+    position: relative;
+    width: 100%;
+}
+.imgContainer:before {
+    content: '';
+    display: block;
+    padding-top: 100%; /* initial ratio of 1:1*/
+}
+.imgLoad {
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
 }
 </style>

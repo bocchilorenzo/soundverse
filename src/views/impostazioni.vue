@@ -137,7 +137,6 @@ export default {
         } else {
             this.temaBtn = 'scuro'
         }
-        this.scrollToTop()
     },
     methods: {
         //Modifica il tema
@@ -149,10 +148,6 @@ export default {
             }
             this.$emit('tema')
             this.tema = this.$vuetify.theme.dark
-        },
-        //Ricolloca lo scrolling all'inizio
-        scrollToTop() {
-            window.scrollTo(0, 0)
         },
     },
 }

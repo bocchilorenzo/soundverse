@@ -146,14 +146,25 @@
             </v-dialog>
             <v-row v-if="user != null">
                 <v-col class="col-9 centrata">
-                    <v-img
-                        alt="Immagine profilo"
-                        height="250"
-                        width="250"
-                        style="margin: 0!important"
-                        :src="src.src"
-                        title="Immagine profilo"
-                    ></v-img>
+                    <div class="img">
+                        <div
+                            v-if="imageLoad.loaded"
+                            data-v-2a3b5576
+                            aria-busy="true"
+                            aria-live="polite"
+                            role="alert"
+                            class="imgContainer v-skeleton-loader mx-0 v-skeleton-loader--is-loading theme--dark"
+                        >
+                            <div class="imgLoad v-skeleton-loader__image v-skeleton-loader__bone"></div>
+                        </div>
+                        <v-img
+                            v-else
+                            alt="Immagine profilo"
+                            style="margin: 0!important"
+                            :src="src.src"
+                            title="Immagine profilo"
+                        ></v-img>
+                    </div>
                 </v-col>
                 <v-col class="col-9 centrata">
                     <h2>Informazioni account</h2>
@@ -230,8 +241,12 @@ import firebase from 'firebase/app'
 import 'firebase/firestore'
 import 'firebase/storage'
 import usersContainer from '../components/usersContainer'
+import scrollToTopMixin from '../mixins/scrollToTopMixin'
+import imgLoaderMixin from '../mixins/imgLoaderMixin'
+
 export default {
     name: 'profile',
+    mixins: [scrollToTopMixin, imgLoaderMixin],
     data() {
         return {
             user: JSON.parse(localStorage.getItem('user')),
@@ -253,6 +268,7 @@ export default {
                     "Le dimensioni dell'immagine non devono superare 1 MB",
             ],
             wide: false,
+            imageLoad: { loaded: true },
         }
     },
     components: {
@@ -261,7 +277,6 @@ export default {
     created: function() {
         this.$emit('toggleBurger', 'freccia')
         this.$emit('brand', '')
-        this.scrollToTop()
         if (this.user == null) {
             this.$router.replace({ name: 'login' })
         } else {
@@ -293,6 +308,7 @@ export default {
                 .then(function(url) {
                     src.src = url
                 })
+                .then(() => this.waitImg(this.src.src, this.imageLoad))
                 .catch(() => this.setDefaultPic(storage, src))
 
             var db = firebase.firestore()
@@ -370,10 +386,7 @@ export default {
                 .then(function(url) {
                     src.src = url
                 })
-        },
-        //Ricolloca lo scrolling all'inizio
-        scrollToTop() {
-            window.scrollTo(0, 0)
+                .then(() => this.waitImg(this.src.src, this.imageLoad))
         },
         //Modifica l'immagine di profilo, prima modificava anche l'username ma avremmo avuto problemi con lo storage
         modifica() {
@@ -549,5 +562,26 @@ export default {
 }
 .small {
     width: 100%;
+}
+.img{
+    width: 100%;
+    max-width: 250px;
+}
+.imgContainer {
+    position: relative;
+    width: 100%;
+}
+.imgContainer:before {
+    content: '';
+    display: block;
+    padding-top: 100%; /* initial ratio of 1:1*/
+}
+.imgLoad {
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
 }
 </style>

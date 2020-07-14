@@ -255,7 +255,6 @@ export default {
     created: function() {
         this.$emit('toggleBurger', 'freccia')
         this.$emit('brand', '')
-        this.scrollToTop()
         this.id = this.$route.params.artista
         //EventListener per attivare lo scrolling infinito
         window.addEventListener('scroll', () => {
@@ -266,10 +265,6 @@ export default {
     methods: {
         snackMsg(msg) {
             this.$emit('login', msg)
-        },
-        //Ricolloca lo scrolling all'inizio
-        scrollToTop() {
-            window.scrollTo(0, 0)
         },
         //Controllo se si è arrivati o meno alla fine della pagina
         bottomVisible() {

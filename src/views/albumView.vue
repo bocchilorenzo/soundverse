@@ -9,15 +9,17 @@
                                 this.$vuetify.breakpoint.name == 'sm'
                         "
                         class="centrata"
-                        style="width: 100%"
+                        style="width: 90%"
                     >
-                        <v-skeleton-loader
-                            ref="skeleton"
-                            type="image"
-                            width="100%"
-                            max-width="320px"
-                            class="centrata"
-                        ></v-skeleton-loader>
+                        <div
+                            data-v-2a3b5576
+                            aria-busy="true"
+                            aria-live="polite"
+                            role="alert"
+                            class="imgContainer v-skeleton-loader mx-0 v-skeleton-loader--is-loading theme--dark"
+                        >
+                            <div class="imgLoad v-skeleton-loader__image v-skeleton-loader__bone"></div>
+                        </div>
                         <v-row class="ma-2">
                             <v-skeleton-loader
                                 ref="skeleton"
@@ -40,7 +42,16 @@
                         <br />
                     </div>
                     <div v-else class="d-flex flex-row" style="width: 100%">
-                        <v-skeleton-loader ref="skeleton" type="image" width="300px" class="mx-0"></v-skeleton-loader>
+                        <div
+                            data-v-2a3b5576
+                            aria-busy="true"
+                            aria-live="polite"
+                            role="alert"
+                            style="max-width: 320px"
+                            class="imgContainer v-skeleton-loader mx-0 v-skeleton-loader--is-loading theme--dark"
+                        >
+                            <div class="imgLoad v-skeleton-loader__image v-skeleton-loader__bone"></div>
+                        </div>
                         <v-row class="ml-3 pt-2 d-flex flex-row" align="center" style="width:100%">
                             <v-col class="ma-2 col-12">
                                 <v-skeleton-loader
@@ -95,7 +106,21 @@
             <v-col sm="10" md="9" class="centrata">
                 <v-row>
                     <v-col lg="3" sm="6" md="3">
+                        <div v-if="imageLoad.loaded" style="width: 90%" class="centrata">
+                            <div
+                                data-v-2a3b5576
+                                aria-busy="true"
+                                aria-live="polite"
+                                role="alert"
+                                class="imgContainer v-skeleton-loader mx-0 v-skeleton-loader--is-loading theme--dark"
+                            >
+                                <div
+                                    class="imgLoad v-skeleton-loader__image v-skeleton-loader__bone"
+                                ></div>
+                            </div>
+                        </div>
                         <v-img
+                            v-else
                             class="align-center rounded centrata"
                             :src="infoAlbum[0].cover"
                             width="90%"
@@ -408,9 +433,11 @@ import 'firebase/firestore'
 import axios from 'axios'
 import jsonpAdapter from 'axios-jsonp'
 import stripHtml from 'string-strip-html'
+import imgLoaderMixin from '../mixins/imgLoaderMixin'
 
 export default {
     name: 'albumInformation',
+    mixins: [imgLoaderMixin],
     data() {
         return {
             loading: true,
@@ -438,13 +465,13 @@ export default {
             btnTxt: 'Scrivi',
             eliminaLoad: false,
             salvaLoad: false,
+            imageLoad: { loaded: true },
         }
     },
 
     created: function() {
         this.$emit('toggleBurger', 'freccia')
         this.$emit('brand', '')
-        this.scrollToTop()
         this.getAlbum()
     },
     methods: {
@@ -527,11 +554,9 @@ export default {
                 .then(() => this.getVotoMedio())
                 .finally(() => this.checkAdded())
         },
-        scrollToTop() {
-            window.scrollTo(0, 0)
-        },
         checkAdded() {
             this.getReviews()
+            this.waitImg(this.infoAlbum[0].cover, this.imageLoad)
             if (this.user != null) {
                 var id = this.$route.params.id
                 var ascoltato = this.ascoltato
@@ -585,8 +610,9 @@ export default {
                     .catch(function(error) {
                         console.log('Error getting document:', error)
                     })
+                    .then(() => this.caricato())
             } else {
-                this.loading = null
+                this.loading = false
             }
         },
         caricato() {
@@ -850,7 +876,7 @@ export default {
                 for (var i = 0; i < this.reviews.length; i++) {
                     if (this.reviews[i].utente == this.user.email) {
                         var tmp = this.reviews[i]
-                        this.reviews.splice(i,1)
+                        this.reviews.splice(i, 1)
                         this.reviews.unshift(tmp)
                         break
                     }
@@ -989,5 +1015,22 @@ export default {
 }
 .centraRadius {
     border-radius: 1em;
+}
+.imgContainer {
+    position: relative;
+    width: 100%;
+}
+.imgContainer:before {
+    content: '';
+    display: block;
+    padding-top: 100%; /* initial ratio of 1:1*/
+}
+.imgLoad {
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
 }
 </style>

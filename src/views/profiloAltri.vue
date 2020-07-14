@@ -4,11 +4,7 @@
             <div>
                 <v-row class="mx-2">
                     <v-col v-if="this.$vuetify.breakpoint.name == 'xs'">
-                        <v-skeleton-loader
-                            type="image"
-                            width="250"
-                            class="centrata"
-                        ></v-skeleton-loader>
+                        <v-skeleton-loader type="image" width="250" class="centrata"></v-skeleton-loader>
                     </v-col>
                     <v-col v-else>
                         <v-skeleton-loader type="image" width="250"></v-skeleton-loader>
@@ -16,18 +12,10 @@
                 </v-row>
                 <v-row class="mx-2">
                     <v-col class="col-12">
-                        <v-skeleton-loader
-                            type="heading"
-                            width="30%"
-                            min-width="200px"
-                        ></v-skeleton-loader>
+                        <v-skeleton-loader type="heading" width="30%" min-width="200px"></v-skeleton-loader>
                     </v-col>
                     <v-col class="col-12">
-                        <v-skeleton-loader
-                            type="text"
-                            width="10%"
-                            min-width="200px"
-                        ></v-skeleton-loader>
+                        <v-skeleton-loader type="text" width="10%" min-width="200px"></v-skeleton-loader>
                     </v-col>
                     <v-col class="col-12">
                         <v-skeleton-loader type="button"></v-skeleton-loader>
@@ -44,20 +32,14 @@
                 <v-tab-item>
                     <v-row align="center" no-gutters class="pt-2">
                         <v-col v-for="n in 6" :key="n" class="pb-3 px-1 col-12">
-                            <v-skeleton-loader
-                                class="mx-2"
-                                type="list-item-avatar"
-                            ></v-skeleton-loader>
+                            <v-skeleton-loader class="mx-2" type="list-item-avatar"></v-skeleton-loader>
                         </v-col>
                     </v-row>
                 </v-tab-item>
                 <v-tab-item>
                     <v-row align="center" no-gutters class="pt-2">
                         <v-col v-for="n in 6" :key="n" class="pb-3 px-1 col-12">
-                            <v-skeleton-loader
-                                class="mx-2"
-                                type="list-item-avatar"
-                            ></v-skeleton-loader>
+                            <v-skeleton-loader class="mx-2" type="list-item-avatar"></v-skeleton-loader>
                         </v-col>
                     </v-row>
                 </v-tab-item>
@@ -124,33 +106,58 @@
         </div>
         <div v-else>
             <div class="mx-2">
-                <v-img
+                <div
                     v-if="this.$vuetify.breakpoint.name == 'xs'"
-                    id="proPic"
-                    alt="Immagine profilo"
-                    height="250"
-                    width="250"
+                    style="width: 250px"
                     class="centrata"
-                    :src="src.src"
-                    title="Immagine profilo"
-                ></v-img>
-                <v-img
-                    v-else
-                    id="proPic"
-                    alt="Immagine profilo"
-                    height="250"
-                    width="250"
-                    class="ma-2"
-                    :src="src.src"
-                    title="Immagine profilo"
-                ></v-img>
+                >
+                    <div
+                        v-if="imageLoad.loaded"
+                        data-v-2a3b5576
+                        aria-busy="true"
+                        aria-live="polite"
+                        role="alert"
+                        class="imgContainer v-skeleton-loader mx-0 v-skeleton-loader--is-loading theme--dark"
+                    >
+                        <div class="imgLoad v-skeleton-loader__image v-skeleton-loader__bone"></div>
+                    </div>
+                    <v-img
+                        v-else
+                        id="proPic"
+                        alt="Immagine profilo"
+                        :src="src.src"
+                        title="Immagine profilo"
+                    ></v-img>
+                </div>
+                <div v-else style="width: 250px" class="ma-2">
+                    <div
+                        v-if="imageLoad.loaded"
+                        data-v-2a3b5576
+                        aria-busy="true"
+                        aria-live="polite"
+                        role="alert"
+                        class="imgContainer v-skeleton-loader mx-0 v-skeleton-loader--is-loading theme--dark"
+                    >
+                        <div class="imgLoad v-skeleton-loader__image v-skeleton-loader__bone"></div>
+                    </div>
+                    <v-img
+                        v-else
+                        id="proPic"
+                        alt="Immagine profilo"
+                        :src="src.src"
+                        title="Immagine profilo"
+                    ></v-img>
+                </div>
                 <div class="mx-2">
                     <h1 style="display: inline">{{ username.un }}</h1>
                     <p>{{ email.email }}</p>
                     <div v-if="user != null" class="my-2" @click="followUnfollow()">
-                        <v-btn v-if="segui.segui" rounded color="primary" name="Pulsante unfollow"
-                            >Non seguire più</v-btn
-                        >
+                        <v-btn
+                            v-if="segui.segui"
+                            rounded
+                            color="primary"
+                            name="Pulsante unfollow"
+                        >Non seguire più</v-btn>
                         <v-btn color="primary" v-else name="Pulsante follow">Segui</v-btn>
                     </div>
                 </div>
@@ -181,9 +188,7 @@
                                     d="M20,2H8A2,2 0 0,0 6,4V16A2,2 0 0,0 8,18H20A2,2 0 0,0 22,16V4A2,2 0 0,0 20,2M20,16H8V4H20M12.5,15A2.5,2.5 0 0,0 15,12.5V7H18V5H14V10.5C13.58,10.19 13.07,10 12.5,10A2.5,2.5 0 0,0 10,12.5A2.5,2.5 0 0,0 12.5,15M4,6H2V20A2,2 0 0,0 4,22H18V20H4"
                                 />
                             </svg>
-                            <p style="width: 60%; text-align: center">
-                                Ops, nessun seguace trovato.
-                            </p>
+                            <p style="width: 60%; text-align: center">Ops, nessun seguace trovato.</p>
                         </v-container>
                     </div>
                 </v-tab-item>
@@ -206,9 +211,7 @@
                                     d="M20,2H8A2,2 0 0,0 6,4V16A2,2 0 0,0 8,18H20A2,2 0 0,0 22,16V4A2,2 0 0,0 20,2M20,16H8V4H20M12.5,15A2.5,2.5 0 0,0 15,12.5V7H18V5H14V10.5C13.58,10.19 13.07,10 12.5,10A2.5,2.5 0 0,0 10,12.5A2.5,2.5 0 0,0 12.5,15M4,6H2V20A2,2 0 0,0 4,22H18V20H4"
                                 />
                             </svg>
-                            <p style="width: 60%; text-align: center">
-                                Ops, nessun utente seguito.
-                            </p>
+                            <p style="width: 60%; text-align: center">Ops, nessun utente seguito.</p>
                         </v-container>
                     </div>
                 </v-tab-item>
@@ -232,9 +235,10 @@
                                     d="M20,2H8A2,2 0 0,0 6,4V16A2,2 0 0,0 8,18H20A2,2 0 0,0 22,16V4A2,2 0 0,0 20,2M20,16H8V4H20M12.5,15A2.5,2.5 0 0,0 15,12.5V7H18V5H14V10.5C13.58,10.19 13.07,10 12.5,10A2.5,2.5 0 0,0 10,12.5A2.5,2.5 0 0,0 12.5,15M4,6H2V20A2,2 0 0,0 4,22H18V20H4"
                                 />
                             </svg>
-                            <h4 style="width: 60%; text-align: center" class="my-3">
-                                Nessun album ascoltato
-                            </h4>
+                            <h4
+                                style="width: 60%; text-align: center"
+                                class="my-3"
+                            >Nessun album ascoltato</h4>
                         </v-container>
                     </div>
                 </v-tab-item>
@@ -258,9 +262,10 @@
                                     d="M12,1A9,9 0 0,1 21,10V17C21,17.62 20.81,18.19 20.5,18.67L15,13.18V12H19V10A7,7 0 0,0 12,3C10,3 8.23,3.82 6.96,5.14L5.55,3.72C7.18,2.04 9.47,1 12,1M2.78,3.5L20.5,21.22L19.23,22.5L16.73,20H15V18.27L9,12.27V20H6A3,3 0 0,1 3,17V10C3,8.89 3.2,7.82 3.57,6.84L1.5,4.77L2.78,3.5M5.17,8.44C5.06,8.94 5,9.46 5,10V12H8.73L5.17,8.44Z"
                                 />
                             </svg>
-                            <h4 style="width: 60%; text-align: center" class="my-3">
-                                Nessun album da ascoltare
-                            </h4>
+                            <h4
+                                style="width: 60%; text-align: center"
+                                class="my-3"
+                            >Nessun album da ascoltare</h4>
                         </v-container>
                     </div>
                 </v-tab-item>
@@ -284,9 +289,10 @@
                                     d="M1,4.27L2.28,3L20,20.72L18.73,22L15.18,18.44L13.45,20.03L12,21.35L10.55,20.03C5.4,15.36 2,12.27 2,8.5C2,7.55 2.23,6.67 2.63,5.9L1,4.27M7.5,3C9.24,3 10.91,3.81 12,5.08C13.09,3.81 14.76,3 16.5,3C19.58,3 22,5.41 22,8.5C22,11.07 20.42,13.32 17.79,15.97L5.27,3.45C5.95,3.16 6.7,3 7.5,3Z"
                                 />
                             </svg>
-                            <h4 style="width: 60%; text-align: center" class="my-3">
-                                Nessun album tra i preferiti
-                            </h4>
+                            <h4
+                                style="width: 60%; text-align: center"
+                                class="my-3"
+                            >Nessun album tra i preferiti</h4>
                         </v-container>
                     </div>
                 </v-tab-item>
@@ -301,6 +307,7 @@ import firebase from 'firebase/app'
 import 'firebase/firestore'
 import 'firebase/storage'
 import cardContainerFirebase from '../components/cardContainerFirebase'
+import imgLoaderMixin from '../mixins/imgLoaderMixin'
 
 export default {
     name: 'profiloAltri',
@@ -308,6 +315,7 @@ export default {
         usersContainer,
         cardContainerFirebase,
     },
+    mixins: [imgLoaderMixin],
     data() {
         return {
             user: JSON.parse(localStorage.getItem('user')),
@@ -324,12 +332,12 @@ export default {
             loading: true,
             cont: { cont: 0 },
             esiste: { esiste: true },
+            imageLoad: { loaded: true },
         }
     },
     created() {
         this.$emit('toggleBurger', 'freccia')
         this.$emit('brand', '')
-        this.scrollToTop()
         //Preleva l'immagine di profilo dallo storage
         var storage = firebase.storage()
         var pathReference = storage.ref('profile')
@@ -341,6 +349,7 @@ export default {
             .then(function(url) {
                 src.src = url
             })
+            .then(() => this.waitImg(this.src.src, this.imageLoad))
             .catch(() => this.setDefaultPic(storage, src))
 
         var db = firebase.firestore()
@@ -377,9 +386,7 @@ export default {
                 .then(function(url) {
                     src.src = url
                 })
-        },
-        scrollToTop() {
-            window.scrollTo(0, 0)
+                .then(() => this.waitImg(this.src.src, this.imageLoad))
         },
         //Se l'utente esiste ne preleva le informazioni dal DB
         checkInfo() {
@@ -632,5 +639,22 @@ export default {
 <style scoped>
 .centrata {
     margin: 2em auto;
+}
+.imgContainer {
+    position: relative;
+    width: 100%;
+}
+.imgContainer:before {
+    content: '';
+    display: block;
+    padding-top: 100%; /* initial ratio of 1:1*/
+}
+.imgLoad {
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
 }
 </style>

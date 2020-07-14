@@ -89,16 +89,11 @@ export default {
     created: function() {
         this.$emit('toggleBurger', 'freccia')
         this.$emit('brand', '')
-        this.scrollToTop()
         this.addAlbums()
     },
     methods: {
         snackMsg(msg) {
             this.$emit('login', msg)
-        },
-        //Ricolloca lo scrolling all'inizio
-        scrollToTop() {
-            window.scrollTo(0, 0)
         },
         //Effettua il routing alla view per la lista passando l'id
         visualizzaLista(id) {

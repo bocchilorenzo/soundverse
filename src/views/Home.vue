@@ -87,7 +87,6 @@ export default {
     created: function() {
         this.$emit('toggleBurger', 'home')
         this.$emit('brand', 'Home')
-        this.scrollToTop()
         this.prelevaAlbum()
     },
     methods: {
@@ -171,10 +170,6 @@ export default {
                     .catch(error => console.log(error))
                     .finally(() => (this.loading = false))
             }
-        },
-        //Ricolloca lo scrolling all'inizio
-        scrollToTop() {
-            window.scrollTo(0, 0)
         },
         //Effettua il routing per la visualizzazione della lista
         visualizzaLista(arrayAlbum) {

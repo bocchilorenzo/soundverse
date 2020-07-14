@@ -103,8 +103,7 @@
                         color="primary"
                         @click="snackbar = false"
                         name="Pulsante chiudi"
-                        >Chiudi</v-btn
-                    >
+                    >Chiudi</v-btn>
                 </template>
             </v-snackbar>
             <musicPlayer
@@ -121,12 +120,14 @@
 <script>
 import searchBar from './components/searchbar'
 import musicPlayer from './components/musicplayer'
+import scrollToTopMixin from './mixins/scrollToTopMixin'
 
 export default {
     name: 'App',
     props: {
         source: String,
     },
+    mixins: [scrollToTopMixin],
     components: { searchBar, musicPlayer },
     data() {
         return {
@@ -191,6 +192,7 @@ export default {
     },
     updated: function() {
         this.currentUser = JSON.parse(localStorage.getItem('user'))
+        this.scrollToTop()
     },
     methods: {
         //Torna indietro nella cronologia

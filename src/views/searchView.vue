@@ -182,7 +182,6 @@ export default {
     created: function() {
         this.$emit('toggleBurger', 'freccia')
         this.$emit('brand', '')
-        this.scrollToTop()
         window.addEventListener('scroll', () => {
             this.bottom = this.bottomVisible()
         })
@@ -196,9 +195,6 @@ export default {
     methods: {
         snackMsg(msg) {
             this.$emit('login', msg)
-        },
-        scrollToTop() {
-            window.scrollTo(0, 0)
         },
         //Controlla se l'album esiste già
         checkDuplicati(albumId) {
