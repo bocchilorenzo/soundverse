@@ -192,7 +192,9 @@ export default {
     },
     updated: function() {
         this.currentUser = JSON.parse(localStorage.getItem('user'))
-        this.scrollToTop()
+        if (this.$route.name != 'album') {
+            this.scrollToTop()
+        }
     },
     methods: {
         //Torna indietro nella cronologia
