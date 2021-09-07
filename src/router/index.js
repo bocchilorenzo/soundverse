@@ -1,17 +1,5 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
-import albumInformation from '../views/albumView.vue'
-import search from '../views/searchView.vue'
-import login from '../views/login.vue'
-import profile from '../views/profile.vue'
-import listView from '../views/listView.vue'
-import artistView from '../views/artistView.vue'
-import albumUtente from '../views/albumUtente.vue'
-import profiloAltri from '../views/profiloAltri'
-import generi from '../views/generi'
-import genere from '../views/genere'
-import impostazioni from '../views/impostazioni.vue'
 
 Vue.use(VueRouter)
 
@@ -21,79 +9,79 @@ const routes = [
         redirect: '/',
     },
     {
-        path: '/',
-        name: 'home',
-        component: Home,
-    },
+	    path: '/',
+		name: 'home',
+		component: () => import(/* webpackChunkName: "home" */ '../views/Home.vue')
+	},
     {
         path: '/album/:id',
         name: 'album',
-        component: albumInformation,
+		component: () => import(/* webpackChunkName: "album" */ '../views/albumView.vue')
     },
     {
         path: '/search/:q',
         name: 'search',
-        component: search,
+		component: () => import(/* webpackChunkName: "search" */ '../views/searchView.vue')
     },
     {
         path: '/login',
         name: 'login',
-        component: login,
+		component: () => import(/* webpackChunkName: "login" */ '../views/login.vue')
     },
     {
         path: '/signup',
         name: 'signup',
-        component: login,
+		component: () => import(/* webpackChunkName: "login" */ '../views/login.vue')
     },
     {
         path: '/user/:username',
         name: 'user',
-        component: profiloAltri,
+		component: () => import(/* webpackChunkName: "otherUser" */ '../views/profiloAltri.vue')
     },
     {
         path: '/profile',
         name: 'profile',
-        component: profile,
+		component: () => import(/* webpackChunkName: "profile" */ '../views/profile.vue')
     },
     {
         path: '/list/:type/:lista',
         name: 'list',
-        component: listView,
+		component: () => import(/* webpackChunkName: "list" */ '../views/listView.vue')
     },
     {
         path: '/artist/:artista',
         name: 'artist',
-        component: artistView,
+		component: () => import(/* webpackChunkName: "artist" */ '../views/artistView.vue')
     },
     {
         path: '/ascoltati',
         name: 'ascoltati',
-        component: albumUtente,
+		component: () => import(/* webpackChunkName: "userAlbums" */ '../views/albumUtente.vue')
     },
     {
         path: '/daAscoltare',
         name: 'daAscoltare',
-        component: albumUtente,
+		component: () => import(/* webpackChunkName: "userAlbums" */ '../views/albumUtente.vue')
     },
     {
         path: '/preferiti',
         name: 'preferiti',
-        component: albumUtente,
+		component: () => import(/* webpackChunkName: "userAlbums" */ '../views/albumUtente.vue')
     },
     {
         path: '/generi',
         name: 'generi',
-        component: generi,
+		component: () => import(/* webpackChunkName: "generi" */ '../views/generi.vue')
     },
     {
         path: '/genere/:id',
         name: 'genere',
-        component: genere,
+		component: () => import(/* webpackChunkName: "genere" */ '../views/genere.vue')
     },
     {
         path: '/impostazioni',
         name: 'impostazioni',
-        component: impostazioni,
+		component: () => import(/* webpackChunkName: "impostazioni" */ '../views/impostazioni.vue')
     },
 ]
 
