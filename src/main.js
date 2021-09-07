@@ -10,13 +10,13 @@ import 'firebase/storage'
 Vue.config.productionTip = false
 
 const config = {
-    apiKey: 'AIzaSyD5-2o8KQaQd0d24OZU9_y15i1JQh5Rutk',
-    authDomain: 'deezerate.firebaseapp.com',
-    databaseURL: 'https://deezerate.firebaseio.com',
-    projectId: 'deezerate',
-    storageBucket: 'deezerate.appspot.com',
-    messagingSenderId: '308802978101',
-    appId: '1:308802978101:web:201fbda81a988916738c7c',
+    apiKey: process.env.VUE_APP_FB_APIKEY,
+    authDomain: process.env.VUE_APP_FB_AUTHDOMAIN,
+    databaseURL: process.env.VUE_APP_FB_DBURL,
+    projectId: process.env.VUE_APP_FB_PRJID,
+    storageBucket: process.env.VUE_APP_FB_STORAGEBUCKET,
+    messagingSenderId: process.env.VUE_APP_FB_MSGID,
+    appId: process.env.VUE_APP_FB_APPID,
 }
 
 let app = ''
